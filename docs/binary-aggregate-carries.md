@@ -1,0 +1,68 @@
+# Aggregate signed carries and binary zero counts
+
+Write $z_N=c_\alpha(1,0,N)$ for the original zero count on $[0,N)$,
+$p_n=\max(T_n,0)$ and $P_N=\sum_{n<N}\min(1,p_n)$. The digits $d_n$
+and coefficients $c_n$ are the actual complementary digits and their
+convolution from [PR #8](https://github.com/larsbx/golden-ratio-normality-research/pull/8).
+The proof uses those definitions at the accepted source revision
+`d0b8b2df43572eac4cb2b0abb851bbe043c3b221`.
+
+## Upper bound
+
+Since $c_n,d_n\ge0$, the exact recurrence gives
+$2p_n\le p_{n+1}+c_n$. For any half-open interval $[s,e)$ this gives
+
+\[
+\sum_{s\le n<e}p_n+p_s\le p_e+\sum_{s\le n<e}c_n.
+\]
+
+Every term in the origin convolution sum corresponds to one ordered pair
+$(i,j)$ in the prefix with $i+j+1<N$. Its weight is $d_id_j\ge0$.
+Summing over the entire square gives $z_N^2$. Thus
+
+\[
+P_N\le\sum_{n<N}p_n\le \sum_{n<N}c_n+p_N\le z_N^2+p_N.
+\]
+
+Here the lowercase $p_N$ is the positive part at the endpoint. The existing
+pointwise bound gives $p_N\le z_N-1$ whenever $z_N>0$.
+
+## Counting positive carries
+
+Suppose $d_a=1$ and the following $L$ digits vanish. For $L\ge5$ set
+$k=\lfloor(L-4)/2\rfloor$. The existing actual digit-window theorem gives
+a complementary one at $j\in[k,2k+2)$. The pair $(a,j)$ forces a positive
+coefficient at $a+j+1$. That index and the next two are inside the gap.
+The three-zero trigger makes the carry there positive, and backward
+propagation gives at least $k$ positive carries in the gap. Hence every
+such gap costs at most twice its positive-carry count plus five.
+
+Split the prefix into the initial zero segment, complementary ones, and
+the zero gaps after them, including the terminal gap. The initial segment
+has length at most one by the actual digit-window theorem at zero. Charging
+each one and its following gap gives $N\le 2P_N+6z_N+1$. Since $z_N>0$
+for $N\ge2$, the resulting finite theorem is
+
+\[
+\boxed{N\le 2z_N^2+8z_N-1\qquad(N\ge2)}
+\]
+
+In particular $z_N\ge\sqrt{(N+9)/2}-2$. The new counting lemma is needed
+to connect the aggregate estimate to prefix length, and it follows from the
+existing source-specific recurrence and positivity theorems. The argument
+is related to the positive-tail gap count in Bailey, Borwein, Crandall and
+Pomerance, [Theorem 7.1](https://www.davidhbailey.com/dhbpapers/algebraic-bits.pdf).
+The finite Lean theorem is the checked result. The real square-root formula
+above is its algebraic consequence. All-block frequency convergence and
+normality remain open.
+
+## Replay and adversarial controls
+
+Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
+for exact integer controls, and `python3 tools/verify.py --output
+build/replay-aggregate-carries` for the pinned project gate. The oracle
+reconstructs floors from integer square roots and carries from their
+defining floor products. Actual positions 5 and 13 witness, respectively,
+failure of the two-zero trigger and failure of the shifted estimate with
+the right boundary deleted. Only two of the first eight carries are positive,
+so an unconditional half-prefix count would also be false.
