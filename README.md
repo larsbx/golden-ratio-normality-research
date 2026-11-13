@@ -29,7 +29,7 @@ and [the claim ledger](claims.json) for the classification of each claim.
 
 The checked environment is Linux x86-64, Lean **4.34.0-rc2**, the exact mathlib
 revision in `lake-manifest.json`, and Mojo **1.1.0.dev2026090805** in the committed
-Pixi lockfile. Install Elan and Pixi, then run:
+Pixi lockfile. CI uses Pixi **0.84.2**. Install Elan and that Pixi version, then run:
 
 ```sh
 git clone --recurse-submodules https://github.com/larsbx/golden-ratio-normality-research.git

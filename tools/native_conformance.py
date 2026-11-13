@@ -8,6 +8,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import sys
 
 from acceptance_utils import (CONTRACT, ROOT, command, digest, locate_program,
@@ -54,7 +55,7 @@ def certificate_source(prefixes, automaton):
                   f"theorem input_{i} : BinaryAutomaton.fibonacciSum fibonacciWord_{i} 2 = {q} := by decide",
                   f"theorem output_{i} : BinaryAutomaton.classify fibonacciWord_{i} = some {d} := by decide",
                   f"theorem predicate_{i} : BinaryAutomaton.binaryDifference {q} = ({d} : ℤ) := by",
-                  f"  simpa only [input_{i}] using BinaryAutomaton.classify_correct output_{i}"]
+                  f"  simpa only [input_{i}, Nat.cast_zero, Nat.cast_one] using BinaryAutomaton.classify_correct output_{i}"]
         if q and q & (q - 1) == 0:
             n = q.bit_length() - 1
             lines += [f"theorem powerDigit_{n} : digit 2 {n} = ({d} : ℤ) :=",
@@ -74,7 +75,8 @@ def run(output):
     if (prefix / "share/max").is_dir():
         env.setdefault("MODULAR_HOME", str(prefix / "share/max"))
     version = command([mojo, "--version"], output / "mojo-version.json", env=env, timeout=30)
-    if CONTRACT["mojo_version"] not in version.stdout + version.stderr:
+    detected = re.search(r"(?m)^Mojo (\S+) ", version.stdout + version.stderr)
+    if detected is None or detected.group(1) != CONTRACT["mojo_version"]:
         raise RuntimeError("Mojo version differs from pinned contract")
     include = ["-I", ROOT / "kernel", "-I", ROOT / "vendor/finite-math-kernels/kernel"]
     if (prefix / "lib/mojo").is_dir():
@@ -118,6 +120,7 @@ def run(output):
     summary = {
         "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
         "mojo_version": (version.stdout + version.stderr).strip(),
+        "mojo_compiler_sha256": digest(mojo),
         "finite_math_kernels_revision": submodule,
         "prefix_cases": [{"base": r["base"], "length": r["length"], "width": r["width"],
                           "windows": sum(r["counts"])} for r in prefixes],

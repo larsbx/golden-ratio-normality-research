@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import platform
 import re
 import sys
 
@@ -126,6 +127,8 @@ def run(output):
     report = {"schema": "golden-normality-acceptance-v1", "accepted": False,
               "started_utc": utc_now(), "source_commit": git_output("rev-parse", "HEAD"),
               "source_tree_dirty": bool(git_output("status", "--porcelain")),
+              "python": {"version": sys.version, "executable": sys.executable},
+              "platform": platform.platform(),
               "source_sha256": source_hashes()}
     write_json(output / "report.json", report)
     try:
@@ -142,7 +145,8 @@ def run(output):
         report["native"], generated = native_conformance.run(output / "native")
         lean = locate_program("LEAN_BIN", "lean")
         version = command([lean, "--version"], output / "lean-version.json", timeout=30)
-        if f"version {CONTRACT['lean_version']}" not in version.stdout:
+        detected = re.search(r"\bversion ([^,\s)]+)", version.stdout)
+        if detected is None or detected.group(1) != CONTRACT["lean_version"]:
             raise RuntimeError("Lean version differs from pinned contract")
         packages = Path(os.environ.get("GNR_MATHLIB_PACKAGES", ROOT / ".lake/packages")).resolve()
         paths, report["dependency_revisions"] = dependency_paths(packages)
