@@ -1,0 +1,3 @@
+[submodule "vendor/finite-math-kernels"]
+	path = vendor/finite-math-kernels
+	url = https://github.com/larsbx/finite-math-kernels.git

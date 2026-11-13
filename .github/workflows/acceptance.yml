@@ -1,0 +1,49 @@
+name: Foundation acceptance
+
+on:
+  push:
+    branches: [main, 'research/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: foundation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          submodules: recursive
+      - name: Install pinned Lean and mathlib cache
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'true'
+      - name: Install pinned Mojo environment
+        uses: prefix-dev/setup-pixi@8ca4608ef7f4daeb54f5205b20d0b7cb42f11143
+        with:
+          pixi-version: v0.84.2
+          manifest-path: kernel/pixi.toml
+          locked: true
+          activate-environment: true
+      - name: Run complete acceptance
+        run: python3 tools/verify.py
+      - name: Retain proof and native evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: foundation-${{ github.sha }}
+          path: |
+            build/acceptance/**/*.json
+            build/acceptance/**/*.lean
+          if-no-files-found: warn

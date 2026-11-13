@@ -1,0 +1,12 @@
+[workspace]
+name = "golden-normality"
+channels = ["https://conda.modular.com/max-nightly/", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+mojo = "==1.1.0.dev2026090805"
+python = "3.12.*"
+
+[tasks]
+acceptance = "bash ../tools/check_native.sh"
+verify = "python ../tools/verify.py"
