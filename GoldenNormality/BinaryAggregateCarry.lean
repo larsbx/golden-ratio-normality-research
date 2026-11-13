@@ -42,24 +42,27 @@ theorem positiveCarry_sum_le (start length : ℕ) :
       positiveCarry (start + length).succ + convolutionCoefficient (start + length) at h
     omega
 
-/-- The truncated convolution uses only pairs with sum of indices plus one below N. -/
-private theorem convolution_sum_le_triangle (N : ℕ) :
-    (∑ n ∈ Finset.range N, convolutionCoefficient n) ≤
+/-- The truncated convolution counts exactly the ordered pairs below the diagonal cutoff. -/
+theorem convolution_sum_eq_triangle (N : ℕ) :
+    (∑ n ∈ Finset.range N, convolutionCoefficient n) =
       ∑ p ∈ ((Finset.range N ×ˢ Finset.range N).filter
         (fun p : ℕ × ℕ => p.1 + p.2 + 1 < N)), digit p.1 * digit p.2 := by
   unfold convolutionCoefficient
   rw [Finset.sum_sigma']
   classical
-  apply Finset.sum_le_sum_of_injOn
-    (fun p : Σ _ : ℕ, ℕ => (p.2, p.1 - 1 - p.2))
+  apply Finset.sum_bij
+    (fun (p : Σ _ : ℕ, ℕ) _ => (p.2, p.1 - 1 - p.2))
+  · intro a ha
+    obtain ⟨hn, hi⟩ := Finset.mem_sigma.mp ha
+    simp only [Finset.mem_range] at hn hi
+    exact Finset.mem_filter.mpr ⟨Finset.mem_product.mpr
+      ⟨Finset.mem_range.mpr (by omega), Finset.mem_range.mpr (by omega)⟩, by omega⟩
   · intro a ha b hb hab
-    have ha' := Finset.mem_sigma.mp ha
-    have hb' := Finset.mem_sigma.mp hb
+    obtain ⟨_, ha'⟩ := Finset.mem_sigma.mp ha
+    obtain ⟨_, hb'⟩ := Finset.mem_sigma.mp hb
     simp only [Finset.mem_range] at ha' hb'
-    have hleft := congrArg Prod.fst hab
-    have hright := congrArg Prod.snd hab
-    change a.2 = b.2 at hleft
-    change a.1 - 1 - a.2 = b.1 - 1 - b.2 at hright
+    have hleft : a.2 = b.2 := congrArg Prod.fst hab
+    have hright : a.1 - 1 - a.2 = b.1 - 1 - b.2 := congrArg Prod.snd hab
     obtain ⟨a, i⟩ := a
     obtain ⟨b, j⟩ := b
     simp only at *
@@ -68,15 +71,25 @@ private theorem convolution_sum_le_triangle (N : ℕ) :
     subst j
     rfl
   · intro p hp
-    obtain ⟨a, ha, rfl⟩ := Finset.mem_image.mp hp
-    have ha' := Finset.mem_sigma.mp ha
-    simp only [Finset.mem_range] at ha'
-    exact Finset.mem_filter.mpr ⟨Finset.mem_product.mpr
-      ⟨Finset.mem_range.mpr (by omega), Finset.mem_range.mpr (by omega)⟩, by omega⟩
-  · intro i _
-    exact le_rfl
-  · intro a _ _
-    exact mul_nonneg (digit_range a.1).1 (digit_range a.2).1
+    have h := (Finset.mem_filter.mp hp).2
+    refine ⟨⟨p.1 + p.2 + 1, p.1⟩, Finset.mem_sigma.mpr
+      ⟨Finset.mem_range.mpr h, Finset.mem_range.mpr (by dsimp; omega)⟩, ?_⟩
+    exact Prod.ext rfl (by dsimp; omega)
+  · intro _ _
+    rfl
+
+/-- The omitted mass counts all ordered pairs on or above the diagonal cutoff. -/
+theorem convolution_sum_add_omitted_eq_square (N : ℕ) :
+    (∑ n ∈ Finset.range N, convolutionCoefficient n) +
+      (∑ p ∈ ((Finset.range N ×ˢ Finset.range N).filter
+        (fun p : ℕ × ℕ => N ≤ p.1 + p.2 + 1)), digit p.1 * digit p.2) =
+      (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 := by
+  rw [convolution_sum_eq_triangle, ← digit_sum_eq_original_zeros]
+  have hsplit := Finset.sum_filter_add_sum_filter_not
+    (Finset.range N ×ˢ Finset.range N) (fun p : ℕ × ℕ => p.1 + p.2 + 1 < N)
+    (fun p => digit p.1 * digit p.2)
+  simp only [not_lt, Finset.sum_product, ← Finset.mul_sum, ← Finset.sum_mul, pow_two] at hsplit ⊢
+  exact hsplit
 
 /-- The square of the count in the upper half is disjoint from the truncated
 convolution. Both halves use the original source indices. -/
@@ -113,7 +126,7 @@ theorem convolution_sum_add_upper_half_square_le (N : ℕ) :
   have hmass := Finset.sum_le_sum_of_subset_of_nonneg (f := weight) hdisjoint
     (fun p _ _ => mul_nonneg (digit_range p.1).1 (digit_range p.2).1)
   have hsplit := Finset.sum_filter_add_sum_filter_not allPairs inTriangle weight
-  have htri := convolution_sum_le_triangle N
+  have htri := (convolution_sum_eq_triangle N).le
   change _ ≤ ∑ p ∈ allPairs.filter inTriangle, weight p at htri
   have hproduct (s : Finset ℕ) :
       (∑ p ∈ s ×ˢ s, weight p) = (∑ i ∈ s, digit i) ^ 2 := by
@@ -300,6 +313,24 @@ theorem original_zero_count_half_prefix_bound (N : ℕ) (hN : 2 ≤ N) :
     (fun i _ => positiveCarryIndicator_le i)
   have h0 : 0 ≤ positiveCarry 0 := le_max_right _ _
   have hc := convolution_sum_add_upper_half_square_le N
+  have hl := prefix_le_positive_count_and_zeros N
+  omega
+
+/-- The finite carry estimate with the full omitted pair mass restored. -/
+theorem original_zero_count_omitted_pairs_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) + 2 * (∑ p ∈ ((Finset.range N ×ˢ Finset.range N).filter
+      (fun p : ℕ × ℕ => N ≤ p.1 + p.2 + 1)), digit p.1 * digit p.2) ≤
+      2 * (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 +
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) - 1 := by
+  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
+    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
+  have hp := positiveCarry_lt_original_zeros N hz
+  have hs := positiveCarry_sum_le 0 N
+  simp only [Nat.zero_add] at hs
+  have hi := Finset.sum_le_sum (s := Finset.range N)
+    (fun i _ => positiveCarryIndicator_le i)
+  have h0 : 0 ≤ positiveCarry 0 := le_max_right _ _
+  have hc := convolution_sum_add_omitted_eq_square N
   have hl := prefix_le_positive_count_and_zeros N
   omega
 

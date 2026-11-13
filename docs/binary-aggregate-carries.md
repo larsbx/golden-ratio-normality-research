@@ -76,6 +76,22 @@ of the lower-half count. The correction is a finite two-scale constraint.
 An improvement to the unconditional leading constant would require
 further control on how zeros are distributed between the halves.
 
+## Exact omitted pair count
+
+Let $E_N$ count ordered pairs of original zero positions $i,j<N$ for which
+$i+j+1\ge N$. The map $(n,i)\mapsto(i,n-1-i)$ has inverse
+$(i,j)\mapsto(i+j+1,i)$ below the cutoff. Thus
+$\sum_{n<N}c_n+E_N=z_N^2$ for every $N$, and the finite carry estimate gives
+
+\[
+N+2E_N\le 2z_N^2+6z_N-1\qquad(N\ge2).
+\]
+
+The upper-half square accounts for only one of the three omitted pairs at
+$N=4$. Both mixed pairs lie on the cutoff, so the exact omitted count also
+detects an off-by-one change to the cutoff. The formula does not provide an
+unconditional asymptotic improvement without a further bound on $E_N$.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
