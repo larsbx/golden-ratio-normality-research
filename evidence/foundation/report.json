@@ -1,0 +1,254 @@
+{
+  "accepted": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "artifact_sha256": {
+    "Audit.lean": "c33e1836ce2b1a3c1ecc7d2b0765620b3fd26ec59936ff5dbd972f1cb3b6aed4",
+    "AuditTransitive.lean": "4042ea18a0f85f7bd64dda4b02a191920d3f0df156186c9918866fb979d5706e",
+    "AuditUntrusted.lean": "743c35b5dcc4aa72294e16f2c99a780d287a5f38206901001bbd4d898c8b3168",
+    "FalseClaims.lean": "e5c45f6133b46c2493e587cb0b6259441305e9c78c93929726a412f611b89dea",
+    "TransitiveAxiom.lean": "e3e85613d9846ceabf4dea60239f5c120c7d8ad3ea26598d35dd18fa5f980352",
+    "UntrustedAxiom.lean": "62d0ef8c69d6b3c26bf31b56ad2a53a2ae9765e96dffe0cea61729c119e7fd15",
+    "declaration-axioms.json": "56ca838ab99fdd551130bca136191d1b0f8029cbbc6c7d6a839f477288469483",
+    "lean-Audit.json": "2602c93e4061529a9763ed787ec025e50a72fafe2037c9ef04565eac434772c5",
+    "lean-AuditTransitive.json": "3932687537160236e50d9bc40b84889cbd02d6defacaac76851543f147b74b64",
+    "lean-AuditUntrusted.json": "3f4227e50e968297fe8500a2566ca8608ce31edd698b3f5e11c520ce8f6675e8",
+    "lean-FalseClaims.json": "d7a766fdfe36e9766f6d7bb8b5c6e08968bbff58f9524e04333095af3f04cb49",
+    "lean-GoldenNormality.Automaton.json": "4a3f0042a0ad639f15e3a988992f19e0051d348562bf4cc22f21b962a9aefbd7",
+    "lean-GoldenNormality.Blocks.json": "fa9761483d3002c5dbe967a24bd4a0cd751aafbbf7647a7c960982fd533bbb92",
+    "lean-GoldenNormality.Certificates.json": "72476cf7ff23bce0ff817600ec588dca2afa518a219de111e0daa184285e03ca",
+    "lean-GoldenNormality.Contracts.json": "72bcc8aab7f2b017c2bdaf677caaa9630241ae49d9c38895085b3004d3bf552f",
+    "lean-GoldenNormality.Normality.json": "f33abc75c09992b1aef5ce4230b642d730ea205e0053d3edc4801df4cf5eafdd",
+    "lean-GoldenNormality.Prefix.json": "2d9dec020d2537040f8a3a95e975e5e13eabef70a4fee70a5fedccf27b6a6d76",
+    "lean-GoldenNormality.json": "88b63dd75fba7dd24ff11cc24350379020e6f54f92f7cbac10e9f1077584fe6a",
+    "lean-Receipts.json": "878c583ef4845baae10908862afd0a9307004fe8903360e7b87829351682f02c",
+    "lean-TransitiveAxiom.json": "75bdf702900112d1b465103f37be23604383b8aa8e7003c6eab174ade5b35e23",
+    "lean-UntrustedAxiom.json": "bbaf2c9346a731e88df601692305d59e06b0d0530f72bb770e2b3955b0db8457",
+    "lean-version.json": "7859cd6522594606ad9d34d08c0806e58cd90127ef69aa156898236325d31b83",
+    "native/Receipts.lean": "be1744214129b1fa852f4bce192d5ca2eeb8ce2b0082e6c9f6aa2912aa336a9d",
+    "native/automaton.json": "75efcef18cc4d50b08dcc1276dcef6486c2decb05f6dfd40cf1684255b63ed67",
+    "native/bad-native-0.json": "eb46d10ccdc04210396764dba3f956ce34579f105706787ce487e0b90ea9354b",
+    "native/bad-native-1.json": "1de464fa9408ad1cb8f227c31745bab8cb42357513d4445dacfc0b8fae662a15",
+    "native/bad-native-2.json": "bf91836519f80b449219192088435d83d1f98fae2c606f0f91ec6986b04555db",
+    "native/bad-native-3.json": "3208b2c7ff677b7fb8341907df831df16ee6be13a6b3365f55124978dbbc4e38",
+    "native/bad-native-4.json": "8c1ca4b4e74a9dc6d2f59ca123e250b6ee1bab10e6c825716482c1e2a7d6d88f",
+    "native/bad-native-5.json": "7b5e662f9457648393faaae15e2359d1063898e939ee2e32dba20342f1c36024",
+    "native/bad-native-6.json": "bb0daf528c35c48295e0f1bef06c0a0e7a3a29de2293b0a91855d047c47ee549",
+    "native/bad-native-7.json": "10979f52f82c21ca4e71d74ee8e9b36850837afd295fd2951e85796bf4300199",
+    "native/build-automaton_probe.json": "17402a49a41888bf8249361200139be7ab325820bff9fd1289fbaeb90e3ad129",
+    "native/build-foundation.json": "79edaddec9a62a60f2bd162678c1d98b1541437393f3d55e8beff3d6c1df2106",
+    "native/mojo-version.json": "ef28e9c0e2ec87f3ad54e22ab24a812be3c10f5c82c9239791855a35c1d61cc6",
+    "native/prefix-0.json": "97df6dae79afac91254b191bea40da062ac3ef81fdba7f09ab15bfd4c85111b4",
+    "native/prefix-1.json": "1e6541aa06f26934b8cfa9757978c672fc922fcb779950cdc1ddbe8161aecd70",
+    "native/prefix-2.json": "6de5fdfef3bae53d4a83f786b6ba522b945cd100858610c1299733306020bac9",
+    "native/prefix-3.json": "e0482a6190c1a21d196ae9545a6401c5325990ed09cfa41d6edb4d7d18912312",
+    "native/prefix-4.json": "87fd9846e41bb093e59a1cef026fb08b115356aee4f7e610a9cc4e6223305d2d",
+    "native/prefix-5.json": "d4b53dfefafd4f0c3c5a7298a79a28c3e40208dc39548bb058641d1c1090754f",
+    "native/receipts.json": "00bc5bce4f95fbfca182e67b88891aeb2e01cb2fd45169a42c51ae377b3e4974",
+    "native/summary.json": "859706329622bd42ce1f464c6b13c2d779e05dc999c9e4626586eb0f528f0462",
+    "oracle-tests.json": "9f73c63c59835c16888ef9d9cdf489ab15578c8ee7628aa7d1624a9332ee70ee"
+  },
+  "compiled_modules": {
+    "GoldenNormality": {
+      "declarations": 0,
+      "theorems": 0
+    },
+    "GoldenNormality.Automaton": {
+      "declarations": 237,
+      "theorems": 157
+    },
+    "GoldenNormality.Blocks": {
+      "declarations": 61,
+      "theorems": 44
+    },
+    "GoldenNormality.Certificates": {
+      "declarations": 20,
+      "theorems": 14
+    },
+    "GoldenNormality.Contracts": {
+      "declarations": 8,
+      "theorems": 8
+    },
+    "GoldenNormality.Normality": {
+      "declarations": 5,
+      "theorems": 3
+    },
+    "GoldenNormality.Prefix": {
+      "declarations": 35,
+      "theorems": 26
+    },
+    "Receipts": {
+      "declarations": 2199,
+      "required_receipt_theorems": 2065,
+      "theorems": 2065
+    }
+  },
+  "dependency_revisions": {
+    "Cli": "ab3a82db9fea14cf0fd7f5a2de650f4b534640af",
+    "LeanSearchClient": "ba67e212be1197b84c1f1f6299488a10a3002713",
+    "Qq": "507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3",
+    "aesop": "18889deb9e83ea7420ef51c160d6f88552e744e3",
+    "batteries": "4cac2177c37f5530c4da76aa8e4307f3fc9e4dcb",
+    "importGraph": "1681d78dd6e65e38b143f9740d829c826673807c",
+    "mathlib": "4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09",
+    "plausible": "d9598f07b1bc701f1e3aae163d2681c1fd978793",
+    "proofwidgets": "a8acbfd87375ff4abe14ce09db5b7664d383bc7f"
+  },
+  "finished_utc": "2026-11-13T04:02:58.089426+00:00",
+  "lean": {
+    "LD_PRELOAD": "",
+    "invocation": "/workspace/scratch/84c835820757/toolchains/elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lean",
+    "invocation_file_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "package_cache": "/workspace/scratch/5535bb23ca85/isolated-v4/tmp/tmp.HhzCKAuxBY/proof/PscVerif/.lake/packages",
+    "version": "Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)"
+  },
+  "lean_negative_controls": {
+    "compiled_axiom_injection": "rejected",
+    "false_root": "rejected",
+    "invalid_fibonacci_word": "rejected",
+    "scattered_count": "rejected",
+    "transitive_axiom_injection": "rejected",
+    "weakened_theorem_type": "rejected"
+  },
+  "native": {
+    "automaton_values": 128,
+    "executables_sha256": {
+      "automaton_probe": "6e4134b72756ff63c4c858d4f2d057c47870bfaa400514c4d817cdb1d2757e7f",
+      "foundation": "805e5b1ce43dc2fd4e5f31a72149ec43d6299bef86d8bc1fd5894d23880ed62f"
+    },
+    "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+    "lean_obligations_sha256": "be1744214129b1fa852f4bce192d5ca2eeb8ce2b0082e6c9f6aa2912aa336a9d",
+    "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+    "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+    "native_invalid_requests_rejected": [
+      [
+        1,
+        4,
+        1
+      ],
+      [
+        11,
+        4,
+        1
+      ],
+      [
+        2,
+        -1,
+        1
+      ],
+      [
+        2,
+        4097,
+        1
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        "x",
+        4,
+        1
+      ],
+      [
+        2,
+        4
+      ]
+    ],
+    "prefix_cases": [
+      {
+        "base": 2,
+        "length": 0,
+        "width": 1,
+        "windows": 0
+      },
+      {
+        "base": 10,
+        "length": 1,
+        "width": 2,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 256,
+        "width": 3,
+        "windows": 254
+      },
+      {
+        "base": 3,
+        "length": 128,
+        "width": 3,
+        "windows": 126
+      },
+      {
+        "base": 7,
+        "length": 32,
+        "width": 2,
+        "windows": 31
+      },
+      {
+        "base": 10,
+        "length": 128,
+        "width": 2,
+        "windows": 127
+      }
+    ],
+    "receipts_sha256": "00bc5bce4f95fbfca182e67b88891aeb2e01cb2fd45169a42c51ae377b3e4974",
+    "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+    "telemetry_environment": {
+      "MODULAR_CRASH_REPORTING_ENABLED": "false",
+      "MODULAR_TELEMETRY_ENABLED": "false"
+    }
+  },
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": {
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+  },
+  "schema": "golden-normality-acceptance-v1",
+  "scope": "universal Lean foundation and checked finite native receipts; no normality theorem",
+  "source_commit": "01717311e0d1e0d8adae7fcc617ca9ff2be9c517",
+  "source_sha256": {
+    ".github/workflows/acceptance.yml": "fb634336378625c467adc8db13d2186a7e131a948003ba94cb5f2dd708ffb03e",
+    ".gitignore": "9fd9fce3ea7eb1446fd8594abd6f97a6fee9a9a351e744ef62ce1ad9eb65b925",
+    ".gitmodules": "27c23a41a81f6f337077799720fdb76aec0213ff46916ac738fe4958084d7a8b",
+    "AGENTS.md": "db47d46e406b1a314aae293573b21b58a2c9e8a1f120b8eea817df4f2641ef81",
+    "GoldenNormality.lean": "743b229b9a73427454937cc9d64277bea1d6d0e040190cc22e2ef869abfe455c",
+    "GoldenNormality/Automaton.lean": "bbf20cc2ff1bc1c73fb826fa836fa7ed0e6c1cc15a18aa37d7a47022b057378a",
+    "GoldenNormality/Blocks.lean": "0f0904b825e09164ba18f7fcc9ee0cd9dd264c50411fd34168439d75eb761234",
+    "GoldenNormality/Certificates.lean": "21147b03d2bf38a9604a769cc094dda2772ed5fbdedf2353a913e8b94c420b78",
+    "GoldenNormality/Contracts.lean": "1c5ada4fccf490ddb256e54a158cdbab04240fdb3fe5b0afa534223e5381a275",
+    "GoldenNormality/Normality.lean": "0ebb5b8fe3420b28bec0a5e26919fd69778c9539a2552df06b9ffaf3dd9fd6c0",
+    "GoldenNormality/Prefix.lean": "4433bc6b9e6a99b535c232e09a224500301157475ba5019741064a020476d9e7",
+    "README.llm.txt": "ca006c862cf9f956fd518a38aae7af1e645532848ea26e67b495e9d90f8a8f4b",
+    "README.md": "ad5928d041a1c00e44862a4541640bf60361d04014729545fecc6d0413768b39",
+    "claims.json": "98508ec55d561e002bb7ca5f3c8c41901778816a4eeb96407745e8988f72d691",
+    "docs/foundation.md": "19a7c03c7e76b8378f62cc2ec3f28d30122ba9f2d951b8e692cc3ab63150053d",
+    "docs/literature-gate.md": "23e52cec1ecb9bdc1333b8c31dcb4811ef6a2d22dcdb024e25fe515e5b9230a1",
+    "kernel/automaton_probe.mojo": "c4136bf7c6421decdccb604c9225e7f20eca8daccd9c117925ed0fdbb4a7d377",
+    "kernel/foundation.mojo": "106e266f9dfb694cd024ca41aef0ed3bcca7bc559c245fb8edbc25c292b7ccd5",
+    "kernel/pixi.lock": "29beaaa2ecab11c7f1f0a769335b8eeb8262b798458fc4285026e480de2d1e15",
+    "kernel/pixi.toml": "8435fb70236bb681ea5141b23b56529e3c3802c5173d44565f0fca2ae8409b50",
+    "lake-manifest.json": "53d15db3fc99a16a755171c913bd9ab69acfcf43caab3486697f9e96e7d23f6b",
+    "lakefile.toml": "4dec248389cfc05a4885c74c154496af76548ca3bfb0b8fdca513dc31bde9a81",
+    "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "oracles/reference.py": "49f194525701e5355b97c5c373f41e2d6b89415fdbc709c3011f1f14c08d68a7",
+    "research-contract.json": "27d46bd36b4e31172bebbc4c89af0843b8cc410e4fcc299b6de92e574d28bd8a",
+    "tests/test_reference.py": "67aa6d08f60f30a142e5ecdf69910369acaaa4f9d220e23ffe0d278ad64c8329",
+    "tools/acceptance_utils.py": "e468b0f058aeec4a8b55931cfd3f4bfc9051dd12bdf79f88130457974068b241",
+    "tools/check_native.sh": "7646e9bb1f0aff21a5d98df1a6d651fc1c4c41865f8c7af55c3d660532f4bdff",
+    "tools/native_conformance.py": "319d76f7a63f768f8c4f8365fc76729347e7e8e29e7d3dd1a4828f3997f8d53d",
+    "tools/verify.py": "93365240b33bddf3bf3ae2826ef9cc84740bb658710d1afa6ccffd691956b291"
+  },
+  "source_tree_dirty": false,
+  "started_utc": "2026-11-13T04:01:11.590092+00:00"
+}

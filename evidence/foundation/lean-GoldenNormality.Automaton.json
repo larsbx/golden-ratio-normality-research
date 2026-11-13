@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/scratch/84c835820757/toolchains/elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/af8d8991e23f/golden-ratio-normality-research",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "-o",
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/build/foundation-run/lib/GoldenNormality/Automaton.olean",
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/GoldenNormality/Automaton.lean"
+  ],
+  "returncode": 0,
+  "seconds": 11.029,
+  "stderr": "",
+  "stdout": ""
+}

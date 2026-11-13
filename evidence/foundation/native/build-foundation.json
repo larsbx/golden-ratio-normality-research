@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/workspace/scratch/20703ddfc887/mojo-local/.pixi/envs/default/bin/mojo",
+    "build",
+    "-I",
+    "/workspace/scratch/20703ddfc887/mojo-local/.pixi/envs/default/lib/mojo",
+    "-I",
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/kernel",
+    "-I",
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/vendor/finite-math-kernels/kernel",
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/kernel/foundation.mojo",
+    "-o",
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/build/foundation-run/native/foundation"
+  ],
+  "returncode": 0,
+  "seconds": 0.871,
+  "stderr": "",
+  "stdout": ""
+}

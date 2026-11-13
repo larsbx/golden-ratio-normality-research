@@ -1,0 +1,5 @@
+import GoldenNormality.Prefix
+import GoldenNormality.Blocks
+import GoldenNormality.Automaton
+import GoldenNormality.Certificates
+import GoldenNormality.Normality

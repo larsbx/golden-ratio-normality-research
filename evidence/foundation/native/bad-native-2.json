@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/build/foundation-run/native/foundation",
+    "2",
+    "-1",
+    "1"
+  ],
+  "returncode": 1,
+  "seconds": 0.017,
+  "stderr": "stack trace was not collected. Enable stack trace collection with environment variable `MODULAR_DEBUG=stack-trace-on-error`\nUnhandled exception caught during execution: prefix outside base 2..10 / length 0..4096 contract\n",
+  "stdout": ""
+}
