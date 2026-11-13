@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-block-frequency",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-block-frequency/Reject_unequal_length_encoding.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.155,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-block-frequency/Reject_unequal_length_encoding.lean:5:2: error: Tactic `decide` proved that the proposition\n  [0, 1].length = [1].length\nis false\n"
+}

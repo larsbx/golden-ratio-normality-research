@@ -1,0 +1,114 @@
+{
+  "automaton_values": 128,
+  "executables_sha256": {
+    "automaton_probe": "03462469d5c3e469abcb4797ae36dde85b8ffbdd5408ae23f85e03d30845a5b1",
+    "foundation": "6527cabf42cf405fad9f9300ee935ffda9e0fe665a92441454b6f82524c823f0"
+  },
+  "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+  "lean_obligations_sha256": "8091e6f804f0c8013692d0fb3fa9322ed5b563695a912dad742fa5a631987816",
+  "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+  "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+  "native_invalid_requests_rejected": [
+    [
+      1,
+      4,
+      1
+    ],
+    [
+      11,
+      4,
+      1
+    ],
+    [
+      2,
+      -1,
+      1
+    ],
+    [
+      2,
+      4097,
+      1
+    ],
+    [
+      2,
+      4,
+      0
+    ],
+    [
+      2,
+      4,
+      5
+    ],
+    [
+      "x",
+      4,
+      1
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "prefix_cases": [
+    {
+      "base": 2,
+      "length": 0,
+      "width": 1,
+      "windows": 0
+    },
+    {
+      "base": 10,
+      "length": 1,
+      "width": 2,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 256,
+      "width": 3,
+      "windows": 254
+    },
+    {
+      "base": 3,
+      "length": 128,
+      "width": 3,
+      "windows": 126
+    },
+    {
+      "base": 7,
+      "length": 32,
+      "width": 2,
+      "windows": 31
+    },
+    {
+      "base": 10,
+      "length": 128,
+      "width": 2,
+      "windows": 127
+    },
+    {
+      "base": 2,
+      "length": 0,
+      "width": 3,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 1,
+      "width": 3,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 3,
+      "width": 3,
+      "windows": 1
+    }
+  ],
+  "receipts_sha256": "ede7c2dc2dfc8e3d32d34d943e43472960227ca2a4b12dc221a0148b86ad1215",
+  "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+  "telemetry_environment": {
+    "MODULAR_CRASH_REPORTING_ENABLED": "false",
+    "MODULAR_TELEMETRY_ENABLED": "false"
+  }
+}
