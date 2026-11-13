@@ -42,13 +42,11 @@ theorem positiveCarry_sum_le (start length : ℕ) :
       positiveCarry (start + length).succ + convolutionCoefficient (start + length) at h
     omega
 
-/-- Each pair in the truncated convolution is counted at most once. -/
-theorem convolution_sum_le_square (N : ℕ) :
+/-- The truncated convolution uses only pairs with sum of indices plus one below N. -/
+private theorem convolution_sum_le_triangle (N : ℕ) :
     (∑ n ∈ Finset.range N, convolutionCoefficient n) ≤
-      (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 := by
-  rw [← digit_sum_eq_original_zeros, pow_two, Finset.sum_mul]
-  simp only [Finset.mul_sum]
-  rw [← Finset.sum_product']
+      ∑ p ∈ ((Finset.range N ×ˢ Finset.range N).filter
+        (fun p : ℕ × ℕ => p.1 + p.2 + 1 < N)), digit p.1 * digit p.2 := by
   unfold convolutionCoefficient
   rw [Finset.sum_sigma']
   classical
@@ -73,12 +71,65 @@ theorem convolution_sum_le_square (N : ℕ) :
     obtain ⟨a, ha, rfl⟩ := Finset.mem_image.mp hp
     have ha' := Finset.mem_sigma.mp ha
     simp only [Finset.mem_range] at ha'
-    exact Finset.mem_product.mpr ⟨Finset.mem_range.mpr (by omega),
-      Finset.mem_range.mpr (by omega)⟩
+    exact Finset.mem_filter.mpr ⟨Finset.mem_product.mpr
+      ⟨Finset.mem_range.mpr (by omega), Finset.mem_range.mpr (by omega)⟩, by omega⟩
   · intro i _
     exact le_rfl
   · intro a _ _
     exact mul_nonneg (digit_range a.1).1 (digit_range a.2).1
+
+/-- The square of the count in the upper half is disjoint from the truncated
+convolution. Both halves use the original source indices. -/
+theorem convolution_sum_add_upper_half_square_le (N : ℕ) :
+    (∑ n ∈ Finset.range N, convolutionCoefficient n) +
+      ((GoldenNormality.occurrences 2 1 0 N : ℤ) -
+        (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ)) ^ 2 ≤
+      (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 := by
+  let allPairs := Finset.range N ×ˢ Finset.range N
+  let inTriangle := fun p : ℕ × ℕ => p.1 + p.2 + 1 < N
+  let weight := fun p : ℕ × ℕ => digit p.1 * digit p.2
+  let upper := (Finset.range N).filter (fun i => N / 2 ≤ i)
+  have hupper : (∑ i ∈ upper, digit i) =
+      (GoldenNormality.occurrences 2 1 0 N : ℤ) -
+        (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) := by
+    rw [← digit_sum_eq_original_zeros, ← digit_sum_eq_original_zeros]
+    have hfilter : ((Finset.range N).filter (fun i => ¬ N / 2 ≤ i)) =
+        Finset.range (N / 2) := by
+      ext i
+      simp
+      omega
+    have hsplit := Finset.sum_filter_add_sum_filter_not (Finset.range N)
+      (fun i => N / 2 ≤ i) digit
+    rw [hfilter] at hsplit
+    change (∑ i ∈ upper, digit i) + _ = _ at hsplit
+    omega
+  have hdisjoint : upper ×ˢ upper ⊆ allPairs.filter (fun p => ¬ inTriangle p) := by
+    intro p hp
+    obtain ⟨⟨hi, hlo⟩, ⟨hj, hlj⟩⟩ := (Finset.mem_product.mp hp).imp
+      Finset.mem_filter.mp Finset.mem_filter.mp
+    exact Finset.mem_filter.mpr ⟨Finset.mem_product.mpr ⟨hi, hj⟩, by
+      dsimp [inTriangle]
+      omega⟩
+  have hmass := Finset.sum_le_sum_of_subset_of_nonneg (f := weight) hdisjoint
+    (fun p _ _ => mul_nonneg (digit_range p.1).1 (digit_range p.2).1)
+  have hsplit := Finset.sum_filter_add_sum_filter_not allPairs inTriangle weight
+  have htri := convolution_sum_le_triangle N
+  change _ ≤ ∑ p ∈ allPairs.filter inTriangle, weight p at htri
+  have hproduct (s : Finset ℕ) :
+      (∑ p ∈ s ×ˢ s, weight p) = (∑ i ∈ s, digit i) ^ 2 := by
+    simp only [weight, Finset.sum_product, ← Finset.mul_sum, ← Finset.sum_mul, pow_two]
+  rw [hproduct, hupper] at hmass
+  change _ = ∑ p ∈ Finset.range N ×ˢ Finset.range N, weight p at hsplit
+  rw [hproduct, digit_sum_eq_original_zeros] at hsplit
+  exact (add_le_add htri hmass).trans_eq hsplit
+
+theorem convolution_sum_le_square (N : ℕ) :
+    (∑ n ∈ Finset.range N, convolutionCoefficient n) ≤
+      (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 := by
+  have h := convolution_sum_add_upper_half_square_le N
+  have hn := sq_nonneg ((GoldenNormality.occurrences 2 1 0 N : ℤ) -
+    (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ))
+  omega
 
 theorem positiveCarryIndicator_le (n : ℕ) : positiveCarryIndicator n ≤ positiveCarry n :=
   min_le_right _ _
@@ -231,6 +282,24 @@ theorem original_zero_count_quadratic_bound (N : ℕ) (hN : 2 ≤ N) :
     binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
   have hp := positiveCarry_lt_original_zeros N hz
   have hc := positiveCarry_count_le N
+  have hl := prefix_le_positive_count_and_zeros N
+  omega
+
+/-- A two-scale refinement of the finite zero-count bound. -/
+theorem original_zero_count_half_prefix_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) + 2 * ((GoldenNormality.occurrences 2 1 0 N : ℤ) -
+      (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ)) ^ 2 ≤
+      2 * (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 +
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) - 1 := by
+  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
+    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
+  have hp := positiveCarry_lt_original_zeros N hz
+  have hs := positiveCarry_sum_le 0 N
+  simp only [Nat.zero_add] at hs
+  have hi := Finset.sum_le_sum (s := Finset.range N)
+    (fun i _ => positiveCarryIndicator_le i)
+  have h0 : 0 ≤ positiveCarry 0 := le_max_right _ _
+  have hc := convolution_sum_add_upper_half_square_le N
   have hl := prefix_le_positive_count_and_zeros N
   omega
 

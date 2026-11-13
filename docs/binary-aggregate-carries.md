@@ -57,6 +57,25 @@ The finite Lean theorem is the checked result. The real square-root formula
 above is its algebraic consequence. All-block frequency convergence and
 normality remain open.
 
+## Half-prefix refinement
+
+If both digit indices lie in $[\lfloor N/2\rfloor,N)$, their sum plus one
+is at least $N$. This holds for both parities of $N$. The entire square of
+that upper-half interval is therefore disjoint from the truncated convolution.
+With $u_N=z_N-z_{\lfloor N/2\rfloor}$, Lean proves
+
+\[
+\sum_{n<N}c_n+u_N^2\le z_N^2,\qquad
+N+2u_N^2\le 2z_N^2+6z_N-1\quad(N\ge2).
+\]
+
+Mixed pairs still contribute. At $N=5$, the two halves each contain one
+complementary one, and the truncated convolution has mass three. This
+attains equality in the pair bound and refutes retaining only the square
+of the lower-half count. The correction is a finite two-scale constraint.
+An improvement to the unconditional leading constant would require
+further control on how zeros are distributed between the halves.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`

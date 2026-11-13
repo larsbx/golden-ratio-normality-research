@@ -36,10 +36,12 @@ class AggregateCarryTests(unittest.TestCase):
                 pairs = sum(self.coefficients[:n])
                 self.assertLessEqual(positive, mass)
                 self.assertLessEqual(mass, pairs + max(self.carries[n], 0))
-                self.assertLessEqual(pairs, zeros**2)
+                upper_zeros = sum(self.digits[n // 2:n])
+                self.assertLessEqual(pairs + upper_zeros**2, zeros**2)
                 self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
-                    self.assertLessEqual(n, 2 * zeros**2 + 6 * zeros - 1)
+                    self.assertLessEqual(n + 2 * upper_zeros**2,
+                                         2 * zeros**2 + 6 * zeros - 1)
 
     def test_shifted_aggregate_and_zero_gaps(self):
         for start in range(len(self.carries)):
@@ -59,6 +61,9 @@ class AggregateCarryTests(unittest.TestCase):
                 positive += self.carries[end] > 0
 
     def test_invalid_strengthenings(self):
+        # Both mixed pairs survive at N=5, but the upper-half square does not.
+        self.assertEqual(self.digits[:5], [0, 1, 1, 0, 0])
+        self.assertEqual(sum(self.coefficients[:5]), 3)
         # The actual interval [13,14) refutes deleting the right boundary.
         self.assertEqual((self.carries[13], self.coefficients[13], self.carries[14]),
                          (1, 0, 2))
