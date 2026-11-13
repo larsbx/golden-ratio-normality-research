@@ -76,6 +76,13 @@ numeral count into a theorem about enumerated occurrences in the actual
 digit segment. This avoids trusting the certificate translator: an incorrect
 translated fact still has to pass the Lean kernel.
 
+The subsequent [block-frequency bridge](block-frequency-bridge.md) proves
+that this same list count equals `occurrences`, the function used by
+`NormalInBase`. For a nonempty alphabet word of length k and a prefix of
+length L, it counts exactly `max(0,L+1−k)` starts. Every generated pattern
+receipt now certifies both this mathematical occurrence count and its exact
+finite discrepancy `Nat.dist (b^k * count) N`.
+
 ## 3. Universal verification of the published binary automaton
 
 The transition table is Figure 2 of Barnoff–Bright–Shallit,

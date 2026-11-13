@@ -8,21 +8,23 @@ proofs, certified finite computations, implementation tests, published results,
 and unresolved asymptotic claims. A large digit sample is never labeled a proof
 of normality.
 
-## First milestone
+## Proved contracts
 
 | Layer | Contract |
 | --- | --- |
 | Exact roots | A natural-number inequality certificate is equivalent to `q = floor(B(φ−1))`, for every positive scale `B`. |
 | Digits and blocks | Adjacent prefixes determine an actual digit; a length-`k` block is `floor(b^k frac(b^n(φ−1)))`. |
 | Contiguous counting | Overlaps are retained; a chunk join needs only the last and first `k−1` symbols for its boundary correction. |
+| Frequency bridge | For every base `b≥2`, nonempty alphabet pattern of length `k`, and actual prefix of length `L`, the list count equals `occurrences b k j (L+1−k)`. Short prefixes give zero starts. |
 | Binary automaton | A universal real invariant verifies the published eight-state Fibonacci-input machine and its specialization to inputs representing `2^n`. |
-| Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digit and count claims. |
+| Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, actual occurrences, and exact finite discrepancies. |
 | Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No theorem asserting it is supplied. |
 
 The automaton is due to Barnoff, Bright, and Shallit; see
 [the literature gate](docs/literature-gate.md). The repository contribution is
 its explicit Lean proof and the application-specific certificate pipeline.
 See [the mathematical foundation](docs/foundation.md) for derivations and limits,
+the [block-frequency bridge](docs/block-frequency-bridge.md) for the exact count transfer,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -42,6 +44,7 @@ kernel/.pixi/envs/default/bin/python tools/verify.py
 The full gate compiles fresh project proof objects, inspects compiled axiom
 dependencies and explicit public theorem types, builds the Mojo executables,
 checks the independent oracle, compiles the generated finite certificates,
+independently checks every occurrence and discrepancy receipt's exact type,
 and verifies negative controls. It writes `build/acceptance/report.json`.
 An existing nonempty output directory is rejected; choose a new one with
 `--output build/another-run` when repeating a run.
@@ -63,7 +66,8 @@ obligations. Its successful exit alone does not establish Lean acceptance.
 - Digit positions are zero-indexed after the radix point; φ and φ−1 have the
   same fractional digits.
 - Blocks are consecutive, may overlap, and include leading-zero words.
-  Counting `N` starts of a positive-length `k`-block requires `N+k−1` digits.
+  A prefix of `L` digits has `max(0,L+1−k)` complete starts for `k≥1`;
+  choosing `L=N+k−1` gives exactly `N` starts.
 - The first native producer supports bases 2–10, prefix lengths 0–4096, and
   block widths 1–4. These are execution bounds, not hypotheses restricting
   the universal root or block theorems.

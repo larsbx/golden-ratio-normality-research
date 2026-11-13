@@ -40,12 +40,22 @@ def certificate_source(prefixes, automaton):
         for n in reversed(range(len(digits))):
             conjunction = f"And.intro digit_{i}_{n} ({conjunction})"
         lines += [f"theorem digits_{i} : DigitsAt {b} 0 word_{i} := {conjunction}"]
+        starts = max(0, len(digits) + 1 - k)
         for j, count in enumerate(record["counts"]):
             pattern = lean_list(word(b, k, j))
+            discrepancy = abs((b ** k) * count - starts)
             lines += [f"theorem count_{i}_{j} : Blocks.count {pattern} word_{i} = {count} := by decide",
                       f"theorem actualCount_{i}_{j} : Blocks.enumeratedCount {pattern}",
                       f"    (actualDigits {b} 0 word_{i}.length) = {count} :=",
-                      f"  certified_count_sound digits_{i} count_{i}_{j}"]
+                      f"  certified_count_sound digits_{i} count_{i}_{j}",
+                      f"theorem occurrence_{i}_{j} : occurrences {b} {k} {j} {starts} = {count} :=",
+                      f"  certified_occurrences_sound (b := {b}) (value := {count})",
+                      f"    (text := word_{i}) (pattern := {pattern})",
+                      f"    (by decide) (by decide) (by decide) digits_{i} count_{i}_{j}",
+                      f"theorem discrepancy_{i}_{j} :",
+                      f"    Nat.dist ({b}^{k} * occurrences {b} {k} {j} {starts}) {starts} = {discrepancy} := by",
+                      f"  rw [occurrence_{i}_{j}]",
+                      f"  decide"]
         lines.append("")
     for i, record in enumerate(automaton):
         # This runs only after strict nonbinary-symbol rejection in the oracle.

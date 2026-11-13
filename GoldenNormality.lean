@@ -3,3 +3,5 @@ import GoldenNormality.Blocks
 import GoldenNormality.Automaton
 import GoldenNormality.Certificates
 import GoldenNormality.Normality
+import GoldenNormality.BlockNumerals
+import GoldenNormality.FrequencyBridge

@@ -1,0 +1,318 @@
+{
+  "accepted": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "artifact_sha256": {
+    "Audit.lean": "68190306d9d600e90b220bc79d0d9de7e39a81624b73195078954e909ece53a3",
+    "AuditTransitive.lean": "4042ea18a0f85f7bd64dda4b02a191920d3f0df156186c9918866fb979d5706e",
+    "AuditUntrusted.lean": "743c35b5dcc4aa72294e16f2c99a780d287a5f38206901001bbd4d898c8b3168",
+    "BridgeCounterexamples.lean": "bd6050cbf2108496b36980d84c2b604fb6b93e764cedd60dfda80bcc13d576f7",
+    "FalseClaims.lean": "e5c45f6133b46c2493e587cb0b6259441305e9c78c93929726a412f611b89dea",
+    "ReceiptContracts.lean": "5e8e9b19d52c6f28900fe4bc200b0e472e8bfcfc146f1d00a2ddc7c8749ee12c",
+    "Reject_empty_pattern_transfer.lean": "5b2bbc92e37989f4895cc5fa0e02758138846b49e9eb25886df3c002159b3a84",
+    "Reject_outside_alphabet_encoding.lean": "9b2454e00d562e42523621f2520fe63c6889e55a16f60dc2ee0fea4dc0c44c3a",
+    "Reject_short_prefix_extra_start.lean": "dad2f34d8e149086fbe5c3c1e63221b1e22139b65f03c623823bac6c97da13cc",
+    "Reject_unequal_length_encoding.lean": "d87e407361b6f04be149e98b2881cf4d484a48b3269793c1a000ea1cbf7f5eea",
+    "Reject_weakened_discrepancy_type.lean": "aa6ced9567a8e09ab9cb4a82ea220df121f86417c03177da1e438711498b14cc",
+    "TransitiveAxiom.lean": "e3e85613d9846ceabf4dea60239f5c120c7d8ad3ea26598d35dd18fa5f980352",
+    "UntrustedAxiom.lean": "62d0ef8c69d6b3c26bf31b56ad2a53a2ae9765e96dffe0cea61729c119e7fd15",
+    "declaration-axioms.json": "985cbf7017b86743dc1bce266fdfb6293c4cb6bd914dca028895fbbf72b5d75b",
+    "lean-Audit.json": "2b83425355f2945a8d4b94441feb19074b9b5b04779e160c5e323b83a2d4318b",
+    "lean-AuditTransitive.json": "1386f1e62c543b2069e27ba13bc1ef5a5f16bb6c0519fc4e72a2bf02155cecc2",
+    "lean-AuditUntrusted.json": "38ed0e07474d5ef2a28906c0e6ed2845c412b4642a183c33dc3f0094ac314c92",
+    "lean-BridgeCounterexamples.json": "dbe1ba6e46481c3a1e9efcd77caaf16ce3005e2242c2446f90d5deef637de92c",
+    "lean-FalseClaims.json": "d8029e0b12f2203df6dd225e0af0df6fc3d879bbb62e7a7a586b25a9f1036591",
+    "lean-GoldenNormality.Automaton.json": "7c9e51a65c65e7b67068898a172ceb54a8627700f25342c8c2baf750abe28b5f",
+    "lean-GoldenNormality.BlockNumerals.json": "8a3b29ccaf047c4152bfd14c58ce1ffd06e5e6cd3047edceda4d369e6e23e088",
+    "lean-GoldenNormality.Blocks.json": "8fbd5eb3b17cd932ce334c0b949cbb29ca02bff6cc09c6a3b6a7d4fc9327e14c",
+    "lean-GoldenNormality.Certificates.json": "c5237892ea298f1dac2dfbee109bfeb8b3b54fc2fa9a3eec9552a14a24118e49",
+    "lean-GoldenNormality.Contracts.json": "e97cc253f30d0be30eaa1bb0aad4e196d2e23b20254f14554e6fa8a76381440e",
+    "lean-GoldenNormality.FrequencyBridge.json": "0edcd20a4e18f61fdebbe2d17151db231034e59f2cc0898e7bfa15a5acf3a7f7",
+    "lean-GoldenNormality.Normality.json": "fcced8ac5d411539fb56cce9a762c5ba679da892c8cce1795d725997c8fba96a",
+    "lean-GoldenNormality.Prefix.json": "cb01d0378fcd014193511ff9d9f2054dfc0c00cc1b2cde6746ead0fc86c5dab0",
+    "lean-GoldenNormality.json": "e0b90b6e62e94efd94b7d21ad839f7f1c419112ec98ff4c0bca633f8cedfb624",
+    "lean-ReceiptContracts.json": "7dbb39ecbefe6e4848ce985859139366066be1f40d15359f797091a5b88108b0",
+    "lean-Receipts.json": "f6c4a06be37c1174eb870def8feaa9a96e4985d27a14c16dd596fec231e748d6",
+    "lean-Reject_empty_pattern_transfer.json": "b77d8c7e69d46b13de211f79ed3acc8a83cde43701b9861f1d612705405d6ef0",
+    "lean-Reject_outside_alphabet_encoding.json": "ef7f92f4037f658be42b43776568d351e4aad0d894ce6bb5ac4fd9b26978d035",
+    "lean-Reject_short_prefix_extra_start.json": "c0caca8b594b6854da98f615d261295cb0bcbbb6f3768bbf1c21e78b9e727ab1",
+    "lean-Reject_unequal_length_encoding.json": "477573a14e819a445eafb651b86369b9fd96acb1dd132cc2df4bd5c3fb708c54",
+    "lean-Reject_weakened_discrepancy_type.json": "a035c67e408acdbbc596e7194149ce7a7ae91150a14fbe4b8145f4573470d990",
+    "lean-TransitiveAxiom.json": "beed561ed334e8b214837c959b61dd539970ae7fa94b471516a03d86c3027420",
+    "lean-UntrustedAxiom.json": "b694e672fe6bc91a6bed850d267c37cd6b827e027fdb42af94d1c051beced3a6",
+    "lean-version.json": "ea42cea2075621e47e049acf45ce57ef6766488f189ac3dcbfeaced81736162b",
+    "native/Receipts.lean": "8091e6f804f0c8013692d0fb3fa9322ed5b563695a912dad742fa5a631987816",
+    "native/automaton.json": "ecd54e57dcd65af226277d0828229032d538f64f41aa77f2b70bdcea0e928f63",
+    "native/bad-native-0.json": "d5dabc1cbbf94e2d4f36a407abac1fc9b9502728694d22ff312a4831e8241fb2",
+    "native/bad-native-1.json": "1b11750c6414fc6adc55ac29f92156d85467fd97090a65dc35a7becfc50ceb3c",
+    "native/bad-native-2.json": "9d79c47e4b8a273d967e160c5d4a1715ec9dadb1cf737e76cb7f5d48c3523a27",
+    "native/bad-native-3.json": "775aae3b05e548a585a1c9f6045749ea4fbeed13b0f116a9204dec6ac4a0c83a",
+    "native/bad-native-4.json": "1d82d056b7348f498e6b1d95c9d747b885732ff5dee76c08812c66a6dfb210cf",
+    "native/bad-native-5.json": "073bf84ac8ca8879948e5ecb43063eeae8ecd971ff62d25e2a508f5ec682bee2",
+    "native/bad-native-6.json": "c79277dc5422c1f19c4764199c619c4fc1321c77e0809937377f436308de9329",
+    "native/bad-native-7.json": "c1bfbddc710ac3296429e69a9a53bc45e2e278614733ab909a5f8e2683846032",
+    "native/build-automaton_probe.json": "9b5e97afb1edeeb277df5c38fba9e4f6c7595a6734a101fbcd8754b597697020",
+    "native/build-foundation.json": "1aea7a6bc01fbb0f382e87ed904c38e3bfa098cccf9f95c7057e0b9e400055c3",
+    "native/mojo-version.json": "97ee2b435d512fce9e71f3734061404ea3f2ba4fda5a7a7953203c69dc9b70c6",
+    "native/prefix-0.json": "95ca1f450ecf41cf979f959a497ed499a935315537d3d52f39dfc24c22fef511",
+    "native/prefix-1.json": "d71f581a181957652710889344e4e1e50e3602642e6297714caaa8623eca2942",
+    "native/prefix-2.json": "5be55960b7f8fcef7abe27bfa9c15a09e143042c1334af5182d4a87a5e237fc7",
+    "native/prefix-3.json": "e41c144559ef0616207a77e31ad4beb057f600ab8c7274bc3932b717951574cf",
+    "native/prefix-4.json": "2d3e0d564236c673f4cd3d3bb2224f5e1b0ddffd3eb81b5ad645ed731675c47a",
+    "native/prefix-5.json": "fe3225a024f6f0362b0e16dccd47d46ad0fdc1a1bfe2378e956c2285df8e1c62",
+    "native/prefix-6.json": "a144649be9bbbdc231ae12424907f186449c284874951e2f7803b9badaa36816",
+    "native/prefix-7.json": "53d2adea1132fb0ad2a9f960dcaf2c5587147b26280f4563fedd4e6abe1564c3",
+    "native/prefix-8.json": "253166f6f80ae6a517c9e91d829d70aa6a157fe6599b5545de02f43a1f9092db",
+    "native/receipts.json": "ede7c2dc2dfc8e3d32d34d943e43472960227ca2a4b12dc221a0148b86ad1215",
+    "native/summary.json": "6a702d827b370af203209e6738cbaaeebd6eed913684f5654e2942006c31cd0a",
+    "oracle-tests.json": "0d78720411e6e2ed7fb6be53667244fe3c2311ad8401be129342b50671a86ee5"
+  },
+  "compiled_modules": {
+    "BridgeCounterexamples": {
+      "declarations": 6,
+      "theorems": 6
+    },
+    "GoldenNormality": {
+      "declarations": 0,
+      "theorems": 0
+    },
+    "GoldenNormality.Automaton": {
+      "declarations": 237,
+      "theorems": 157
+    },
+    "GoldenNormality.BlockNumerals": {
+      "declarations": 39,
+      "theorems": 28
+    },
+    "GoldenNormality.Blocks": {
+      "declarations": 61,
+      "theorems": 44
+    },
+    "GoldenNormality.Certificates": {
+      "declarations": 20,
+      "theorems": 14
+    },
+    "GoldenNormality.Contracts": {
+      "declarations": 14,
+      "theorems": 14
+    },
+    "GoldenNormality.FrequencyBridge": {
+      "declarations": 16,
+      "theorems": 16
+    },
+    "GoldenNormality.Normality": {
+      "declarations": 5,
+      "theorems": 3
+    },
+    "GoldenNormality.Prefix": {
+      "declarations": 35,
+      "theorems": 26
+    },
+    "ReceiptContracts": {
+      "declarations": 620,
+      "required_type_checks": 620,
+      "theorems": 620
+    },
+    "Receipts": {
+      "declarations": 2884,
+      "required_receipt_theorems": 2747,
+      "theorems": 2747
+    }
+  },
+  "dependency_revisions": {
+    "Cli": "ab3a82db9fea14cf0fd7f5a2de650f4b534640af",
+    "LeanSearchClient": "ba67e212be1197b84c1f1f6299488a10a3002713",
+    "Qq": "507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3",
+    "aesop": "18889deb9e83ea7420ef51c160d6f88552e744e3",
+    "batteries": "4cac2177c37f5530c4da76aa8e4307f3fc9e4dcb",
+    "importGraph": "1681d78dd6e65e38b143f9740d829c826673807c",
+    "mathlib": "4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09",
+    "plausible": "d9598f07b1bc701f1e3aae163d2681c1fd978793",
+    "proofwidgets": "a8acbfd87375ff4abe14ce09db5b7664d383bc7f"
+  },
+  "finished_utc": "2026-11-13T08:42:30.631600+00:00",
+  "lean": {
+    "LD_PRELOAD": "",
+    "invocation": "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "invocation_file_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "package_cache": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/.lake/packages",
+    "version": "Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)"
+  },
+  "lean_negative_controls": {
+    "compiled_axiom_injection": "rejected",
+    "empty_pattern_transfer": "rejected",
+    "false_root": "rejected",
+    "invalid_fibonacci_word": "rejected",
+    "outside_alphabet_encoding": "rejected",
+    "scattered_count": "rejected",
+    "short_prefix_extra_start": "rejected",
+    "transitive_axiom_injection": "rejected",
+    "unequal_length_encoding": "rejected",
+    "weakened_discrepancy_type": "rejected",
+    "weakened_theorem_type": "rejected"
+  },
+  "native": {
+    "automaton_values": 128,
+    "executables_sha256": {
+      "automaton_probe": "03462469d5c3e469abcb4797ae36dde85b8ffbdd5408ae23f85e03d30845a5b1",
+      "foundation": "6527cabf42cf405fad9f9300ee935ffda9e0fe665a92441454b6f82524c823f0"
+    },
+    "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+    "lean_obligations_sha256": "8091e6f804f0c8013692d0fb3fa9322ed5b563695a912dad742fa5a631987816",
+    "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+    "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+    "native_invalid_requests_rejected": [
+      [
+        1,
+        4,
+        1
+      ],
+      [
+        11,
+        4,
+        1
+      ],
+      [
+        2,
+        -1,
+        1
+      ],
+      [
+        2,
+        4097,
+        1
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        "x",
+        4,
+        1
+      ],
+      [
+        2,
+        4
+      ]
+    ],
+    "prefix_cases": [
+      {
+        "base": 2,
+        "length": 0,
+        "width": 1,
+        "windows": 0
+      },
+      {
+        "base": 10,
+        "length": 1,
+        "width": 2,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 256,
+        "width": 3,
+        "windows": 254
+      },
+      {
+        "base": 3,
+        "length": 128,
+        "width": 3,
+        "windows": 126
+      },
+      {
+        "base": 7,
+        "length": 32,
+        "width": 2,
+        "windows": 31
+      },
+      {
+        "base": 10,
+        "length": 128,
+        "width": 2,
+        "windows": 127
+      },
+      {
+        "base": 2,
+        "length": 0,
+        "width": 3,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 1,
+        "width": 3,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 3,
+        "width": 3,
+        "windows": 1
+      }
+    ],
+    "receipts_sha256": "ede7c2dc2dfc8e3d32d34d943e43472960227ca2a4b12dc221a0148b86ad1215",
+    "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+    "telemetry_environment": {
+      "MODULAR_CRASH_REPORTING_ENABLED": "false",
+      "MODULAR_TELEMETRY_ENABLED": "false"
+    }
+  },
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": {
+    "executable": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/kernel/.pixi/envs/default/bin/python",
+    "version": "3.12.16 (main, Oct 26 2026, 11:37:43) [GCC 15.3.0]"
+  },
+  "schema": "golden-normality-acceptance-v1",
+  "scope": "universal Lean foundation and block-frequency bridge; checked finite occurrence/discrepancy receipts; no normality theorem",
+  "source_commit": "1c7314c7544eabde6da9cc9d70eada7c10ca95ae",
+  "source_sha256": {
+    ".github/workflows/acceptance.yml": "fb634336378625c467adc8db13d2186a7e131a948003ba94cb5f2dd708ffb03e",
+    ".gitignore": "9fd9fce3ea7eb1446fd8594abd6f97a6fee9a9a351e744ef62ce1ad9eb65b925",
+    ".gitmodules": "27c23a41a81f6f337077799720fdb76aec0213ff46916ac738fe4958084d7a8b",
+    "AGENTS.md": "db47d46e406b1a314aae293573b21b58a2c9e8a1f120b8eea817df4f2641ef81",
+    "GoldenNormality.lean": "1b49b26590813b1abe5cbd477a638e002c8bbe73d7d6ef2be478a081df717595",
+    "GoldenNormality/Automaton.lean": "bbf20cc2ff1bc1c73fb826fa836fa7ed0e6c1cc15a18aa37d7a47022b057378a",
+    "GoldenNormality/BlockNumerals.lean": "72a3395bde8f1359d3dc5e1a0c71284288958eacacab68d511098b56756e3f83",
+    "GoldenNormality/Blocks.lean": "0f0904b825e09164ba18f7fcc9ee0cd9dd264c50411fd34168439d75eb761234",
+    "GoldenNormality/Certificates.lean": "21147b03d2bf38a9604a769cc094dda2772ed5fbdedf2353a913e8b94c420b78",
+    "GoldenNormality/Contracts.lean": "3ef9571d7b61df4255ccad5080b3239e56158ad09d965abbb3167a0bfdf8eb2c",
+    "GoldenNormality/FrequencyBridge.lean": "820910f3c8b96a0ef5adb18ddc2e066fddf4096d56a41450566cbb9a0b6aeea4",
+    "GoldenNormality/Normality.lean": "0ebb5b8fe3420b28bec0a5e26919fd69778c9539a2552df06b9ffaf3dd9fd6c0",
+    "GoldenNormality/Prefix.lean": "4433bc6b9e6a99b535c232e09a224500301157475ba5019741064a020476d9e7",
+    "README.llm.txt": "9cd95dc86e6358b1f093ce6962e1c2bab4517e256ca7d162ff01c913e1991c78",
+    "README.md": "8158dde54cf24de730c5477b06b488a012e3465486566d7c4dc15e0a338bc2a1",
+    "claims.json": "533a6317d396c57f26a126f33b076c5be948129e343cc02184e4b6fe709b9559",
+    "docs/block-frequency-bridge.md": "f713406f929d18169d49d05b586c5e633dff7d7bec327582dde17a0c66d9facf",
+    "docs/foundation.md": "bac2a02ab492fd5ce4ce16cba80a2a96f3c4d63812848079b1bbd11e676f5d7a",
+    "docs/literature-gate.md": "23e52cec1ecb9bdc1333b8c31dcb4811ef6a2d22dcdb024e25fe515e5b9230a1",
+    "kernel/automaton_probe.mojo": "c4136bf7c6421decdccb604c9225e7f20eca8daccd9c117925ed0fdbb4a7d377",
+    "kernel/foundation.mojo": "106e266f9dfb694cd024ca41aef0ed3bcca7bc559c245fb8edbc25c292b7ccd5",
+    "kernel/pixi.lock": "29beaaa2ecab11c7f1f0a769335b8eeb8262b798458fc4285026e480de2d1e15",
+    "kernel/pixi.toml": "8435fb70236bb681ea5141b23b56529e3c3802c5173d44565f0fca2ae8409b50",
+    "lake-manifest.json": "53d15db3fc99a16a755171c913bd9ab69acfcf43caab3486697f9e96e7d23f6b",
+    "lakefile.toml": "4dec248389cfc05a4885c74c154496af76548ca3bfb0b8fdca513dc31bde9a81",
+    "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "oracles/reference.py": "49f194525701e5355b97c5c373f41e2d6b89415fdbc709c3011f1f14c08d68a7",
+    "research-contract.json": "cc381fa709c9689abe29e42bda4e0fe5479b10aadd5a65e96c3ce7fd76d5e298",
+    "tests/test_reference.py": "67aa6d08f60f30a142e5ecdf69910369acaaa4f9d220e23ffe0d278ad64c8329",
+    "tools/acceptance_utils.py": "e468b0f058aeec4a8b55931cfd3f4bfc9051dd12bdf79f88130457974068b241",
+    "tools/bridge_controls.py": "1eb0c9190a009b56a2982b5c538e9e9f29558eaa8ef9aa779ab35a43a559225e",
+    "tools/check_native.sh": "7646e9bb1f0aff21a5d98df1a6d651fc1c4c41865f8c7af55c3d660532f4bdff",
+    "tools/native_conformance.py": "d1c16f495e911f299518b49255704253e61bd4ffb696ca59f91d3c0d21ef00b0",
+    "tools/receipt_contracts.py": "8e7fda1ef70844436a8e638034fa323dd6ea9b44d1a83e602dc2559fc3f0025f",
+    "tools/verify.py": "7a30e547a42582ce042c9052949aad64f35961a9371acdee86651942d99cd9e9"
+  },
+  "source_tree_dirty": false,
+  "started_utc": "2026-11-13T08:38:43.373133+00:00"
+}
