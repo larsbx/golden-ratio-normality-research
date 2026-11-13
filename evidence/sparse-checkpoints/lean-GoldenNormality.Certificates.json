@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "-o",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/lib/GoldenNormality/Certificates.olean",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/GoldenNormality/Certificates.lean"
+  ],
+  "returncode": 0,
+  "seconds": 309.281,
+  "stderr": "",
+  "stdout": ""
+}

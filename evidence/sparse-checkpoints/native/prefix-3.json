@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/native/foundation",
+    "3",
+    "128",
+    "3"
+  ],
+  "returncode": 0,
+  "seconds": 0.025,
+  "stderr": "",
+  "stdout": "{\"schema\":\"golden-normality-prefix-v1\",\"base\":3,\"length\":128,\"scale\":\"11790184577738583171520872861412518665678211592275841109096961\",\"value\":\"7286734802677271253192068630268857614596297780843114707996635\",\"digits\":\"12120011220212102001021001020010201122102120022111011001012211200210002100012021112220220020211022100010010211112202001010212121\",\"width\":3,\"counts\":[3,9,4,8,3,2,5,9,3,6,3,8,3,4,5,4,4,5,7,1,5,6,5,5,4,4,1]}\n"
+}

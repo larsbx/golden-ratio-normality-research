@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_weakened_power_square_iff.lean"
+  ],
+  "returncode": 1,
+  "seconds": 4.814,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_weakened_power_square_iff.lean:6:56: error: Type mismatch\n  oneDirection\nhas type\n  PowerOrbitSquareNormality \u2192 NormalInBase 2\nbut is expected to have type\n  PowerOrbitSquareNormality \u2194 NormalInBase 2\n"
+}

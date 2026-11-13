@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_zero_checkpoint_growth.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.208,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_zero_checkpoint_growth.lean:6:2: error: Tactic `decide` proved that the proposition\n  0 < 0\nis false\n"
+}

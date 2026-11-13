@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_mismatched_orbit_lengths.lean"
+  ],
+  "returncode": 1,
+  "seconds": 6.184,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_mismatched_orbit_lengths.lean:3:47: error: Tactic `decide` proved that the proposition\n  PowerOrbitAt 0 [[true]] [1, 0]\nis false\n"
+}
