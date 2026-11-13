@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_constant_checkpoint_strict_mono.lean"
+  ],
+  "returncode": 1,
+  "seconds": 4.827,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_constant_checkpoint_strict_mono.lean:6:2: error: Tactic `decide` proved that the proposition\n  0 < 0\nis false\n"
+}

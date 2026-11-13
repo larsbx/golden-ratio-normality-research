@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_one_run_missing_endpoint_carry.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.756,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_one_run_missing_endpoint_carry.lean:7:35: error: Application type mismatch: The argument\n  run\nhas type\n  r = 2 ^ length * q\nbut is expected to have type\n  r + 1 = 2 ^ length * (q + 1)\nin the application\n  binary_one_run_bound lower upper run\n"
+}

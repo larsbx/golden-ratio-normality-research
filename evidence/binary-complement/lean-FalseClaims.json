@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/FalseClaims.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.538,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/FalseClaims.lean:2:56: error: Tactic `decide` proved that the proposition\n  GoldenNormality.checkPrefix 10 7 = true\nis false\n/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/FalseClaims.lean:3:66: error: Tactic `decide` proved that the proposition\n  GoldenNormality.Blocks.count [0, 1] [0, 0, 1] = 2\nis false\n/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/FalseClaims.lean:4:79: error: Tactic `decide` proved that the proposition\n  GoldenNormality.BinaryAutomaton.classify [true, true] = some 1\nis false\n/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/FalseClaims.lean:10:63: error: Type mismatch\n  Weakened.root B q hB\nhas type\n  q = q\nbut is expected to have type\n  GoldenNormality.PrefixCertificate B q \u2194 \u230a\u2191B * GoldenNormality.alpha\u230b = \u2191q\n"
+}

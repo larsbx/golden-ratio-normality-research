@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/native/power_orbit",
+    "0",
+    "1",
+    "3"
+  ],
+  "returncode": 0,
+  "seconds": 0.027,
+  "stderr": "",
+  "stdout": "{\"schema\":\"golden-normality-power-orbit-v1\",\"base\":2,\"start\":0,\"length\":1,\"width\":3,\"digits\":\"1\",\"counts\":[0,0,0,0,0,0,0,0],\"inputs\":[{\"exponent\":0,\"value\":\"1\",\"fibonacci_digits\":\"1\",\"output\":1}]}\n"
+}

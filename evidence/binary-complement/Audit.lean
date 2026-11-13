@@ -1,0 +1,140 @@
+import FiniteMathKernels.BinaryWeight
+import GoldenNormality.Blocks
+import GoldenNormality.Prefix
+import GoldenNormality.Automaton
+import GoldenNormality.Certificates
+import GoldenNormality.Normality
+import GoldenNormality.BlockNumerals
+import GoldenNormality.FrequencyBridge
+import GoldenNormality.WordEncoding
+import GoldenNormality.NormalityCriteria
+import GoldenNormality.CheckpointBounds
+import GoldenNormality.ZeckendorfEncoding
+import GoldenNormality.PowerOrbit
+import GoldenNormality.SparseCheckpoints
+import GoldenNormality.SquareCheckpoints
+import GoldenNormality.BinarySparsity
+import GoldenNormality.BinaryRuns
+import GoldenNormality.BinaryRecurrence
+import GoldenNormality.BinaryComplement
+import GoldenNormality.BinaryComplementCounts
+import GoldenNormality.BinaryComplementCarry
+import GoldenNormality
+import GoldenNormality.Contracts
+import Receipts
+import ReceiptContracts
+import BridgeCounterexamples
+import CriteriaCounterexamples
+import PowerOrbitCounterexamples
+import CheckpointCounterexamples
+import SparsityCounterexamples
+import RunCounterexamples
+import ComplementCounterexamples
+import Lean.Elab.Command
+import Lean.Util.CollectAxioms
+open Lean Elab Command in
+run_cmd do
+  let env ← getEnv
+  let targets : Array (Name × Nat) := #[(`FiniteMathKernels.BinaryWeight, 1), (`GoldenNormality.Blocks, 1), (`GoldenNormality.Prefix, 1), (`GoldenNormality.Automaton, 1), (`GoldenNormality.Certificates, 1), (`GoldenNormality.Normality, 1), (`GoldenNormality.BlockNumerals, 1), (`GoldenNormality.FrequencyBridge, 1), (`GoldenNormality.WordEncoding, 1), (`GoldenNormality.NormalityCriteria, 1), (`GoldenNormality.CheckpointBounds, 1), (`GoldenNormality.ZeckendorfEncoding, 1), (`GoldenNormality.PowerOrbit, 1), (`GoldenNormality.SparseCheckpoints, 1), (`GoldenNormality.SquareCheckpoints, 1), (`GoldenNormality.BinarySparsity, 1), (`GoldenNormality.BinaryRuns, 1), (`GoldenNormality.BinaryRecurrence, 1), (`GoldenNormality.BinaryComplement, 1), (`GoldenNormality.BinaryComplementCounts, 1), (`GoldenNormality.BinaryComplementCarry, 1), (`GoldenNormality, 0), (`GoldenNormality.Contracts, 1), (`Receipts, 1), (`ReceiptContracts, 1), (`BridgeCounterexamples, 1), (`CriteriaCounterexamples, 1), (`PowerOrbitCounterexamples, 1), (`CheckpointCounterexamples, 1), (`SparsityCounterexamples, 1), (`RunCounterexamples, 1), (`ComplementCounterexamples, 1)]
+  let allowed := #[`propext, `Classical.choice, `Quot.sound]
+  for (moduleName, minimumProofs) in targets do
+    let some idx := env.getModuleIdx? moduleName | throwError "Missing audited module"
+    let data := env.header.moduleData[idx.toNat]!
+    for info in data.constants do
+      if info.isAxiom then throwError "Local audited axiom"
+    let mut count := 0
+    let mut proofs := 0
+    for info in data.constants do
+      let name := info.name
+      let axs ← collectAxioms name
+      for ax in axs do
+        if !allowed.contains ax then throwError "Nonstandard transitive axiom"
+      count := count + 1
+      if info.isTheorem then proofs := proofs + 1
+      let names := String.intercalate "," (axs.toList.map toString)
+      liftIO <| IO.println s!"GNR_AXIOMS	{moduleName}	{name}	{names}"
+    if proofs < minimumProofs then throwError "Missing compiled proofs"
+    liftIO <| IO.println s!"GNR_COMPLETE	{moduleName}	{count}	{proofs}"
+
+#check GoldenNormality.Contracts.root
+#check GoldenNormality.Contracts.adjacentPrefixes
+#check GoldenNormality.Contracts.blockSemantics
+#check GoldenNormality.Contracts.consecutiveCount
+#check GoldenNormality.Contracts.chunkBoundary
+#check GoldenNormality.Contracts.numeralBlock
+#check GoldenNormality.Contracts.patternBlock
+#check GoldenNormality.Contracts.finiteFrequency
+#check GoldenNormality.Contracts.firstStarts
+#check GoldenNormality.Contracts.certifiedFrequency
+#check GoldenNormality.Contracts.certifiedDiscrepancy
+#check GoldenNormality.Contracts.fixedWidthCoverage
+#check GoldenNormality.Contracts.wordRoundTrip
+#check GoldenNormality.Contracts.normalityWords
+#check GoldenNormality.Contracts.normalityUniformValues
+#check GoldenNormality.Contracts.checkpointInterpolation
+#check GoldenNormality.Contracts.certifiedInterval
+#check GoldenNormality.Contracts.checkpointCoverage
+#check GoldenNormality.Contracts.checkpointNormality
+#check GoldenNormality.Contracts.automatonLanguage
+#check GoldenNormality.Contracts.automatonAllInputs
+#check GoldenNormality.Contracts.automatonPowerInput
+#check GoldenNormality.Contracts.fibonacciEncoding
+#check GoldenNormality.Contracts.automatonEvaluation
+#check GoldenNormality.Contracts.binaryPowerDigit
+#check GoldenNormality.Contracts.binaryPowerWord
+#check GoldenNormality.Contracts.binaryPowerFrequency
+#check GoldenNormality.Contracts.binaryPowerNormality
+#check GoldenNormality.Contracts.certifiedPowerSource
+#check GoldenNormality.Contracts.certifiedPowerFrequency
+#check GoldenNormality.Contracts.endpointBudget
+#check GoldenNormality.Contracts.endpointInterpolation
+#check GoldenNormality.Contracts.sparseCheckpointNormality
+#check GoldenNormality.Contracts.squareGeometry
+#check GoldenNormality.Contracts.squareCheckpointNormality
+#check GoldenNormality.Contracts.squareInterval
+#check GoldenNormality.Contracts.binarySquareNormality
+#check GoldenNormality.Contracts.binaryPrefixSparsity
+#check GoldenNormality.Contracts.binaryPrefixHighBits
+#check GoldenNormality.Contracts.binaryWordOnes
+#check GoldenNormality.Contracts.binaryPowerPrefix
+#check GoldenNormality.Contracts.binaryPowerOnes
+#check GoldenNormality.Contracts.binaryOccurrencesOnes
+#check GoldenNormality.Contracts.certifiedBinaryOnes
+#check GoldenNormality.Contracts.binaryZeroRun
+#check GoldenNormality.Contracts.binaryOneRun
+#check GoldenNormality.Contracts.binaryPowerConstantRun
+#check GoldenNormality.Contracts.binaryActualConstantRun
+#check GoldenNormality.Contracts.certifiedBinaryConstantRun
+#check GoldenNormality.Contracts.binaryWindowSymbols
+#check GoldenNormality.Contracts.binaryPowerWindowSymbols
+#check GoldenNormality.Contracts.binarySymbolCountGrowth
+#check GoldenNormality.Contracts.binaryLogarithmicCounts
+#check GoldenNormality.Contracts.binaryLaterCounts
+#check GoldenNormality.Contracts.binaryCountPartition
+#check GoldenNormality.Contracts.binaryTwoSidedCounts
+#check GoldenNormality.Contracts.binaryDigitRecurrence
+#check GoldenNormality.Contracts.binaryNoConstantTail
+#check GoldenNormality.Contracts.complementRoot
+#check GoldenNormality.Contracts.complementFloors
+#check GoldenNormality.Contracts.complementCertifiedFloor
+#check GoldenNormality.Contracts.complementDigits
+#check GoldenNormality.Contracts.complementBlocks
+#check GoldenNormality.Contracts.complementWords
+#check GoldenNormality.Contracts.complementWordNumeral
+#check GoldenNormality.Contracts.complementValueInvolution
+#check GoldenNormality.Contracts.complementBlockMatch
+#check GoldenNormality.Contracts.complementCounts
+#check GoldenNormality.Contracts.complementSingletonCounts
+#check GoldenNormality.Contracts.complementNormality
+#check GoldenNormality.Contracts.complementDigitSum
+#check GoldenNormality.Contracts.complementResidual
+#check GoldenNormality.Contracts.complementResidualStep
+#check GoldenNormality.Contracts.complementSquare
+#check GoldenNormality.Contracts.complementCarryInitial
+#check GoldenNormality.Contracts.complementCarryPolynomial
+#check GoldenNormality.Contracts.complementCarryRecurrence
+#check GoldenNormality.Contracts.complementCarryBoundary
+#check GoldenNormality.Contracts.complementCarryBounds
+#check GoldenNormality.Contracts.complementCarryZeroStep
+#check GoldenNormality.Contracts.complementCarryZeroGap
+#check GoldenNormality.Contracts.complementCarryPositiveTrigger

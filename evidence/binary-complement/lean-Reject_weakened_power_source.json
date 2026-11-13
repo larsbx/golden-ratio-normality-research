@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_weakened_power_source.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.261,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_weakened_power_source.lean:3:47: error: Type mismatch\n  Receipts.powerDigits_4\nhas type\n  DigitsAt 2 17 Receipts.powerWord_4\nbut is expected to have type\n  DigitsAt 2 0 Receipts.powerWord_4\n"
+}

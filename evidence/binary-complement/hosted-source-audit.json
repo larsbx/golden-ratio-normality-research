@@ -1,0 +1,112 @@
+{
+  "all_artifact_hashes_match": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "archive_bytes": 265925,
+  "archive_file_count": 218,
+  "archive_sha256": "a160d5889aa5c418bfa2c12066b4459e35a02847253b37b71310cd672809de75",
+  "artifact_id": 14066710712,
+  "artifact_inventory_exact": true,
+  "axiom_inventory_matches_raw_audit": true,
+  "captured_python_tests_passed": 56,
+  "compiled_declaration_count": 6477,
+  "compiled_module_count": 32,
+  "compiled_theorem_declaration_count": 6003,
+  "compilers_rerun": false,
+  "contract_names_match_source_registry_and_raw_printed_types": true,
+  "findings": [],
+  "github_artifact_digest_independently_observed": "sha256:a160d5889aa5c418bfa2c12066b4459e35a02847253b37b71310cd672809de75",
+  "github_artifact_name_independently_observed": "foundation-b0a9454b476989c7ed1e17bd955c6e3cd55cbfd6",
+  "github_merge_tree_independently_observed": "5cb6a62497388a178779b466e0e27ec68e88a363",
+  "github_run_conclusion_independently_observed": "success",
+  "github_run_head_independently_observed": "d0b8b2df43572eac4cb2b0abb851bbe043c3b221",
+  "github_run_status_independently_observed": "completed",
+  "hashed_artifact_count": 217,
+  "independent_receipt_type_count": 1278,
+  "isolated_semantic_or_type_rejection_count": 60,
+  "job_id": 132080381337,
+  "limitations": [
+    "This audit reconciles captured hosted evidence; it is not an independent recompilation or test rerun.",
+    "The Actions checkout is a synthetic pull-request merge commit, not the source head commit; its complete Git tree was independently confirmed equal to the source tree.",
+    "Executable binaries and hosted dependency caches are not included in the ZIP and were not independently rehashed; their reported hashes remain captured gate metadata.",
+    "The finite complement and carry results do not prove an aggregate carry bound, square-root zero growth, infinite-series identification or normality."
+  ],
+  "metadata_sha256": "9413f46161fb932df331beabd460e524f5b4bce582a55581aa3c723d5d62ed4c",
+  "module_compilation_logs_strict_and_successful": true,
+  "module_count_inventory_matches_raw_audit": true,
+  "native_automaton_values": 128,
+  "native_invalid_requests_rejected": 17,
+  "native_maximum_power_exponent": 127,
+  "native_power_input_records": 144,
+  "native_power_orbit_cases": 6,
+  "native_prefix_cases": 10,
+  "native_producers_rerun": false,
+  "native_receipt_hashes_match": true,
+  "native_summary_matches_report_and_raw_receipts": true,
+  "new_positive_compiled_theorem_declaration_count": 38,
+  "new_positive_control_statement_count": 36,
+  "new_positive_generated_declarations": [
+    "GoldenNormality.BinaryComplement.convolutionCoefficient.eq_1",
+    "GoldenNormality.BinaryComplement.convolutionSuffix.eq_1"
+  ],
+  "new_rejection_control_count": 15,
+  "positive_control_inventory": {
+    "BridgeCounterexamples": {
+      "compiled_theorem_declarations": 6,
+      "explicit_source_theorems": 6
+    },
+    "CheckpointCounterexamples": {
+      "compiled_theorem_declarations": 36,
+      "explicit_source_theorems": 24
+    },
+    "ComplementCounterexamples": {
+      "compiled_theorem_declarations": 38,
+      "explicit_source_theorems": 36
+    },
+    "CriteriaCounterexamples": {
+      "compiled_theorem_declarations": 16,
+      "explicit_source_theorems": 15
+    },
+    "PowerOrbitCounterexamples": {
+      "compiled_theorem_declarations": 12,
+      "explicit_source_theorems": 12
+    },
+    "RunCounterexamples": {
+      "compiled_theorem_declarations": 42,
+      "explicit_source_theorems": 41
+    },
+    "SparsityCounterexamples": {
+      "compiled_theorem_declarations": 21,
+      "explicit_source_theorems": 21
+    }
+  },
+  "receipt_names_independently_derived_from_research_contract": true,
+  "receipt_theorem_count": 3871,
+  "registered_contract_count": 82,
+  "rejection_control_count": 66,
+  "rejection_diagnostics_all_match_intended_failures": true,
+  "rejection_sources_match_source_registry": true,
+  "report_bytes_match_archive": true,
+  "report_sha256": "eb37f7a0194e084a700432807a388ccc1d6122964e621da19641655b23d6e39d",
+  "repository": "larsbx/golden-ratio-normality-research",
+  "result": "no_blocking_hosted_artifact_findings",
+  "reviewed_utc": "2026-11-13T18:40:12.137234+00:00",
+  "reviewer": "/root/independent_review",
+  "run_id": 43481945851,
+  "run_url": "https://github.com/larsbx/golden-ratio-normality-research/actions/runs/43481945851",
+  "schema": "golden-normality-independent-hosted-artifact-review-v1",
+  "scope": "Read-only reconciliation of the hosted acceptance ZIP, report, metadata, exact source Git blobs, raw compiler and axiom audit inventories, contract names and types, captured control diagnostics, receipt inventories, and native captured records. No compiler, test, oracle or producer was run.",
+  "source_audit_sha256": "a950d09f8bb854c71b5352b885370657cbc120f65053238edc71481dd6de02d4",
+  "source_hashes_match_exact_git_blobs": true,
+  "source_hashes_match_independent_source_review": true,
+  "source_head_commit": "d0b8b2df43572eac4cb2b0abb851bbe043c3b221",
+  "source_inventory_count": 67,
+  "source_tree": "5cb6a62497388a178779b466e0e27ec68e88a363",
+  "special_rejection_count": 6,
+  "tested_commit": "b0a9454b476989c7ed1e17bd955c6e3cd55cbfd6",
+  "tested_tree_equals_source_tree": true,
+  "tests_rerun": false
+}
