@@ -21,7 +21,7 @@ adds zero recurrence; it does not strengthen the existing one-count sparsity.
 The actual complementary quadratic now has exact floor, digit, word, block,
 and occurrence identities. Its finite signed carries have a source-bound square
 decomposition, recurrence, pointwise bounds, and conditional positivity tools.
-The aggregate positive-carry and gap estimates give N<=2*z_N^2+8*z_N-1
+The aggregate positive-carry and gap estimates give N<=2*z_N^2+6*z_N-1
 for N>=2, where z_N counts actual original zero digits.
 
 Authority and scope
@@ -224,5 +224,5 @@ BinaryAggregateCarry bounds positive carry mass on half-open intervals with
 both endpoint terms. Truncated convolution mass is bounded by the square of
 the actual original zero count via ordered pairs. The gap argument combines
 the actual digit window with the three-zero trigger and backward propagation.
-It yields N<=2*z_N^2+8*z_N-1 for every N>=2. See
+It yields N<=2*z_N^2+6*z_N-1 for every N>=2. See
 docs/binary-aggregate-carries.md for conventions and reproducible controls.

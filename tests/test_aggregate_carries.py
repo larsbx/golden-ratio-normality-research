@@ -37,9 +37,9 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertLessEqual(positive, mass)
                 self.assertLessEqual(mass, pairs + max(self.carries[n], 0))
                 self.assertLessEqual(pairs, zeros**2)
-                self.assertLessEqual(n, 2 * positive + 6 * zeros + 1)
+                self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
-                    self.assertLessEqual(n, 2 * zeros**2 + 8 * zeros - 1)
+                    self.assertLessEqual(n, 2 * zeros**2 + 6 * zeros - 1)
 
     def test_shifted_aggregate_and_zero_gaps(self):
         for start in range(len(self.carries)):
@@ -51,7 +51,7 @@ class AggregateCarryTests(unittest.TestCase):
                     coefficient_mass + max(self.carries[end], 0),
                 )
                 if gap:
-                    self.assertLessEqual(end - start, 2 * positive + 5)
+                    self.assertLessEqual(end - start, 2 * positive + 3)
                 if end < len(self.digits):
                     gap = gap and self.digits[end] == 0
                 carry_mass += max(self.carries[end], 0)
@@ -65,5 +65,8 @@ class AggregateCarryTests(unittest.TestCase):
         # Positive coefficient and two following zero digits do not suffice.
         self.assertEqual((self.coefficients[5], self.digits[5:7], self.carries[5]),
                          (1, [0, 0], 0))
+        # The gap [3,7) is tight for a zero-loss estimate.
+        self.assertEqual(self.digits[2:7], [1, 0, 0, 0, 0])
+        self.assertEqual(self.carries[3:7], [1, 1, 0, -1])
         # The origin prefix [0,8) has fewer than half positive carries.
         self.assertEqual(sum(t > 0 for t in self.carries[:8]), 2)
