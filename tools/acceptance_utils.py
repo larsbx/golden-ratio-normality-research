@@ -103,9 +103,32 @@ def source_hashes():
         if not name or name.startswith(("evidence/", "vendor/")):
             continue
         path = ROOT / name
-        if path.is_file():
-            result[name] = digest(path)
+        if not path.is_file():
+            raise RuntimeError(f"missing acceptance source input: {name}")
+        result[name] = digest(path)
     return result
+
+
+def verify_revision_sources(revision, hashes, *, root=ROOT):
+    """Bind accepted source bytes to a clean exact Git revision, not just status."""
+    root = Path(root)
+    if git_output("rev-parse", "HEAD", cwd=root) != revision:
+        raise RuntimeError("acceptance source revision changed")
+    if git_output("status", "--porcelain", cwd=root):
+        raise RuntimeError("acceptance requires a clean source checkout")
+    tree = subprocess.check_output(["git", "ls-tree", "-rz", "--full-tree", revision], cwd=root)
+    committed_paths = set()
+    for record in filter(None, tree.split(b"\0")):
+        metadata, name = record.split(b"\t", 1)
+        name = name.decode()
+        if metadata.split()[1] == b"blob" and not name.startswith(("evidence/", "vendor/")):
+            committed_paths.add(name)
+    if set(hashes) != committed_paths:
+        raise RuntimeError("acceptance source inventory differs from the committed file set")
+    for name, expected in hashes.items():
+        blob = subprocess.check_output(["git", "show", f"{revision}:{name}"], cwd=root)
+        if sha256(blob).hexdigest() != expected or digest(root / name) != expected:
+            raise RuntimeError(f"acceptance source differs from its pinned Git blob: {name}")
 
 
 def locate_program(variable, fallback, candidate=None):

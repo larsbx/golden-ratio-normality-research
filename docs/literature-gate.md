@@ -29,6 +29,12 @@ binary automaton. No normality theorem is assumed or claimed.
    https://arxiv.org/abs/2412.02337
    Records the open algebraic-normality problem and gives an analytic
    reformulation, not an estimate settling phi.
+5. D. H. Bailey, J. M. Borwein, R. E. Crandall, C. Pomerance,
+   *On the binary expansions of algebraic numbers*.
+   Author PDF: https://www.davidhbailey.com/dhbpapers/algebraic-bits.pdf
+   Lemma 4.1 and Theorem 4.2 provide binary-weight estimates. Theorem 5.2 uses
+   polynomial truncation and high one bits; its golden-mean specialization
+   appears after Corollary 5.3. The result concerns sparsity, not normality.
 
 ## Scope of this work
 
@@ -60,3 +66,15 @@ ALL-block criterion at bounded-ratio checkpoints: the published common-constant
 upper-frequency criterion permits a different route. The code does not import
 or claim a formal proof of that stronger criterion. See
 [the sparse checkpoint derivation](sparse-checkpoints.md) for the exact scope.
+
+## Binary digit sparsity follow-up
+
+The primary-source check inspected the weight estimates, polynomial truncation
+argument, and explicit golden-mean specialization before formalization. The
+application now proves `2N<=s_N^2+3s_N+4` for every actual binary origin-prefix
+one count. Its reusable arithmetic lemmas live upstream; its certificate and
+source-count transfer live here. The finite coefficient uses the elementary
+triangular square-weight estimate, separately proved by binary induction.
+The paper supplies context and attribution, not a Lean axiom. No priority
+claim is made for this specialization or refinement. See
+[the exact derivation](binary-digit-sparsity.md) for hypotheses and limits.

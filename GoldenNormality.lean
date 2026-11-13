@@ -12,3 +12,4 @@ import GoldenNormality.ZeckendorfEncoding
 import GoldenNormality.PowerOrbit
 import GoldenNormality.SparseCheckpoints
 import GoldenNormality.SquareCheckpoints
+import GoldenNormality.BinarySparsity

@@ -11,12 +11,14 @@ import sys
 from acceptance_utils import (CONTRACT, ROOT, command, digest, git_output,
                               locate_program, source_hashes, utc_now, validated_intervals,
                               validated_power_orbits,
-                              verify_submodule, write_json)
+                              verify_revision_sources, verify_submodule, write_json)
 import native_conformance
 import bridge_controls
 import criteria_controls
 import power_controls
 import checkpoint_controls
+import sparsity_controls
+import proof_dependencies
 import receipt_contracts
 
 MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
@@ -26,6 +28,7 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.NormalityCriteria", "GoldenNormality.CheckpointBounds",
            "GoldenNormality.ZeckendorfEncoding", "GoldenNormality.PowerOrbit",
            "GoldenNormality.SparseCheckpoints", "GoldenNormality.SquareCheckpoints",
+           "GoldenNormality.BinarySparsity",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
@@ -37,7 +40,9 @@ CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCoun
                   "fibonacciEncoding", "automatonEvaluation", "binaryPowerDigit", "binaryPowerWord",
                   "binaryPowerFrequency", "binaryPowerNormality", "certifiedPowerSource", "certifiedPowerFrequency",
                   "endpointBudget", "endpointInterpolation", "sparseCheckpointNormality", "squareGeometry",
-                  "squareCheckpointNormality", "squareInterval", "binarySquareNormality"]
+                  "squareCheckpointNormality", "squareInterval", "binarySquareNormality",
+                  "binaryPrefixSparsity", "binaryPrefixHighBits", "binaryWordOnes",
+                  "binaryPowerPrefix", "binaryPowerOnes", "binaryOccurrencesOnes", "certifiedBinaryOnes"]
 
 
 def audit_source(modules, *, print_contracts=False):
@@ -152,7 +157,7 @@ def dependency_paths(packages):
             raise RuntimeError(f"dependency pin mismatch: {package['name']}")
         if git_output("status", "--porcelain", "--untracked-files=no", cwd=path):
             raise RuntimeError(f"modified dependency sources: {package['name']}")
-        compiled = path / ".lake/build/lib/lean"
+        compiled = path / (package.get("subDir") or "") / ".lake/build/lib/lean"
         if compiled.is_dir():
             paths.append(str(compiled))
         revisions[package["name"]] = revision
@@ -169,12 +174,14 @@ def run(output):
     output.mkdir(parents=True, exist_ok=True)
     report = {"schema": "golden-normality-acceptance-v1", "accepted": False,
               "started_utc": utc_now(), "source_commit": git_output("rev-parse", "HEAD"),
+              "source_tree": git_output("rev-parse", "HEAD^{tree}"),
               "source_tree_dirty": bool(git_output("status", "--porcelain")),
               "python": {"version": sys.version, "executable": sys.executable},
               "platform": platform.platform(),
               "source_sha256": source_hashes()}
     write_json(output / "report.json", report)
     try:
+        verify_revision_sources(report["source_commit"], report["source_sha256"])
         sources = [ROOT / (module.replace(".", "/") + ".lean") for module in MODULES]
         discovered = {ROOT / "GoldenNormality.lean", *(ROOT / "GoldenNormality").rglob("*.lean")}
         if set(sources) != discovered:
@@ -193,6 +200,7 @@ def run(output):
             raise RuntimeError("Lean version differs from pinned contract")
         packages = Path(os.environ.get("GNR_MATHLIB_PACKAGES", ROOT / ".lake/packages")).resolve()
         paths, report["dependency_revisions"] = dependency_paths(packages)
+        upstream_sources, report["binary_weight_dependency"] = proof_dependencies.binary_weight_sources(packages)
         compiled = output / "lib"
         compiled.mkdir()
         env = os.environ.copy()
@@ -220,6 +228,15 @@ def run(output):
                 raise RuntimeError(f"compiler did not emit {name}")
             return result
 
+        # Rebuild the exact upstream proof source into this run's fresh library.
+        # Retain the same bytes in the report packet for independent replay.
+        for module, source in upstream_sources.items():
+            if re.search(r"\b(sorry|admit|native_decide|axiom)\b", source.read_text()):
+                raise RuntimeError(f"forbidden proof escape in upstream source: {source}")
+            copied = output / "dependencies" / (module.replace(".", "/") + ".lean")
+            copied.parent.mkdir(parents=True, exist_ok=True)
+            copied.write_bytes(source.read_bytes())
+            compile_file(copied, module)
         for module, source in zip(MODULES, sources):
             compile_file(source, module)
         compile_file(generated, "Receipts")
@@ -238,8 +255,12 @@ def run(output):
         checkpoint_examples = output / "CheckpointCounterexamples.lean"
         checkpoint_examples.write_text(checkpoint_controls.COUNTEREXAMPLES)
         compile_file(checkpoint_examples, "CheckpointCounterexamples")
-        audited_modules = [*MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
-                           "CriteriaCounterexamples", "PowerOrbitCounterexamples", "CheckpointCounterexamples"]
+        sparsity_examples = output / "SparsityCounterexamples.lean"
+        sparsity_examples.write_text(sparsity_controls.COUNTEREXAMPLES)
+        compile_file(sparsity_examples, "SparsityCounterexamples")
+        audited_modules = [*upstream_sources, *MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
+                           "CriteriaCounterexamples", "PowerOrbitCounterexamples", "CheckpointCounterexamples",
+                           "SparsityCounterexamples"]
         audit = output / "Audit.lean"
         audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
@@ -291,7 +312,8 @@ example (B q : ℕ) (hB : 0 < B) :
             "invalid_fibonacci_word": "rejected", "weakened_theorem_type": "rejected",
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
         control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS,
-                          power_controls.REJECTIONS, checkpoint_controls.REJECTIONS)
+                          power_controls.REJECTIONS, checkpoint_controls.REJECTIONS,
+                          sparsity_controls.REJECTIONS)
         controls = {name: control for group in control_groups for name, control in group.items()}
         if len(controls) != sum(map(len, control_groups)):
             raise RuntimeError("duplicate semantic rejection control name")
@@ -308,14 +330,21 @@ example (B q : ℕ) (hB : 0 < B) :
             report["lean_negative_controls"][name] = "rejected"
         if source_hashes() != report["source_sha256"]:
             raise RuntimeError("repository sources changed during acceptance")
+        verify_revision_sources(report["source_commit"], report["source_sha256"])
         if verify_submodule() != report["native"]["finite_math_kernels_revision"]:
             raise RuntimeError("native dependency changed during acceptance")
         _, final_revisions = dependency_paths(packages)
         if final_revisions != report["dependency_revisions"]:
             raise RuntimeError("proof dependency changed during acceptance")
+        _, final_weight_dependency = proof_dependencies.binary_weight_sources(packages)
+        if final_weight_dependency != report["binary_weight_dependency"]:
+            raise RuntimeError("binary-weight proof source changed during acceptance")
+        if digest(lean) != report["lean"]["invocation_file_sha256"]:
+            raise RuntimeError("Lean executable changed during acceptance")
         report["accepted"] = True
         report["scope"] = ("universal Lean foundation, total binary power-orbit evaluation, equivalent "
-                           "normality targets at all starts and square checkpoints, and conditional "
+                           "normality targets at all starts and square checkpoints, unconditional "
+                           "binary one-count sparsity bounds, and conditional "
                            "interpolation for vanishing relative gaps; checked finite "
                            "source-bound power traces and occurrence/discrepancy/interval receipts; "
                            "no unconditional normality theorem")

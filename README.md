@@ -21,6 +21,7 @@ of normality.
 | Sparse checkpoints | Normality is equivalent to endpoint convergence along any strictly increasing sequence with vanishing relative gaps. Squares satisfy that geometry with an explicit threshold, giving an equivalent binary power-orbit target at square numbers of starts. |
 | Binary automaton | A universal real invariant verifies the published eight-state Fibonacci-input machine and its specialization to inputs representing `2^n`. |
 | Power-orbit evaluation | A total Fibonacci-word encoder makes the automaton's outputs at `2^n` a computable digit sequence. Its words and block counts equal the actual binary digit words and counts, with all normality quantifiers retained. |
+| Binary digit sparsity | For every prefix length `N`, its actual binary one count `s` satisfies `2N <= s^2+3s+4`. The certificate, total power evaluator, and occurrence-count formulations are connected explicitly. |
 | Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, occurrences, discrepancies, and finite interval bounds. |
 | Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No unconditional proof is supplied. |
 
@@ -32,6 +33,7 @@ the [block-frequency bridge](docs/block-frequency-bridge.md) for the exact count
 the [normality criteria and checkpoints](docs/normality-criteria.md) for the next proof interface,
 the [power-orbit bridge](docs/power-orbit.md) for total evaluation and source-bound native traces,
 the [sparse checkpoint criterion](docs/sparse-checkpoints.md) for endpoint estimates and square checkpoints,
+the [binary sparsity bound](docs/binary-digit-sparsity.md) for an unconditional estimate on actual one counts,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -54,7 +56,11 @@ checks the independent oracle, compiles the generated finite certificates,
 independently checks every occurrence, discrepancy, and interval receipt's exact type,
 and every new power-orbit receipt's source, digit, and count type. It verifies
 negative controls and writes `build/acceptance/report.json`.
-An existing nonempty output directory is rejected; choose a new one with
+It also rebuilds and audits the separately pinned upstream binary-weight proof
+source, retaining its exact bytes and Git identity in the evidence packet.
+Acceptance requires a clean committed source checkout and compares every input
+with that commit's Git blob before and after the run. An existing nonempty
+output directory is rejected; choose a new one with
 `--output build/another-run` when repeating a run.
 
 For an already installed toolchain, `python3 tools/verify.py` is sufficient.
@@ -102,6 +108,9 @@ width `k`. This endpoint frequency estimate remains open. A
 frequency statement over all Fibonacci words does not imply that result.
 The published automaton provides exact digit evaluation; it does not supply
 the missing distribution theorem.
+The proved bound `2N <= s_N^2+3s_N+4` supplies square-root-scale growth of the
+actual one count. It gives neither the limiting frequency `1/2` nor an all-block
+frequency estimate, so it does not discharge the square-checkpoint target.
 
 Contributor and agent instructions are in [AGENTS.md](AGENTS.md) and
 [README.llm.txt](README.llm.txt).

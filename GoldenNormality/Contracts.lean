@@ -254,4 +254,34 @@ theorem binarySquareNormality :
           (i ^ 2) * T ≤ i ^ 2) ↔ NormalInBase 2 :=
   BinaryAutomaton.powerOrbitSquareNormality_iff_normalInBase
 
+theorem binaryPrefixSparsity (N q : ℕ) (certificate : PrefixCertificate (2 ^ N) q) :
+    2 * N ≤ FiniteMathKernels.binaryWeight q ^ 2 + 3 * FiniteMathKernels.binaryWeight q + 4 :=
+  binary_prefix_weight_bound certificate
+
+theorem binaryPrefixHighBits (N q : ℕ) (hN : 2 ≤ N)
+    (certificate : PrefixCertificate (2 ^ N) q) :
+    (q ^ 2 + 2 ^ N * q) / 2 ^ (N + 2) = 2 ^ (N - 2) - 1 :=
+  binary_prefix_high_quotient hN certificate
+
+theorem binaryWordOnes (word : List ℕ) (alphabet : InAlphabet 2 word) :
+    FiniteMathKernels.binaryWeight (wordValue 2 word) = Blocks.count [1] word :=
+  binaryWeight_wordValue alphabet
+
+theorem binaryPowerPrefix (N : ℕ) :
+    PrefixCertificate (2 ^ N) (wordValue 2 (BinaryAutomaton.powerDigits 0 N)) :=
+  prefixCertificate_powerDigits N
+
+theorem binaryPowerOnes (N : ℕ) :
+    2 * N ≤ Blocks.count [1] (BinaryAutomaton.powerDigits 0 N) ^ 2 +
+      3 * Blocks.count [1] (BinaryAutomaton.powerDigits 0 N) + 4 :=
+  binary_power_ones_bound N
+
+theorem binaryOccurrencesOnes (N : ℕ) :
+    2 * N ≤ occurrences 2 1 1 N ^ 2 + 3 * occurrences 2 1 1 N + 4 :=
+  binary_occurrences_ones_bound N
+
+theorem certifiedBinaryOnes (word : List ℕ) (digits : DigitsAt 2 0 word) :
+    2 * word.length ≤ Blocks.count [1] word ^ 2 + 3 * Blocks.count [1] word + 4 :=
+  certified_binary_ones_bound digits
+
 end GoldenNormality.Contracts

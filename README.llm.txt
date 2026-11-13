@@ -11,6 +11,9 @@ proved word and count identities and an equivalent explicit normality target.
 Normality is now also equivalent to its endpoint estimates along any strictly
 increasing checkpoint sequence with vanishing relative gaps. Squares discharge
 that geometric condition, giving a fully quantified sparse power-orbit target.
+An unconditional binary sparsity theorem now proves 2N<=s_N^2+3s_N+4 for
+the actual one count at every prefix length N. This supplies square-root-scale
+growth, not the limiting frequency one half or an all-block estimate.
 
 Authority and scope
 1. Universal Lean theorems are accepted only after compilation of the exact
@@ -128,3 +131,27 @@ The geometric-checkpoint/sawtooth controls concern one abstract count. They
 must not be described as a counterexample to ALL-block convergence at bounded
 ratio checkpoints: the published Piatetski-Shapiro criterion gives another
 route there. No formalization of that stronger theorem is imported or claimed.
+
+Binary sparsity contract
+FiniteMathKernels.binaryWeight q is the sum of Nat.digits 2 q, not the bit length
+or the numeral q. Reusable carry, shift, quotient, all-ones and triangular
+square-weight lemmas live upstream in finite-math-kernels. A separate exact
+Lake Git pin imports tests/lean; the native BigZ submodule revision is unchanged.
+The acceptance gate compares the proof bytes with their pinned Git blob,
+fresh-compiles and audits the module, retains the source copy, and rechecks the
+pin and hash at the end. Never edit vendor files or create a competing local
+binary-weight implementation.
+For PrefixCertificate (2^N) q, the polynomial cannot equal (2^N)^2 modulo3.
+For N>=2 its quotient by2^(N+2) is exactly2^(N-2)-1. Both certificate halves,
+base2, and the N>=2 hypothesis of this quotient theorem must be retained.
+Combining the high-bit block with 2*W(q^2)<=W(q)*(W(q)+1) proves
+2N<=W(q)^2+3W(q)+4 for everyN, with N<2 handled separately.
+Numeral weight equals the count of [1] only for a binary alphabet word;
+leading zeroes are allowed. The evaluator's origin prefix satisfies the root
+certificate. The final bound uses occurrences2 1 1 N or the whole powerDigits0N
+word, and certified transfer requires DigitsAt2 0. It does not apply to arbitrary
+shifted segments. The actual shifted three-zero control and first3bits100
+counterexample refute only those overstated finite variants, not normality.
+The method is attributed to Bailey--Borwein--Crandall--Pomerance. No novelty or
+universal native implementation refinement is claimed. Read the derivation and
+scope in docs/binary-digit-sparsity.md before extending this result.
