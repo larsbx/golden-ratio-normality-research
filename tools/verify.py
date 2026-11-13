@@ -8,7 +8,7 @@ import re
 import sys
 
 from acceptance_utils import (CONTRACT, ROOT, command, digest, git_output,
-                              locate_program, source_hashes, utc_now, write_json)
+                              locate_program, source_hashes, utc_now, verify_submodule, write_json)
 import native_conformance
 
 MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
@@ -78,6 +78,23 @@ def parse_audit(output, modules):
     names = declarations["GoldenNormality.Contracts"]
     if any(f"GoldenNormality.Contracts.{name}" not in names for name in CONTRACT_NAMES):
         raise RuntimeError("missing public contract declaration")
+    expected_receipts = set()
+    for i, (base, length, width) in enumerate(CONTRACT["prefix_cases"]):
+        expected_receipts.update(f"prefix_{i}_{n}" for n in range(length + 1))
+        expected_receipts.update(f"digit_{i}_{n}" for n in range(length))
+        expected_receipts.add(f"digits_{i}")
+        for value in range(base ** width):
+            expected_receipts.update((f"count_{i}_{value}", f"actualCount_{i}_{value}"))
+    for q in range(CONTRACT["automaton_values"]):
+        expected_receipts.update((f"input_{q}", f"output_{q}", f"predicate_{q}"))
+        if q and q & (q - 1) == 0:
+            expected_receipts.add(f"powerDigit_{q.bit_length()-1}")
+    missing = {f"GoldenNormality.Receipts.{name}" for name in expected_receipts} - declarations["Receipts"].keys()
+    if missing:
+        raise RuntimeError(f"missing compiled finite receipt declarations: {sorted(missing)[:5]}")
+    if completed["Receipts"]["theorems"] < len(expected_receipts):
+        raise RuntimeError("finite receipt declarations did not compile as proofs")
+    completed["Receipts"]["required_receipt_theorems"] = len(expected_receipts)
     return completed, declarations
 
 
@@ -113,7 +130,7 @@ def run(output):
     write_json(output / "report.json", report)
     try:
         sources = [ROOT / (module.replace(".", "/") + ".lean") for module in MODULES]
-        discovered = {ROOT / "GoldenNormality.lean", *(ROOT / "GoldenNormality").glob("*.lean")}
+        discovered = {ROOT / "GoldenNormality.lean", *(ROOT / "GoldenNormality").rglob("*.lean")}
         if set(sources) != discovered:
             raise RuntimeError("every project Lean module must appear in the audited build list")
         for source in sources:
@@ -181,7 +198,7 @@ example (B q : ℕ) (hB : 0 < B) :
 ''')
         false_result = compile_file(false_source, "FalseClaims", expect_success=False, emit=False)
         false_text = false_result.stdout + false_result.stderr
-        if (false_result.returncode == 0
+        if (false_result.returncode != 1
                 or len(re.findall(r"(?i)decide.*proved", false_text)) != 3
                 or "type mismatch" not in false_text.lower()):
             raise RuntimeError("false-claim controls did not fail for the expected decide reason")
@@ -194,14 +211,28 @@ example (B q : ℕ) (hB : 0 < B) :
         poison_audit = output / "AuditUntrusted.lean"
         poison_audit.write_text(audit_source(["UntrustedAxiom"]))
         rejected = compile_file(poison_audit, "AuditUntrusted", expect_success=False, emit=False)
-        if rejected.returncode == 0 or "Local audited axiom" not in rejected.stdout + rejected.stderr:
+        if rejected.returncode != 1 or "Local audited axiom" not in rejected.stdout + rejected.stderr:
             raise RuntimeError("compiled axiom injection was not rejected by the audit")
+        inherited = output / "TransitiveAxiom.lean"
+        inherited.write_text("import UntrustedAxiom\ntheorem inheritedPoison : False := injectedClaim\n")
+        compile_file(inherited, "TransitiveAxiom")
+        inherited_audit = output / "AuditTransitive.lean"
+        inherited_audit.write_text(audit_source(["TransitiveAxiom"]))
+        rejected = compile_file(inherited_audit, "AuditTransitive", expect_success=False, emit=False)
+        if (rejected.returncode != 1
+                or "Nonstandard transitive axiom" not in rejected.stdout + rejected.stderr):
+            raise RuntimeError("transitive axiom injection was not rejected by the audit")
         report["lean_negative_controls"] = {
             "false_root": "rejected", "scattered_count": "rejected",
             "invalid_fibonacci_word": "rejected", "weakened_theorem_type": "rejected",
-            "compiled_axiom_injection": "rejected"}
+            "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
         if source_hashes() != report["source_sha256"]:
             raise RuntimeError("repository sources changed during acceptance")
+        if verify_submodule() != report["native"]["finite_math_kernels_revision"]:
+            raise RuntimeError("native dependency changed during acceptance")
+        _, final_revisions = dependency_paths(packages)
+        if final_revisions != report["dependency_revisions"]:
+            raise RuntimeError("proof dependency changed during acceptance")
         report["accepted"] = True
         report["scope"] = "universal Lean foundation and checked finite native receipts; no normality theorem"
     except Exception as error:
