@@ -16,6 +16,7 @@ import native_conformance
 import bridge_controls
 import criteria_controls
 import power_controls
+import checkpoint_controls
 import receipt_contracts
 
 MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
@@ -24,6 +25,7 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.FrequencyBridge", "GoldenNormality.WordEncoding",
            "GoldenNormality.NormalityCriteria", "GoldenNormality.CheckpointBounds",
            "GoldenNormality.ZeckendorfEncoding", "GoldenNormality.PowerOrbit",
+           "GoldenNormality.SparseCheckpoints", "GoldenNormality.SquareCheckpoints",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
@@ -33,7 +35,9 @@ CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCoun
                   "checkpointInterpolation", "certifiedInterval", "checkpointCoverage", "checkpointNormality",
                   "automatonLanguage", "automatonAllInputs", "automatonPowerInput",
                   "fibonacciEncoding", "automatonEvaluation", "binaryPowerDigit", "binaryPowerWord",
-                  "binaryPowerFrequency", "binaryPowerNormality", "certifiedPowerSource", "certifiedPowerFrequency"]
+                  "binaryPowerFrequency", "binaryPowerNormality", "certifiedPowerSource", "certifiedPowerFrequency",
+                  "endpointBudget", "endpointInterpolation", "sparseCheckpointNormality", "squareGeometry",
+                  "squareCheckpointNormality", "squareInterval", "binarySquareNormality"]
 
 
 def audit_source(modules, *, print_contracts=False):
@@ -231,8 +235,11 @@ def run(output):
         power_examples = output / "PowerOrbitCounterexamples.lean"
         power_examples.write_text(power_controls.COUNTEREXAMPLES)
         compile_file(power_examples, "PowerOrbitCounterexamples")
+        checkpoint_examples = output / "CheckpointCounterexamples.lean"
+        checkpoint_examples.write_text(checkpoint_controls.COUNTEREXAMPLES)
+        compile_file(checkpoint_examples, "CheckpointCounterexamples")
         audited_modules = [*MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
-                           "CriteriaCounterexamples", "PowerOrbitCounterexamples"]
+                           "CriteriaCounterexamples", "PowerOrbitCounterexamples", "CheckpointCounterexamples"]
         audit = output / "Audit.lean"
         audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
@@ -283,7 +290,8 @@ example (B q : ℕ) (hB : 0 < B) :
             "false_root": "rejected", "scattered_count": "rejected",
             "invalid_fibonacci_word": "rejected", "weakened_theorem_type": "rejected",
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
-        control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS, power_controls.REJECTIONS)
+        control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS,
+                          power_controls.REJECTIONS, checkpoint_controls.REJECTIONS)
         controls = {name: control for group in control_groups for name, control in group.items()}
         if len(controls) != sum(map(len, control_groups)):
             raise RuntimeError("duplicate semantic rejection control name")
@@ -307,7 +315,8 @@ example (B q : ℕ) (hB : 0 < B) :
             raise RuntimeError("proof dependency changed during acceptance")
         report["accepted"] = True
         report["scope"] = ("universal Lean foundation, total binary power-orbit evaluation, equivalent "
-                           "normality targets, and conditional checkpoint criterion; checked finite "
+                           "normality targets at all starts and square checkpoints, and conditional "
+                           "interpolation for vanishing relative gaps; checked finite "
                            "source-bound power traces and occurrence/discrepancy/interval receipts; "
                            "no unconditional normality theorem")
     except Exception as error:

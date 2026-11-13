@@ -8,6 +8,9 @@ word/count targets and a conditional checkpoint criterion now preserve the
 remaining quantifiers. These milestones establish no unconditional normality result.
 The binary power orbit now has a total computable Lean encoder/evaluator, with
 proved word and count identities and an equivalent explicit normality target.
+Normality is now also equivalent to its endpoint estimates along any strictly
+increasing checkpoint sequence with vanishing relative gaps. Squares discharge
+that geometric condition, giving a fully quantified sparse power-orbit target.
 
 Authority and scope
 1. Universal Lean theorems are accepted only after compilation of the exact
@@ -91,6 +94,9 @@ controls retain leading-zero words and shifted source segments. Negative control
 reject valid classifier inputs with wrong power values, wrong positions, unequal
 trace lengths, wrong outputs, ordinal inputs substituted for powers, shifted
 sources presented as prefixes, and one-way implications substituted for iff types.
+The sparse-checkpoint gate compiles two additional project modules, seven
+explicit contract wrappers, and positive/negative controls. It retains every
+native fixture and finite receipt without changing producer code or pins.
 Native compilation uses automatically cleaned scratch space under ignored build/,
 without relying on capacity in the shared temporary filesystem.
 
@@ -101,3 +107,24 @@ Z(b^n), and all output block frequencies, with quantifiers uniform in the
 required way. Distribution over all words, finite prefixes, or a stationary
 distribution of an unrelated chain does not fill this gap. Read
 docs/literature-gate.md before proposing a new universal invariant.
+
+Sparse checkpoint contract
+NormalOnCheckpoints b q fixes q before every k,j,T and requires a bound at
+every index beyond a threshold depending on k,j,T. It includes b>=2, but
+does not hide any growth condition. StrictMono q and VanishingRelativeGaps q
+are separate hypotheses of the equivalence. The latter means that for every
+T>=1, eventually (q(i+1)-q i)*T<=q i. Constant zero satisfies the two numerical
+predicates vacuously and is rejected by the growth requirement.
+Independent endpoint bounds D(L)*(4T)<=L and D(R)*(4T)<=R, together with
+(R-L)*(4T)<=L, imply the existing full interval budget at T. Retain the
+different endpoint denominators and the interval coverage hypotheses.
+squareCheckpoint i=i^2 has exact gap2i+1; i>=3T suffices for its T-gap bound.
+The finite square interval corollary needs i>=12T and endpoint bounds at4T.
+This explicit index controls geometry only, not when phi's frequency estimate
+holds. PowerOrbitSquareNormality retains every nonempty binary word, T>=1,
+positive eventual index, and every later index. Its count uses the whole prefix
+of length i^2+word.length-1, not only i^2 digits or digits sampled at squares.
+The geometric-checkpoint/sawtooth controls concern one abstract count. They
+must not be described as a counterexample to ALL-block convergence at bounded
+ratio checkpoints: the published Piatetski-Shapiro criterion gives another
+route there. No formalization of that stronger theorem is imported or claimed.

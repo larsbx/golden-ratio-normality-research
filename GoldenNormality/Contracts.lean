@@ -197,4 +197,61 @@ theorem certifiedPowerFrequency (value : ℕ) (inputs : List (List Bool))
       (outputs.length + 1 - pattern.length) = value :=
   BinaryAutomaton.certified_power_occurrences hpat ha orbit count
 
+theorem endpointBudget (L R lowerError upperError T : ℕ)
+    (hLR : L ≤ R) (hT : 1 ≤ T)
+    (lower : lowerError * (4 * T) ≤ L)
+    (upper : upperError * (4 * T) ≤ R)
+    (gap : (R - L) * (4 * T) ≤ L) :
+    (max lowerError upperError + (R - L)) * T ≤ L :=
+  checkpoint_budget_of_endpoint_bounds L R lowerError upperError T hLR hT lower upper gap
+
+theorem endpointInterpolation (b k j L N R T : ℕ)
+    (hT : 1 ≤ T) (hLN : L ≤ N) (hNR : N ≤ R)
+    (lower : Nat.dist ((b ^ k) * occurrences b k j L) L * (4 * T) ≤ L)
+    (upper : Nat.dist ((b ^ k) * occurrences b k j R) R * (4 * T) ≤ R)
+    (gap : (R - L) * (4 * T) ≤ L) :
+    Nat.dist ((b ^ k) * occurrences b k j N) N * T ≤ N :=
+  occurrences_interval_bound_of_endpoint_bounds b k j L N R T hT hLN hNR lower upper gap
+
+theorem sparseCheckpointNormality (b : ℕ) (q : ℕ → ℕ) (hq : StrictMono q)
+    (hgaps : ∀ T : ℕ, 1 ≤ T →
+      ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i → (q (i + 1) - q i) * T ≤ q i) :
+    NormalInBase b ↔
+      (2 ≤ b ∧ ∀ k : ℕ, 1 ≤ k → ∀ j : ℕ, j < b ^ k →
+        ∀ T : ℕ, 1 ≤ T → ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i →
+          Nat.dist ((b ^ k) * occurrences b k j (q i)) (q i) * T ≤ q i) :=
+  normalInBase_iff_normalOnCheckpoints b hq hgaps
+
+theorem squareGeometry :
+    StrictMono squareCheckpoint ∧
+      (∀ i : ℕ, squareCheckpoint (i + 1) - squareCheckpoint i = 2 * i + 1) ∧
+      (∀ i T : ℕ, 1 ≤ T → 3 * T ≤ i →
+        (squareCheckpoint (i + 1) - squareCheckpoint i) * T ≤ squareCheckpoint i) :=
+  ⟨squareCheckpoint_strictMono, squareCheckpoint_gap,
+    fun _ _ hT hi => squareCheckpoint_gap_bound hT hi⟩
+
+theorem squareCheckpointNormality (b : ℕ) :
+    NormalInBase b ↔
+      (2 ≤ b ∧ ∀ k : ℕ, 1 ≤ k → ∀ j : ℕ, j < b ^ k →
+        ∀ T : ℕ, 1 ≤ T → ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i →
+          Nat.dist ((b ^ k) * occurrences b k j (i ^ 2)) (i ^ 2) * T ≤ i ^ 2) :=
+  normalInBase_iff_squareCheckpoints b
+
+theorem squareInterval (b k j i N T : ℕ)
+    (hT : 1 ≤ T) (hi : 12 * T ≤ i)
+    (hLN : i ^ 2 ≤ N) (hNR : N ≤ (i + 1) ^ 2)
+    (lower : Nat.dist ((b ^ k) * occurrences b k j (i ^ 2)) (i ^ 2) * (4 * T) ≤ i ^ 2)
+    (upper : Nat.dist ((b ^ k) * occurrences b k j ((i + 1) ^ 2)) ((i + 1) ^ 2) *
+      (4 * T) ≤ (i + 1) ^ 2) :
+    Nat.dist ((b ^ k) * occurrences b k j N) N * T ≤ N :=
+  occurrences_square_interval_bound b k j i N T hT hi hLN hNR lower upper
+
+theorem binarySquareNormality :
+    (∀ pattern : List ℕ, pattern ≠ [] → InAlphabet 2 pattern →
+      ∀ T : ℕ, 1 ≤ T → ∃ i0 : ℕ, 1 ≤ i0 ∧ ∀ i : ℕ, i0 ≤ i →
+        Nat.dist ((2 ^ pattern.length) *
+          Blocks.count pattern (BinaryAutomaton.powerDigits 0 (i ^ 2 + pattern.length - 1)))
+          (i ^ 2) * T ≤ i ^ 2) ↔ NormalInBase 2 :=
+  BinaryAutomaton.powerOrbitSquareNormality_iff_normalInBase
+
 end GoldenNormality.Contracts

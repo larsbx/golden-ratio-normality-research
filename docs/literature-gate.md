@@ -44,3 +44,19 @@ one half on integers but holds on every 2^n for n >= 1.
 
 The current target is ordinary integer-base normality. Pisot estimates for
 phi^n and canonical/greedy representation languages address different claims.
+
+## Sparse checkpoint follow-up
+
+The endpoint interpolation development uses elementary monotonicity and exact
+integer budgets. It proves a sufficient vanishing-relative-gap condition and
+discharges that geometry for square checkpoints; it claims no new distribution
+estimate or novelty for the interpolation method.
+
+The primary-source check revisited Kozachinskiy--Shen, section 4.2, before
+designing the sparse-checkpoint controls. A geometric sequence fails the
+vanishing-relative-gap hypothesis used here, and one block can have large
+intermediate deviations despite balanced endpoints. Neither fact refutes an
+ALL-block criterion at bounded-ratio checkpoints: the published common-constant
+upper-frequency criterion permits a different route. The code does not import
+or claim a formal proof of that stronger criterion. See
+[the sparse checkpoint derivation](sparse-checkpoints.md) for the exact scope.
