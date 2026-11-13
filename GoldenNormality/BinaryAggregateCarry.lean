@@ -132,8 +132,8 @@ length in positive carries, up to a fixed endpoint loss. -/
 theorem zero_gap_le_twice_positive_count (a length : ℕ) (ha : digit a = 1)
     (zeros : ∀ i : ℕ, a < i → i < a + 1 + length → digit i = 0) :
     (length : ℤ) ≤ 2 * (∑ i ∈ Finset.range length,
-      positiveCarryIndicator (a + 1 + i)) + 5 := by
-  by_cases hshort : length < 5
+      positiveCarryIndicator (a + 1 + i)) + 3 := by
+  by_cases hshort : length < 4
   · have h := Finset.sum_nonneg (s := Finset.range length)
       (fun i _ => indicator_nonneg (a + 1 + i))
     omega
@@ -143,10 +143,11 @@ theorem zero_gap_le_twice_positive_count (a length : ℕ) (ha : digit a = 1)
   have hp : 0 < carry (a + j + 1) := by
     apply carry_positive_of_convolution_three_zeroes _ (convolution_pos_of_ones ha hd)
     all_goals apply zeros <;> omega
-  have hl : (k : ℤ) ≤ ∑ i ∈ Finset.range length, positiveCarryIndicator (a + 1 + i) := by
+  -- The trigger position itself is positive and belongs to this interval.
+  have hl : ((k + 1 : ℕ) : ℤ) ≤ ∑ i ∈ Finset.range length, positiveCarryIndicator (a + 1 + i) := by
     calc
-      (k : ℤ) = ∑ _i ∈ Finset.range k, (1 : ℤ) := by simp
-      _ = ∑ i ∈ Finset.range k, positiveCarryIndicator (a + 1 + i) := by
+      ((k + 1 : ℕ) : ℤ) = ∑ _i ∈ Finset.range (k + 1), (1 : ℤ) := by simp
+      _ = ∑ i ∈ Finset.range (k + 1), positiveCarryIndicator (a + 1 + i) := by
         apply Finset.sum_congr rfl
         intro i hi
         apply Eq.symm
@@ -186,7 +187,7 @@ private theorem last_one_or_all_zero (N : ℕ) :
 recursively. An initial zero segment costs at most one position. -/
 theorem prefix_le_positive_count_and_zeros (N : ℕ) :
     (N : ℤ) ≤ 2 * (∑ i ∈ Finset.range N, positiveCarryIndicator i) +
-      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) + 1 := by
+      4 * (GoldenNormality.occurrences 2 1 0 N : ℤ) + 1 := by
   simp only [← digit_sum_eq_original_zeros]
   induction N using Nat.strong_induction_on with
   | h N ih =>
@@ -225,7 +226,7 @@ theorem prefix_le_positive_count_and_zeros (N : ℕ) :
 The bound applies to every prefix of length at least two. -/
 theorem original_zero_count_quadratic_bound (N : ℕ) (hN : 2 ≤ N) :
     (N : ℤ) ≤ 2 * (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 +
-      8 * (GoldenNormality.occurrences 2 1 0 N : ℤ) - 1 := by
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) - 1 := by
   have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
     binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
   have hp := positiveCarry_lt_original_zeros N hz

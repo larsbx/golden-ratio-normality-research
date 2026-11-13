@@ -34,20 +34,21 @@ $k=\lfloor(L-4)/2\rfloor$. The existing actual digit-window theorem gives
 a complementary one at $j\in[k,2k+2)$. The pair $(a,j)$ forces a positive
 coefficient at $a+j+1$. That index and the next two are inside the gap.
 The three-zero trigger makes the carry there positive, and backward
-propagation gives at least $k$ positive carries in the gap. Hence every
-such gap costs at most twice its positive-carry count plus five.
+propagation gives at least $k+1$ positive carries in the gap, including the
+trigger position. Hence every
+such gap costs at most twice its positive-carry count plus three.
 
 Split the prefix into the initial zero segment, complementary ones, and
 the zero gaps after them, including the terminal gap. The initial segment
 has length at most one by the actual digit-window theorem at zero. Charging
-each one and its following gap gives $N\le 2P_N+6z_N+1$. Since $z_N>0$
+each one and its following gap gives $N\le 2P_N+4z_N+1$. Since $z_N>0$
 for $N\ge2$, the resulting finite theorem is
 
 \[
-\boxed{N\le 2z_N^2+8z_N-1\qquad(N\ge2)}
+\boxed{N\le 2z_N^2+6z_N-1\qquad(N\ge2)}
 \]
 
-In particular $z_N\ge\sqrt{(N+9)/2}-2$. The new counting lemma is needed
+In particular $z_N\ge(\sqrt{2N+11}-3)/2$. The new counting lemma is needed
 to connect the aggregate estimate to prefix length, and it follows from the
 existing source-specific recurrence and positivity theorems. The argument
 is related to the positive-tail gap count in Bailey, Borwein, Crandall and
