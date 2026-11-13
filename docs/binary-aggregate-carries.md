@@ -92,6 +92,21 @@ $N=4$. Both mixed pairs lie on the cutoff, so the exact omitted count also
 detects an off-by-one change to the cutoff. The formula does not provide an
 unconditional asymptotic improvement without a further bound on $E_N$.
 
+## Linear term at positive carries
+
+Let $D_N$ count original zero positions $i<N$ with $T_i>0$. At such a
+position, the signed recurrence charges three units of convolution mass.
+Taking positive parts and telescoping retains this charge, giving
+$\sum_{n<N}p_n+3D_N\le p_N+\sum_{n<N}c_n$. Combining this with the
+gap count and exact omitted pair count gives
+
+\[
+N+2E_N+6D_N\le 2z_N^2+6z_N-1\qquad(N\ge2).
+\]
+
+The first nonzero correction occurs at $N=10$, from position nine.
+This is a finite refinement, with the same unconditional square-root scale.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
