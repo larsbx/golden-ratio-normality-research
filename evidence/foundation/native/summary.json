@@ -1,0 +1,96 @@
+{
+  "automaton_values": 128,
+  "executables_sha256": {
+    "automaton_probe": "6e4134b72756ff63c4c858d4f2d057c47870bfaa400514c4d817cdb1d2757e7f",
+    "foundation": "805e5b1ce43dc2fd4e5f31a72149ec43d6299bef86d8bc1fd5894d23880ed62f"
+  },
+  "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+  "lean_obligations_sha256": "be1744214129b1fa852f4bce192d5ca2eeb8ce2b0082e6c9f6aa2912aa336a9d",
+  "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+  "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+  "native_invalid_requests_rejected": [
+    [
+      1,
+      4,
+      1
+    ],
+    [
+      11,
+      4,
+      1
+    ],
+    [
+      2,
+      -1,
+      1
+    ],
+    [
+      2,
+      4097,
+      1
+    ],
+    [
+      2,
+      4,
+      0
+    ],
+    [
+      2,
+      4,
+      5
+    ],
+    [
+      "x",
+      4,
+      1
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "prefix_cases": [
+    {
+      "base": 2,
+      "length": 0,
+      "width": 1,
+      "windows": 0
+    },
+    {
+      "base": 10,
+      "length": 1,
+      "width": 2,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 256,
+      "width": 3,
+      "windows": 254
+    },
+    {
+      "base": 3,
+      "length": 128,
+      "width": 3,
+      "windows": 126
+    },
+    {
+      "base": 7,
+      "length": 32,
+      "width": 2,
+      "windows": 31
+    },
+    {
+      "base": 10,
+      "length": 128,
+      "width": 2,
+      "windows": 127
+    }
+  ],
+  "receipts_sha256": "00bc5bce4f95fbfca182e67b88891aeb2e01cb2fd45169a42c51ae377b3e4974",
+  "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+  "telemetry_environment": {
+    "MODULAR_CRASH_REPORTING_ENABLED": "false",
+    "MODULAR_TELEMETRY_ENABLED": "false"
+  }
+}

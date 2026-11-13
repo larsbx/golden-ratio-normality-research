@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/af8d8991e23f/golden-ratio-normality-research/build/foundation-run/native/foundation",
+    "10",
+    "1",
+    "2"
+  ],
+  "returncode": 0,
+  "seconds": 0.011,
+  "stderr": "",
+  "stdout": "{\"schema\":\"golden-normality-prefix-v1\",\"base\":10,\"length\":1,\"scale\":\"10\",\"value\":\"6\",\"digits\":\"6\",\"width\":2,\"counts\":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}\n"
+}
