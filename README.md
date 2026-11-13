@@ -36,7 +36,7 @@ git clone --recurse-submodules https://github.com/larsbx/golden-ratio-normality-
 cd golden-ratio-normality-research
 lake exe cache get
 pixi install --manifest-path kernel/pixi.toml --locked
-pixi run --manifest-path kernel/pixi.toml verify
+kernel/.pixi/envs/default/bin/python tools/verify.py
 ```
 
 The full gate compiles fresh project proof objects, inspects compiled axiom
@@ -50,6 +50,10 @@ For an already installed toolchain, `python3 tools/verify.py` is sufficient.
 `LEAN_BIN`, `MOJO_BIN`, and `GNR_MATHLIB_PACKAGES` can select existing pinned
 installations; the gate checks their versions and dependency revisions.
 Missing tools or failed stages are failures, never skips.
+
+The runner explicitly disables SDK telemetry and crash uploads before invoking
+Mojo. It calls installed executables directly; CI does not activate the Conda
+environment, whose activation hook in this pinned package sends a separate event.
 
 `bash tools/check_native.sh` runs only native/oracle conformance and emits Lean
 obligations. Its successful exit alone does not establish Lean acceptance.

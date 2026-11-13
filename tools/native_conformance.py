@@ -71,6 +71,10 @@ def run(output):
     submodule = verify_submodule()
     mojo = locate_program("MOJO_BIN", "mojo", ROOT / "kernel/.pixi/envs/default/bin/mojo")
     env = os.environ.copy()
+    # Supported SDK controls; set before even the version query. Calling the
+    # installed binaries directly also avoids the package's activation hook.
+    env["MODULAR_TELEMETRY_ENABLED"] = "false"
+    env["MODULAR_CRASH_REPORTING_ENABLED"] = "false"
     prefix = Path(mojo).parent.parent
     if (prefix / "share/max").is_dir():
         env.setdefault("MODULAR_HOME", str(prefix / "share/max"))
@@ -121,6 +125,10 @@ def run(output):
         "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
         "mojo_version": (version.stdout + version.stderr).strip(),
         "mojo_compiler_sha256": digest(mojo),
+        "telemetry_environment": {
+            "MODULAR_TELEMETRY_ENABLED": env["MODULAR_TELEMETRY_ENABLED"],
+            "MODULAR_CRASH_REPORTING_ENABLED": env["MODULAR_CRASH_REPORTING_ENABLED"],
+        },
         "finite_math_kernels_revision": submodule,
         "prefix_cases": [{"base": r["base"], "length": r["length"], "width": r["width"],
                           "windows": sum(r["counts"])} for r in prefixes],

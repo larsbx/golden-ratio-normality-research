@@ -166,6 +166,14 @@ rebuilt into a fresh output directory. Pinned upstream compiled dependencies
 are reused; independently rechecking all of mathlib or proving correctness
 of the compilers is outside this milestone's trust boundary.
 
+The runner sets `MODULAR_TELEMETRY_ENABLED=false` and
+`MODULAR_CRASH_REPORTING_ENABLED=false` before every Mojo invocation, following
+the [SDK FAQ](https://mojolang.static.modular.com/nightly/docs/faq/) and
+[release documentation](https://github.com/modular/modular/blob/main/Mojo/docs/site/releases/v1.0.0.md).
+CI calls the installed Python and Mojo binaries directly, without executing
+the pinned Conda package's separate first-activation telemetry hook. The two
+disabled settings are included in the native evidence record.
+
 ## 5. What remains open
 
 For C_(b,k,j)(N), the number of occurrences of block value j among the first N
