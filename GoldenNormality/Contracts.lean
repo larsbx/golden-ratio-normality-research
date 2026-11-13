@@ -8,6 +8,8 @@ The gate also inspects the compiled declarations and their transitive axioms.
 
 namespace GoldenNormality.Contracts
 
+open scoped BigOperators
+
 theorem root (B q : ℕ) (hB : 0 < B) :
     PrefixCertificate B q ↔ Int.floor ((B : ℝ) * alpha) = (q : ℤ) :=
   prefixCertificate_iff_intFloor hB
@@ -346,5 +348,131 @@ theorem binaryDigitRecurrence (start d : ℕ) (hd : d < 2) :
 theorem binaryNoConstantTail :
     ¬ ∃ start : ℕ, ∃ d : ℤ, ∀ n : ℕ, start ≤ n → digit 2 n = d :=
   binary_digit_not_eventually_constant
+
+theorem complementRoot :
+    0 < BinaryComplement.beta ∧ BinaryComplement.beta < 1 ∧
+      BinaryComplement.beta ^ 2 - 3 * BinaryComplement.beta + 1 = 0 :=
+  ⟨BinaryComplement.beta_pos, BinaryComplement.beta_lt_one, BinaryComplement.beta_quadratic⟩
+
+theorem complementFloors (n : ℕ) :
+    BinaryComplement.scaledFloor n = (2 : ℤ) ^ n - 1 - scaledFloor 2 n :=
+  BinaryComplement.scaledFloor_eq_complement n
+
+theorem complementCertifiedFloor (n q r : ℕ)
+    (certificate : PrefixCertificate (2 ^ n) q) (complement : q + r + 1 = 2 ^ n) :
+    BinaryComplement.scaledFloor n = (r : ℤ) :=
+  BinaryComplement.scaledFloor_of_prefix_certificate certificate complement
+
+theorem complementDigits (n : ℕ) :
+    BinaryComplement.digit n = 1 - digit 2 n :=
+  BinaryComplement.digit_eq_complement n
+
+theorem complementBlocks (start length : ℕ) :
+    BinaryComplement.blockValue start length =
+      (2 : ℤ) ^ length - 1 - blockValue 2 start length :=
+  BinaryComplement.blockValue_eq_complement start length
+
+theorem complementWords (start length : ℕ) :
+    BinaryComplement.powerDigits start length = BinaryComplement.actualDigits start length ∧
+      BinaryComplement.actualDigits start length =
+        (actualDigits 2 start length).map (fun d => 1 - d) :=
+  ⟨BinaryComplement.powerDigits_eq_actualDigits start length,
+    BinaryComplement.actualDigits_eq_map start length⟩
+
+theorem complementWordNumeral (start length : ℕ) :
+    (BinaryComplement.powerDigits start length).length = length ∧
+      (wordValue 2 (BinaryComplement.powerDigits start length) : ℤ) =
+        BinaryComplement.blockValue start length :=
+  ⟨BinaryComplement.powerDigits_length start length,
+    BinaryComplement.wordValue_powerDigits start length⟩
+
+theorem complementValueInvolution (length j : ℕ) (hj : j < 2 ^ length) :
+    BinaryComplement.flipValue length j < 2 ^ length ∧
+      BinaryComplement.flipValue length (BinaryComplement.flipValue length j) = j :=
+  ⟨BinaryComplement.flipValue_lt hj, BinaryComplement.flipValue_involutive hj⟩
+
+theorem complementBlockMatch (start length j : ℕ) (hj : j < 2 ^ length) :
+    BinaryComplement.blockValue start length = (j : ℤ) ↔
+      blockValue 2 start length = (BinaryComplement.flipValue length j : ℤ) :=
+  BinaryComplement.blockValue_eq_iff hj
+
+theorem complementCounts (length j N : ℕ) (hj : j < 2 ^ length) :
+    BinaryComplement.occurrences length j N =
+      occurrences 2 length (BinaryComplement.flipValue length j) N :=
+  BinaryComplement.occurrences_eq_complement hj N
+
+theorem complementSingletonCounts (N : ℕ) :
+    BinaryComplement.occurrences 1 1 N = occurrences 2 1 0 N ∧
+      BinaryComplement.occurrences 1 0 N = occurrences 2 1 1 N :=
+  ⟨BinaryComplement.ones_eq_original_zeros N, BinaryComplement.zeros_eq_original_ones N⟩
+
+theorem complementNormality :
+    BinaryComplement.Normal ↔ NormalInBase 2 :=
+  BinaryComplement.normal_iff_original
+
+theorem complementDigitSum (N : ℕ) :
+    (∑ i ∈ Finset.range N, BinaryComplement.digit i) = (occurrences 2 1 0 N : ℤ) :=
+  BinaryComplement.digit_sum_eq_original_zeros N
+
+theorem complementResidual (N : ℕ) :
+    0 < BinaryComplement.prefixResidual N ∧
+      BinaryComplement.prefixResidual N < 3 * (2 : ℤ) ^ N :=
+  BinaryComplement.prefixResidual_bounds N
+
+theorem complementResidualStep (N : ℕ) :
+    BinaryComplement.prefixResidual (N + 1) = 4 * BinaryComplement.prefixResidual N +
+      2 * BinaryComplement.digit N *
+        (2 * BinaryComplement.scaledFloor N - 3 * (2 : ℤ) ^ N) +
+          BinaryComplement.digit N ^ 2 :=
+  BinaryComplement.prefixResidual_succ N
+
+theorem complementSquare (N : ℕ) :
+    BinaryComplement.scaledFloor N ^ 2 =
+      (2 : ℤ) ^ N * BinaryComplement.convolutionPrefix N +
+        BinaryComplement.convolutionSuffix N :=
+  BinaryComplement.scaledFloor_square_decomposition N
+
+theorem complementCarryInitial : BinaryComplement.carry 0 = -1 :=
+  BinaryComplement.carry_zero
+
+theorem complementCarryPolynomial (N : ℕ) :
+    BinaryComplement.carry N = -(2 : ℤ) ^ N -
+      ∑ i ∈ Finset.range N, BinaryComplement.signedCoefficient i * (2 : ℤ) ^ (N - 1 - i) :=
+  BinaryComplement.carry_eq_signed_sum N
+
+theorem complementCarryRecurrence (N : ℕ) :
+    2 * BinaryComplement.carry N =
+      BinaryComplement.carry (N + 1) + BinaryComplement.signedCoefficient N :=
+  BinaryComplement.carry_recurrence N
+
+theorem complementCarryBoundary (N : ℕ) :
+    (2 : ℤ) ^ N * BinaryComplement.carry N =
+      BinaryComplement.convolutionSuffix N - BinaryComplement.prefixResidual N :=
+  BinaryComplement.carry_suffix_residual N
+
+theorem complementCarryBounds (N : ℕ) :
+    -2 ≤ BinaryComplement.carry N ∧
+      BinaryComplement.carry N < (occurrences 2 1 0 N : ℤ) := by
+  constructor
+  · exact BinaryComplement.carry_lower_bound N
+  · rw [← BinaryComplement.digit_sum_eq_original_zeros N]
+    exact BinaryComplement.carry_lt_digit_sum N
+
+theorem complementCarryZeroStep (N : ℕ) (hzero : BinaryComplement.digit N = 0)
+    (hpositive : 0 < BinaryComplement.carry (N + 1)) : 0 < BinaryComplement.carry N :=
+  BinaryComplement.carry_positive_of_zero_step N hzero hpositive
+
+theorem complementCarryZeroGap (start length : ℕ)
+    (zeros : ∀ i : ℕ, start ≤ i → i < start + length → BinaryComplement.digit i = 0)
+    (hpositive : 0 < BinaryComplement.carry (start + length)) :
+    0 < BinaryComplement.carry start :=
+  BinaryComplement.carry_positive_of_zero_gap start length zeros hpositive
+
+theorem complementCarryPositiveTrigger (N : ℕ)
+    (hconvolution : 0 < BinaryComplement.convolutionCoefficient N)
+    (hzero : BinaryComplement.digit N = 0)
+    (hzero1 : BinaryComplement.digit (N + 1) = 0)
+    (hzero2 : BinaryComplement.digit (N + 2) = 0) : 0 < BinaryComplement.carry N :=
+  BinaryComplement.carry_positive_of_convolution_three_zeroes N hconvolution hzero hzero1 hzero2
 
 end GoldenNormality.Contracts

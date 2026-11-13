@@ -23,6 +23,8 @@ of normality.
 | Power-orbit evaluation | A total Fibonacci-word encoder makes the automaton's outputs at `2^n` a computable digit sequence. Its words and block counts equal the actual binary digit words and counts, with all normality quantifiers retained. |
 | Binary digit sparsity | For every prefix length `N`, its actual binary one count `s` satisfies `2N <= s^2+3s+4`. The certificate, total power evaluator, and occurrence-count formulations are connected explicitly. |
 | Binary runs and recurrence | A constant run starting at `n` has length at most `n+1`. Every window `[n,2n+2)` contains both symbols; each symbol occurs at least `m` times in the first `2^(m+1)-2` digits. |
+| Actual binary complement | The real digits of `1-(φ−1)` are the pointwise complements of the original digits. Every bounded fixed-width block count transfers exactly; complementary ones count original zeros. |
+| Signed quadratic carries | Actual complementary prefixes give a finite square decomposition, signed carry recurrence, and `-2 <= T_N <` the original zero count. Positivity propagates backward through zero gaps, with a proved three-zero trigger. |
 | Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, occurrences, discrepancies, and finite interval bounds. |
 | Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No unconditional proof is supplied. |
 
@@ -36,6 +38,7 @@ the [power-orbit bridge](docs/power-orbit.md) for total evaluation and source-bo
 the [sparse checkpoint criterion](docs/sparse-checkpoints.md) for endpoint estimates and square checkpoints,
 the [binary sparsity bound](docs/binary-digit-sparsity.md) for an unconditional estimate on actual one counts,
 the [binary run and recurrence bounds](docs/binary-runs-and-recurrence.md) for both symbols at every start,
+the [actual complement and finite carries](docs/binary-complement-and-carries.md) for exact zero-count transfer and signed polynomial groundwork,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -114,9 +117,11 @@ The proved bound `2N <= s_N^2+3s_N+4` supplies square-root-scale growth of the
 actual one count. It gives neither the limiting frequency `1/2` nor an all-block
 frequency estimate, so it does not discharge the square-checkpoint target.
 The run theorem gives an explicit logarithmic lower count for zeros as well
-as ones. A source-bound complement bridge and a signed quadratic carry-tail
-argument are the next route toward the stronger published zero-count sparsity
-bound; that stronger bound has not yet been formalized in this project.
+as ones. The source-bound complement bridge and finite signed carry identities
+are now proved, including pointwise carry bounds and local positivity tools.
+An aggregate estimate and a lower count of positive carries remain necessary
+for the stronger published zero-count sparsity bound; that stronger bound has
+not yet been formalized in this project.
 
 Contributor and agent instructions are in [AGENTS.md](AGENTS.md) and
 [README.llm.txt](README.llm.txt).

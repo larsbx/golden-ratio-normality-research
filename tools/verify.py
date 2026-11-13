@@ -19,6 +19,7 @@ import power_controls
 import checkpoint_controls
 import sparsity_controls
 import run_controls
+import complement_controls
 import proof_dependencies
 import receipt_contracts
 
@@ -31,6 +32,8 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.SparseCheckpoints", "GoldenNormality.SquareCheckpoints",
            "GoldenNormality.BinarySparsity",
            "GoldenNormality.BinaryRuns", "GoldenNormality.BinaryRecurrence",
+           "GoldenNormality.BinaryComplement", "GoldenNormality.BinaryComplementCounts",
+           "GoldenNormality.BinaryComplementCarry",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
@@ -48,7 +51,14 @@ CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCoun
                   "binaryZeroRun", "binaryOneRun", "binaryPowerConstantRun", "binaryActualConstantRun",
                   "certifiedBinaryConstantRun", "binaryWindowSymbols", "binaryPowerWindowSymbols",
                   "binarySymbolCountGrowth", "binaryLogarithmicCounts", "binaryLaterCounts",
-                  "binaryCountPartition", "binaryTwoSidedCounts", "binaryDigitRecurrence", "binaryNoConstantTail"]
+                  "binaryCountPartition", "binaryTwoSidedCounts", "binaryDigitRecurrence", "binaryNoConstantTail",
+                  "complementRoot", "complementFloors", "complementCertifiedFloor", "complementDigits",
+                  "complementBlocks", "complementWords", "complementWordNumeral", "complementValueInvolution",
+                  "complementBlockMatch", "complementCounts", "complementSingletonCounts", "complementNormality",
+                  "complementDigitSum", "complementResidual", "complementResidualStep", "complementSquare",
+                  "complementCarryInitial", "complementCarryPolynomial", "complementCarryRecurrence",
+                  "complementCarryBoundary", "complementCarryBounds", "complementCarryZeroStep",
+                  "complementCarryZeroGap", "complementCarryPositiveTrigger"]
 
 
 def audit_source(modules, *, print_contracts=False):
@@ -267,9 +277,12 @@ def run(output):
         run_examples = output / "RunCounterexamples.lean"
         run_examples.write_text(run_controls.COUNTEREXAMPLES)
         compile_file(run_examples, "RunCounterexamples")
+        complement_examples = output / "ComplementCounterexamples.lean"
+        complement_examples.write_text(complement_controls.COUNTEREXAMPLES)
+        compile_file(complement_examples, "ComplementCounterexamples")
         audited_modules = [*upstream_sources, *MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
                            "CriteriaCounterexamples", "PowerOrbitCounterexamples", "CheckpointCounterexamples",
-                           "SparsityCounterexamples", "RunCounterexamples"]
+                           "SparsityCounterexamples", "RunCounterexamples", "ComplementCounterexamples"]
         audit = output / "Audit.lean"
         audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
@@ -322,7 +335,8 @@ example (B q : ℕ) (hB : 0 < B) :
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
         control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS,
                           power_controls.REJECTIONS, checkpoint_controls.REJECTIONS,
-                          sparsity_controls.REJECTIONS, run_controls.REJECTIONS)
+                          sparsity_controls.REJECTIONS, run_controls.REJECTIONS,
+                          complement_controls.REJECTIONS)
         controls = {name: control for group in control_groups for name, control in group.items()}
         if len(controls) != sum(map(len, control_groups)):
             raise RuntimeError("duplicate semantic rejection control name")

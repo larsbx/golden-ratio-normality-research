@@ -92,7 +92,23 @@ The sign restriction of Theorem 5.2 is essential. For the complement 1-alpha,
 the polynomial x^2-3x+1 has a negative linear coefficient; substituting its
 prefix into the existing positive-polynomial proof is invalid. The general
 Theorem 7.1 supplies a stronger eventual square-root lower count in the
-literature, but its signed-tail argument and the source-bound complement
-bridge remain unformalized here. The new run proof does not invoke Roth or
+literature. The run proof does not invoke Roth or
 import a literature theorem as an axiom. See
 [the run and recurrence derivation](binary-runs-and-recurrence.md).
+
+## Actual complement and signed carry follow-up
+
+The primary-source check revisited Bailey--Borwein--Crandall--Pomerance
+Section 6, especially the integer tail recurrence and backward positivity,
+and the aggregate counting argument of Theorem 7.1. The formal application
+now supplies the actual complement's floor/digit/block/count identities and
+finite signed carry algebra. It works directly with beta in(0,1), retaining
+its negative linear coefficient and constant-term boundary carry; it does
+not silently reuse the paper's normalized input in(1,2).
+
+The finite square decomposition and source residual prove-2<=T_N<the actual
+original zero count. Backward zero-gap positivity and a three-zero trigger
+are also proved. The aggregate carry estimate and positive-carry count remain
+unformalized; the paper's stronger eventual sparsity theorem is not imported
+as an axiom. See [the complement and carry derivation](binary-complement-and-carries.md)
+for exact definitions, source-bound counterexamples, and remaining obligations.

@@ -15,3 +15,6 @@ import GoldenNormality.SquareCheckpoints
 import GoldenNormality.BinarySparsity
 import GoldenNormality.BinaryRuns
 import GoldenNormality.BinaryRecurrence
+import GoldenNormality.BinaryComplement
+import GoldenNormality.BinaryComplementCounts
+import GoldenNormality.BinaryComplementCarry

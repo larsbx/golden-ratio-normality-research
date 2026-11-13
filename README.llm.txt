@@ -18,6 +18,10 @@ Binary run bounds now apply at every start n: any constant segment has length
 at most n+1, so [n,2n+2) contains both symbols. For d<2, every origin prefix of
 length N>=2^(m+1)-2 contains at least m copies of d. This logarithmic bound
 adds zero recurrence; it does not strengthen the existing one-count sparsity.
+The actual complementary quadratic now has exact floor, digit, word, block,
+and occurrence identities. Its finite signed carries have a source-bound square
+decomposition, recurrence, pointwise bounds, and conditional positivity tools.
+The aggregate counting step toward stronger zero sparsity remains open here.
 
 Authority and scope
 1. Universal Lean theorems are accepted only after compilation of the exact
@@ -177,6 +181,39 @@ density, bounded gaps, or occurrence of every longer word.
 The complementary beta=1-alpha has beta^2-3beta+1=0. The negative coefficient
 prevents direct reuse of the positive-polynomial proof. BBCP Theorem7.1
 already gives an eventual sqrt-scale bound in the literature; the open item
-is this project's source-bound complement and signed-tail formalization,
+is this project's remaining aggregate signed-tail formalization,
 not a newly unresolved mathematical existence claim. See the run derivation
 and literature check in docs/binary-runs-and-recurrence.md.
+
+Binary complement and signed carry contract
+beta=1-alpha is the actual real complementary number in(0,1), with
+beta^2-3beta+1=0. Strict original dyadic nonintegrality proves
+q_beta(n)=2^n-1-q_alpha(n), including n=0. Do not drop the minusone.
+Its zero-indexed digits are1-d_alpha(n); its block at start n,width k is
+2^k-1-block_alpha(n,k). Actual complementary words are defined from those
+real digits and then proved equal to mapped original actual/power words.
+flipValue k j=2^k-1-j is bounded and involutive only under j<2^k.
+The count transfer preserves width k and all N overlapping starting positions.
+Complementary ones equal original zeros, and the sum of complementary digits
+equals that same actual origin-prefix count. The normality iff retains k>=1,
+j<2^k,T>=1,positive N0,and every N>=N0; it establishes neither side.
+
+All carry algebra uses signed integers. Set B_N=2^N,q_N=floor(B_N*beta),
+d_i=digit_beta(i),P_N=q_N^2-3*B_N*q_N+B_N^2,with0<P_N<3*B_N.
+The coefficient c_N=sum(i<N)d_i*d_(N-1-i) belongs to fractional placeN+1;
+c_0=0. The signed coefficient is a_N=c_N-3*d_N.
+C_N=sum(i<N)d_i*q_(N-1-i); U_N is the finite uncarried suffix convolution.
+q_N^2=B_N*C_N+U_N and T_N=3*q_N-B_N-C_N give
+T_0=-1, 2*T_N=T_(N+1)+a_N, B_N*T_N=U_N-P_N.
+The explicit finite truncation is T_N=-2^N-sum(i<N)a_i*2^(N-1-i).
+U_N is nonnegative but need not be<B_N: actual U_4=20>16.
+The universal pointwise bound is-2<=T_N<sum(i<N)d_i=original_zero_count(N).
+Actual T_1=-2 is sharp. Positivity propagates BACKWARD through an actual
+zero gap, requiring all d_i=0 for start<=i<start+length and positive carry
+at start+length. It fails without the zero hypothesis and fails forward.
+c_N>0 and d_N=d_(N+1)=d_(N+2)=0 force T_N>0; all three zeroes matter.
+At N5,c_5=1,d_5=d_6=0,T_5=0 refute dropping the thirdzero.
+No infinite-series equality, aggregate carry estimate, square-root zero bound,
+normality, or new universal native refinement is established by these lemmas.
+The next obligations are aggregate suffix/positive-carry bounds and a count of
+positive carries forced by gaps. See docs/binary-complement-and-carries.md.

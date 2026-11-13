@@ -117,7 +117,8 @@ Its negative linear coefficient prevents direct reuse of the positive
 polynomial argument underlying the current one-count bound. The paper's
 general Theorem 7.1 already gives stronger eventual square-root growth for
 this algebraic complement, but that theorem is **not formalized here**.
-The remaining implementation step is a source-bound complement identity and
-a signed quadratic carry-tail argument. The present explicit gap bound is a
-prerequisite for that route. Normality still requires the separate all-block
+The [subsequent complement and carry development](binary-complement-and-carries.md)
+now proves the source-bound complement identities and finite signed carry
+groundwork. Its aggregate counting step remains open. The present explicit
+gap bound is a prerequisite for that route. Normality still requires the separate all-block
 eventual estimates, for example at the proved square checkpoints.
