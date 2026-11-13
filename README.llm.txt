@@ -21,7 +21,8 @@ adds zero recurrence; it does not strengthen the existing one-count sparsity.
 The actual complementary quadratic now has exact floor, digit, word, block,
 and occurrence identities. Its finite signed carries have a source-bound square
 decomposition, recurrence, pointwise bounds, and conditional positivity tools.
-The aggregate counting step toward stronger zero sparsity remains open here.
+The aggregate positive-carry and gap estimates give N<=2*z_N^2+8*z_N-1
+for N>=2, where z_N counts actual original zero digits.
 
 Authority and scope
 1. Universal Lean theorems are accepted only after compilation of the exact
@@ -217,3 +218,11 @@ No infinite-series equality, aggregate carry estimate, square-root zero bound,
 normality, or new universal native refinement is established by these lemmas.
 The next obligations are aggregate suffix/positive-carry bounds and a count of
 positive carries forced by gaps. See docs/binary-complement-and-carries.md.
+
+Aggregate signed carry contract
+BinaryAggregateCarry bounds positive carry mass on half-open intervals with
+both endpoint terms. Truncated convolution mass is bounded by the square of
+the actual original zero count via ordered pairs. The gap argument combines
+the actual digit window with the three-zero trigger and backward propagation.
+It yields N<=2*z_N^2+8*z_N-1 for every N>=2. See
+docs/binary-aggregate-carries.md for conventions and reproducible controls.

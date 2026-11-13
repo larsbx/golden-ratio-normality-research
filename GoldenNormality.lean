@@ -18,3 +18,4 @@ import GoldenNormality.BinaryRecurrence
 import GoldenNormality.BinaryComplement
 import GoldenNormality.BinaryComplementCounts
 import GoldenNormality.BinaryComplementCarry
+import GoldenNormality.BinaryAggregateCarry
