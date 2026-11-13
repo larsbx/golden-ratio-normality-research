@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Full first-milestone acceptance, with no optional proof or native stages."""
+"""Full foundation and frequency-bridge acceptance; every stage is required."""
 import argparse
 import json
 import os
@@ -11,13 +11,18 @@ import sys
 from acceptance_utils import (CONTRACT, ROOT, command, digest, git_output,
                               locate_program, source_hashes, utc_now, verify_submodule, write_json)
 import native_conformance
+import bridge_controls
+import receipt_contracts
 
 MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.Automaton", "GoldenNormality.Certificates",
-           "GoldenNormality.Normality", "GoldenNormality", "GoldenNormality.Contracts"]
+           "GoldenNormality.Normality", "GoldenNormality.BlockNumerals",
+           "GoldenNormality.FrequencyBridge", "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
-                  "chunkBoundary", "automatonLanguage", "automatonAllInputs", "automatonPowerInput"]
+                  "chunkBoundary", "numeralBlock", "patternBlock", "finiteFrequency",
+                  "firstStarts", "certifiedFrequency", "certifiedDiscrepancy",
+                  "automatonLanguage", "automatonAllInputs", "automatonPowerInput"]
 
 
 def audit_source(modules, *, print_contracts=False):
@@ -87,7 +92,8 @@ def parse_audit(output, modules):
         expected_receipts.update(f"digit_{i}_{n}" for n in range(length))
         expected_receipts.add(f"digits_{i}")
         for value in range(base ** width):
-            expected_receipts.update((f"count_{i}_{value}", f"actualCount_{i}_{value}"))
+            expected_receipts.update((f"count_{i}_{value}", f"actualCount_{i}_{value}",
+                                      f"occurrence_{i}_{value}", f"discrepancy_{i}_{value}"))
     for q in range(CONTRACT["automaton_values"]):
         expected_receipts.update((f"input_{q}", f"output_{q}", f"predicate_{q}"))
         if q and q & (q - 1) == 0:
@@ -98,6 +104,12 @@ def parse_audit(output, modules):
     if completed["Receipts"]["theorems"] < len(expected_receipts):
         raise RuntimeError("finite receipt declarations did not compile as proofs")
     completed["Receipts"]["required_receipt_theorems"] = len(expected_receipts)
+    expected_types = receipt_contracts.expected_names()
+    if expected_types - declarations["ReceiptContracts"].keys():
+        raise RuntimeError("missing independent finite receipt type checks")
+    if completed["ReceiptContracts"]["theorems"] < len(expected_types):
+        raise RuntimeError("independent receipt types did not compile as proofs")
+    completed["ReceiptContracts"]["required_type_checks"] = len(expected_types)
     return completed, declarations
 
 
@@ -182,10 +194,17 @@ def run(output):
         for module, source in zip(MODULES, sources):
             compile_file(source, module)
         compile_file(generated, "Receipts")
+        expected_receipts = output / "ReceiptContracts.lean"
+        expected_receipts.write_text(receipt_contracts.certificate_source())
+        compile_file(expected_receipts, "ReceiptContracts")
+        counterexamples = output / "BridgeCounterexamples.lean"
+        counterexamples.write_text(bridge_controls.COUNTEREXAMPLES)
+        compile_file(counterexamples, "BridgeCounterexamples")
+        audited_modules = [*MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples"]
         audit = output / "Audit.lean"
-        audit.write_text(audit_source([*MODULES, "Receipts"], print_contracts=True))
+        audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
-        report["compiled_modules"], declaration_axioms = parse_audit(result.stdout, [*MODULES, "Receipts"])
+        report["compiled_modules"], declaration_axioms = parse_audit(result.stdout, audited_modules)
         write_json(output / "declaration-axioms.json", declaration_axioms)
         report["allowed_axioms"] = sorted(ALLOWED_AXIOMS)
 
@@ -232,6 +251,17 @@ example (B q : ℕ) (hB : 0 < B) :
             "false_root": "rejected", "scattered_count": "rejected",
             "invalid_fibonacci_word": "rejected", "weakened_theorem_type": "rejected",
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
+        for name, (source, diagnostic) in bridge_controls.REJECTIONS.items():
+            rejection_source = output / f"Reject_{name}.lean"
+            rejection_source.write_text(source)
+            rejected = compile_file(rejection_source, f"Reject_{name}",
+                                    expect_success=False, emit=False)
+            diagnostics = rejected.stdout + rejected.stderr
+            if (rejected.returncode != 1 or len(re.findall(
+                    diagnostic, diagnostics)) != 1
+                    or len(re.findall(r"(?im)^.*\berror:", diagnostics)) != 1):
+                raise RuntimeError(f"bridge control did not fail as intended: {name}")
+            report["lean_negative_controls"][name] = "rejected"
         if source_hashes() != report["source_sha256"]:
             raise RuntimeError("repository sources changed during acceptance")
         if verify_submodule() != report["native"]["finite_math_kernels_revision"]:
@@ -240,7 +270,8 @@ example (B q : ℕ) (hB : 0 < B) :
         if final_revisions != report["dependency_revisions"]:
             raise RuntimeError("proof dependency changed during acceptance")
         report["accepted"] = True
-        report["scope"] = "universal Lean foundation and checked finite native receipts; no normality theorem"
+        report["scope"] = ("universal Lean foundation and block-frequency bridge; "
+                           "checked finite occurrence/discrepancy receipts; no normality theorem")
     except Exception as error:
         report["error"] = str(error)
         raise

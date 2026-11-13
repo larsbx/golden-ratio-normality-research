@@ -30,6 +30,45 @@ theorem chunkBoundary (pattern left right : List ℕ) :
         Blocks.boundaryCount pattern left right :=
   Blocks.count_append_boundary pattern left right
 
+theorem numeralBlock (b n k : ℕ) :
+    (wordValue b (actualDigits b n k) : ℤ) = blockValue b n k :=
+  wordValue_actualDigits b n k
+
+theorem patternBlock (b n : ℕ) (hb : 2 ≤ b) (pattern : List ℕ)
+    (ha : InAlphabet b pattern) :
+    actualDigits b n pattern.length = pattern ↔
+      blockValue b n pattern.length = (wordValue b pattern : ℤ) :=
+  actualDigits_eq_iff_blockValue hb ha
+
+theorem finiteFrequency (b L : ℕ) (hb : 2 ≤ b) (pattern : List ℕ)
+    (hpat : pattern ≠ []) (ha : InAlphabet b pattern) :
+    Blocks.count pattern (actualDigits b 0 L) =
+      occurrences b pattern.length (wordValue b pattern) (L + 1 - pattern.length) :=
+  count_actualDigits_eq_occurrences hb hpat ha L
+
+theorem firstStarts (b N : ℕ) (hb : 2 ≤ b) (pattern : List ℕ)
+    (hpat : pattern ≠ []) (ha : InAlphabet b pattern) :
+    Blocks.count pattern (actualDigits b 0 (N + pattern.length - 1)) =
+      occurrences b pattern.length (wordValue b pattern) N :=
+  count_actualDigits_prefix hb hpat ha N
+
+theorem certifiedFrequency (b value : ℕ) (hb : 2 ≤ b) (text pattern : List ℕ)
+    (hpat : pattern ≠ []) (ha : InAlphabet b pattern)
+    (digits : DigitsAt b 0 text) (count : Blocks.count pattern text = value) :
+    occurrences b pattern.length (wordValue b pattern) (text.length + 1 - pattern.length) =
+      value :=
+  certified_occurrences_sound hb hpat ha digits count
+
+theorem certifiedDiscrepancy (b value tolerance bound : ℕ) (hb : 2 ≤ b)
+    (text pattern : List ℕ) (hpat : pattern ≠ []) (ha : InAlphabet b pattern)
+    (digits : DigitsAt b 0 text) (count : Blocks.count pattern text = value)
+    (hbound : Nat.dist ((b ^ pattern.length) * value)
+      (text.length + 1 - pattern.length) * tolerance ≤ bound) :
+    Nat.dist ((b ^ pattern.length) *
+      occurrences b pattern.length (wordValue b pattern) (text.length + 1 - pattern.length))
+        (text.length + 1 - pattern.length) * tolerance ≤ bound :=
+  certified_discrepancy_bound hb hpat ha digits count hbound
+
 theorem automatonLanguage (digits : List Bool) :
     BinaryAutomaton.classify digits ≠ none ↔ BinaryAutomaton.Admissible digits :=
   BinaryAutomaton.classify_accepts_iff digits

@@ -3,6 +3,6 @@
   "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
   "lean_version": "4.34.0-rc2",
   "mojo_version": "1.1.0.dev2026090805",
-  "prefix_cases": [[2, 0, 1], [10, 1, 2], [2, 256, 3], [3, 128, 3], [7, 32, 2], [10, 128, 2]],
+  "prefix_cases": [[2, 0, 1], [10, 1, 2], [2, 256, 3], [3, 128, 3], [7, 32, 2], [10, 128, 2], [2, 0, 3], [2, 1, 3], [2, 3, 3]],
   "automaton_values": 128
 }
