@@ -144,4 +144,57 @@ theorem automatonPowerInput (digits : List Bool) (n d : ℕ)
     (ho : BinaryAutomaton.classify digits = some d) :
     digit 2 n = (d : ℤ) := BinaryAutomaton.power_input_digit hv ho
 
+theorem fibonacciEncoding (q : ℕ) :
+    BinaryAutomaton.Admissible (BinaryAutomaton.encode q) ∧
+      BinaryAutomaton.fibonacciSum (BinaryAutomaton.encode q) 2 = q :=
+  ⟨BinaryAutomaton.encode_admissible q, BinaryAutomaton.fibonacciSum_encode q⟩
+
+theorem automatonEvaluation (q : ℕ) :
+    BinaryAutomaton.classify (BinaryAutomaton.encode q) = some (BinaryAutomaton.evaluated q) ∧
+      BinaryAutomaton.evaluated q < 2 ∧
+        BinaryAutomaton.binaryDifference q = (BinaryAutomaton.evaluated q : ℤ) :=
+  ⟨BinaryAutomaton.classify_encode q, BinaryAutomaton.evaluated_lt_two q,
+    BinaryAutomaton.evaluated_correct q⟩
+
+theorem binaryPowerDigit (n : ℕ) : digit 2 n = (BinaryAutomaton.powerDigit n : ℤ) :=
+  BinaryAutomaton.powerDigit_correct n
+
+theorem binaryPowerWord (start length : ℕ) :
+    DigitsAt 2 start (BinaryAutomaton.powerDigits start length) ∧
+      (BinaryAutomaton.powerDigits start length).length = length ∧
+        (wordValue 2 (BinaryAutomaton.powerDigits start length) : ℤ) =
+          blockValue 2 start length :=
+  ⟨BinaryAutomaton.powerDigits_digitsAt start length,
+    BinaryAutomaton.powerDigits_length start length,
+    BinaryAutomaton.wordValue_powerDigits start length⟩
+
+theorem binaryPowerFrequency (pattern : List ℕ) (N : ℕ)
+    (hpat : pattern ≠ []) (ha : InAlphabet 2 pattern) :
+    Blocks.count pattern (BinaryAutomaton.powerDigits 0 (N + pattern.length - 1)) =
+      occurrences 2 pattern.length (wordValue 2 pattern) N :=
+  BinaryAutomaton.count_powerDigits hpat ha N
+
+theorem binaryPowerNormality :
+    (∀ pattern : List ℕ, pattern ≠ [] → InAlphabet 2 pattern →
+      ∀ T : ℕ, 1 ≤ T → ∃ N0 : ℕ, 1 ≤ N0 ∧ ∀ N : ℕ, N0 ≤ N →
+        Nat.dist ((2 ^ pattern.length) *
+          Blocks.count pattern (BinaryAutomaton.powerDigits 0 (N + pattern.length - 1))) N * T ≤ N)
+      ↔ NormalInBase 2 :=
+  BinaryAutomaton.powerOrbitNormality_iff_normalInBase
+
+theorem certifiedPowerSource (start : ℕ) (inputs : List (List Bool)) (outputs : List ℕ)
+    (orbit : BinaryAutomaton.PowerOrbitAt start inputs outputs) :
+    inputs.length = outputs.length ∧ DigitsAt 2 start outputs ∧
+      outputs = BinaryAutomaton.powerDigits start outputs.length :=
+  ⟨BinaryAutomaton.powerOrbitAt_length orbit, BinaryAutomaton.powerOrbitAt_digitsAt orbit,
+    BinaryAutomaton.powerOrbitAt_eq_powerDigits orbit⟩
+
+theorem certifiedPowerFrequency (value : ℕ) (inputs : List (List Bool))
+    (outputs pattern : List ℕ) (hpat : pattern ≠ []) (ha : InAlphabet 2 pattern)
+    (orbit : BinaryAutomaton.PowerOrbitAt 0 inputs outputs)
+    (count : Blocks.count pattern outputs = value) :
+    occurrences 2 pattern.length (wordValue 2 pattern)
+      (outputs.length + 1 - pattern.length) = value :=
+  BinaryAutomaton.certified_power_occurrences hpat ha orbit count
+
 end GoldenNormality.Contracts

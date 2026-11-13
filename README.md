@@ -19,6 +19,7 @@ of normality.
 | Equivalent targets | Every bounded block value has a unique word of its specified width. Normality is equivalent to eventual word-count bounds, with one threshold for all values of each fixed width and tolerance. |
 | Checkpoint bounds | Two certified endpoint counts control every intermediate start count. A conditional criterion retains a strictly increasing infinite checkpoint sequence and eventual budgets for every block and tolerance. |
 | Binary automaton | A universal real invariant verifies the published eight-state Fibonacci-input machine and its specialization to inputs representing `2^n`. |
+| Power-orbit evaluation | A total Fibonacci-word encoder makes the automaton's outputs at `2^n` a computable digit sequence. Its words and block counts equal the actual binary digit words and counts, with all normality quantifiers retained. |
 | Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, occurrences, discrepancies, and finite interval bounds. |
 | Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No unconditional proof is supplied. |
 
@@ -28,6 +29,7 @@ its explicit Lean proof and the application-specific certificate pipeline.
 See [the mathematical foundation](docs/foundation.md) for derivations and limits,
 the [block-frequency bridge](docs/block-frequency-bridge.md) for the exact count transfer,
 the [normality criteria and checkpoints](docs/normality-criteria.md) for the next proof interface,
+the [power-orbit bridge](docs/power-orbit.md) for total evaluation and source-bound native traces,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -48,7 +50,8 @@ The full gate compiles fresh project proof objects, inspects compiled axiom
 dependencies and explicit public theorem types, builds the Mojo executables,
 checks the independent oracle, compiles the generated finite certificates,
 independently checks every occurrence, discrepancy, and interval receipt's exact type,
-and verifies negative controls. It writes `build/acceptance/report.json`.
+and every new power-orbit receipt's source, digit, and count type. It verifies
+negative controls and writes `build/acceptance/report.json`.
 An existing nonempty output directory is rejected; choose a new one with
 `--output build/another-run` when repeating a run.
 
@@ -60,6 +63,8 @@ Missing tools or failed stages are failures, never skips.
 The runner explicitly disables SDK telemetry and crash uploads before invoking
 Mojo. It calls installed executables directly; CI does not activate the Conda
 environment, whose activation hook in this pinned package sends a separate event.
+Compiler scratch files use a temporary directory on the project volume and are
+removed after native compilation.
 
 `bash tools/check_native.sh` runs only native/oracle conformance and emits Lean
 obligations. Its successful exit alone does not establish Lean acceptance.
@@ -76,6 +81,9 @@ obligations. Its successful exit alone does not establish Lean acceptance.
   the universal root or block theorems.
 - Fibonacci words are read most significant first, with rightmost weights
   1, 2, 3, 5, … . Adjacent ones are rejected; leading zeros are allowed.
+- The power-orbit producer supports binary segments of at most 256 digits,
+  with nonnegative start, end at most 4096, and block width 1–4. Its powers
+  stay in upstream BigZ; every input is bound to its exact exponent.
 - The compiled axiom allowlist is `propext`, `Classical.choice`, and
   `Quot.sound`. The project adds no mathematical axiom.
 - Finite receipt verification does not prove universal correctness of the
@@ -84,7 +92,8 @@ obligations. Its successful exit alone does not establish Lean acceptance.
 ## Next research obligation
 
 Control the output block frequencies along the particular input sequence
-`Z(b^n)`, with the required quantifiers over block lengths and values. A
+`Z(b^n)`, with the required quantifiers over block lengths and values. In base
+two, total computable evaluation and its exact block-count bridge are now proved. A
 frequency statement over all Fibonacci words does not imply that result.
 The published automaton provides exact digit evaluation; it does not supply
 the missing distribution theorem.

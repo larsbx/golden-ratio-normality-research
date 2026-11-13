@@ -11,6 +11,7 @@ from acceptance_utils import CONTRACT, ROOT, validated_intervals
 
 sys.path.insert(0, str(ROOT))
 from oracles.reference import block_counts, prefix_value, word
+import power_receipt_contracts
 
 
 def expected_names() -> set[str]:
@@ -24,6 +25,7 @@ def expected_names() -> set[str]:
     names.update(f"GoldenNormality.ReceiptContracts.interval_{i}_{value}"
                  for i, case in enumerate(validated_intervals())
                  for value in range(case["base"] ** case["width"]))
+    names.update(power_receipt_contracts.expected_names())
     return names
 
 
@@ -56,5 +58,6 @@ def certificate_source() -> str:
                       f"    Nat.dist ({b}^{k} * occurrences {b} {k} {value} N) N * {tolerance} ≤ N :=",
                       f"  GoldenNormality.Receipts.interval_{i}_{value} N hLN hNR"]
         lines.append("")
+    lines += power_receipt_contracts.certificate_lines()
     lines += ["end GoldenNormality.ReceiptContracts", ""]
     return "\n".join(lines)

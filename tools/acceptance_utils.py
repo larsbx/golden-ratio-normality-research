@@ -11,6 +11,20 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = json.loads((ROOT / "research-contract.json").read_text())
 
 
+def validated_power_orbits(contract=CONTRACT):
+    """Bind the binary power-input fixtures to explicit source and resource bounds."""
+    cases = []
+    for entry in contract["power_orbit_cases"]:
+        if type(entry) is not list or len(entry) != 3 or any(type(v) is not int for v in entry):
+            raise ValueError("power orbit cases require integer start, length, and width")
+        start, length, width = entry
+        if not (0 <= start and 0 <= length <= 256 and start + length <= 4096 and 1 <= width <= 4):
+            raise ValueError("power orbit case outside the bounded native contract")
+        cases.append({"start": start, "length": length, "width": width,
+                      "starts": max(0, length + 1 - width)})
+    return cases
+
+
 def validated_intervals(contract=CONTRACT):
     """Resolve interval fixtures without accepting vacuous or mismatched cases."""
     intervals = []

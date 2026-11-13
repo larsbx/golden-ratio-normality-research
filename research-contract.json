@@ -5,5 +5,6 @@
   "mojo_version": "1.1.0.dev2026090805",
   "prefix_cases": [[2, 0, 1], [10, 1, 2], [2, 256, 3], [3, 128, 3], [7, 32, 2], [10, 128, 2], [2, 0, 3], [2, 1, 3], [2, 3, 3], [2, 224, 3]],
   "interval_cases": [{"lower_case": 9, "upper_case": 2, "tolerance": 2}],
-  "automaton_values": 128
+  "automaton_values": 128,
+  "power_orbit_cases": [[0, 0, 3], [0, 1, 3], [0, 3, 3], [0, 128, 3], [17, 8, 2], [64, 4, 2]]
 }

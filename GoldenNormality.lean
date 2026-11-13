@@ -8,3 +8,5 @@ import GoldenNormality.FrequencyBridge
 import GoldenNormality.WordEncoding
 import GoldenNormality.NormalityCriteria
 import GoldenNormality.CheckpointBounds
+import GoldenNormality.ZeckendorfEncoding
+import GoldenNormality.PowerOrbit

@@ -10,10 +10,12 @@ import sys
 
 from acceptance_utils import (CONTRACT, ROOT, command, digest, git_output,
                               locate_program, source_hashes, utc_now, validated_intervals,
+                              validated_power_orbits,
                               verify_submodule, write_json)
 import native_conformance
 import bridge_controls
 import criteria_controls
+import power_controls
 import receipt_contracts
 
 MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
@@ -21,6 +23,7 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.Normality", "GoldenNormality.BlockNumerals",
            "GoldenNormality.FrequencyBridge", "GoldenNormality.WordEncoding",
            "GoldenNormality.NormalityCriteria", "GoldenNormality.CheckpointBounds",
+           "GoldenNormality.ZeckendorfEncoding", "GoldenNormality.PowerOrbit",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
@@ -28,7 +31,9 @@ CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCoun
                   "firstStarts", "certifiedFrequency", "certifiedDiscrepancy",
                   "fixedWidthCoverage", "wordRoundTrip", "normalityWords", "normalityUniformValues",
                   "checkpointInterpolation", "certifiedInterval", "checkpointCoverage", "checkpointNormality",
-                  "automatonLanguage", "automatonAllInputs", "automatonPowerInput"]
+                  "automatonLanguage", "automatonAllInputs", "automatonPowerInput",
+                  "fibonacciEncoding", "automatonEvaluation", "binaryPowerDigit", "binaryPowerWord",
+                  "binaryPowerFrequency", "binaryPowerNormality", "certifiedPowerSource", "certifiedPowerFrequency"]
 
 
 def audit_source(modules, *, print_contracts=False):
@@ -106,6 +111,18 @@ def parse_audit(output, modules):
             expected_receipts.add(f"powerDigit_{q.bit_length()-1}")
     for i, case in enumerate(validated_intervals()):
         expected_receipts.update(f"interval_{i}_{value}" for value in range(case["base"] ** case["width"]))
+    for i, case in enumerate(validated_power_orbits()):
+        for offset in range(case["length"]):
+            expected_receipts.update(f"{kind}_{i}_{offset}"
+                                     for kind in ("powerValue", "powerOutput", "powerDigit"))
+        expected_receipts.update(f"{kind}_{i}"
+                                 for kind in ("powerBinding", "powerDigits", "powerCanonical"))
+        for value in range(2 ** case["width"]):
+            expected_receipts.update(f"{kind}_{i}_{value}"
+                                     for kind in ("powerCount", "powerActualCount", "powerCanonicalCount"))
+            if case["start"] == 0:
+                expected_receipts.update(f"{kind}_{i}_{value}"
+                                         for kind in ("powerOccurrence", "powerDiscrepancy"))
     missing = {f"GoldenNormality.Receipts.{name}" for name in expected_receipts} - declarations["Receipts"].keys()
     if missing:
         raise RuntimeError(f"missing compiled finite receipt declarations: {sorted(missing)[:5]}")
@@ -211,8 +228,11 @@ def run(output):
         criteria_examples = output / "CriteriaCounterexamples.lean"
         criteria_examples.write_text(criteria_controls.COUNTEREXAMPLES)
         compile_file(criteria_examples, "CriteriaCounterexamples")
+        power_examples = output / "PowerOrbitCounterexamples.lean"
+        power_examples.write_text(power_controls.COUNTEREXAMPLES)
+        compile_file(power_examples, "PowerOrbitCounterexamples")
         audited_modules = [*MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
-                           "CriteriaCounterexamples"]
+                           "CriteriaCounterexamples", "PowerOrbitCounterexamples"]
         audit = output / "Audit.lean"
         audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
@@ -263,8 +283,9 @@ example (B q : ℕ) (hB : 0 < B) :
             "false_root": "rejected", "scattered_count": "rejected",
             "invalid_fibonacci_word": "rejected", "weakened_theorem_type": "rejected",
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
-        controls = {**bridge_controls.REJECTIONS, **criteria_controls.REJECTIONS}
-        if len(controls) != len(bridge_controls.REJECTIONS) + len(criteria_controls.REJECTIONS):
+        control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS, power_controls.REJECTIONS)
+        controls = {name: control for group in control_groups for name, control in group.items()}
+        if len(controls) != sum(map(len, control_groups)):
             raise RuntimeError("duplicate semantic rejection control name")
         for name, (source, diagnostic) in controls.items():
             rejection_source = output / f"Reject_{name}.lean"
@@ -285,8 +306,9 @@ example (B q : ℕ) (hB : 0 < B) :
         if final_revisions != report["dependency_revisions"]:
             raise RuntimeError("proof dependency changed during acceptance")
         report["accepted"] = True
-        report["scope"] = ("universal Lean foundation, equivalent normality targets, and conditional "
-                           "checkpoint criterion; checked finite occurrence/discrepancy/interval receipts; "
+        report["scope"] = ("universal Lean foundation, total binary power-orbit evaluation, equivalent "
+                           "normality targets, and conditional checkpoint criterion; checked finite "
+                           "source-bound power traces and occurrence/discrepancy/interval receipts; "
                            "no unconditional normality theorem")
     except Exception as error:
         report["error"] = str(error)
@@ -297,7 +319,7 @@ example (B q : ℕ) (hB : 0 < B) :
             str(path.relative_to(output)): digest(path)
             for path in sorted(output.rglob("*")) if path.is_file()
             and path.name != "report.json" and path.suffix not in (".olean", ".private", ".server", ".ir")
-            and path.name not in ("foundation", "automaton_probe")}
+            and path.name not in ("foundation", "automaton_probe", "power_orbit")}
         write_json(output / "report.json", report)
     print(json.dumps({"accepted": report["accepted"], "compiled_modules": report["compiled_modules"],
                       "report": str(output / "report.json")}, indent=2))
