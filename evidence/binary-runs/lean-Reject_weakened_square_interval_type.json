@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_weakened_square_interval_type.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.78,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_weakened_square_interval_type.lean:10:2: error: Type mismatch\n  occurrences_square_interval_bound b k j i (squareCheckpoint i) T hT hi (le_refl (squareCheckpoint i))\n    (StrictMono.monotone squareCheckpoint_strictMono (Nat.le_succ i)) lower upper\nhas type\n  (b ^ k * occurrences b k j (squareCheckpoint i)).dist (squareCheckpoint i) * T \u2264 squareCheckpoint i\nbut is expected to have type\n  \u2200 (N : \u2115), squareCheckpoint i \u2264 N \u2192 N \u2264 squareCheckpoint (i + 1) \u2192 (b ^ k * occurrences b k j N).dist N * T \u2264 N\n"
+}

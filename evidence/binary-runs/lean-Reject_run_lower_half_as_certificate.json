@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_run_lower_half_as_certificate.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.784,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_run_lower_half_as_certificate.lean:7:24: error: Application type mismatch: The argument\n  lower\nhas type\n  q ^ 2 + 2 ^ start * q \u2264 (2 ^ start) ^ 2\nbut is expected to have type\n  PrefixCertificate (2 ^ start) ?m.76\nin the application\n  binary_zero_run_bound lower\n"
+}

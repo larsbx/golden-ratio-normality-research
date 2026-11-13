@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/native/power_orbit",
+    "17",
+    "8",
+    "2"
+  ],
+  "returncode": 0,
+  "seconds": 0.02,
+  "stderr": "",
+  "stdout": "{\"schema\":\"golden-normality-power-orbit-v1\",\"base\":2,\"start\":17,\"length\":8,\"width\":2,\"digits\":\"11110011\",\"counts\":[1,1,1,4],\"inputs\":[{\"exponent\":17,\"value\":\"131072\",\"fibonacci_digits\":\"1000001010000101000010000\",\"output\":1},{\"exponent\":18,\"value\":\"262144\",\"fibonacci_digits\":\"10010100001000000010100100\",\"output\":1},{\"exponent\":19,\"value\":\"524288\",\"fibonacci_digits\":\"1000000001010010001000010100\",\"output\":1},{\"exponent\":20,\"value\":\"1048576\",\"fibonacci_digits\":\"10010000100001010010100000001\",\"output\":1},{\"exponent\":21,\"value\":\"2097152\",\"fibonacci_digits\":\"101010001010000010000001000010\",\"output\":0},{\"exponent\":22,\"value\":\"4194304\",\"fibonacci_digits\":\"10001001001000100100100010010101\",\"output\":0},{\"exponent\":23,\"value\":\"8388608\",\"fibonacci_digits\":\"101000101010100010101010010000100\",\"output\":1},{\"exponent\":24,\"value\":\"16777216\",\"fibonacci_digits\":\"10000100101010010010101001010001001\",\"output\":1}]}\n"
+}

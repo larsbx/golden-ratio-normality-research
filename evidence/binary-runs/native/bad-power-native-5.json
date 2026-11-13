@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/native/power_orbit",
+    "0",
+    "4",
+    "0"
+  ],
+  "returncode": 1,
+  "seconds": 0.026,
+  "stderr": "stack trace was not collected. Enable stack trace collection with environment variable `MODULAR_DEBUG=stack-trace-on-error`\nUnhandled exception caught during execution: power orbit outside start 0..4096 / length 0..256 / width 1..4 contract\n",
+  "stdout": ""
+}
