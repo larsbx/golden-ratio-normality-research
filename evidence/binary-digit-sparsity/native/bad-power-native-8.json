@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/native/power_orbit",
+    "0",
+    "4"
+  ],
+  "returncode": 1,
+  "seconds": 0.014,
+  "stderr": "stack trace was not collected. Enable stack trace collection with environment variable `MODULAR_DEBUG=stack-trace-on-error`\nUnhandled exception caught during execution: usage: golden-normality-power-orbit START LENGTH BLOCK_WIDTH\n",
+  "stdout": ""
+}

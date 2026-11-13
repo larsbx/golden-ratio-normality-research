@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_shifted_sparsity_prefix.lean"
+  ],
+  "returncode": 1,
+  "seconds": 7.441,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_shifted_sparsity_prefix.lean:6:2: error: Tactic `decide` proved that the proposition\n  2 * 3 \u2264 Blocks.count [1] [0, 0, 0] ^ 2 + 3 * Blocks.count [1] [0, 0, 0] + 4\nis false\n"
+}
