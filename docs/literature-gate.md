@@ -78,3 +78,21 @@ triangular square-weight estimate, separately proved by binary induction.
 The paper supplies context and attribution, not a Lean axiom. No priority
 claim is made for this specialization or refinement. See
 [the exact derivation](binary-digit-sparsity.md) for hypotheses and limits.
+
+## Binary run and recurrence follow-up
+
+The primary-source check revisited Bailey--Borwein--Crandall--Pomerance
+Sections 3, 5, and 7. Section 3 obtains an eventual gap and logarithmic count
+bound from Roth's theorem. The application now supplies an elementary,
+all-start quadratic bound from integer residuals: every run starting at n has
+length at most n+1, and each symbol occurs at least m times by prefix length
+2^(m+1)-2. This is an explicit formalization, with no priority claim.
+
+The sign restriction of Theorem 5.2 is essential. For the complement 1-alpha,
+the polynomial x^2-3x+1 has a negative linear coefficient; substituting its
+prefix into the existing positive-polynomial proof is invalid. The general
+Theorem 7.1 supplies a stronger eventual square-root lower count in the
+literature, but its signed-tail argument and the source-bound complement
+bridge remain unformalized here. The new run proof does not invoke Roth or
+import a literature theorem as an axiom. See
+[the run and recurrence derivation](binary-runs-and-recurrence.md).

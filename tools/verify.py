@@ -18,6 +18,7 @@ import criteria_controls
 import power_controls
 import checkpoint_controls
 import sparsity_controls
+import run_controls
 import proof_dependencies
 import receipt_contracts
 
@@ -29,6 +30,7 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.ZeckendorfEncoding", "GoldenNormality.PowerOrbit",
            "GoldenNormality.SparseCheckpoints", "GoldenNormality.SquareCheckpoints",
            "GoldenNormality.BinarySparsity",
+           "GoldenNormality.BinaryRuns", "GoldenNormality.BinaryRecurrence",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
@@ -42,7 +44,11 @@ CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCoun
                   "endpointBudget", "endpointInterpolation", "sparseCheckpointNormality", "squareGeometry",
                   "squareCheckpointNormality", "squareInterval", "binarySquareNormality",
                   "binaryPrefixSparsity", "binaryPrefixHighBits", "binaryWordOnes",
-                  "binaryPowerPrefix", "binaryPowerOnes", "binaryOccurrencesOnes", "certifiedBinaryOnes"]
+                  "binaryPowerPrefix", "binaryPowerOnes", "binaryOccurrencesOnes", "certifiedBinaryOnes",
+                  "binaryZeroRun", "binaryOneRun", "binaryPowerConstantRun", "binaryActualConstantRun",
+                  "certifiedBinaryConstantRun", "binaryWindowSymbols", "binaryPowerWindowSymbols",
+                  "binarySymbolCountGrowth", "binaryLogarithmicCounts", "binaryLaterCounts",
+                  "binaryCountPartition", "binaryTwoSidedCounts", "binaryDigitRecurrence", "binaryNoConstantTail"]
 
 
 def audit_source(modules, *, print_contracts=False):
@@ -258,9 +264,12 @@ def run(output):
         sparsity_examples = output / "SparsityCounterexamples.lean"
         sparsity_examples.write_text(sparsity_controls.COUNTEREXAMPLES)
         compile_file(sparsity_examples, "SparsityCounterexamples")
+        run_examples = output / "RunCounterexamples.lean"
+        run_examples.write_text(run_controls.COUNTEREXAMPLES)
+        compile_file(run_examples, "RunCounterexamples")
         audited_modules = [*upstream_sources, *MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
                            "CriteriaCounterexamples", "PowerOrbitCounterexamples", "CheckpointCounterexamples",
-                           "SparsityCounterexamples"]
+                           "SparsityCounterexamples", "RunCounterexamples"]
         audit = output / "Audit.lean"
         audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
@@ -313,7 +322,7 @@ example (B q : ℕ) (hB : 0 < B) :
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
         control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS,
                           power_controls.REJECTIONS, checkpoint_controls.REJECTIONS,
-                          sparsity_controls.REJECTIONS)
+                          sparsity_controls.REJECTIONS, run_controls.REJECTIONS)
         controls = {name: control for group in control_groups for name, control in group.items()}
         if len(controls) != sum(map(len, control_groups)):
             raise RuntimeError("duplicate semantic rejection control name")
@@ -344,7 +353,8 @@ example (B q : ℕ) (hB : 0 < B) :
         report["accepted"] = True
         report["scope"] = ("universal Lean foundation, total binary power-orbit evaluation, equivalent "
                            "normality targets at all starts and square checkpoints, unconditional "
-                           "binary one-count sparsity bounds, and conditional "
+                           "binary one-count sparsity bounds, constant-run bounds and quantitative "
+                           "recurrence of both binary symbols, and conditional "
                            "interpolation for vanishing relative gaps; checked finite "
                            "source-bound power traces and occurrence/discrepancy/interval receipts; "
                            "no unconditional normality theorem")

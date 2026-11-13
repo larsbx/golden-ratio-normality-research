@@ -284,4 +284,67 @@ theorem certifiedBinaryOnes (word : List ℕ) (digits : DigitsAt 2 0 word) :
     2 * word.length ≤ Blocks.count [1] word ^ 2 + 3 * Blocks.count [1] word + 4 :=
   certified_binary_ones_bound digits
 
+theorem binaryZeroRun (start length q r : ℕ)
+    (lower : PrefixCertificate (2 ^ start) q)
+    (upper : PrefixCertificate (2 ^ (start + length)) r)
+    (run : r = 2 ^ length * q) : length ≤ start + 1 :=
+  binary_zero_run_bound lower upper run
+
+theorem binaryOneRun (start length q r : ℕ)
+    (lower : PrefixCertificate (2 ^ start) q)
+    (upper : PrefixCertificate (2 ^ (start + length)) r)
+    (run : r + 1 = 2 ^ length * (q + 1)) : length ≤ start + 1 :=
+  binary_one_run_bound lower upper run
+
+theorem binaryPowerConstantRun (start length d : ℕ)
+    (run : BinaryAutomaton.powerDigits start length = List.replicate length d) :
+    length ≤ start + 1 :=
+  binary_power_constant_run_bound run
+
+theorem binaryActualConstantRun (start length d : ℕ)
+    (run : actualDigits 2 start length = List.replicate length d) :
+    length ≤ start + 1 :=
+  binary_actual_constant_run_bound run
+
+theorem certifiedBinaryConstantRun (start length d : ℕ)
+    (digits : DigitsAt 2 start (List.replicate length d)) : length ≤ start + 1 :=
+  certified_binary_constant_run_bound digits
+
+theorem binaryWindowSymbols (start d : ℕ) (hd : d < 2) :
+    d ∈ actualDigits 2 start (start + 2) :=
+  binary_actual_window_contains start d hd
+
+theorem binaryPowerWindowSymbols (start d : ℕ) (hd : d < 2) :
+    d ∈ BinaryAutomaton.powerDigits start (start + 2) :=
+  binary_power_window_contains start d hd
+
+theorem binarySymbolCountGrowth (start d : ℕ) (hd : d < 2) :
+    Blocks.count [d] (BinaryAutomaton.powerDigits 0 start) + 1 ≤
+      Blocks.count [d] (BinaryAutomaton.powerDigits 0 (2 * start + 2)) :=
+  binary_power_count_growth start d hd
+
+theorem binaryLogarithmicCounts (m d : ℕ) (hd : d < 2) :
+    m ≤ occurrences 2 1 d (2 ^ (m + 1) - 2) :=
+  binary_occurrences_logarithmic_bound m d hd
+
+theorem binaryLaterCounts (m d N : ℕ) (hd : d < 2)
+    (hN : 2 ^ (m + 1) - 2 ≤ N) : m ≤ occurrences 2 1 d N :=
+  binary_occurrences_at_least m d N hd hN
+
+theorem binaryCountPartition (N : ℕ) :
+    occurrences 2 1 0 N + occurrences 2 1 1 N = N :=
+  binary_occurrences_partition N
+
+theorem binaryTwoSidedCounts (m N : ℕ) (hN : 2 ^ (m + 1) - 2 ≤ N) :
+    m ≤ occurrences 2 1 1 N ∧ occurrences 2 1 1 N + m ≤ N :=
+  binary_occurrences_two_sided m N hN
+
+theorem binaryDigitRecurrence (start d : ℕ) (hd : d < 2) :
+    ∃ n : ℕ, start ≤ n ∧ n < 2 * start + 2 ∧ digit 2 n = (d : ℤ) :=
+  binary_digit_symbol_recurs start d hd
+
+theorem binaryNoConstantTail :
+    ¬ ∃ start : ℕ, ∃ d : ℤ, ∀ n : ℕ, start ≤ n → digit 2 n = d :=
+  binary_digit_not_eventually_constant
+
 end GoldenNormality.Contracts

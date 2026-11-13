@@ -14,6 +14,10 @@ that geometric condition, giving a fully quantified sparse power-orbit target.
 An unconditional binary sparsity theorem now proves 2N<=s_N^2+3s_N+4 for
 the actual one count at every prefix length N. This supplies square-root-scale
 growth, not the limiting frequency one half or an all-block estimate.
+Binary run bounds now apply at every start n: any constant segment has length
+at most n+1, so [n,2n+2) contains both symbols. For d<2, every origin prefix of
+length N>=2^(m+1)-2 contains at least m copies of d. This logarithmic bound
+adds zero recurrence; it does not strengthen the existing one-count sparsity.
 
 Authority and scope
 1. Universal Lean theorems are accepted only after compilation of the exact
@@ -155,3 +159,24 @@ counterexample refute only those overstated finite variants, not normality.
 The method is attributed to Bailey--Borwein--Crandall--Pomerance. No novelty or
 universal native implementation refinement is claimed. Read the derivation and
 scope in docs/binary-digit-sparsity.md before extending this result.
+
+Binary run and recurrence contract
+For start n,length k,B=2^n,D=2^k, keep BOTH exact prefix certificates at n and
+n+k. A zero run means Q=D*q; a one run means Q+1=D*(q+1). The positive integer
+residual at the first endpoint scales by D^2 and is bounded by <3*B*D at the
+second endpoint. A run of k>=n+2 is impossible. The actual word bridge retains
+base2, starting position, and length. Empty runs are allowed by the bound.
+For any d<2, powerDigits n (n+2) contains d; the equivalent witness satisfies
+n<=i<2*n+2 with an EXCLUSIVE upper endpoint. Do not shorten to n+1 or reset
+a shifted source to zero. Actual00 at n=1 and1111 at n=3 refute both changes.
+Recurrence checkpoints a_m=2^(m+1)-2 have a_0=0 and a_(m+1)=2*a_m+2.
+Their disjoint windows each supply a zero and a one, giving count>=m for
+every N>=a_m and d<2. Preserve the binary-symbol bound and origin-prefix
+count convention. Infinite recurrence does not imply normality, positive
+density, bounded gaps, or occurrence of every longer word.
+The complementary beta=1-alpha has beta^2-3beta+1=0. The negative coefficient
+prevents direct reuse of the positive-polynomial proof. BBCP Theorem7.1
+already gives an eventual sqrt-scale bound in the literature; the open item
+is this project's source-bound complement and signed-tail formalization,
+not a newly unresolved mathematical existence claim. See the run derivation
+and literature check in docs/binary-runs-and-recurrence.md.
