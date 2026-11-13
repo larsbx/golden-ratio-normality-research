@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-normality-criteria-final",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-normality-criteria-final/AuditTransitive.lean"
+  ],
+  "returncode": 1,
+  "seconds": 1.203,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-normality-criteria-final/AuditTransitive.lean:5:0: error: Nonstandard transitive axiom\n"
+}

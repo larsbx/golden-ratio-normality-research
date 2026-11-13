@@ -12,7 +12,7 @@ import re
 import sys
 
 from acceptance_utils import (CONTRACT, ROOT, command, digest, locate_program,
-                              verify_submodule, write_json)
+                              validated_intervals, verify_submodule, write_json)
 sys.path.insert(0, str(ROOT))
 from oracles.reference import check_record, check_automaton_record, word
 
@@ -56,6 +56,24 @@ def certificate_source(prefixes, automaton):
                       f"    Nat.dist ({b}^{k} * occurrences {b} {k} {j} {starts}) {starts} = {discrepancy} := by",
                       f"  rw [occurrence_{i}_{j}]",
                       f"  decide"]
+        lines.append("")
+    for i, case in enumerate(validated_intervals()):
+        lower, upper = case["lower_case"], case["upper_case"]
+        b, k, tolerance = case["base"], case["width"], case["tolerance"]
+        left, right = case["lower_starts"], case["upper_starts"]
+        for j in range(b ** k):
+            lower_count, upper_count = prefixes[lower]["counts"][j], prefixes[upper]["counts"][j]
+            endpoint = max(abs(b ** k * lower_count - left), abs(b ** k * upper_count - right))
+            if (endpoint + right - left) * tolerance > left:
+                raise RuntimeError(f"configured interval budget fails: interval {i}, value {j}")
+            pattern = lean_list(word(b, k, j))
+            lines += [f"theorem interval_{i}_{j} (N : ℕ) (hLN : {left} ≤ N) (hNR : N ≤ {right}) :",
+                      f"    Nat.dist ({b}^{k} * occurrences {b} {k} {j} N) N * {tolerance} ≤ N :=",
+                      f"  certified_interval_bound (b := {b}) (lowerCount := {lower_count})",
+                      f"    (upperCount := {upper_count}) (N := N) (T := {tolerance})",
+                      f"    (lowerText := word_{lower}) (upperText := word_{upper}) (pattern := {pattern})",
+                      f"    (by decide) (by decide) (by decide) digits_{lower} digits_{upper}",
+                      f"    count_{lower}_{j} count_{upper}_{j} hLN hNR (by decide)"]
         lines.append("")
     for i, record in enumerate(automaton):
         # This runs only after strict nonbinary-symbol rejection in the oracle.
@@ -142,6 +160,8 @@ def run(output):
         "finite_math_kernels_revision": submodule,
         "prefix_cases": [{"base": r["base"], "length": r["length"], "width": r["width"],
                           "windows": sum(r["counts"])} for r in prefixes],
+        "interval_obligations": [{**case, "patterns": case["base"] ** case["width"]}
+                                 for case in validated_intervals()],
         "automaton_values": len(automaton), "native_invalid_requests_rejected": rejected,
         "executables_sha256": {name: digest(exe) for name, exe in executables.items()},
         "receipts_sha256": digest(output / "receipts.json"),

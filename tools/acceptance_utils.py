@@ -11,6 +11,33 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = json.loads((ROOT / "research-contract.json").read_text())
 
 
+def validated_intervals(contract=CONTRACT):
+    """Resolve interval fixtures without accepting vacuous or mismatched cases."""
+    intervals = []
+    cases = contract["prefix_cases"]
+    for entry in contract["interval_cases"]:
+        if not isinstance(entry, dict) or set(entry) != {"lower_case", "upper_case", "tolerance"}:
+            raise ValueError("invalid interval fields")
+        lower, upper, tolerance = (entry[key] for key in ("lower_case", "upper_case", "tolerance"))
+        if any(type(value) is not int for value in (lower, upper, tolerance)):
+            raise ValueError("interval indices and tolerance must be integers")
+        if not (0 <= lower < len(cases) and 0 <= upper < len(cases)):
+            raise ValueError("interval references a missing prefix case")
+        if tolerance < 1:
+            raise ValueError("interval tolerance must be positive")
+        b, lower_length, width = cases[lower]
+        upper_b, upper_length, upper_width = cases[upper]
+        if (b, width) != (upper_b, upper_width):
+            raise ValueError("interval endpoints must share a base and block width")
+        lower_starts, upper_starts = lower_length + 1 - width, upper_length + 1 - width
+        if not 1 <= lower_starts <= upper_starts:
+            raise ValueError("interval starts must be positive and ordered")
+        intervals.append({**entry, "base": b, "width": width,
+                          "lower_length": lower_length, "upper_length": upper_length,
+                          "lower_starts": lower_starts, "upper_starts": upper_starts})
+    return intervals
+
+
 def digest(path):
     return sha256(Path(path).read_bytes()).hexdigest()
 

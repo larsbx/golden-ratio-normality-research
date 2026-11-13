@@ -5,3 +5,6 @@ import GoldenNormality.Certificates
 import GoldenNormality.Normality
 import GoldenNormality.BlockNumerals
 import GoldenNormality.FrequencyBridge
+import GoldenNormality.WordEncoding
+import GoldenNormality.NormalityCriteria
+import GoldenNormality.CheckpointBounds

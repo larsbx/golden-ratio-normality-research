@@ -1,0 +1,380 @@
+{
+  "accepted": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "artifact_sha256": {
+    "Audit.lean": "8bf13e01f7f88a4c5da3ddfaef26c2e6cb2b9fb4fb084201bc10f75594c6574a",
+    "AuditTransitive.lean": "4042ea18a0f85f7bd64dda4b02a191920d3f0df156186c9918866fb979d5706e",
+    "AuditUntrusted.lean": "743c35b5dcc4aa72294e16f2c99a780d287a5f38206901001bbd4d898c8b3168",
+    "BridgeCounterexamples.lean": "bd6050cbf2108496b36980d84c2b604fb6b93e764cedd60dfda80bcc13d576f7",
+    "CriteriaCounterexamples.lean": "1b0b9cd03b1ea870c4234271150c8799ac9505ec84f4bd2cc707297c68460532",
+    "FalseClaims.lean": "e5c45f6133b46c2493e587cb0b6259441305e9c78c93929726a412f611b89dea",
+    "ReceiptContracts.lean": "f9ec4aedb67d6e095a70150c9d66f05e0aa85f3aa126fe126763ad697bb18754",
+    "Reject_constant_checkpoint_strict_mono.lean": "b2aaff2a6663096bb5235832546782ab7a4b038aea9ed1fc433ccea921a0074f",
+    "Reject_empty_pattern_transfer.lean": "5b2bbc92e37989f4895cc5fa0e02758138846b49e9eb25886df3c002159b3a84",
+    "Reject_omitted_checkpoint_gap.lean": "13783adc92c68d48155806bb33036081a45652401cd0ccfd92d8af991a523980",
+    "Reject_out_of_range_decoder_alphabet.lean": "c347265deaf4f69a50758ea7fddae5658aae1a428febf6bf77ca109b9403f416",
+    "Reject_outside_alphabet_encoding.lean": "9b2454e00d562e42523621f2520fe63c6889e55a16f60dc2ee0fea4dc0c44c3a",
+    "Reject_short_prefix_extra_start.lean": "dad2f34d8e149086fbe5c3c1e63221b1e22139b65f03c623823bac6c97da13cc",
+    "Reject_unequal_length_encoding.lean": "d87e407361b6f04be149e98b2881cf4d484a48b3269793c1a000ea1cbf7f5eea",
+    "Reject_weakened_discrepancy_type.lean": "aa6ced9567a8e09ab9cb4a82ea220df121f86417c03177da1e438711498b14cc",
+    "Reject_weakened_interval_quantifier.lean": "68f513c26b35dfb88ca1bef641e67a543618f96c5f918bd1c01886ffbd34cb9a",
+    "Reject_zero_width_roundtrip.lean": "03582055d365f1d23cfb6a36e912198cc49b7bb23e7615d7a92f84a3f287323b",
+    "TransitiveAxiom.lean": "e3e85613d9846ceabf4dea60239f5c120c7d8ad3ea26598d35dd18fa5f980352",
+    "UntrustedAxiom.lean": "62d0ef8c69d6b3c26bf31b56ad2a53a2ae9765e96dffe0cea61729c119e7fd15",
+    "declaration-axioms.json": "dc0224463a7dd825bb50265a6664313a08eb79ec820850a12eac24c5e513d801",
+    "lean-Audit.json": "17934ae4965928ab9457925d5f5cf58061c816f98651ed379d8ac6e09e81e581",
+    "lean-AuditTransitive.json": "dd6a2f893d43e6f9bc28298e3b3916f27f80a9235d08db5dad24c6c3212cba4e",
+    "lean-AuditUntrusted.json": "0fc40b213215056bb0ff5071457277b387e011ee7bd8faf8199e7b73a738ce1d",
+    "lean-BridgeCounterexamples.json": "b3b895b5f1987640d8e8ca8ccab0c4281e57f359b16862235e00a2bb7ac54bee",
+    "lean-CriteriaCounterexamples.json": "aae2aee2c317a2cb47f69eb3b4f3f20d793e1938388e2ba6ef21b5016a98d794",
+    "lean-FalseClaims.json": "6eb8785d1ff4637e580567ee08b3d26d47ae700bccf7368609285d0573539ba4",
+    "lean-GoldenNormality.Automaton.json": "2fefac920e3234836f751706bce989c6f39978bbec7311a63c0de082f9b525b0",
+    "lean-GoldenNormality.BlockNumerals.json": "e63721075c2801316c5ca1b74d16de9e5bf66e9e1a8f791028921ad82b7c649d",
+    "lean-GoldenNormality.Blocks.json": "d1ba506b37392cd1231ab770f471b1612d5e50923f3152fc660f0766151cc156",
+    "lean-GoldenNormality.Certificates.json": "4bb233878106359ba0bbbe1088439cfd40868e20e74496c1919ab19e3d858f9b",
+    "lean-GoldenNormality.CheckpointBounds.json": "0da89163aa2227dcc4d62e2f0b3ca10fcbf7db399284dc5eed4d5ceef34da09b",
+    "lean-GoldenNormality.Contracts.json": "2fc7c1d7a912200cdf42dfedb89493c257f39a1a217de5400935acd0cdd4ad0e",
+    "lean-GoldenNormality.FrequencyBridge.json": "b16ba42d349297559d3e63b2f4d861eb1bfa040c948140cc05232404a403ae98",
+    "lean-GoldenNormality.Normality.json": "dbbc8993af25992525766a6cb2dec4f21b046fc8e5e64fe556af06e7230d1885",
+    "lean-GoldenNormality.NormalityCriteria.json": "22bd7027c085d70e1ff311c300b70667c90941c2d42cebab4265cdbf15853d4d",
+    "lean-GoldenNormality.Prefix.json": "166e86b39df7cffd8e6f67bb36c6be93f23ec5279f0d3cdd0dbe0b5c53f1e774",
+    "lean-GoldenNormality.WordEncoding.json": "2e00ad12b25a522d407972b1092251d9d9ba3ff2ca1ff8815bc18d1d644a1bca",
+    "lean-GoldenNormality.json": "822fd47d0bc12a372eb0dafe90908ac2e4c3265d765acdb599cd38ba74d06bd9",
+    "lean-ReceiptContracts.json": "7710ada7475632321b40a34eb4ae0cea090e2c11d743c9606d3307744480ed57",
+    "lean-Receipts.json": "c1bd13597db1406ab57f87cd46e170b7fb8f2b3712da58860dc559efd5220acd",
+    "lean-Reject_constant_checkpoint_strict_mono.json": "92c7e10c59803009bea29fbf9a8722a1a7b5fb18d12313d6607405e860dabdd8",
+    "lean-Reject_empty_pattern_transfer.json": "efad2a9cd92121f842bb1d3f132aff3a92c42e785526a523ad5e18f10201ad2c",
+    "lean-Reject_omitted_checkpoint_gap.json": "9ffbb986036809d382ff4d01092ecfb2bb7f72bb2d0a01084d60cfb37af9947a",
+    "lean-Reject_out_of_range_decoder_alphabet.json": "2ae5fc07bea00e02a749b941b232b13d0202769533695b052c721b8e16e2d4da",
+    "lean-Reject_outside_alphabet_encoding.json": "212c971ee11ca02c8af02870d14290bc1b40437704c47b72166d9d4c7aadded4",
+    "lean-Reject_short_prefix_extra_start.json": "98204f8d8afb34ee8d5439e562fcc1f23421e5876db09f575bae130a3b3b6866",
+    "lean-Reject_unequal_length_encoding.json": "23851764fae17434835a1696195cd30cff662afe1f7802cb7ddf3dd0e3c4194d",
+    "lean-Reject_weakened_discrepancy_type.json": "8af2ef7aab6cc861cb1b770dde915d5f206577e3b9dc78f6f733b621cecc8d94",
+    "lean-Reject_weakened_interval_quantifier.json": "72b57fd6837289f2cbae6e85a4a306264a8fada9b9821946481bdfe1cde9d92f",
+    "lean-Reject_zero_width_roundtrip.json": "5bebdf762a0561fe7b14c25092c0b8c0448171730bf8b7173c65208a0af25f97",
+    "lean-TransitiveAxiom.json": "df9a459a6d4b6392d513606e4f6af81df201a49eeed48440035bf7c851d6f4a6",
+    "lean-UntrustedAxiom.json": "474cfe6eb1c9d42f1dec90295dbd10d7a3967be2eeb3f2cdae47a456e8a71ad7",
+    "lean-version.json": "dbaa08bd11d36624791b1c4020104b50fa19788593bee04afb0c97dbf4299722",
+    "native/Receipts.lean": "14e89bfe4db084db42c5693d927bfc9f0664e3da901b36dbf9629fe76dd7de27",
+    "native/automaton.json": "d778532ed00fd8c236415ef1341b145a93a0a6c1f9302a344ef7e4b111ecbc28",
+    "native/bad-native-0.json": "caf45ef2da715889960f00d65da4d4cef3df9d9baf133c04c1be553d77918dab",
+    "native/bad-native-1.json": "ad8852e246adb2b20a722302d7b877ca6f3eba34f2589013501206010ed0e832",
+    "native/bad-native-2.json": "a19f1d777fc0c3cf79dd11a81968108abcbf7da3cd21b994227568d5b74bbc32",
+    "native/bad-native-3.json": "ad2ea1a6a875ea9332544437bcf013ddde3b312a7f61bcdb085d186423c4eb8e",
+    "native/bad-native-4.json": "c683d0565f63b22a2ec894951496121f110c27b9e6c4dca65ab1440a6933c83a",
+    "native/bad-native-5.json": "521e6fdbcef8f1adbf3728a800ca598e54aeddac39d5b9fcf50f000cec3fce6c",
+    "native/bad-native-6.json": "fd074680b960f19e4de2afce8858d409ba8ad36829a166269207b84db8a71584",
+    "native/bad-native-7.json": "5bd070f2dd48bcc82753b202b29774e15331ce875fda8d6b205756ec84d4874d",
+    "native/build-automaton_probe.json": "a8947480e9710473ef9eda4ebd841a508629a675bae44b531104a38849b52edd",
+    "native/build-foundation.json": "d26033fd2c7067ca767722e2ed44eef29ee1f84b203e292f4ea9494b1ca1aa8d",
+    "native/mojo-version.json": "76c765e87a0c8ad169f48f0b69ed71ab394dbee5edba0a7b3dcabe757bd0c29b",
+    "native/prefix-0.json": "bb52342471c9413a65a946ed5f021bf46f98635ac642360be9b6991313ddcfe1",
+    "native/prefix-1.json": "d7fac76242ade556d14cfe825981f963113254162ca20941ec66dc366e164e90",
+    "native/prefix-2.json": "3408ed755c8663a4a20230a9c0581b33fa2f196d2d323ba8053f0aa790881da9",
+    "native/prefix-3.json": "f54f1657633416e39bc977adfc5a40f4e8554093dc3b06f3be5965a32cb8832b",
+    "native/prefix-4.json": "8191859f524fdaa013638d1e6c814d68fbde76797e614873213208ca41150461",
+    "native/prefix-5.json": "9c33dfb1b06f4ad59e35c1ba2f3f5313ba65cdc6d291490c93d03e9b8c10b10e",
+    "native/prefix-6.json": "bd3ce56256a1c14f657aeab479eacfe8f26c7d1d210783525e1929d285c7a634",
+    "native/prefix-7.json": "8ca004ebaa53fa92e1c4dbcdfb1d229b21be13bff05b998c4e93b0de157106cc",
+    "native/prefix-8.json": "8dfaa965426219832b67f41e8afbd8f017951ecc089cb157341cac5d2a98e302",
+    "native/prefix-9.json": "31c840e2784199646dea1a67d8ae21fad1842b1682c1d7af268c7e432837f201",
+    "native/receipts.json": "ee1cbb1904d1719247e833414a8ee5b0c21935eb396803069bceb09783c5b4ac",
+    "native/summary.json": "51aca8b010b1f936a7eddf031f45a1c821a3a5f1fd3e169fea8cac62ef40379a",
+    "oracle-tests.json": "deeb02a4692807aa81d060cffb0ac6e6d87995e0c72b13ef6afeeb24e72a8390"
+  },
+  "compiled_modules": {
+    "BridgeCounterexamples": {
+      "declarations": 6,
+      "theorems": 6
+    },
+    "CriteriaCounterexamples": {
+      "declarations": 17,
+      "theorems": 16
+    },
+    "GoldenNormality": {
+      "declarations": 0,
+      "theorems": 0
+    },
+    "GoldenNormality.Automaton": {
+      "declarations": 237,
+      "theorems": 157
+    },
+    "GoldenNormality.BlockNumerals": {
+      "declarations": 39,
+      "theorems": 28
+    },
+    "GoldenNormality.Blocks": {
+      "declarations": 61,
+      "theorems": 44
+    },
+    "GoldenNormality.Certificates": {
+      "declarations": 20,
+      "theorems": 14
+    },
+    "GoldenNormality.CheckpointBounds": {
+      "declarations": 15,
+      "theorems": 15
+    },
+    "GoldenNormality.Contracts": {
+      "declarations": 22,
+      "theorems": 22
+    },
+    "GoldenNormality.FrequencyBridge": {
+      "declarations": 16,
+      "theorems": 16
+    },
+    "GoldenNormality.Normality": {
+      "declarations": 5,
+      "theorems": 3
+    },
+    "GoldenNormality.NormalityCriteria": {
+      "declarations": 11,
+      "theorems": 9
+    },
+    "GoldenNormality.Prefix": {
+      "declarations": 35,
+      "theorems": 26
+    },
+    "GoldenNormality.WordEncoding": {
+      "declarations": 21,
+      "theorems": 15
+    },
+    "ReceiptContracts": {
+      "declarations": 644,
+      "required_type_checks": 644,
+      "theorems": 644
+    },
+    "Receipts": {
+      "declarations": 3375,
+      "required_receipt_theorems": 3237,
+      "theorems": 3237
+    }
+  },
+  "dependency_revisions": {
+    "Cli": "ab3a82db9fea14cf0fd7f5a2de650f4b534640af",
+    "LeanSearchClient": "ba67e212be1197b84c1f1f6299488a10a3002713",
+    "Qq": "507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3",
+    "aesop": "18889deb9e83ea7420ef51c160d6f88552e744e3",
+    "batteries": "4cac2177c37f5530c4da76aa8e4307f3fc9e4dcb",
+    "importGraph": "1681d78dd6e65e38b143f9740d829c826673807c",
+    "mathlib": "4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09",
+    "plausible": "d9598f07b1bc701f1e3aae163d2681c1fd978793",
+    "proofwidgets": "a8acbfd87375ff4abe14ce09db5b7664d383bc7f"
+  },
+  "finished_utc": "2026-11-13T09:23:03.052054+00:00",
+  "lean": {
+    "LD_PRELOAD": "",
+    "invocation": "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "invocation_file_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "package_cache": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/.lake/packages",
+    "version": "Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)"
+  },
+  "lean_negative_controls": {
+    "compiled_axiom_injection": "rejected",
+    "constant_checkpoint_strict_mono": "rejected",
+    "empty_pattern_transfer": "rejected",
+    "false_root": "rejected",
+    "invalid_fibonacci_word": "rejected",
+    "omitted_checkpoint_gap": "rejected",
+    "out_of_range_decoder_alphabet": "rejected",
+    "outside_alphabet_encoding": "rejected",
+    "scattered_count": "rejected",
+    "short_prefix_extra_start": "rejected",
+    "transitive_axiom_injection": "rejected",
+    "unequal_length_encoding": "rejected",
+    "weakened_discrepancy_type": "rejected",
+    "weakened_interval_quantifier": "rejected",
+    "weakened_theorem_type": "rejected",
+    "zero_width_roundtrip": "rejected"
+  },
+  "native": {
+    "automaton_values": 128,
+    "executables_sha256": {
+      "automaton_probe": "03462469d5c3e469abcb4797ae36dde85b8ffbdd5408ae23f85e03d30845a5b1",
+      "foundation": "6527cabf42cf405fad9f9300ee935ffda9e0fe665a92441454b6f82524c823f0"
+    },
+    "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+    "interval_obligations": [
+      {
+        "base": 2,
+        "lower_case": 9,
+        "lower_length": 224,
+        "lower_starts": 222,
+        "patterns": 8,
+        "tolerance": 2,
+        "upper_case": 2,
+        "upper_length": 256,
+        "upper_starts": 254,
+        "width": 3
+      }
+    ],
+    "lean_obligations_sha256": "14e89bfe4db084db42c5693d927bfc9f0664e3da901b36dbf9629fe76dd7de27",
+    "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+    "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+    "native_invalid_requests_rejected": [
+      [
+        1,
+        4,
+        1
+      ],
+      [
+        11,
+        4,
+        1
+      ],
+      [
+        2,
+        -1,
+        1
+      ],
+      [
+        2,
+        4097,
+        1
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        "x",
+        4,
+        1
+      ],
+      [
+        2,
+        4
+      ]
+    ],
+    "prefix_cases": [
+      {
+        "base": 2,
+        "length": 0,
+        "width": 1,
+        "windows": 0
+      },
+      {
+        "base": 10,
+        "length": 1,
+        "width": 2,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 256,
+        "width": 3,
+        "windows": 254
+      },
+      {
+        "base": 3,
+        "length": 128,
+        "width": 3,
+        "windows": 126
+      },
+      {
+        "base": 7,
+        "length": 32,
+        "width": 2,
+        "windows": 31
+      },
+      {
+        "base": 10,
+        "length": 128,
+        "width": 2,
+        "windows": 127
+      },
+      {
+        "base": 2,
+        "length": 0,
+        "width": 3,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 1,
+        "width": 3,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 3,
+        "width": 3,
+        "windows": 1
+      },
+      {
+        "base": 2,
+        "length": 224,
+        "width": 3,
+        "windows": 222
+      }
+    ],
+    "receipts_sha256": "ee1cbb1904d1719247e833414a8ee5b0c21935eb396803069bceb09783c5b4ac",
+    "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+    "telemetry_environment": {
+      "MODULAR_CRASH_REPORTING_ENABLED": "false",
+      "MODULAR_TELEMETRY_ENABLED": "false"
+    }
+  },
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": {
+    "executable": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/kernel/.pixi/envs/default/bin/python",
+    "version": "3.12.16 (main, Oct 26 2026, 11:37:43) [GCC 15.3.0]"
+  },
+  "schema": "golden-normality-acceptance-v1",
+  "scope": "universal Lean foundation, equivalent normality targets, and conditional checkpoint criterion; checked finite occurrence/discrepancy/interval receipts; no unconditional normality theorem",
+  "source_commit": "20454800b7c5320ce96a3703aa53749a914289a3",
+  "source_sha256": {
+    ".github/workflows/acceptance.yml": "fb634336378625c467adc8db13d2186a7e131a948003ba94cb5f2dd708ffb03e",
+    ".gitignore": "9fd9fce3ea7eb1446fd8594abd6f97a6fee9a9a351e744ef62ce1ad9eb65b925",
+    ".gitmodules": "27c23a41a81f6f337077799720fdb76aec0213ff46916ac738fe4958084d7a8b",
+    "AGENTS.md": "db47d46e406b1a314aae293573b21b58a2c9e8a1f120b8eea817df4f2641ef81",
+    "GoldenNormality.lean": "cfa4aee5f4e028dbb982ca1c109ce1e5e752ff7dc4e8fc462c4ef85c49eee730",
+    "GoldenNormality/Automaton.lean": "bbf20cc2ff1bc1c73fb826fa836fa7ed0e6c1cc15a18aa37d7a47022b057378a",
+    "GoldenNormality/BlockNumerals.lean": "72a3395bde8f1359d3dc5e1a0c71284288958eacacab68d511098b56756e3f83",
+    "GoldenNormality/Blocks.lean": "0f0904b825e09164ba18f7fcc9ee0cd9dd264c50411fd34168439d75eb761234",
+    "GoldenNormality/Certificates.lean": "21147b03d2bf38a9604a769cc094dda2772ed5fbdedf2353a913e8b94c420b78",
+    "GoldenNormality/CheckpointBounds.lean": "7ce3df015c51f44fd3f53a526aba3a8e592538803c1e7b000f17716676509966",
+    "GoldenNormality/Contracts.lean": "df206a30bfdc8c362ade3feb020b3ce323a12cd4ab4a5ff3ca7f7270ee17c0eb",
+    "GoldenNormality/FrequencyBridge.lean": "820910f3c8b96a0ef5adb18ddc2e066fddf4096d56a41450566cbb9a0b6aeea4",
+    "GoldenNormality/Normality.lean": "0ebb5b8fe3420b28bec0a5e26919fd69778c9539a2552df06b9ffaf3dd9fd6c0",
+    "GoldenNormality/NormalityCriteria.lean": "5df484ff9c37ad4aa172fa44d5ac11e6272d3acc11b06c3d7132371a6dd55ee1",
+    "GoldenNormality/Prefix.lean": "4433bc6b9e6a99b535c232e09a224500301157475ba5019741064a020476d9e7",
+    "GoldenNormality/WordEncoding.lean": "937573a31a8a896fb52cfabc43b020eda15e97f0838b64eeb8a089d3304a7d15",
+    "README.llm.txt": "e46bd8f3894b438822a89f892e8464fbeca1db3178a917d02990df1e6a6fdc9c",
+    "README.md": "1be20fdb4364bcc2696adde545e16feecf43549f74c12b3e27ade74034f60448",
+    "claims.json": "9419cba69d7bfabc1d57c5beb511d7251329954264746ecb115c9af30e8b971e",
+    "docs/block-frequency-bridge.md": "f713406f929d18169d49d05b586c5e633dff7d7bec327582dde17a0c66d9facf",
+    "docs/foundation.md": "bac2a02ab492fd5ce4ce16cba80a2a96f3c4d63812848079b1bbd11e676f5d7a",
+    "docs/literature-gate.md": "23e52cec1ecb9bdc1333b8c31dcb4811ef6a2d22dcdb024e25fe515e5b9230a1",
+    "docs/normality-criteria.md": "e7af9f6e135c4aa658f3fe26c5536ad9f0973c65240b620ddfaed4a2e85c2f0f",
+    "kernel/automaton_probe.mojo": "c4136bf7c6421decdccb604c9225e7f20eca8daccd9c117925ed0fdbb4a7d377",
+    "kernel/foundation.mojo": "106e266f9dfb694cd024ca41aef0ed3bcca7bc559c245fb8edbc25c292b7ccd5",
+    "kernel/pixi.lock": "29beaaa2ecab11c7f1f0a769335b8eeb8262b798458fc4285026e480de2d1e15",
+    "kernel/pixi.toml": "8435fb70236bb681ea5141b23b56529e3c3802c5173d44565f0fca2ae8409b50",
+    "lake-manifest.json": "53d15db3fc99a16a755171c913bd9ab69acfcf43caab3486697f9e96e7d23f6b",
+    "lakefile.toml": "4dec248389cfc05a4885c74c154496af76548ca3bfb0b8fdca513dc31bde9a81",
+    "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "oracles/reference.py": "49f194525701e5355b97c5c373f41e2d6b89415fdbc709c3011f1f14c08d68a7",
+    "research-contract.json": "e48bbac1d16a2bcbd27b08a5c0b9a07cba505a33b06256c0d0a138f55d82b6d1",
+    "tests/test_reference.py": "67aa6d08f60f30a142e5ecdf69910369acaaa4f9d220e23ffe0d278ad64c8329",
+    "tools/acceptance_utils.py": "37928140b120623cb09f5177939f4bb71b21426190a2a3f2650fb38a68c6fecb",
+    "tools/bridge_controls.py": "1eb0c9190a009b56a2982b5c538e9e9f29558eaa8ef9aa779ab35a43a559225e",
+    "tools/check_native.sh": "7646e9bb1f0aff21a5d98df1a6d651fc1c4c41865f8c7af55c3d660532f4bdff",
+    "tools/criteria_controls.py": "c127e5ccbfab8e6ae6f61df1381cfca638eebe8268d280823fc31145bcaa31fb",
+    "tools/native_conformance.py": "235e9f66cb866d7e4bd8598065ee7d046f996a48a78f4f1a9e935c68e7db69e7",
+    "tools/receipt_contracts.py": "2b672daad4c004f3395a0adf95604c4a90e1ee322b526109a6a7253e505d2162",
+    "tools/verify.py": "79cc41055495e6287c522e805c3810a6b6b02f0766d9f6b2b1710be712135f4b"
+  },
+  "source_tree_dirty": false,
+  "started_utc": "2026-11-13T09:19:04.529056+00:00"
+}

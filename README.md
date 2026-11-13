@@ -16,15 +16,18 @@ of normality.
 | Digits and blocks | Adjacent prefixes determine an actual digit; a length-`k` block is `floor(b^k frac(b^n(φ−1)))`. |
 | Contiguous counting | Overlaps are retained; a chunk join needs only the last and first `k−1` symbols for its boundary correction. |
 | Frequency bridge | For every base `b≥2`, nonempty alphabet pattern of length `k`, and actual prefix of length `L`, the list count equals `occurrences b k j (L+1−k)`. Short prefixes give zero starts. |
+| Equivalent targets | Every bounded block value has a unique word of its specified width. Normality is equivalent to eventual word-count bounds, with one threshold for all values of each fixed width and tolerance. |
+| Checkpoint bounds | Two certified endpoint counts control every intermediate start count. A conditional criterion retains a strictly increasing infinite checkpoint sequence and eventual budgets for every block and tolerance. |
 | Binary automaton | A universal real invariant verifies the published eight-state Fibonacci-input machine and its specialization to inputs representing `2^n`. |
-| Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, actual occurrences, and exact finite discrepancies. |
-| Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No theorem asserting it is supplied. |
+| Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, occurrences, discrepancies, and finite interval bounds. |
+| Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No unconditional proof is supplied. |
 
 The automaton is due to Barnoff, Bright, and Shallit; see
 [the literature gate](docs/literature-gate.md). The repository contribution is
 its explicit Lean proof and the application-specific certificate pipeline.
 See [the mathematical foundation](docs/foundation.md) for derivations and limits,
 the [block-frequency bridge](docs/block-frequency-bridge.md) for the exact count transfer,
+the [normality criteria and checkpoints](docs/normality-criteria.md) for the next proof interface,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -44,7 +47,7 @@ kernel/.pixi/envs/default/bin/python tools/verify.py
 The full gate compiles fresh project proof objects, inspects compiled axiom
 dependencies and explicit public theorem types, builds the Mojo executables,
 checks the independent oracle, compiles the generated finite certificates,
-independently checks every occurrence and discrepancy receipt's exact type,
+independently checks every occurrence, discrepancy, and interval receipt's exact type,
 and verifies negative controls. It writes `build/acceptance/report.json`.
 An existing nonempty output directory is rejected; choose a new one with
 `--output build/another-run` when repeating a run.
