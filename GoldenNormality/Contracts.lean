@@ -69,6 +69,67 @@ theorem certifiedDiscrepancy (b value tolerance bound : ℕ) (hb : 2 ≤ b)
         (text.length + 1 - pattern.length) * tolerance ≤ bound :=
   certified_discrepancy_bound hb hpat ha digits count hbound
 
+theorem fixedWidthCoverage (b k j : ℕ) (hb : 2 ≤ b) (hj : j < b ^ k) :
+    ∃! word : List ℕ, word.length = k ∧ InAlphabet b word ∧ wordValue b word = j :=
+  existsUnique_wordValue hb hj
+
+theorem wordRoundTrip (b : ℕ) (hb : 2 ≤ b) (word : List ℕ) (ha : InAlphabet b word) :
+    wordOfValue b word.length (wordValue b word) = word :=
+  wordOfValue_wordValue hb ha
+
+theorem normalityWords (b : ℕ) :
+    NormalInBase b ↔
+      (2 ≤ b ∧ ∀ pattern : List ℕ, pattern ≠ [] → InAlphabet b pattern →
+        ∀ T : ℕ, 1 ≤ T → ∃ N0 : ℕ, 1 ≤ N0 ∧ ∀ N : ℕ, N0 ≤ N →
+          Nat.dist ((b ^ pattern.length) *
+            Blocks.count pattern (actualDigits b 0 (N + pattern.length - 1))) N * T ≤ N) :=
+  normalInBase_iff_normalByWords b
+
+theorem normalityUniformValues (b : ℕ) :
+    NormalInBase b ↔
+      (2 ≤ b ∧ ∀ k : ℕ, 1 ≤ k → ∀ T : ℕ, 1 ≤ T →
+        ∃ N0 : ℕ, 1 ≤ N0 ∧ ∀ N : ℕ, N0 ≤ N → ∀ j : ℕ, j < b ^ k →
+          Nat.dist ((b ^ k) * occurrences b k j N) N * T ≤ N) :=
+  normalInBase_iff_uniformBlockNormality b
+
+theorem checkpointInterpolation (b k j L N R : ℕ) (hLN : L ≤ N) (hNR : N ≤ R) :
+    Nat.dist ((b ^ k) * occurrences b k j N) N ≤
+      max (Nat.dist ((b ^ k) * occurrences b k j L) L)
+        (Nat.dist ((b ^ k) * occurrences b k j R) R) + (R - L) :=
+  occurrences_discrepancy_interpolation b k j L N R hLN hNR
+
+theorem certifiedInterval (b lowerCount upperCount N T : ℕ) (hb : 2 ≤ b)
+    (lowerText upperText pattern : List ℕ) (hpat : pattern ≠ []) (ha : InAlphabet b pattern)
+    (lowerDigits : DigitsAt b 0 lowerText) (upperDigits : DigitsAt b 0 upperText)
+    (lowerExact : Blocks.count pattern lowerText = lowerCount)
+    (upperExact : Blocks.count pattern upperText = upperCount)
+    (hLN : lowerText.length + 1 - pattern.length ≤ N)
+    (hNR : N ≤ upperText.length + 1 - pattern.length)
+    (budget :
+      (max (Nat.dist ((b ^ pattern.length) * lowerCount)
+          (lowerText.length + 1 - pattern.length))
+        (Nat.dist ((b ^ pattern.length) * upperCount)
+          (upperText.length + 1 - pattern.length)) +
+        ((upperText.length + 1 - pattern.length) -
+          (lowerText.length + 1 - pattern.length))) * T ≤
+        lowerText.length + 1 - pattern.length) :
+    Nat.dist ((b ^ pattern.length) *
+      occurrences b pattern.length (wordValue b pattern) N) N * T ≤ N :=
+  certified_interval_bound hb hpat ha lowerDigits upperDigits lowerExact upperExact hLN hNR budget
+
+theorem checkpointCoverage (q : ℕ → ℕ) (hq : StrictMono q) (i0 N : ℕ) (hstart : q i0 ≤ N) :
+    ∃ i : ℕ, i0 ≤ i ∧ q i ≤ N ∧ N ≤ q (i + 1) :=
+  checkpoint_interval_covers hq i0 N hstart
+
+theorem checkpointNormality (b : ℕ) (hb : 2 ≤ b)
+    (checkpoints : ∀ k : ℕ, 1 ≤ k → ∀ j : ℕ, j < b ^ k → ∀ T : ℕ, 1 ≤ T →
+      ∃ q : ℕ → ℕ, StrictMono q ∧ ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i →
+        (max (Nat.dist ((b ^ k) * occurrences b k j (q i)) (q i))
+          (Nat.dist ((b ^ k) * occurrences b k j (q (i + 1))) (q (i + 1))) +
+          (q (i + 1) - q i)) * T ≤ q i) :
+    NormalInBase b :=
+  normalInBase_of_checkpoint_bounds hb checkpoints
+
 theorem automatonLanguage (digits : List Bool) :
     BinaryAutomaton.classify digits ≠ none ↔ BinaryAutomaton.Admissible digits :=
   BinaryAutomaton.classify_accepts_iff digits

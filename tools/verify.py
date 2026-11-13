@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Full foundation and frequency-bridge acceptance; every stage is required."""
+"""Full proof, receipt, and native acceptance; every stage is required."""
 import argparse
 import json
 import os
@@ -9,19 +9,25 @@ import re
 import sys
 
 from acceptance_utils import (CONTRACT, ROOT, command, digest, git_output,
-                              locate_program, source_hashes, utc_now, verify_submodule, write_json)
+                              locate_program, source_hashes, utc_now, validated_intervals,
+                              verify_submodule, write_json)
 import native_conformance
 import bridge_controls
+import criteria_controls
 import receipt_contracts
 
 MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.Automaton", "GoldenNormality.Certificates",
            "GoldenNormality.Normality", "GoldenNormality.BlockNumerals",
-           "GoldenNormality.FrequencyBridge", "GoldenNormality", "GoldenNormality.Contracts"]
+           "GoldenNormality.FrequencyBridge", "GoldenNormality.WordEncoding",
+           "GoldenNormality.NormalityCriteria", "GoldenNormality.CheckpointBounds",
+           "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
                   "chunkBoundary", "numeralBlock", "patternBlock", "finiteFrequency",
                   "firstStarts", "certifiedFrequency", "certifiedDiscrepancy",
+                  "fixedWidthCoverage", "wordRoundTrip", "normalityWords", "normalityUniformValues",
+                  "checkpointInterpolation", "certifiedInterval", "checkpointCoverage", "checkpointNormality",
                   "automatonLanguage", "automatonAllInputs", "automatonPowerInput"]
 
 
@@ -98,6 +104,8 @@ def parse_audit(output, modules):
         expected_receipts.update((f"input_{q}", f"output_{q}", f"predicate_{q}"))
         if q and q & (q - 1) == 0:
             expected_receipts.add(f"powerDigit_{q.bit_length()-1}")
+    for i, case in enumerate(validated_intervals()):
+        expected_receipts.update(f"interval_{i}_{value}" for value in range(case["base"] ** case["width"]))
     missing = {f"GoldenNormality.Receipts.{name}" for name in expected_receipts} - declarations["Receipts"].keys()
     if missing:
         raise RuntimeError(f"missing compiled finite receipt declarations: {sorted(missing)[:5]}")
@@ -200,7 +208,11 @@ def run(output):
         counterexamples = output / "BridgeCounterexamples.lean"
         counterexamples.write_text(bridge_controls.COUNTEREXAMPLES)
         compile_file(counterexamples, "BridgeCounterexamples")
-        audited_modules = [*MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples"]
+        criteria_examples = output / "CriteriaCounterexamples.lean"
+        criteria_examples.write_text(criteria_controls.COUNTEREXAMPLES)
+        compile_file(criteria_examples, "CriteriaCounterexamples")
+        audited_modules = [*MODULES, "Receipts", "ReceiptContracts", "BridgeCounterexamples",
+                           "CriteriaCounterexamples"]
         audit = output / "Audit.lean"
         audit.write_text(audit_source(audited_modules, print_contracts=True))
         result = compile_file(audit, "Audit", emit=False)
@@ -251,7 +263,10 @@ example (B q : ℕ) (hB : 0 < B) :
             "false_root": "rejected", "scattered_count": "rejected",
             "invalid_fibonacci_word": "rejected", "weakened_theorem_type": "rejected",
             "compiled_axiom_injection": "rejected", "transitive_axiom_injection": "rejected"}
-        for name, (source, diagnostic) in bridge_controls.REJECTIONS.items():
+        controls = {**bridge_controls.REJECTIONS, **criteria_controls.REJECTIONS}
+        if len(controls) != len(bridge_controls.REJECTIONS) + len(criteria_controls.REJECTIONS):
+            raise RuntimeError("duplicate semantic rejection control name")
+        for name, (source, diagnostic) in controls.items():
             rejection_source = output / f"Reject_{name}.lean"
             rejection_source.write_text(source)
             rejected = compile_file(rejection_source, f"Reject_{name}",
@@ -260,7 +275,7 @@ example (B q : ℕ) (hB : 0 < B) :
             if (rejected.returncode != 1 or len(re.findall(
                     diagnostic, diagnostics)) != 1
                     or len(re.findall(r"(?im)^.*\berror:", diagnostics)) != 1):
-                raise RuntimeError(f"bridge control did not fail as intended: {name}")
+                raise RuntimeError(f"semantic control did not fail as intended: {name}")
             report["lean_negative_controls"][name] = "rejected"
         if source_hashes() != report["source_sha256"]:
             raise RuntimeError("repository sources changed during acceptance")
@@ -270,8 +285,9 @@ example (B q : ℕ) (hB : 0 < B) :
         if final_revisions != report["dependency_revisions"]:
             raise RuntimeError("proof dependency changed during acceptance")
         report["accepted"] = True
-        report["scope"] = ("universal Lean foundation and block-frequency bridge; "
-                           "checked finite occurrence/discrepancy receipts; no normality theorem")
+        report["scope"] = ("universal Lean foundation, equivalent normality targets, and conditional "
+                           "checkpoint criterion; checked finite occurrence/discrepancy/interval receipts; "
+                           "no unconditional normality theorem")
     except Exception as error:
         report["error"] = str(error)
         raise
