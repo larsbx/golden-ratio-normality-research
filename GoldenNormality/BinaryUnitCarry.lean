@@ -237,7 +237,7 @@ theorem twice_unitCarry_sum_le (N : ℕ) :
   rw [digit_sum_eq_original_zeros] at h h'
   omega
 
-private theorem twice_positive_count_le_mass_add_units (N : ℕ) :
+theorem twice_positive_count_le_mass_add_units (N : ℕ) :
     2 * (∑ i ∈ Finset.range N, positiveCarryIndicator i) ≤
       (∑ i ∈ Finset.range N, positiveCarry i) + ∑ i ∈ Finset.range N, unitCarryIndicator i := by
   have hmass := Finset.sum_le_sum (s := Finset.range N) (f := fun i =>
@@ -339,7 +339,7 @@ theorem original_zero_count_parity_carry_bound (N : ℕ) (hN : 2 ≤ N) :
   have hu : 0 ≤ unitCarryIndicator N := by unfold unitCarryIndicator; split <;> omega
   omega
 
-private theorem zero_count_exceeds_from_pair_budget (leading linear : ℝ) (hl₀ : 0 ≤ linear)
+theorem zero_count_exceeds_from_pair_budget (leading linear : ℝ) (hl₀ : 0 ≤ linear)
     (hcarry : ∀ N : ℕ, 2 ≤ N → leading * (N : ℝ) ≤
       4 * (∑ i ∈ Finset.range N, (convolutionCoefficient i : ℝ)) +
         linear * (GoldenNormality.occurrences 2 1 0 N : ℝ))
