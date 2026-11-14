@@ -15,7 +15,7 @@ private theorem quarterCircleIntegral :
   have hneg : (∫ x in (-1 : ℝ)..0, f x) = ∫ x in (0 : ℝ)..1, f x := by
     have h := integral_comp_neg (a := (0 : ℝ)) (b := 1) f
     simpa only [neg_zero, f, neg_sq] using h.symm
-  have hadd := integral_add_adjacent_intervals (a := (-1 : ℝ)) (b := 0) (c := 1)
+  have hadd := integral_add_adjacent_intervals (μ := MeasureTheory.volume) (a := (-1 : ℝ)) (b := 0) (c := 1)
     (hf.intervalIntegrable (-1) 0) (hf.intervalIntegrable 0 1)
   rw [hneg] at hadd
   change _ + _ = (∫ x in (-1 : ℝ)..1, Real.sqrt (1 - x ^ 2)) at hadd
@@ -79,12 +79,12 @@ theorem sqrt_checkpoint_sum_le (K : ℕ) :
         have hx0 : 0 ≤ x := (Real.sqrt_nonneg _).trans hx.1
         have hx2 : x ^ 2 ≤ (m : ℝ) + 1 := by
           have he := Real.sq_sqrt (show (0 : ℝ) ≤ (m : ℝ) + 1 by positivity)
-          nlinarith [mul_nonneg (sub_nonneg.mpr hx.2) (add_nonneg hx0 (Real.sqrt_nonneg _))]
+          nlinarith [mul_nonneg (sub_nonneg.mpr hx.2) (add_nonneg hx0 (Real.sqrt_nonneg ((m : ℝ) + 1)))]
         have hKm : (m : ℝ) + 1 ≤ K := by exact_mod_cast hm
         have hcast : ((K - m : ℕ) : ℝ) = (K : ℝ) - m := Nat.cast_sub (by omega)
         rw [hcast]
         exact sqrt_le_sqrt_add_one _ _ (by linarith) (by linarith)
-      have hadd := integral_add_adjacent_intervals (a := (0 : ℝ))
+      have hadd := integral_add_adjacent_intervals (μ := MeasureTheory.volume) (a := (0 : ℝ))
         (b := Real.sqrt (m : ℝ)) (c := Real.sqrt ((m : ℝ) + 1))
         (hf.intervalIntegrable _ _) (hf.intervalIntegrable _ _)
       push_cast
@@ -147,7 +147,9 @@ theorem original_zero_count_exceeds_of_pi_mul_sq_lt (c : ℝ) (hc : 0 ≤ c)
   let k := A + 1
   let K := k ^ 2
   let n := M + 2
-  have hK : 1 ≤ K := by dsimp [K]; positivity
+  have hK : 1 ≤ K := by
+    change 1 ≤ (A + 1) ^ 2
+    exact Nat.one_le_pow _ _ (by omega)
   have hn : 2 ≤ n := by dsimp [n]; omega
   have hN : 2 ≤ K * n := hn.trans (by simpa using Nat.mul_le_mul_right n hK)
   have hsqrt : Real.sqrt (K : ℝ) = k := by
@@ -166,9 +168,8 @@ theorem original_zero_count_exceeds_of_pi_mul_sq_lt (c : ℝ) (hc : 0 ≤ c)
     · simp [hi, GoldenNormality.occurrences_zero]
     apply h
     have hi' : 1 ≤ i := by omega
-    have hmul := Nat.mul_le_mul_right n hi'
-    dsimp [n] at hmul
-    omega
+    have hmul : n ≤ i * n := by simpa using Nat.mul_le_mul_right n hi'
+    exact (show M ≤ n by dsimp [n]; omega).trans hmul
   have hb := original_zero_count_semicircle_envelope K n hN c hc hcap
   have hKcast : (K : ℝ) = (k : ℝ) ^ 2 := by dsimp [K]; norm_cast
   rw [hsqrt, hKcast] at hb
