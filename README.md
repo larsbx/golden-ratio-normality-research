@@ -25,6 +25,7 @@ of normality.
 | Binary runs and recurrence | A constant run starting at `n` has length at most `n+1`. Every window `[n,2n+2)` contains both symbols; each symbol occurs at least `m` times in the first `2^(m+1)-2` digits. |
 | Actual binary complement | The real digits of `1-(φ−1)` are the pointwise complements of the original digits. Every bounded fixed-width block count transfers exactly; complementary ones count original zeros. |
 | Signed quadratic carries | Actual complementary prefixes give a finite square decomposition, signed carry recurrence, and `-2 <= T_N <` the original zero count. Positivity propagates backward through zero gaps, with a proved three-zero trigger. |
+| Binary zero growth | For every `N ≥ 2`, the original zero count `z_N` and complementary convolution coefficients satisfy `N ≤ Σ_{i<N} c_i + 7z_N`. The quarter-circle estimate yields `limsup z_N/√N ≥ 2/√π`. |
 | Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, occurrences, discrepancies, and finite interval bounds. |
 | Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No unconditional proof is supplied. |
 
@@ -39,6 +40,7 @@ the [sparse checkpoint criterion](docs/sparse-checkpoints.md) for endpoint estim
 the [binary sparsity bound](docs/binary-digit-sparsity.md) for an unconditional estimate on actual one counts,
 the [binary run and recurrence bounds](docs/binary-runs-and-recurrence.md) for both symbols at every start,
 the [actual complement and finite carries](docs/binary-complement-and-carries.md) for exact zero-count transfer and signed polynomial groundwork,
+the [aggregate carry bounds](docs/binary-aggregate-carries.md) for the finite and asymptotic zero-count estimates,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -116,12 +118,10 @@ the missing distribution theorem.
 The proved bound `2N <= s_N^2+3s_N+4` supplies square-root-scale growth of the
 actual one count. It gives neither the limiting frequency `1/2` nor an all-block
 frequency estimate, so it does not discharge the square-checkpoint target.
-The run theorem gives an explicit logarithmic lower count for zeros as well
-as ones. The source-bound complement bridge and finite signed carry identities
-are now proved, including pointwise carry bounds and local positivity tools.
-An aggregate estimate and a lower count of positive carries remain necessary
-for the stronger published zero-count sparsity bound; that stronger bound has
-not yet been formalized in this project.
+The carry and parity estimates give square-root-scale growth for the original
+zero count. The limsup result gives arbitrarily late prefixes above
+`c√N` for each `0 ≤ c < 2/√π`. Binary normality still requires the
+eventual frequency estimate for every nonempty binary block.
 
 Contributor and agent instructions are in [AGENTS.md](AGENTS.md) and
 [README.llm.txt](README.llm.txt).

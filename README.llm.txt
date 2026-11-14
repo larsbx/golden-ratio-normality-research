@@ -226,3 +226,9 @@ the actual original zero count via ordered pairs. The gap argument combines
 the actual digit window with the three-zero trigger and backward propagation.
 It yields N<=2*z_N^2+6*z_N-1 for every N>=2. See
 docs/binary-aggregate-carries.md for conventions and reproducible controls.
+BinarySemicircleCarry bounds the checkpoint sum S_K between K*pi/4 and
+(K+1)*pi/4 and proves S_K/K tends to pi/4. BinaryUnitCarry uses the diagonal
+term of the convolution modulo two to prove N<=sum(i<N)c_i+7*z_N for N>=2.
+For every real c>=0 with pi*c^2<4 and every natural M, some N>=M has
+z_N>c*sqrt(N). This gives limsup z_N/sqrt(N)>=2/sqrt(pi). The all-block
+eventual frequency estimates in NormalInBase 2 remain open.

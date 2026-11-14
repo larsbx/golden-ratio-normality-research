@@ -374,7 +374,8 @@ example (B q : ℕ) (hB : 0 < B) :
         report["accepted"] = True
         report["scope"] = ("universal Lean foundation, total binary power-orbit evaluation, equivalent "
                            "normality targets at all starts and square checkpoints, unconditional "
-                           "binary one-count sparsity bounds, constant-run bounds and quantitative "
+                           "binary one-count sparsity and square-root zero-count bounds, "
+                           "constant-run bounds and quantitative "
                            "recurrence of both binary symbols, and conditional "
                            "interpolation for vanishing relative gaps; checked finite "
                            "source-bound power traces and occurrence/discrepancy/interval receipts; "
