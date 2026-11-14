@@ -267,6 +267,66 @@ lower that coefficient below $\pi/4$. A larger limsup bound from
 the carry approach would need more information, such as a stronger
 lower carry budget or additional constraints on the actual zero positions.
 
+## Carries of size one
+
+Let $U_N$ count the positions $i<N$ with $T_i=1$, and let $P_N$
+count positions with $T_i>0$. If $T_i=T_{i+1}=1$ and $d_i=0$,
+the recurrence gives $c_i=1$. Every off-diagonal pair would contribute
+twice, so this coefficient must come from $i=2j+1$ and $d_j=1$.
+The exact source has $T_3=T_4=1$, $d_3=0$ and $d_1=1$, so the
+diagonal exception is needed. This use of pair symmetry is related
+to the diagonal correction in [On the binary digits of $\sqrt2$](https://math.colgate.edu/~integers/s30/s30.pdf).
+
+Across any position $i$, the sum of the two size-one indicators at
+$i,i+1$ is bounded by the positive-carry indicator at $i$, the digit
+$d_i$, and the diagonal indicator. In particular, if only the second
+carry is one and $d_i=0$, backward positivity supplies the first
+positive-carry indicator. The diagonal indicators through $N-1$ sum
+to $z_{\lfloor N/2\rfloor}\le z_N$. Telescoping from $T_0=-1$
+gives $2U_N\le P_N+2z_N$. Positive carries contribute at least two
+units each except at the $U_N$ positions, hence
+$2P_N\le\sum_{i<N}p_i+U_N$.
+
+Combining these estimates with the gap count and the existing
+upper budget for positive-carry mass gives, for $N\ge2$,
+
+\[
+3N\le4\sum_{i<N}c_i+20z_N-1.
+\]
+
+Under a checkpoint envelope $z_{in}\le c\sqrt{in}$, the quarter-circle
+upper budget for $\sum_{i<Kn}c_i$ is $c^2n(K+1)\pi/4$. The new
+lower budget gives the contradiction for every $\pi c^2<3$ by
+taking the square partition size sufficiently large. Thus the
+limsup of $z_N/\sqrt N$ is at least $\sqrt{3/\pi}$. This is an
+arbitrarily-late exceedance result for constants strictly below
+$\sqrt{3/\pi}$.
+
+## Full convolution parity
+
+The off-diagonal products cancel in $\mathbb Z/2\mathbb Z$, since
+the index swap is an involution and each pair contributes twice.
+The only possible fixed point occurs at $i=2j+1$, when the diagonal
+term is $d_j^2=d_j$. Thus for $d_i=0$, an incoming $T_{i+1}=1$
+forces a diagonal contribution regardless of the value of $T_i$:
+the recurrence gives $c_i\equiv1\pmod 2$. At the actual position
+$i=15$ the carries are $T_{15}=2,T_{16}=1$ and $c_{15}=3$, so the
+coefficient-one argument alone misses this transition.
+
+Every size-one carry is therefore charged to the preceding digit
+or diagonal contribution. Since $T_0=-1$, telescoping yields
+$U_N+\mathbf1_{T_N=1}\le z_N+z_{\lfloor N/2\rfloor}$, hence
+$U_N\le2z_N$. The same positive-carry mass and gap estimates now give
+
+\[
+N\le\sum_{i<N}c_i+7z_N\qquad(N\ge2).
+\]
+
+The quarter-circle envelope would force the leading coefficient
+of $N$ on the right to be at most $\pi c^2/4$. The positive gap
+when $\pi c^2<4$ gives arbitrarily late exceedances of $c\sqrt N$.
+Thus the limsup lower bound becomes $2/\sqrt\pi$.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`

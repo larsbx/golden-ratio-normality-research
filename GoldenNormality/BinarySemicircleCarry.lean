@@ -179,13 +179,38 @@ theorem sqrt_checkpoint_sum_le (K : ℕ) :
     Real.le_sqrt_of_sq_le (by exact_mod_cast (show 1 ^ 2 ≤ K by omega))
   linarith only [sqrt_checkpoint_sum_le_succ_area K, Real.pi_le_four, hk]
 
-/-- A square-root envelope on all checkpoints must meet the semicircle budget. -/
-theorem original_zero_count_succ_area_envelope (K n : ℕ) (hN : 2 ≤ K * n)
+private theorem square_root_envelope_sum_le (K n : ℕ) (c : ℝ) :
+    (∑ i ∈ Finset.range K,
+      (c * Real.sqrt (n : ℝ) * Real.sqrt ((i + 1 : ℕ) : ℝ) -
+        c * Real.sqrt (n : ℝ) * Real.sqrt (i : ℝ)) *
+        (c * Real.sqrt (n : ℝ) * Real.sqrt ((K - i : ℕ) : ℝ))) ≤
+      c ^ 2 * n * (((K : ℝ) + 1) * Real.pi / 4) := by
+  let r := c * Real.sqrt (n : ℝ)
+  let g := fun i : ℕ => r * Real.sqrt (i : ℝ)
+  have hsum : (∑ i ∈ Finset.range K, (g (i + 1) - g i) * g (K - i)) =
+      r ^ 2 * ∑ i ∈ Finset.range K,
+        (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) * Real.sqrt (K - i : ℕ) := by
+    rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro i _
+    dsimp [g]
+    push_cast only [Nat.cast_add, Nat.cast_one]
+    ring
+  change (∑ i ∈ Finset.range K, (g (i + 1) - g i) * g (K - i)) ≤ _
+  rw [hsum]
+  have hsq : r ^ 2 = c ^ 2 * n := by
+    dsimp [r]
+    rw [mul_pow, Real.sq_sqrt (Nat.cast_nonneg _)]
+  rw [hsq]
+  exact mul_le_mul_of_nonneg_left (sqrt_checkpoint_sum_le_succ_area K) (by positivity)
+
+/-- The square-root checkpoint envelope bounds the actual pair mass. -/
+theorem convolution_sum_le_succ_area_envelope (K n : ℕ)
     (c : ℝ) (hc : 0 ≤ c)
     (hcap : ∀ i ≤ K, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
       c * Real.sqrt ((i * n : ℕ) : ℝ)) :
-    (K * n : ℝ) ≤ 2 * c ^ 2 * n * (((K : ℝ) + 1) * Real.pi / 4) +
-      6 * c * Real.sqrt n * Real.sqrt K - 1 := by
+    (∑ i ∈ Finset.range (K * n), (convolutionCoefficient i : ℝ)) ≤
+      c ^ 2 * n * (((K : ℝ) + 1) * Real.pi / 4) := by
   let r := c * Real.sqrt (n : ℝ)
   have hr : 0 ≤ r := mul_nonneg hc (Real.sqrt_nonneg _)
   let g := fun i : ℕ => r * Real.sqrt (i : ℝ)
@@ -197,25 +222,31 @@ theorem original_zero_count_succ_area_envelope (K n : ℕ) (hN : 2 ≤ K * n)
     convert h using 1
     dsimp [g, r]
     ring
-  have hb := original_zero_count_partition_envelope K n hN g (by simp [g])
+  have hb := convolution_sum_le_partition_envelope K n g (by simp [g])
     (fun i j h => mul_le_mul_of_nonneg_left (Real.sqrt_le_sqrt (by exact_mod_cast h)) hr) hbound
-  have hsum : (∑ i ∈ Finset.range K, (g (i + 1) - g i) * g (K - i)) =
-      r ^ 2 * ∑ i ∈ Finset.range K,
-        (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) * Real.sqrt (K - i : ℕ) := by
-    rw [Finset.mul_sum]
-    apply Finset.sum_congr rfl
-    intro i _
-    dsimp [g]
-    push_cast only [Nat.cast_add, Nat.cast_one]
-    ring
-  rw [hsum] at hb
-  have h := mul_le_mul_of_nonneg_left (sqrt_checkpoint_sum_le_succ_area K) (sq_nonneg r)
-  have hsq : r ^ 2 = c ^ 2 * n := by
-    dsimp [r]
-    rw [mul_pow, Real.sq_sqrt (Nat.cast_nonneg _)]
-  rw [hsq] at hb h
-  dsimp [g, r] at hb
-  linarith only [hb, h]
+  exact hb.trans (square_root_envelope_sum_le K n c)
+
+/-- A square-root envelope on all checkpoints must meet the semicircle budget. -/
+theorem original_zero_count_succ_area_envelope (K n : ℕ) (hN : 2 ≤ K * n)
+    (c : ℝ) (hc : 0 ≤ c)
+    (hcap : ∀ i ≤ K, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
+      c * Real.sqrt ((i * n : ℕ) : ℝ)) :
+    (K * n : ℝ) ≤ 2 * c ^ 2 * n * (((K : ℝ) + 1) * Real.pi / 4) +
+      6 * c * Real.sqrt n * Real.sqrt K - 1 := by
+  let g := fun i : ℕ => c * Real.sqrt (n : ℝ) * Real.sqrt (i : ℝ)
+  have hb := original_zero_count_partition_envelope K n hN g (by simp [g])
+    (fun i j hij => mul_le_mul_of_nonneg_left
+      (Real.sqrt_le_sqrt (by exact_mod_cast hij)) (mul_nonneg hc (Real.sqrt_nonneg _)))
+    (fun i hi => by
+      have h := hcap i hi
+      push_cast at h
+      rw [Real.sqrt_mul (Nat.cast_nonneg i)] at h
+      convert h using 1
+      dsimp [g]
+      ring)
+  have hsum := square_root_envelope_sum_le K n c
+  dsimp only [g] at hb
+  linarith only [hb, hsum]
 
 /-- A square-root envelope on all checkpoints must meet the semicircle budget. -/
 theorem original_zero_count_semicircle_envelope (K n : ℕ) (hN : 2 ≤ K * n)

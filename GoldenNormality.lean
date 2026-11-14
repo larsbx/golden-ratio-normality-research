@@ -24,3 +24,4 @@ import GoldenNormality.BinaryQuarterCarry
 import GoldenNormality.BinaryPartitionCarry
 import GoldenNormality.BinaryRootCheckpoint
 import GoldenNormality.BinarySemicircleCarry
+import GoldenNormality.BinaryUnitCarry

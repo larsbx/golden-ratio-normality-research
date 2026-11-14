@@ -40,6 +40,7 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.BinaryPartitionCarry",
            "GoldenNormality.BinaryRootCheckpoint",
            "GoldenNormality.BinarySemicircleCarry",
+           "GoldenNormality.BinaryUnitCarry",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
