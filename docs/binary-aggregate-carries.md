@@ -107,6 +107,28 @@ N+2E_N+6D_N\le 2z_N^2+6z_N-1\qquad(N\ge2).
 The first nonzero correction occurs at $N=10$, from position nine.
 This is a finite refinement, with the same unconditional square-root scale.
 
+## Asymptotic consequence at arbitrarily late prefixes
+
+The half-prefix bound at $N=2n$ can be written
+$2n\le 4z_{2n}z_n-2z_n^2+6z_{2n}-1$. Suppose both counts satisfy
+$z_m\le c\sqrt m$ at $m=n,2n$. On that rectangle the quadratic
+$4xy-2y^2$, with $x=z_{2n}$ and $y=z_n$, is bounded above by its value
+at $x=c\sqrt{2n}$ and $y=c\sqrt n$. First increase $x$, using $y\ge0$.
+Then increase $y$, using $c\sqrt n\le c\sqrt{2n}$. It follows that
+
+\[
+2n\le 2(2\sqrt2-1)c^2n+6c\sqrt{2n}-1.
+\]
+
+If $(2\sqrt2-1)c^2<1$, this fails for all sufficiently large $n$.
+Lean chooses $n=k^2$ beyond any requested threshold, with $k$ large
+enough for the linear term in $k$ to be absorbed by the strict quadratic
+gap. Thus at least one of $n,2n$ exceeds the proposed envelope. This gives
+an unconditional lower bound of $1/\sqrt{2\sqrt2-1}$ on the limsup of
+$z_N/\sqrt N$. The per-prefix constant from the earlier bound is
+$1/\sqrt2$ in the limit. This argument establishes neither the larger
+constant for all sufficiently large prefixes nor a digit frequency.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
