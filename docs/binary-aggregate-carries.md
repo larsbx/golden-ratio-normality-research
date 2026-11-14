@@ -120,14 +120,19 @@ Then increase $y$, using $c\sqrt n\le c\sqrt{2n}$. It follows that
 2n\le 2(2\sqrt2-1)c^2n+6c\sqrt{2n}-1.
 \]
 
-If $(2\sqrt2-1)c^2<1$, this fails for all sufficiently large $n$.
-Lean chooses $n=k^2$ beyond any requested threshold, with $k$ large
-enough for the linear term in $k$ to be absorbed by the strict quadratic
-gap. Thus at least one of $n,2n$ exceeds the proposed envelope. This gives
-an unconditional lower bound of $1/\sqrt{2\sqrt2-1}$ on the limsup of
-$z_N/\sqrt N$. The per-prefix constant from the earlier bound is
-$1/\sqrt2$ in the limit. This argument establishes neither the larger
-constant for all sufficiently large prefixes nor a digit frequency.
+Write $\delta=1-(2\sqrt2-1)c^2$. Whenever $n\ge1$ and
+$\delta\sqrt n\ge3c\sqrt2$, the displayed inequality contradicts its
+constant term $-1$. Hence for every such $n$, at least one of $n,2n$
+exceeds the proposed envelope. In particular, when $c=73/100$ this
+holds for every $n\ge16384$, using $\sqrt2\le1415/1000$ and
+$\sqrt n\ge128$. It applies to each pair $(2^j,2^{j+1})$ with $j\ge14$.
+
+For every nonnegative $c<1/\sqrt{2\sqrt2-1}$, the threshold is eventually
+met, giving an unconditional lower bound of $1/\sqrt{2\sqrt2-1}$
+on the limsup of $z_N/\sqrt N$. The per-prefix constant from the
+earlier bound is $1/\sqrt2$ in the limit. The two-prefix guarantee does
+not supply the larger constant at every sufficiently large prefix or
+imply a digit frequency.
 
 ## Replay and adversarial controls
 
