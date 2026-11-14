@@ -102,8 +102,10 @@ theorem convolutionCoefficient_mod_two (n : ℕ) :
   · have hset : ((Finset.range n).filter (fun i => ¬ flip i ≠ i)) = ∅ := by
       ext i
       simp only [Finset.mem_filter, Finset.mem_range, Finset.notMem_empty, not_not, flip]
+      have hn : n % 2 = 0 := by omega
       omega
-    simp [hset, diagonalIndicator, ho]
+    rw [hset, Finset.sum_empty]
+    simp [diagonalIndicator, ho]
 
 private theorem unitCarry_next_le (n : ℕ) :
     unitCarryIndicator (n + 1) ≤ digit n + diagonalIndicator n := by
@@ -122,7 +124,9 @@ private theorem unitCarry_next_le (n : ℕ) :
       rw [hc, hz, mul_zero, sub_zero] at hr
       have htwo : (2 : ZMod 2) = 0 := by decide
       have hcast' : (2 : ZMod 2) * (carry n : ZMod 2) =
-          1 + (convolutionCoefficient n : ZMod 2) := by exact_mod_cast hr
+          1 + (convolutionCoefficient n : ZMod 2) := by
+        have hh := congrArg (fun x : ℤ => (x : ZMod 2)) hr
+        simpa only [Int.cast_mul, Int.cast_add, Int.cast_ofNat, Int.cast_one] using hh
       rw [htwo, zero_mul] at hcast'
       have hpar := convolutionCoefficient_mod_two n
       have hodd : (diagonalIndicator n : ZMod 2) = 1 := by
