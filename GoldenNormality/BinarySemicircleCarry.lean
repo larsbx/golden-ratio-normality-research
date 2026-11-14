@@ -1,5 +1,6 @@
 import GoldenNormality.BinaryPartitionCarry
 import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+import Mathlib.Analysis.Real.Pi.Bounds
 
 /-! A semicircle estimate for every equal-width partition. -/
 
@@ -45,18 +46,12 @@ private theorem quarterCircleIntegral_scaled (K : ℕ) :
   rw [← h', ← hr2]
   ring
 
-private theorem sqrt_le_sqrt_add_one (a b : ℝ) (hb : 0 ≤ b) (hab : a ≤ b + 1) :
-    Real.sqrt a ≤ Real.sqrt b + 1 := by
-  apply Real.sqrt_le_iff.mpr
-  have h := Real.sqrt_nonneg b
-  exact ⟨by linarith, by nlinarith only [hab, h, Real.sq_sqrt hb]⟩
-
-/-- The upper rectangular sum differs from the quarter-circle area by at most
-one unit of height times its radius. -/
-theorem sqrt_checkpoint_sum_le (K : ℕ) :
+/-- Every checkpoint rectangle lies under the quarter circle with squared
+radius `K + 1`. This increases the area by only `π / 4`. -/
+theorem sqrt_checkpoint_sum_le_succ_area (K : ℕ) :
     (∑ i ∈ Finset.range K, (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) *
-      Real.sqrt (K - i : ℕ)) ≤ (K : ℝ) * Real.pi / 4 + Real.sqrt K := by
-  let f := fun x : ℝ => Real.sqrt ((K : ℝ) - x ^ 2) + 1
+      Real.sqrt (K - i : ℕ)) ≤ ((K : ℝ) + 1) * Real.pi / 4 := by
+  let f := fun x : ℝ => Real.sqrt ((K : ℝ) + 1 - x ^ 2)
   have hf : Continuous f := by dsimp [f]; fun_prop
   have hsum : ∀ m ≤ K,
       (∑ i ∈ Finset.range m, (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) *
@@ -80,29 +75,44 @@ theorem sqrt_checkpoint_sum_le (K : ℕ) :
         have hx2 : x ^ 2 ≤ (m : ℝ) + 1 := by
           have he := Real.sq_sqrt (show (0 : ℝ) ≤ (m : ℝ) + 1 by positivity)
           nlinarith [mul_nonneg (sub_nonneg.mpr hx.2) (add_nonneg hx0 (Real.sqrt_nonneg ((m : ℝ) + 1)))]
-        have hKm : (m : ℝ) + 1 ≤ K := by exact_mod_cast hm
         have hcast : ((K - m : ℕ) : ℝ) = (K : ℝ) - m := Nat.cast_sub (by omega)
         rw [hcast]
-        exact sqrt_le_sqrt_add_one _ _ (by linarith) (by linarith)
+        apply Real.sqrt_le_sqrt
+        linarith only [hx2]
       have hadd := integral_add_adjacent_intervals (μ := MeasureTheory.volume) (a := (0 : ℝ))
         (b := Real.sqrt (m : ℝ)) (c := Real.sqrt ((m : ℝ) + 1))
         (hf.intervalIntegrable _ _) (hf.intervalIntegrable _ _)
       push_cast
       rw [Finset.sum_range_succ, ← hadd]
       exact add_le_add hprev hpiece
-  have h := hsum K le_rfl
-  dsimp [f] at h
-  have hs : Continuous (fun x : ℝ => Real.sqrt ((K : ℝ) - x ^ 2)) := by fun_prop
-  rw [integral_add (hs.intervalIntegrable _ _) (continuous_const.intervalIntegrable _ _),
-    quarterCircleIntegral_scaled, integral_const] at h
-  simpa [smul_eq_mul] using h
+  have hle : Real.sqrt (K : ℝ) ≤ Real.sqrt ((K + 1 : ℕ) : ℝ) :=
+    Real.sqrt_le_sqrt (by push_cast; linarith)
+  have htail : 0 ≤ ∫ x in Real.sqrt (K : ℝ)..Real.sqrt ((K + 1 : ℕ) : ℝ), f x :=
+    integral_nonneg_of_forall hle (fun x => Real.sqrt_nonneg _)
+  have htotal : (∫ x in (0 : ℝ)..Real.sqrt ((K + 1 : ℕ) : ℝ), f x) =
+      ((K : ℝ) + 1) * Real.pi / 4 := by
+    simpa only [Nat.cast_add, Nat.cast_one, f] using quarterCircleIntegral_scaled (K + 1)
+  have hadd := integral_add_adjacent_intervals (μ := MeasureTheory.volume)
+    (hf.intervalIntegrable (0 : ℝ) (Real.sqrt (K : ℝ)))
+    (hf.intervalIntegrable (Real.sqrt (K : ℝ)) (Real.sqrt ((K + 1 : ℕ) : ℝ)))
+  linarith only [hsum K le_rfl, htail, htotal, hadd]
+
+/-- The original radius-error estimate follows from the constant area error. -/
+theorem sqrt_checkpoint_sum_le (K : ℕ) :
+    (∑ i ∈ Finset.range K, (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) *
+      Real.sqrt (K - i : ℕ)) ≤ (K : ℝ) * Real.pi / 4 + Real.sqrt K := by
+  by_cases hK : K = 0
+  · simp [hK]
+  have hk : (1 : ℝ) ≤ Real.sqrt K :=
+    Real.le_sqrt_of_sq_le (by exact_mod_cast (show 1 ^ 2 ≤ K by omega))
+  linarith only [sqrt_checkpoint_sum_le_succ_area K, Real.pi_le_four, hk]
 
 /-- A square-root envelope on all checkpoints must meet the semicircle budget. -/
-theorem original_zero_count_semicircle_envelope (K n : ℕ) (hN : 2 ≤ K * n)
+theorem original_zero_count_succ_area_envelope (K n : ℕ) (hN : 2 ≤ K * n)
     (c : ℝ) (hc : 0 ≤ c)
     (hcap : ∀ i ≤ K, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
       c * Real.sqrt ((i * n : ℕ) : ℝ)) :
-    (K * n : ℝ) ≤ 2 * c ^ 2 * n * ((K : ℝ) * Real.pi / 4 + Real.sqrt K) +
+    (K * n : ℝ) ≤ 2 * c ^ 2 * n * (((K : ℝ) + 1) * Real.pi / 4) +
       6 * c * Real.sqrt n * Real.sqrt K - 1 := by
   let r := c * Real.sqrt (n : ℝ)
   have hr : 0 ≤ r := mul_nonneg hc (Real.sqrt_nonneg _)
@@ -127,13 +137,30 @@ theorem original_zero_count_semicircle_envelope (K n : ℕ) (hN : 2 ≤ K * n)
     push_cast only [Nat.cast_add, Nat.cast_one]
     ring
   rw [hsum] at hb
-  have h := mul_le_mul_of_nonneg_left (sqrt_checkpoint_sum_le K) (sq_nonneg r)
+  have h := mul_le_mul_of_nonneg_left (sqrt_checkpoint_sum_le_succ_area K) (sq_nonneg r)
   have hsq : r ^ 2 = c ^ 2 * n := by
     dsimp [r]
     rw [mul_pow, Real.sq_sqrt (Nat.cast_nonneg _)]
   rw [hsq] at hb h
   dsimp [g, r] at hb
   linarith only [hb, h]
+
+/-- A square-root envelope on all checkpoints must meet the semicircle budget. -/
+theorem original_zero_count_semicircle_envelope (K n : ℕ) (hN : 2 ≤ K * n)
+    (c : ℝ) (hc : 0 ≤ c)
+    (hcap : ∀ i ≤ K, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
+      c * Real.sqrt ((i * n : ℕ) : ℝ)) :
+    (K * n : ℝ) ≤ 2 * c ^ 2 * n * ((K : ℝ) * Real.pi / 4 + Real.sqrt K) +
+      6 * c * Real.sqrt n * Real.sqrt K - 1 := by
+  have h := original_zero_count_succ_area_envelope K n hN c hc hcap
+  have hK : K ≠ 0 := by intro hz; simp [hz] at hN
+  have hk : (1 : ℝ) ≤ Real.sqrt K :=
+    Real.le_sqrt_of_sq_le (by exact_mod_cast (show 1 ^ 2 ≤ K by omega))
+  have harea : ((K : ℝ) + 1) * Real.pi / 4 ≤ (K : ℝ) * Real.pi / 4 + Real.sqrt K := by
+    linarith only [Real.pi_le_four, hk]
+  have hmul := mul_le_mul_of_nonneg_left harea
+    (show 0 ≤ 2 * c ^ 2 * (n : ℝ) by positivity)
+  linarith only [h, hmul]
 
 /-- Every smaller nonnegative constant than `√(2/π)` is exceeded at
 arbitrarily late prefixes of the actual binary zero count. -/
@@ -183,5 +210,35 @@ theorem original_zero_count_exceeds_of_pi_mul_sq_lt (c : ℝ) (hc : 0 ≤ c)
     (show 0 ≤ (n : ℝ) * (k : ℝ) by positivity)
   dsimp [δ] at hprod
   nlinarith only [hb, hlin, hprod]
+
+/-- A finite checkpoint guarantee near the limiting constant. -/
+theorem original_zero_count_succ_area_window (n : ℕ) (hn : 65536 ≤ n) :
+    ∃ i : ℕ, 1 ≤ i ∧ i ≤ 16384 ∧
+      (3989 / 5000 : ℝ) * Real.sqrt ((i * n : ℕ) : ℝ) <
+        (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) := by
+  by_contra! h
+  have hcap (i : ℕ) (hi : i ≤ 16384) :
+      (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
+        (3989 / 5000 : ℝ) * Real.sqrt ((i * n : ℕ) : ℝ) := by
+    by_cases hz : i = 0
+    · simp [hz, GoldenNormality.occurrences_zero]
+    exact h i (by omega) hi
+  have hb := original_zero_count_succ_area_envelope 16384 n (by omega) _ (by norm_num) hcap
+  have hs : Real.sqrt (↑(16384 : ℕ) : ℝ) = 128 := by
+    rw [show (↑(16384 : ℕ) : ℝ) = 128 ^ 2 by norm_num]
+    exact Real.sqrt_sq (by norm_num)
+  rw [hs] at hb
+  push_cast at hb
+  let t := Real.sqrt (n : ℝ)
+  have ht : (256 : ℝ) ≤ t := Real.le_sqrt_of_sq_le (by exact_mod_cast hn)
+  have ht₀ : 0 ≤ t := Real.sqrt_nonneg _
+  have hπ := mul_le_mul_of_nonneg_right Real.pi_lt_d4.le (show 0 ≤ (n : ℝ) by positivity)
+  have hsq : (n : ℝ) = t ^ 2 := (Real.sq_sqrt (Nat.cast_nonneg n)).symm
+  change 16384 * (n : ℝ) ≤
+    2 * (3989 / 5000 : ℝ) ^ 2 * n * ((16384 + 1) * Real.pi / 4) +
+      6 * (3989 / 5000 : ℝ) * t * 128 - 1 at hb
+  rw [hsq] at hb hπ
+  have hprod := mul_nonneg (sub_nonneg.mpr ht) ht₀
+  nlinarith only [hb, hπ, hprod, ht₀]
 
 end GoldenNormality.BinaryComplement
