@@ -28,6 +28,42 @@ theorem twice_positiveCarry_le (n : ℕ) :
   · have := le_max_left (carry (n + 1)) (0 : ℤ)
     omega
 
+/-- A positive carry retains the linear digit term in the recurrence. -/
+theorem twice_positiveCarry_add_digit_le (n : ℕ) :
+    2 * positiveCarry n + 3 * (digit n * positiveCarryIndicator n) ≤
+      positiveCarry (n + 1) + convolutionCoefficient n := by
+  have hr := carry_recurrence n
+  unfold signedCoefficient at hr
+  by_cases hp : 0 < carry n
+  · have h : carry (n + 1) ≤ positiveCarry (n + 1) := le_max_left _ _
+    have hpos : positiveCarry n = carry n := max_eq_left (le_of_lt hp)
+    have hind : positiveCarryIndicator n = 1 := by
+      unfold positiveCarryIndicator
+      rw [hpos]
+      exact min_eq_left (by omega)
+    rw [hpos, hind, mul_one]
+    omega
+  · have h := twice_positiveCarry_le n
+    have hpos : positiveCarry n = 0 := max_eq_right (by omega)
+    simpa [positiveCarryIndicator, hpos] using h
+
+/-- The linear digit contributions survive telescoping on every interval. -/
+theorem positiveCarry_sum_add_digits_le (start length : ℕ) :
+    (∑ i ∈ Finset.range length, positiveCarry (start + i)) + positiveCarry start +
+      3 * (∑ i ∈ Finset.range length,
+        digit (start + i) * positiveCarryIndicator (start + i)) ≤
+      positiveCarry (start + length) +
+        ∑ i ∈ Finset.range length, convolutionCoefficient (start + i) := by
+  induction length with
+  | zero => simp
+  | succ length ih =>
+    have h := twice_positiveCarry_add_digit_le (start + length)
+    simp only [Finset.sum_range_succ, Nat.add_succ]
+    change 2 * positiveCarry (start + length) +
+      3 * (digit (start + length) * positiveCarryIndicator (start + length)) ≤
+      positiveCarry (start + length).succ + convolutionCoefficient (start + length) at h
+    omega
+
 /-- Telescoping keeps both boundaries, even for shifted and empty intervals. -/
 theorem positiveCarry_sum_le (start length : ℕ) :
     (∑ i ∈ Finset.range length, positiveCarry (start + i)) + positiveCarry start ≤
@@ -326,6 +362,25 @@ theorem original_zero_count_omitted_pairs_bound (N : ℕ) (hN : 2 ≤ N) :
     binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
   have hp := positiveCarry_lt_original_zeros N hz
   have hs := positiveCarry_sum_le 0 N
+  simp only [Nat.zero_add] at hs
+  have hi := Finset.sum_le_sum (s := Finset.range N)
+    (fun i _ => positiveCarryIndicator_le i)
+  have h0 : 0 ≤ positiveCarry 0 := le_max_right _ _
+  have hc := convolution_sum_add_omitted_eq_square N
+  have hl := prefix_le_positive_count_and_zeros N
+  omega
+
+/-- The omitted pair bound with the additional cost of positive carries on one digits. -/
+theorem original_zero_count_linear_correction_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) + 2 * (∑ p ∈ ((Finset.range N ×ˢ Finset.range N).filter
+      (fun p : ℕ × ℕ => N ≤ p.1 + p.2 + 1)), digit p.1 * digit p.2) +
+      6 * (∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i) ≤
+      2 * (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 +
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) - 1 := by
+  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
+    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
+  have hp := positiveCarry_lt_original_zeros N hz
+  have hs := positiveCarry_sum_add_digits_le 0 N
   simp only [Nat.zero_add] at hs
   have hi := Finset.sum_le_sum (s := Finset.range N)
     (fun i _ => positiveCarryIndicator_le i)
