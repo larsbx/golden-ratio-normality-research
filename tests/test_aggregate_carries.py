@@ -42,6 +42,11 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertEqual(pairs + omitted, zeros**2)
                 upper_zeros = sum(self.digits[n // 2:n])
                 self.assertLessEqual(pairs + upper_zeros**2, zeros**2)
+                if n % 4 == 0:
+                    quarter = n // 4
+                    second = sum(self.digits[quarter:2 * quarter])
+                    fourth = sum(self.digits[3 * quarter:n])
+                    self.assertLessEqual(upper_zeros**2 + 2 * second * fourth, omitted)
                 self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
@@ -72,6 +77,8 @@ class AggregateCarryTests(unittest.TestCase):
         # At N=4 the two mixed pairs lie exactly on the cutoff and are omitted.
         self.assertEqual(self.digits[:4], [0, 1, 1, 0])
         self.assertEqual(sum(self.coefficients[:4]), 1)
+        # At N=8, each new rectangle contributes one ordered pair.
+        self.assertEqual((sum(self.digits[2:4]), sum(self.digits[6:8])), (1, 1))
         # Both mixed pairs survive at N=5, but the upper-half square does not.
         self.assertEqual(self.digits[:5], [0, 1, 1, 0, 0])
         self.assertEqual(sum(self.coefficients[:5]), 3)

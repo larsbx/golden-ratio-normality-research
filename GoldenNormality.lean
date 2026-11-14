@@ -20,3 +20,4 @@ import GoldenNormality.BinaryComplementCounts
 import GoldenNormality.BinaryComplementCarry
 import GoldenNormality.BinaryAggregateCarry
 import GoldenNormality.BinaryZeroGrowth
+import GoldenNormality.BinaryQuarterCarry
