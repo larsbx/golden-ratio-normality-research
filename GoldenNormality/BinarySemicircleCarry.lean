@@ -1,6 +1,7 @@
 import GoldenNormality.BinaryPartitionCarry
 import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
 import Mathlib.Analysis.Real.Pi.Bounds
+import Mathlib.Analysis.SpecificLimits.Basic
 
 /-! A semicircle estimate for every equal-width partition. -/
 
@@ -96,6 +97,77 @@ theorem sqrt_checkpoint_sum_le_succ_area (K : ℕ) :
     (hf.intervalIntegrable (0 : ℝ) (Real.sqrt (K : ℝ)))
     (hf.intervalIntegrable (Real.sqrt (K : ℝ)) (Real.sqrt ((K + 1 : ℕ) : ℝ)))
   linarith only [hsum K le_rfl, htail, htotal, hadd]
+
+/-- The same rectangles cover the quarter circle of squared radius `K`. -/
+theorem le_sqrt_checkpoint_sum (K : ℕ) :
+    (K : ℝ) * Real.pi / 4 ≤
+      ∑ i ∈ Finset.range K, (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) *
+        Real.sqrt (K - i : ℕ) := by
+  let f := fun x : ℝ => Real.sqrt ((K : ℝ) - x ^ 2)
+  have hf : Continuous f := by dsimp [f]; fun_prop
+  have hsum : ∀ m ≤ K, (∫ x in (0 : ℝ)..Real.sqrt m, f x) ≤
+      ∑ i ∈ Finset.range m, (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) *
+        Real.sqrt (K - i : ℕ) := by
+    intro m
+    induction m with
+    | zero => simp
+    | succ m ih =>
+      intro hm
+      have hprev := ih (by omega)
+      have hle : Real.sqrt (m : ℝ) ≤ Real.sqrt ((m : ℝ) + 1) :=
+        Real.sqrt_le_sqrt (by linarith)
+      have hpiece : (∫ x in Real.sqrt (m : ℝ)..Real.sqrt ((m : ℝ) + 1), f x) ≤
+          (Real.sqrt ((m : ℝ) + 1) - Real.sqrt m) * Real.sqrt (K - m : ℕ) := by
+        rw [← smul_eq_mul, ← integral_const]
+        apply integral_mono_on hle (hf.intervalIntegrable _ _)
+          (continuous_const.intervalIntegrable _ _)
+        intro x hx
+        have hroot : 0 ≤ Real.sqrt (m : ℝ) := Real.sqrt_nonneg _
+        have hx0 : 0 ≤ x := hroot.trans hx.1
+        have hx2 : (m : ℝ) ≤ x ^ 2 := by
+          rw [← Real.sq_sqrt (Nat.cast_nonneg m)]
+          exact (sq_le_sq₀ hroot hx0).mpr hx.1
+        have hcast : ((K - m : ℕ) : ℝ) = (K : ℝ) - m := Nat.cast_sub (by omega)
+        rw [hcast]
+        apply Real.sqrt_le_sqrt
+        linarith only [hx2]
+      have hadd := integral_add_adjacent_intervals (μ := MeasureTheory.volume)
+        (b := Real.sqrt (m : ℝ)) (c := Real.sqrt ((m : ℝ) + 1))
+        (hf.intervalIntegrable (0 : ℝ) _) (hf.intervalIntegrable _ _)
+      push_cast
+      rw [Finset.sum_range_succ, ← hadd]
+      exact add_le_add hprev hpiece
+  have h := hsum K le_rfl
+  dsimp only [f] at h
+  rwa [quarterCircleIntegral_scaled] at h
+
+open Filter
+open scoped Topology
+
+/-- The normalized rectangular sum converges to the quarter-circle constant. -/
+theorem tendsto_sqrt_checkpoint_average :
+    Tendsto (fun K : ℕ =>
+      (∑ i ∈ Finset.range K, (Real.sqrt ((i : ℝ) + 1) - Real.sqrt i) *
+        Real.sqrt (K - i : ℕ)) / (K : ℝ)) atTop (𝓝 (Real.pi / 4)) := by
+  have hupper : Tendsto (fun K : ℕ => Real.pi / 4 + (Real.pi / 4) / (K : ℝ))
+      atTop (𝓝 (Real.pi / 4)) := by
+    simpa only [add_zero] using
+      (tendsto_const_nhds (x := Real.pi / 4)).add
+        (tendsto_const_div_atTop_nhds_zero_nat (Real.pi / 4))
+  refine tendsto_of_tendsto_of_tendsto_of_le_of_le'
+    tendsto_const_nhds hupper ?_ ?_
+  · filter_upwards [eventually_ge_atTop (1 : ℕ)] with K hK
+    have hpos : (0 : ℝ) < K := by exact_mod_cast (show 0 < K by omega)
+    apply (le_div_iff₀ hpos).mpr
+    rw [div_mul_eq_mul_div, mul_comm Real.pi (K : ℝ)]
+    exact le_sqrt_checkpoint_sum K
+  · filter_upwards [eventually_ge_atTop (1 : ℕ)] with K hK
+    have hpos : (0 : ℝ) < K := by exact_mod_cast (show 0 < K by omega)
+    apply (div_le_iff₀ hpos).mpr
+    calc
+      _ ≤ ((K : ℝ) + 1) * Real.pi / 4 := sqrt_checkpoint_sum_le_succ_area K
+      _ = (Real.pi / 4 + (Real.pi / 4) / (K : ℝ)) * (K : ℝ) := by
+        field_simp
 
 /-- The original radius-error estimate follows from the constant area error. -/
 theorem sqrt_checkpoint_sum_le (K : ℕ) :
