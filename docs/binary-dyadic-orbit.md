@@ -144,3 +144,23 @@ Lean checks that decay for all odd $h$ in this finite-sum formulation
 would prove the full binary normality target. The needed estimate
 is that the sum of these roots of unity has magnitude $o(N)$
 as $N$ grows, with $Q_N$ the actual quadratic floor.
+
+## Complete-frequency second moments
+
+For any list of $N$ residue positions modulo $q$, Lean proves that
+the sum of the squared phase-sum magnitudes over all $q$ frequencies
+is $q$ times the number of ordered pairs of equal residues. This is
+finite additive-character orthogonality. For $q=2^N$ and an odd
+numerator, the $N$ residues of the doubled orbit are distinct.
+The second moment is exactly $2^N N$, including at each actual
+odd quadratic floor.
+
+The invariance is stronger than equality of one moment. Multiplication
+by an odd numerator permutes the frequency labels, so averaging any
+real function of the complex phase sums over the full frequency set
+has the same result as for numerator one. In the family of rational
+seeds $1/2^N$, the normalized sum at the fixed frequency $1$ tends to
+one. Lean proves this using the same perturbation bound at the zero
+source. Thus complete-frequency averages alone cannot give the
+required fixed-frequency decay. The control uses a varying rational
+seed at each $N$, as in the finite modular problem.
