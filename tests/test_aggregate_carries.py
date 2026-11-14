@@ -40,6 +40,15 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertLessEqual(positive, mass)
                 self.assertLessEqual(mass + 3 * overlap, pairs + max(self.carries[n], 0))
                 self.assertEqual(pairs + omitted, zeros**2)
+                for blocks in range(1, min(n, 16) + 1):
+                    width, remainder = divmod(n, blocks)
+                    if remainder == 0:
+                        partition = sum(
+                            sum(self.digits[i * width:(i + 1) * width]) *
+                            sum(self.digits[:(blocks - i) * width])
+                            for i in range(blocks)
+                        )
+                        self.assertLessEqual(pairs, partition)
                 upper_zeros = sum(self.digits[n // 2:n])
                 self.assertLessEqual(pairs + upper_zeros**2, zeros**2)
                 if n % 4 == 0:

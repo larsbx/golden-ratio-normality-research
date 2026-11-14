@@ -160,6 +160,31 @@ $9.12\sqrt n$. Thus for every $n\ge262144$, at least one of
 $n,2n,3n,4n$ exceeds $0.76\sqrt N$. In particular the limsup is at least
 $0.76$. This establishes a bound at arbitrarily large prefixes.
 
+## Equal-width partitions
+
+For $N=kn$ and $f_i=z_{in}$, a row with index in block $i$ only
+uses columns below $(k-i)n$. This gives
+
+\[
+\sum_{r<kn}c_r\le \sum_{i<k}(f_{i+1}-f_i)f_{k-i}.
+\]
+
+If $f_i\le g_i$ for all checkpoints, where $g$ is nondecreasing and
+$g_0=0$, the right side is bounded by
+$\sum_{i<k}(g_{i+1}-g_i)g_{k-i}$. First increase the weights using
+$f_{i+1}-f_i\ge0$. Then use summation by parts with the decreasing
+weights $g_{k-i}$ to increase the cumulative counts. The increments
+themselves need not satisfy an entrywise upper bound.
+
+For eight blocks, use the envelope $g_i=(31/40)\sqrt n\,s_i$ with
+$s_i$ given by the numerators $(0,1000,1415,1733,2000,2237,2450,2646,2829)$
+over 1000. These are checked rational upper bounds for $\sqrt i$.
+The finite weighted sum for the $s_i$ is $6606938/10^6$. If every
+checkpoint were below the $0.775\sqrt N$ envelope, the prefix bound
+would give $8n\le 7.9365842725n+13.15485\sqrt n-1$, impossible
+for $n\ge65536$. Hence at least one of the eight checkpoints exceeds
+the envelope. The limsup is at least $0.775$.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
