@@ -302,6 +302,31 @@ limsup of $z_N/\sqrt N$ is at least $\sqrt{3/\pi}$. This is an
 arbitrarily-late exceedance result for constants strictly below
 $\sqrt{3/\pi}$.
 
+## Full convolution parity
+
+The off-diagonal products cancel in $\mathbb Z/2\mathbb Z$, since
+the index swap is an involution and each pair contributes twice.
+The only possible fixed point occurs at $i=2j+1$, when the diagonal
+term is $d_j^2=d_j$. Thus for $d_i=0$, an incoming $T_{i+1}=1$
+forces a diagonal contribution regardless of the value of $T_i$:
+the recurrence gives $c_i\equiv1\pmod 2$. At the actual position
+$i=15$ the carries are $T_{15}=2,T_{16}=1$ and $c_{15}=3$, so the
+coefficient-one argument alone misses this transition.
+
+Every size-one carry is therefore charged to the preceding digit
+or diagonal contribution. Since $T_0=-1$, telescoping yields
+$U_N+\mathbf1_{T_N=1}\le z_N+z_{\lfloor N/2\rfloor}$, hence
+$U_N\le2z_N$. The same positive-carry mass and gap estimates now give
+
+\[
+N\le\sum_{i<N}c_i+7z_N\qquad(N\ge2).
+\]
+
+The quarter-circle envelope would force the leading coefficient
+of $N$ on the right to be at most $\pi c^2/4$. The positive gap
+when $\pi c^2<4$ gives arbitrarily late exceedances of $c\sqrt N$.
+Thus the limsup lower bound becomes $2/\sqrt\pi$.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`

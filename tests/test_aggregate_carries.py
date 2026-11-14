@@ -42,6 +42,7 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertLessEqual(positive, mass)
                 self.assertLessEqual(2 * units + (self.carries[n] == 1),
                                      positive + zeros + diagonal)
+                self.assertLessEqual(units + (self.carries[n] == 1), zeros + diagonal)
                 self.assertLessEqual(2 * positive, mass + units)
                 self.assertLessEqual(mass + 3 * overlap, pairs + max(self.carries[n], 0))
                 self.assertEqual(pairs + omitted, zeros**2)
@@ -64,8 +65,21 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
                     self.assertLessEqual(3 * n, 4 * pairs + 20 * zeros - 1)
+                    self.assertLessEqual(n, pairs + 7 * zeros)
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
+
+    def test_diagonal_parity(self):
+        for i, coefficient in enumerate(self.coefficients):
+            with self.subTest(i=i):
+                diagonal = self.digits[i // 2] if i % 2 else 0
+                self.assertEqual(coefficient % 2, diagonal)
+                if i < len(self.digits):
+                    self.assertLessEqual(self.carries[i + 1] == 1,
+                                         self.digits[i] + diagonal)
+        # The preceding carry can be two, and the odd coefficient can be three.
+        self.assertEqual((self.digits[15], self.coefficients[15], self.digits[7],
+                          self.carries[15:17]), (0, 3, 1, [2, 1]))
 
     def test_constant_error_checkpoint_parameters(self):
         blocks, radius, threshold_root = 16_384, 128, 256
