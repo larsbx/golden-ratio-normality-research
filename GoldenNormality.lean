@@ -30,3 +30,4 @@ import GoldenNormality.BinaryDyadicSeparation
 import GoldenNormality.BinaryWeylCriterion
 import GoldenNormality.BinaryFiniteModeControl
 import GoldenNormality.BinaryGapTransfer
+import GoldenNormality.BinaryRationalOrbit
