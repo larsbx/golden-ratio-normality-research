@@ -393,4 +393,88 @@ theorem original_zero_count_exceeds_of_pi_mul_sq_lt_four (c : ℝ) (hc : 0 ≤ c
   push_cast at h
   linarith only [h]
 
+/-- The parity budget gives an all-prefix quadratic bound on the actual zero count. -/
+theorem original_zero_count_parity_quadratic_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) ≤ (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 +
+      7 * (GoldenNormality.occurrences 2 1 0 N : ℤ) := by
+  have hp := original_zero_count_parity_carry_bound N hN
+  have hs := convolution_sum_le_square N
+  omega
+
+/-- Every prefix past the given threshold exceeds the square-root envelope.
+In particular the liminf of the normalized zero count is at least one. -/
+theorem original_zero_count_parity_above (N : ℕ) (hN : 2 ≤ N) (c : ℝ) (hc : 0 ≤ c)
+    (hmargin : 7 * c < (1 - c ^ 2) * Real.sqrt (N : ℝ)) :
+    c * Real.sqrt (N : ℝ) < (GoldenNormality.occurrences 2 1 0 N : ℝ) := by
+  let t := Real.sqrt (N : ℝ)
+  let z : ℝ := GoldenNormality.occurrences 2 1 0 N
+  have ht : 0 < t := Real.sqrt_pos_of_pos (by exact_mod_cast (show 0 < N by omega))
+  have ht2 : t ^ 2 = (N : ℝ) := Real.sq_sqrt (Nat.cast_nonneg _)
+  have hz : 0 ≤ z := Nat.cast_nonneg _
+  have hs : (N : ℝ) ≤ z ^ 2 + 7 * z := by
+    dsimp only [z]
+    exact_mod_cast original_zero_count_parity_quadratic_bound N hN
+  by_contra! h
+  change z ≤ c * t at h
+  have hsq := (sq_le_sq₀ hz (mul_nonneg hc ht.le)).mpr h
+  have hm := mul_lt_mul_of_pos_right hmargin ht
+  change 7 * c * t < ((1 - c ^ 2) * t) * t at hm
+  nlinarith only [hs, h, hsq, ht2, hm]
+
+/-- An exact threshold for the all-prefix coefficient `0.99`. -/
+theorem original_zero_count_parity_above_99 (N : ℕ) (hN : 122500 ≤ N) :
+    (99 / 100 : ℝ) * Real.sqrt (N : ℝ) <
+      (GoldenNormality.occurrences 2 1 0 N : ℝ) := by
+  apply original_zero_count_parity_above N (by omega) _ (by norm_num)
+  have ht : (350 : ℝ) ≤ Real.sqrt (N : ℝ) :=
+    Real.le_sqrt_of_sq_le (by exact_mod_cast hN)
+  linarith only [ht]
+
+/-- A strict finite checkpoint guarantee from the parity carry budget. -/
+theorem original_zero_count_parity_window (K n : ℕ) (hN : 2 ≤ K * n) (c : ℝ) (hc : 0 ≤ c)
+    (hmargin : 7 * c * Real.sqrt (K : ℝ) <
+      ((K : ℝ) - c ^ 2 * (((K : ℝ) + 1) * Real.pi / 4)) * Real.sqrt (n : ℝ)) :
+    ∃ i : ℕ, 1 ≤ i ∧ i ≤ K ∧ c * Real.sqrt ((i * n : ℕ) : ℝ) <
+      (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) := by
+  by_contra! h
+  have hcap : ∀ i ≤ K, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
+      c * Real.sqrt ((i * n : ℕ) : ℝ) := by
+    intro i hi
+    by_cases hz : i = 0
+    · simp [hz, GoldenNormality.occurrences_zero]
+    · exact h i (by omega) hi
+  have hmass := convolution_sum_le_succ_area_envelope K n c hc hcap
+  have hb := Int.cast_le (R := ℝ).mpr (original_zero_count_parity_carry_bound (K * n) hN)
+  push_cast at hb
+  have hend := hcap K le_rfl
+  push_cast at hend
+  rw [Real.sqrt_mul (Nat.cast_nonneg K)] at hend
+  have hn : 0 < n := by
+    by_contra! hz
+    simp [show n = 0 by omega] at hN
+  have ht : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos_of_pos (by exact_mod_cast hn)
+  have hm := mul_lt_mul_of_pos_right hmargin ht
+  have hsq := Real.sq_sqrt (Nat.cast_nonneg n)
+  nlinarith only [hb, hmass, hend, hm,
+    congrArg (fun x : ℝ => ((K : ℝ) - c ^ 2 * (((K : ℝ) + 1) * Real.pi / 4)) * x) hsq]
+
+/-- Every window of 1024 checkpoints of width at least 2500 contains
+a prefix with more than `1.125 * √N` original zeros. -/
+theorem original_zero_count_parity_window_nine_eighths (n : ℕ) (hn : 2500 ≤ n) :
+    ∃ i : ℕ, 1 ≤ i ∧ i ≤ 1024 ∧
+      (9 / 8 : ℝ) * Real.sqrt ((i * n : ℕ) : ℝ) <
+        (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) := by
+  apply original_zero_count_parity_window 1024 n (by omega) _ (by norm_num)
+  have hk : Real.sqrt (↑(1024 : ℕ) : ℝ) = 32 := by
+    rw [show (↑(1024 : ℕ) : ℝ) = 32 ^ 2 by norm_num]
+    exact Real.sqrt_sq (by norm_num)
+  rw [hk]
+  let t := Real.sqrt (n : ℝ)
+  have ht : (50 : ℝ) ≤ t := Real.le_sqrt_of_sq_le (by exact_mod_cast hn)
+  have ht₀ : 0 ≤ t := by linarith
+  have hπ := mul_le_mul_of_nonneg_right Real.pi_lt_d4.le ht₀
+  change 7 * (9 / 8 : ℝ) * 32 <
+    (1024 - (9 / 8 : ℝ) ^ 2 * ((1024 + 1) * Real.pi / 4)) * t
+  nlinarith only [ht, hπ]
+
 end GoldenNormality.BinaryComplement

@@ -81,6 +81,21 @@ class AggregateCarryTests(unittest.TestCase):
         self.assertEqual((self.digits[15], self.coefficients[15], self.digits[7],
                           self.carries[15:17]), (0, 3, 1, [2, 1]))
 
+    def test_parity_threshold_parameters(self):
+        # Clear denominators in 7c < (1 - c²) sqrt(N), c = 99/100.
+        self.assertLess(7 * 99 * 100, (100**2 - 99**2) * 350)
+        self.assertEqual(350**2, 122_500)
+
+        # Clear denominators in the checkpoint margin for c = 9/8.
+        blocks, radius, threshold_root = 1024, 32, 50
+        pi_numerator, pi_denominator = 31_416, 10_000
+        margin = (4 * blocks * 8**2 * pi_denominator
+                  - 9**2 * (blocks + 1) * pi_numerator)
+        self.assertEqual(radius**2, blocks)
+        self.assertEqual(threshold_root**2, 2500)
+        self.assertGreater(margin * threshold_root,
+                           7 * 9 * radius * 4 * 8 * pi_denominator)
+
     def test_constant_error_checkpoint_parameters(self):
         blocks, radius, threshold_root = 16_384, 128, 256
         numerator, denominator = 3_989, 5_000

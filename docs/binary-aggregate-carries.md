@@ -327,6 +327,24 @@ of $N$ on the right to be at most $\pi c^2/4$. The positive gap
 when $\pi c^2<4$ gives arbitrarily late exceedances of $c\sqrt N$.
 Thus the limsup lower bound becomes $2/\sqrt\pi$.
 
+## Explicit thresholds from the parity bound
+
+The total truncated convolution is at most $z_N^2$, so every $N\ge2$
+satisfies $N\le z_N^2+7z_N$. In particular, for $0\le c<1$ and
+$7c<(1-c^2)\sqrt N$, the count satisfies $z_N>c\sqrt N$. This gives
+a liminf lower bound of $1$. Taking $c=99/100$ and $\sqrt N\ge350$
+gives $z_N>0.99\sqrt N$ for every $N\ge122500$.
+
+For a checkpoint window of width $n$ and length $K$, define
+$\Delta=K-c^2(K+1)\pi/4$. If $Kn\ge2$ and
+$\Delta\sqrt n>7c\sqrt K$, some checkpoint $in$ with $1\le i\le K$
+satisfies $z_{in}>c\sqrt{in}$. Indeed, if all the checkpoints satisfied
+the envelope, the pair budget would be at most
+$c^2n(K+1)\pi/4$ and the linear term at most $7c\sqrt{Kn}$.
+For $K=1024$, $c=9/8$, and $\pi<3.1416$, the lower bound on $\Delta$
+is $65633/12800$. Its product with $50$ exceeds $7c\sqrt K=252$,
+so the test applies for every width $n\ge2500$.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
