@@ -205,6 +205,32 @@ checkpoints satisfies $z_{in}>0.794\sqrt{in}$. In particular the limsup
 is at least $0.794$. The conclusion concerns zero counts on the
 square-root scale.
 
+## The limiting checkpoint constant
+
+For $K$ blocks, the exact square-root envelope uses the weighted sum
+$S_K=\sum_{i<K}(\sqrt{i+1}-\sqrt i)\sqrt{K-i}$. On
+$[\sqrt i,\sqrt{i+1}]$, one has
+$\sqrt{K-i}\le\sqrt{K-x^2}+1$ because $x^2\le i+1$.
+Integrating on each interval and summing gives
+$S_K\le K\pi/4+\sqrt K$. The integral of the quarter circle is obtained
+from the pinned mathlib semicircle integral by reflection and scaling.
+
+If every checkpoint of width $n$ satisfies $z_{in}\le c\sqrt{in}$,
+the resulting carry budget is
+$Kn\le2c^2n(K\pi/4+\sqrt K)+6c\sqrt{Kn}-1$.
+For $\pi c^2<2$, take $K$ to be a square with sufficiently large root
+and $n\ge2$. The positive margin
+$1-\pi c^2/2$ contradicts the budget once
+$\sqrt K>(2c^2+6c)/(1-\pi c^2/2)$. Taking $n$ beyond any requested
+threshold gives a prefix above $c\sqrt N$. Thus the limsup lower bound
+is $\sqrt{2/\pi}\approx0.79788456$. The argument establishes an
+arbitrarily-late exceedance on the square-root scale.
+
+The partition-to-integral strategy has a precedent for the ones of
+$\sqrt2$ in Remark 1 of [On the binary digits of $\sqrt2$](https://math.colgate.edu/~integers/s30/s30.pdf).
+Here the input is the original zero count and the lower carry budget
+comes from the signed quadratic, yielding a different constant.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
