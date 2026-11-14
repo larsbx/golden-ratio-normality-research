@@ -1,4 +1,5 @@
 import GoldenNormality.BinaryAggregateCarry
+import Mathlib.Data.Rat.BigOperators
 
 /-! Bounds for the truncated digit convolution on equal-width partitions. -/
 
@@ -51,7 +52,8 @@ theorem convolution_sum_le_partition (blocks n : ℕ) :
     intro j _ hj
     have hj : (blocks - a) * n ≤ j := by simpa using hj
     unfold weight
-    exact if_neg (by omega)
+    have hfalse : ¬ a * n + i + j + 1 < blocks * n := by omega
+    simp [weight, hfalse]
   rw [he]
   apply Finset.sum_le_sum
   intro j _
@@ -136,18 +138,30 @@ theorem original_zero_count_partition_envelope (blocks n : ℕ) (hN : 2 ≤ bloc
   linarith only [hb', hweight, hsum, hcap blocks le_rfl]
 
 -- The entries are rational upper bounds for the square roots of 0 through 8.
-private def eighthCap (i : ℕ) : ℚ :=
-  ([0, 1000, 1415, 1733, 2000, 2237, 2450, 2646, 2829] : List ℚ)[min i 8]! / 1000
+private def eighthCap : ℕ → ℚ
+  | 0 => 0
+  | 1 => 1
+  | 2 => 1415 / 1000
+  | 3 => 1733 / 1000
+  | 4 => 2
+  | 5 => 2237 / 1000
+  | 6 => 2450 / 1000
+  | 7 => 2646 / 1000
+  | _ => 2829 / 1000
 
 private theorem eighthCap_mono : Monotone eighthCap := by
-  intro i j h
-  unfold eighthCap
-  have hi : min i 8 ≤ 8 := min_le_right _ _
-  have hj : min j 8 ≤ 8 := min_le_right _ _
-  have hij : min i 8 ≤ min j 8 := min_le_min_right _ h
-  generalize min i 8 = a at hi hij ⊢
-  generalize min j 8 = b at hj hij ⊢
-  interval_cases a <;> interval_cases b <;> first | omega | decide
+  apply monotone_nat_of_le_succ
+  intro i
+  by_cases hi : i < 8
+  · interval_cases i <;> norm_num [eighthCap]
+  · have he : eighthCap i = 2829 / 1000 := by
+      obtain ⟨j, rfl⟩ : ∃ j, i = j + 8 := ⟨i - 8, by omega⟩
+      rfl
+    have he' : eighthCap (i + 1) = 2829 / 1000 := by
+      obtain ⟨j, hj⟩ : ∃ j, i + 1 = j + 8 := ⟨i + 1 - 8, by omega⟩
+      rw [hj]
+      rfl
+    rw [he, he']
 
 /-- The eight-checkpoint envelope gives a limsup constant of at least 0.775. -/
 theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
@@ -160,7 +174,7 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
   have hk : (256 : ℝ) ≤ k := Real.le_sqrt_of_sq_le (by exact_mod_cast hn)
   have hk₀ : 0 ≤ k := by linarith
   have hg₀ : g 0 = 0 := by
-    have he : eighthCap 0 = 0 := by decide
+    have he : eighthCap 0 = 0 := by norm_num [eighthCap]
     simp [g, he]
   have hgmono : Monotone g := by
     intro i j hij
@@ -177,7 +191,7 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
     rw [Real.sqrt_mul (Nat.cast_nonneg i)] at hu
     have he : Real.sqrt (i : ℝ) ≤ (eighthCap i : ℝ) := by
       apply Real.sqrt_le_iff.mpr
-      interval_cases i <;> norm_num [eighthCap, List.getElem!]
+      interval_cases i <;> norm_num [eighthCap]
     have ht := mul_le_mul_of_nonneg_left he (show 0 ≤ (31 / 40 : ℝ) * k by positivity)
     dsimp [g, k] at ht ⊢
     linarith only [hu, ht]
@@ -186,9 +200,10 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
       ((31 / 40 : ℝ) * k) ^ 2 * (6606938 / 1000000) := by
     have hrat : (∑ i ∈ Finset.range 8,
         (eighthCap (i + 1) - eighthCap i) * eighthCap (8 - i)) =
-        (6606938 / 1000000 : ℚ) := by decide
+        (6606938 / 1000000 : ℚ) := by
+      norm_num [Finset.sum_range_succ, eighthCap]
     rw [← show ((6606938 / 1000000 : ℚ) : ℝ) = (6606938 / 1000000 : ℝ) by norm_num, ← hrat]
-    push_cast
+    push_cast [Rat.cast_sum]
     rw [Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro i _
@@ -196,9 +211,8 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
     ring
   rw [hsum] at hb
   have hg8 : g 8 = (31 / 40 : ℝ) * k * (2829 / 1000) := by
-    have h8 : eighthCap 8 = 2829 / 1000 := by decide
-    simp only [g, h8]
-    norm_num
+    have h8 : eighthCap 8 = 2829 / 1000 := by norm_num [eighthCap]
+    norm_num [g, h8]
   rw [hg8, show (n : ℝ) = k ^ 2 from (Real.sq_sqrt (Nat.cast_nonneg _)).symm] at hb
   have hprod := mul_nonneg (sub_nonneg.mpr hk) hk₀
   nlinarith only [hb, hprod, hk₀]
