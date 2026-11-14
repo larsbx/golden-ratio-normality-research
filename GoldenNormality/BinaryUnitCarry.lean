@@ -101,9 +101,14 @@ theorem convolutionCoefficient_mod_two (n : ℕ) :
     rcases hd with hd | hd <;> simp [w, he, diagonalIndicator, ho, hd]
   · have hset : ((Finset.range n).filter (fun i => ¬ flip i ≠ i)) = ∅ := by
       ext i
-      simp only [Finset.mem_filter, Finset.mem_range, Finset.notMem_empty, not_not, flip]
-      have hn : n % 2 = 0 := by omega
-      omega
+      constructor
+      · intro hi
+        have hm := Finset.mem_range.mp (Finset.mem_filter.mp hi).1
+        have he : flip i = i := Classical.not_not.mp (Finset.mem_filter.mp hi).2
+        dsimp [flip] at he
+        exact (ho (by omega)).elim
+      · intro hi
+        exact (Finset.notMem_empty i hi).elim
     rw [hset, Finset.sum_empty]
     simp [diagonalIndicator, ho]
 
