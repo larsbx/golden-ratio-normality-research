@@ -1,4 +1,5 @@
 import GoldenNormality.BinaryAggregateCarry
+import Mathlib.Data.Rat.BigOperators
 
 /-! Bounds for the truncated digit convolution on equal-width partitions. -/
 
@@ -147,7 +148,7 @@ private theorem eighthCap_mono : Monotone eighthCap := by
   have hij : min i 8 ≤ min j 8 := min_le_min_right _ h
   generalize min i 8 = a at hi hij ⊢
   generalize min j 8 = b at hj hij ⊢
-  interval_cases a <;> interval_cases b <;> first | omega | decide
+  interval_cases a <;> interval_cases b <;> first | omega | norm_num [List.getElem!]
 
 /-- The eight-checkpoint envelope gives a limsup constant of at least 0.775. -/
 theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
@@ -160,7 +161,7 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
   have hk : (256 : ℝ) ≤ k := Real.le_sqrt_of_sq_le (by exact_mod_cast hn)
   have hk₀ : 0 ≤ k := by linarith
   have hg₀ : g 0 = 0 := by
-    have he : eighthCap 0 = 0 := by decide
+    have he : eighthCap 0 = 0 := by norm_num [eighthCap, List.getElem!]
     simp [g, he]
   have hgmono : Monotone g := by
     intro i j hij
@@ -186,9 +187,10 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
       ((31 / 40 : ℝ) * k) ^ 2 * (6606938 / 1000000) := by
     have hrat : (∑ i ∈ Finset.range 8,
         (eighthCap (i + 1) - eighthCap i) * eighthCap (8 - i)) =
-        (6606938 / 1000000 : ℚ) := by decide
+        (6606938 / 1000000 : ℚ) := by
+      norm_num [Finset.sum_range_succ, eighthCap, List.getElem!]
     rw [← show ((6606938 / 1000000 : ℚ) : ℝ) = (6606938 / 1000000 : ℝ) by norm_num, ← hrat]
-    push_cast
+    push_cast [Rat.cast_sum]
     rw [Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro i _
@@ -196,7 +198,7 @@ theorem original_zero_count_eight_window (n : ℕ) (hn : 65536 ≤ n) :
     ring
   rw [hsum] at hb
   have hg8 : g 8 = (31 / 40 : ℝ) * k * (2829 / 1000) := by
-    have h8 : eighthCap 8 = 2829 / 1000 := by decide
+    have h8 : eighthCap 8 = 2829 / 1000 := by norm_num [eighthCap, List.getElem!]
     simp only [g, h8]
     norm_num
   rw [hg8, show (n : ℝ) = k ^ 2 from (Real.sq_sqrt (Nat.cast_nonneg _)).symm] at hb
