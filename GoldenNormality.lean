@@ -27,3 +27,4 @@ import GoldenNormality.BinarySemicircleCarry
 import GoldenNormality.BinaryUnitCarry
 import GoldenNormality.BinaryDyadicOrbit
 import GoldenNormality.BinaryDyadicSeparation
+import GoldenNormality.BinaryWeylCriterion
