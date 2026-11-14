@@ -61,6 +61,21 @@ class AggregateCarryTests(unittest.TestCase):
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
 
+    def test_root_checkpoint_certificate(self):
+        scale, blocks, threshold_root = 10_000, 64, 256
+        caps = [0] + [isqrt(scale**2 * i) + 1 for i in range(1, blocks + 1)]
+        self.assertEqual(caps, sorted(caps))
+        self.assertTrue(all(cap**2 >= scale**2 * i for i, cap in enumerate(caps)))
+        budget = sum((caps[i + 1] - caps[i]) * caps[blocks - i]
+                     for i in range(blocks))
+        self.assertEqual((budget, caps[-1]), (5_063_329_433, 80_001))
+        # Clear denominators for c = 397/500 and sqrt(n) >= 256.
+        denominator = 500 * scale
+        margin = blocks * denominator**2 - 2 * 397**2 * budget
+        self.assertGreater(margin, 0)
+        self.assertGreaterEqual(margin * threshold_root,
+                                6 * 397 * caps[-1] * denominator)
+
     def test_shifted_aggregate_and_zero_gaps(self):
         for start in range(len(self.carries)):
             carry_mass = coefficient_mass = positive = overlap = 0
