@@ -171,3 +171,31 @@ one. Lean proves this using the same perturbation bound at the zero
 source. Thus complete-frequency averages alone cannot give the
 required fixed-frequency decay. The control uses a varying rational
 seed at each $N$, as in the finite modular problem.
+
+## Exact nonvanishing at finite lengths
+
+For any numerator $p$ modulo $2^N$, put
+$\zeta=\exp(2\pi i p/2^N)$. Lean proves that
+$\sum_{0\le n<N}\zeta^{2^n}$ is nonzero for every $N\ge3$.
+The order of $\zeta$ divides $2^N$, so it is $2^M$ for some $M\le N$.
+The order-one and order-two cases give sums $N$ and $N-2$.
+For $M\ge2$, the last $N-M$ terms equal one and the term at $n=M-1$
+equals minus one. The remaining expression evaluates a rational polynomial
+whose coefficient of $X$ is one and whose degree is less than $2^{M-1}$.
+The minimal polynomial of $\zeta$ has degree $2^{M-1}$, so it cannot divide
+that polynomial. This proves `dyadicModularAverage_ne_zero` for the actual
+quadratic floor at every integer frequency, including zero.
+
+The threshold is sharp. At $N=2$ the actual prefix numerator is two, so
+every odd frequency has phases $-1,1$. Lean checks the frequency-one
+case. The Python control independently reduces the phase polynomial
+modulo $X^{2^{N-1}}+1$, checks all 2,040 residues across lengths 3 through
+10, and replays the actual length-two exception with positive and
+negative odd frequencies. Run
+`python3 -m unittest discover -s tests -p test_dyadic_modular.py`.
+
+The exact nonvanishing statement is compatible with convergence of the
+normalized averages to zero. It also holds for the varying rational
+seeds above, whose averages at frequency one converge to one. The
+normality criterion still requires $o(N)$ at each fixed odd frequency
+for the actual quadratic floors.

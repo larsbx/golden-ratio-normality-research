@@ -33,3 +33,4 @@ import GoldenNormality.BinaryGapTransfer
 import GoldenNormality.BinaryRationalOrbit
 import GoldenNormality.BinaryModularMoments
 import GoldenNormality.BinaryWeylConverse
+import GoldenNormality.BinaryDyadicPhaseNonzero

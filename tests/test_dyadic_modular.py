@@ -1,11 +1,33 @@
 """Independent checks of the modular phase residues of actual prefixes."""
 
 import unittest
+from collections import Counter
 
 from oracles.reference import prefix_value
 
 
 class DyadicModularTests(unittest.TestCase):
+    @staticmethod
+    def cyclotomic_remainder(length, numerator):
+        modulus = 1 << length
+        half = modulus // 2
+        coefficients = Counter()
+        for start in range(length):
+            residue = (numerator << start) % modulus
+            coefficients[residue % half] += 1 if residue < half else -1
+        return {power: multiplicity for power, multiplicity in coefficients.items() if multiplicity}
+
+    def test_exact_nonvanishing_at_every_residue(self):
+        for length in range(3, 11):
+            for numerator in range(1 << length):
+                self.assertTrue(self.cyclotomic_remainder(length, numerator), (length, numerator))
+
+    def test_actual_length_two_exception_for_all_odd_modes(self):
+        numerator = prefix_value(2, 2)
+        self.assertEqual(numerator, 2)
+        for mode in range(-7, 8, 2):
+            self.assertEqual(self.cyclotomic_remainder(2, mode * numerator), {})
+
     def test_doubling_residues_match_suffixes(self):
         for length in range(1, 97):
             modulus = 1 << length
