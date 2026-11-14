@@ -185,6 +185,26 @@ would give $8n\le 7.9365842725n+13.15485\sqrt n-1$, impossible
 for $n\ge65536$. Hence at least one of the eight checkpoints exceeds
 the envelope. The limsup is at least $0.775$.
 
+## Integer square-root certificates
+
+For scale $s>0$, set $u_0=0$ and
+$u_i=1+\lfloor\sqrt{s^2i}\rfloor$ for $i>0$. The function $u_i$ is
+nondecreasing and $u_i/s\ge\sqrt i$. For $b$ checkpoints the exact
+integer budget is $Q=\sum_{i<b}(u_{i+1}-u_i)u_{b-i}$. If
+$z_{in}\le c\sqrt{in}$ at all checkpoints, the partition bound gives
+
+\[
+bn\le(2c^2Q/s^2)n+6c(u_b/s)\sqrt n-1.
+\]
+
+For $s=10000$ and $b=64$, the exact values are $Q=5063329433$
+and $u_b=80001$. With $c=397/500$, the quadratic margin
+$64-2c^2Q/s^2$ is positive, and at $\sqrt n\ge256$ it absorbs the
+linear term. Therefore for each $n\ge65536$ at least one of the 64
+checkpoints satisfies $z_{in}>0.794\sqrt{in}$. In particular the limsup
+is at least $0.794$. The conclusion concerns zero counts on the
+square-root scale.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
