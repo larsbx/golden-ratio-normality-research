@@ -140,8 +140,15 @@ The resulting average is exactly `dyadicModularAverage h N`.
 Its phases are $q_N$-th roots of unity with exponents
 $hQ_N2^n\bmod q_N$. For each fixed $h$, this exact modular average
 tends to zero if and only if the actual average tends to zero.
-Lean checks that decay for all odd $h$ in this finite-sum formulation
-would prove the full binary normality target. The needed estimate
+Lean checks both directions of the equivalence
+`normalInBase_iff_dyadic_modular_cancellation`.
+For the converse, group the actual phases by their width-$k$ dyadic cell
+and replace each phase by its value at the left endpoint. The normalized
+error is bounded by $2\pi|h|/2^k$, uniformly in the number of starts.
+Normality gives the limiting weights of all the cells at that fixed
+width. For $2^k>|h|>0$, the sum of their left-endpoint phases vanishes
+by additive-character orthogonality. Letting the approximation error
+shrink gives decay at the original fixed mode. The needed estimate
 is that the sum of these roots of unity has magnitude $o(N)$
 as $N$ grows, with $Q_N$ the actual quadratic floor.
 
