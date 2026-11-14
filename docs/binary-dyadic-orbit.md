@@ -25,13 +25,23 @@ and the boundary estimate
 |A_{2h}(N)-A_h(N)|\le 2/N\qquad(N>0).
 \]
 
-Consequently, cancellation of all nonzero modes is equivalent in Lean to
-cancellation of every odd mode. By the classical Weyl criterion, odd-mode
-cancellation would give equidistribution of the actual orbit and thus
-binary normality. The analytic Weyl implication is used here as a
-literature result. The Lean theorems check the dyadic cell correspondence
-and the Fourier identities and reductions. See [On the Normality of Numbers,
-Theorem 18](https://citeseerx.ist.psu.edu/document?doi=8f963e72562eaa43a7c85ac65f8b24af7ac47501&repid=rep1&type=pdf).
+Lean proves `normalInBase_of_odd_mode_cancellation`: if
+\(A_h(N)	o0\) for every odd integer \(h\), then `NormalInBase 2`.
+The proof first transfers cancellation to every nonzero mode.
+The empirical probability measure places equal mass on the first
+\(N+1\) starts. Its integrals converge on the Fourier monomials,
+and their linear span is dense among continuous functions on the
+circle. Integration against each probability measure is
+1-Lipschitz in the uniform norm, so convergence extends to every
+continuous function. The portmanteau theorem then gives convergence
+of the mass of each half-open dyadic cell: its boundary lies in
+the two endpoints, both of Haar measure zero. The proof identifies
+that mass with the exact finite count, and recovers the repository's
+integer discrepancy inequality for each positive tolerance denominator.
+
+The argument formalizes the sufficient direction of the classical
+[Weyl criterion](https://citeseerx.ist.psu.edu/document?doi=8f963e72562eaa43a7c85ac65f8b24af7ac47501&repid=rep1&type=pdf)
+using mathlib's Fourier density and portmanteau theorems.
 
 The lag identity supplies no decay by itself. In particular, lag one
 returns the original mode rather than a mode with an independently known
