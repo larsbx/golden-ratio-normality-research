@@ -118,8 +118,9 @@ theorem dyadicModularAverage_ne_zero (h : ℤ) (N : ℕ) (hN : 3 ≤ N) :
 /-- The actual two-digit prefix gives exact cancellation at frequency one. -/
 theorem dyadicModularAverage_one_two : dyadicModularAverage 1 2 = 0 := by
   have hf : scaledFloor 2 2 = 2 := by
-    simpa [scaledFloor] using
-      (prefixCertificate_iff_intFloor (B := 4) (q := 2) (by decide)).mp (by decide)
+    unfold scaledFloor
+    rw [show ((2 : ℕ) : ℝ) ^ 2 = 4 by norm_num]
+    exact (prefixCertificate_iff_intFloor (B := 4) (q := 2) (by decide)).mp (by decide)
   let χ : AddChar (ZMod 4) ℂ := ZMod.stdAddChar
   have hpow : χ 2 ^ 2 = 1 := by
     rw [← AddChar.map_nsmul_eq_pow, show (2 : ℕ) • (2 : ZMod 4) = 0 by decide,
@@ -128,7 +129,8 @@ theorem dyadicModularAverage_one_two : dyadicModularAverage 1 2 = 0 := by
     rw [← χ.map_zero_eq_one]
     exact fun h => (by decide : (2 : ZMod 4) ≠ 0) (ZMod.injective_stdAddChar h)
   have hχ : χ 2 = -1 := (sq_eq_one_iff.mp hpow).resolve_left hneq
-  unfold dyadicModularAverage
+  change (∑ n ∈ Finset.range (1 + 1), χ ((scaledFloor 2 2 : ZMod 4) * 2 ^ n)) /
+    (2 : ℂ) = 0
   rw [hf, Finset.sum_range_succ, Finset.sum_range_one]
   change (χ (2 * 1) + χ (2 * 2)) / (2 : ℂ) = 0
   rw [mul_one, show (2 : ZMod 4) * 2 = 0 by decide, hχ, AddChar.map_zero_eq_one]
