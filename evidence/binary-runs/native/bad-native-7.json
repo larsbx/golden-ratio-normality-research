@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/native/foundation",
+    "2",
+    "4"
+  ],
+  "returncode": 1,
+  "seconds": 0.011,
+  "stderr": "stack trace was not collected. Enable stack trace collection with environment variable `MODULAR_DEBUG=stack-trace-on-error`\nUnhandled exception caught during execution: usage: golden-normality BASE LENGTH BLOCK_WIDTH\n",
+  "stdout": ""
+}

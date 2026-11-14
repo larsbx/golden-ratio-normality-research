@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_zero_width_roundtrip.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.707,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-sparse-checkpoints/Reject_zero_width_roundtrip.lean:3:54: error: Tactic `decide` proved that the proposition\n  wordValue 10 (wordOfValue 10 0 1) = 1\nis false\n"
+}

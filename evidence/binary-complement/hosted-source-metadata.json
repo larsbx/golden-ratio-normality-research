@@ -1,0 +1,15 @@
+{
+  "run_id": 43481945851,
+  "job_id": 132080381337,
+  "run_url": "https://github.com/larsbx/golden-ratio-normality-research/actions/runs/43481945851",
+  "head_commit": "d0b8b2df43572eac4cb2b0abb851bbe043c3b221",
+  "tested_commit": "b0a9454b476989c7ed1e17bd955c6e3cd55cbfd6",
+  "tested_tree": "5cb6a62497388a178779b466e0e27ec68e88a363",
+  "conclusion": "success",
+  "artifact_id": 14066710712,
+  "artifact_zip_sha256": "a160d5889aa5c418bfa2c12066b4459e35a02847253b37b71310cd672809de75",
+  "report_sha256": "eb37f7a0194e084a700432807a388ccc1d6122964e621da19641655b23d6e39d",
+  "source_inventory_count": 67,
+  "source_bytes_match_local_source_commit": true,
+  "checkout_convention": "GitHub Actions pull-request synthetic merge checkout; its complete Git tree equals the accepted source tree."
+}

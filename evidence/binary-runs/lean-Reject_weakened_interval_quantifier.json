@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_weakened_interval_quantifier.lean"
+  ],
+  "returncode": 1,
+  "seconds": 4.267,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_weakened_interval_quantifier.lean:8:2: error: Type mismatch\n  endpointOnly\nhas type\n  (2 ^ 3 * occurrences 2 3 0 222).dist 222 * 2 \u2264 222\nbut is expected to have type\n  \u2200 (N : \u2115), 222 \u2264 N \u2192 N \u2264 254 \u2192 (2 ^ 3 * occurrences 2 3 0 N).dist N * 2 \u2264 N\n"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit/Reject_weakened_discrepancy_type.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.987,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit/Reject_weakened_discrepancy_type.lean:7:2: error: Type mismatch\n  weakened\nhas type\n  True\nbut is expected to have type\n  (2 ^ 3 * occurrences 2 3 4 1).dist 1 = (2 ^ 3 * 1).dist 1\n"
+}

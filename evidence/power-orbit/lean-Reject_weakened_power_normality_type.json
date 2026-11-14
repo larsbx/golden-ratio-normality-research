@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit/Reject_weakened_power_normality_type.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.182,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit/Reject_weakened_power_normality_type.lean:6:50: error: Type mismatch\n  onlyForward\nhas type\n  PowerOrbitNormality \u2192 NormalInBase 2\nbut is expected to have type\n  PowerOrbitNormality \u2194 NormalInBase 2\n"
+}

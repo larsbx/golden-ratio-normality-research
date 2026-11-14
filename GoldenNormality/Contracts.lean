@@ -8,6 +8,8 @@ The gate also inspects the compiled declarations and their transitive axioms.
 
 namespace GoldenNormality.Contracts
 
+open scoped BigOperators
+
 theorem root (B q : ℕ) (hB : 0 < B) :
     PrefixCertificate B q ↔ Int.floor ((B : ℝ) * alpha) = (q : ℤ) :=
   prefixCertificate_iff_intFloor hB
@@ -143,5 +145,334 @@ theorem automatonPowerInput (digits : List Bool) (n d : ℕ)
     (hv : BinaryAutomaton.fibonacciSum digits 2 = 2 ^ n)
     (ho : BinaryAutomaton.classify digits = some d) :
     digit 2 n = (d : ℤ) := BinaryAutomaton.power_input_digit hv ho
+
+theorem fibonacciEncoding (q : ℕ) :
+    BinaryAutomaton.Admissible (BinaryAutomaton.encode q) ∧
+      BinaryAutomaton.fibonacciSum (BinaryAutomaton.encode q) 2 = q :=
+  ⟨BinaryAutomaton.encode_admissible q, BinaryAutomaton.fibonacciSum_encode q⟩
+
+theorem automatonEvaluation (q : ℕ) :
+    BinaryAutomaton.classify (BinaryAutomaton.encode q) = some (BinaryAutomaton.evaluated q) ∧
+      BinaryAutomaton.evaluated q < 2 ∧
+        BinaryAutomaton.binaryDifference q = (BinaryAutomaton.evaluated q : ℤ) :=
+  ⟨BinaryAutomaton.classify_encode q, BinaryAutomaton.evaluated_lt_two q,
+    BinaryAutomaton.evaluated_correct q⟩
+
+theorem binaryPowerDigit (n : ℕ) : digit 2 n = (BinaryAutomaton.powerDigit n : ℤ) :=
+  BinaryAutomaton.powerDigit_correct n
+
+theorem binaryPowerWord (start length : ℕ) :
+    DigitsAt 2 start (BinaryAutomaton.powerDigits start length) ∧
+      (BinaryAutomaton.powerDigits start length).length = length ∧
+        (wordValue 2 (BinaryAutomaton.powerDigits start length) : ℤ) =
+          blockValue 2 start length :=
+  ⟨BinaryAutomaton.powerDigits_digitsAt start length,
+    BinaryAutomaton.powerDigits_length start length,
+    BinaryAutomaton.wordValue_powerDigits start length⟩
+
+theorem binaryPowerFrequency (pattern : List ℕ) (N : ℕ)
+    (hpat : pattern ≠ []) (ha : InAlphabet 2 pattern) :
+    Blocks.count pattern (BinaryAutomaton.powerDigits 0 (N + pattern.length - 1)) =
+      occurrences 2 pattern.length (wordValue 2 pattern) N :=
+  BinaryAutomaton.count_powerDigits hpat ha N
+
+theorem binaryPowerNormality :
+    (∀ pattern : List ℕ, pattern ≠ [] → InAlphabet 2 pattern →
+      ∀ T : ℕ, 1 ≤ T → ∃ N0 : ℕ, 1 ≤ N0 ∧ ∀ N : ℕ, N0 ≤ N →
+        Nat.dist ((2 ^ pattern.length) *
+          Blocks.count pattern (BinaryAutomaton.powerDigits 0 (N + pattern.length - 1))) N * T ≤ N)
+      ↔ NormalInBase 2 :=
+  BinaryAutomaton.powerOrbitNormality_iff_normalInBase
+
+theorem certifiedPowerSource (start : ℕ) (inputs : List (List Bool)) (outputs : List ℕ)
+    (orbit : BinaryAutomaton.PowerOrbitAt start inputs outputs) :
+    inputs.length = outputs.length ∧ DigitsAt 2 start outputs ∧
+      outputs = BinaryAutomaton.powerDigits start outputs.length :=
+  ⟨BinaryAutomaton.powerOrbitAt_length orbit, BinaryAutomaton.powerOrbitAt_digitsAt orbit,
+    BinaryAutomaton.powerOrbitAt_eq_powerDigits orbit⟩
+
+theorem certifiedPowerFrequency (value : ℕ) (inputs : List (List Bool))
+    (outputs pattern : List ℕ) (hpat : pattern ≠ []) (ha : InAlphabet 2 pattern)
+    (orbit : BinaryAutomaton.PowerOrbitAt 0 inputs outputs)
+    (count : Blocks.count pattern outputs = value) :
+    occurrences 2 pattern.length (wordValue 2 pattern)
+      (outputs.length + 1 - pattern.length) = value :=
+  BinaryAutomaton.certified_power_occurrences hpat ha orbit count
+
+theorem endpointBudget (L R lowerError upperError T : ℕ)
+    (hLR : L ≤ R) (hT : 1 ≤ T)
+    (lower : lowerError * (4 * T) ≤ L)
+    (upper : upperError * (4 * T) ≤ R)
+    (gap : (R - L) * (4 * T) ≤ L) :
+    (max lowerError upperError + (R - L)) * T ≤ L :=
+  checkpoint_budget_of_endpoint_bounds L R lowerError upperError T hLR hT lower upper gap
+
+theorem endpointInterpolation (b k j L N R T : ℕ)
+    (hT : 1 ≤ T) (hLN : L ≤ N) (hNR : N ≤ R)
+    (lower : Nat.dist ((b ^ k) * occurrences b k j L) L * (4 * T) ≤ L)
+    (upper : Nat.dist ((b ^ k) * occurrences b k j R) R * (4 * T) ≤ R)
+    (gap : (R - L) * (4 * T) ≤ L) :
+    Nat.dist ((b ^ k) * occurrences b k j N) N * T ≤ N :=
+  occurrences_interval_bound_of_endpoint_bounds b k j L N R T hT hLN hNR lower upper gap
+
+theorem sparseCheckpointNormality (b : ℕ) (q : ℕ → ℕ) (hq : StrictMono q)
+    (hgaps : ∀ T : ℕ, 1 ≤ T →
+      ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i → (q (i + 1) - q i) * T ≤ q i) :
+    NormalInBase b ↔
+      (2 ≤ b ∧ ∀ k : ℕ, 1 ≤ k → ∀ j : ℕ, j < b ^ k →
+        ∀ T : ℕ, 1 ≤ T → ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i →
+          Nat.dist ((b ^ k) * occurrences b k j (q i)) (q i) * T ≤ q i) :=
+  normalInBase_iff_normalOnCheckpoints b hq hgaps
+
+theorem squareGeometry :
+    StrictMono squareCheckpoint ∧
+      (∀ i : ℕ, squareCheckpoint (i + 1) - squareCheckpoint i = 2 * i + 1) ∧
+      (∀ i T : ℕ, 1 ≤ T → 3 * T ≤ i →
+        (squareCheckpoint (i + 1) - squareCheckpoint i) * T ≤ squareCheckpoint i) :=
+  ⟨squareCheckpoint_strictMono, squareCheckpoint_gap,
+    fun _ _ hT hi => squareCheckpoint_gap_bound hT hi⟩
+
+theorem squareCheckpointNormality (b : ℕ) :
+    NormalInBase b ↔
+      (2 ≤ b ∧ ∀ k : ℕ, 1 ≤ k → ∀ j : ℕ, j < b ^ k →
+        ∀ T : ℕ, 1 ≤ T → ∃ i0 : ℕ, ∀ i : ℕ, i0 ≤ i →
+          Nat.dist ((b ^ k) * occurrences b k j (i ^ 2)) (i ^ 2) * T ≤ i ^ 2) :=
+  normalInBase_iff_squareCheckpoints b
+
+theorem squareInterval (b k j i N T : ℕ)
+    (hT : 1 ≤ T) (hi : 12 * T ≤ i)
+    (hLN : i ^ 2 ≤ N) (hNR : N ≤ (i + 1) ^ 2)
+    (lower : Nat.dist ((b ^ k) * occurrences b k j (i ^ 2)) (i ^ 2) * (4 * T) ≤ i ^ 2)
+    (upper : Nat.dist ((b ^ k) * occurrences b k j ((i + 1) ^ 2)) ((i + 1) ^ 2) *
+      (4 * T) ≤ (i + 1) ^ 2) :
+    Nat.dist ((b ^ k) * occurrences b k j N) N * T ≤ N :=
+  occurrences_square_interval_bound b k j i N T hT hi hLN hNR lower upper
+
+theorem binarySquareNormality :
+    (∀ pattern : List ℕ, pattern ≠ [] → InAlphabet 2 pattern →
+      ∀ T : ℕ, 1 ≤ T → ∃ i0 : ℕ, 1 ≤ i0 ∧ ∀ i : ℕ, i0 ≤ i →
+        Nat.dist ((2 ^ pattern.length) *
+          Blocks.count pattern (BinaryAutomaton.powerDigits 0 (i ^ 2 + pattern.length - 1)))
+          (i ^ 2) * T ≤ i ^ 2) ↔ NormalInBase 2 :=
+  BinaryAutomaton.powerOrbitSquareNormality_iff_normalInBase
+
+theorem binaryPrefixSparsity (N q : ℕ) (certificate : PrefixCertificate (2 ^ N) q) :
+    2 * N ≤ FiniteMathKernels.binaryWeight q ^ 2 + 3 * FiniteMathKernels.binaryWeight q + 4 :=
+  binary_prefix_weight_bound certificate
+
+theorem binaryPrefixHighBits (N q : ℕ) (hN : 2 ≤ N)
+    (certificate : PrefixCertificate (2 ^ N) q) :
+    (q ^ 2 + 2 ^ N * q) / 2 ^ (N + 2) = 2 ^ (N - 2) - 1 :=
+  binary_prefix_high_quotient hN certificate
+
+theorem binaryWordOnes (word : List ℕ) (alphabet : InAlphabet 2 word) :
+    FiniteMathKernels.binaryWeight (wordValue 2 word) = Blocks.count [1] word :=
+  binaryWeight_wordValue alphabet
+
+theorem binaryPowerPrefix (N : ℕ) :
+    PrefixCertificate (2 ^ N) (wordValue 2 (BinaryAutomaton.powerDigits 0 N)) :=
+  prefixCertificate_powerDigits N
+
+theorem binaryPowerOnes (N : ℕ) :
+    2 * N ≤ Blocks.count [1] (BinaryAutomaton.powerDigits 0 N) ^ 2 +
+      3 * Blocks.count [1] (BinaryAutomaton.powerDigits 0 N) + 4 :=
+  binary_power_ones_bound N
+
+theorem binaryOccurrencesOnes (N : ℕ) :
+    2 * N ≤ occurrences 2 1 1 N ^ 2 + 3 * occurrences 2 1 1 N + 4 :=
+  binary_occurrences_ones_bound N
+
+theorem certifiedBinaryOnes (word : List ℕ) (digits : DigitsAt 2 0 word) :
+    2 * word.length ≤ Blocks.count [1] word ^ 2 + 3 * Blocks.count [1] word + 4 :=
+  certified_binary_ones_bound digits
+
+theorem binaryZeroRun (start length q r : ℕ)
+    (lower : PrefixCertificate (2 ^ start) q)
+    (upper : PrefixCertificate (2 ^ (start + length)) r)
+    (run : r = 2 ^ length * q) : length ≤ start + 1 :=
+  binary_zero_run_bound lower upper run
+
+theorem binaryOneRun (start length q r : ℕ)
+    (lower : PrefixCertificate (2 ^ start) q)
+    (upper : PrefixCertificate (2 ^ (start + length)) r)
+    (run : r + 1 = 2 ^ length * (q + 1)) : length ≤ start + 1 :=
+  binary_one_run_bound lower upper run
+
+theorem binaryPowerConstantRun (start length d : ℕ)
+    (run : BinaryAutomaton.powerDigits start length = List.replicate length d) :
+    length ≤ start + 1 :=
+  binary_power_constant_run_bound run
+
+theorem binaryActualConstantRun (start length d : ℕ)
+    (run : actualDigits 2 start length = List.replicate length d) :
+    length ≤ start + 1 :=
+  binary_actual_constant_run_bound run
+
+theorem certifiedBinaryConstantRun (start length d : ℕ)
+    (digits : DigitsAt 2 start (List.replicate length d)) : length ≤ start + 1 :=
+  certified_binary_constant_run_bound digits
+
+theorem binaryWindowSymbols (start d : ℕ) (hd : d < 2) :
+    d ∈ actualDigits 2 start (start + 2) :=
+  binary_actual_window_contains start d hd
+
+theorem binaryPowerWindowSymbols (start d : ℕ) (hd : d < 2) :
+    d ∈ BinaryAutomaton.powerDigits start (start + 2) :=
+  binary_power_window_contains start d hd
+
+theorem binarySymbolCountGrowth (start d : ℕ) (hd : d < 2) :
+    Blocks.count [d] (BinaryAutomaton.powerDigits 0 start) + 1 ≤
+      Blocks.count [d] (BinaryAutomaton.powerDigits 0 (2 * start + 2)) :=
+  binary_power_count_growth start d hd
+
+theorem binaryLogarithmicCounts (m d : ℕ) (hd : d < 2) :
+    m ≤ occurrences 2 1 d (2 ^ (m + 1) - 2) :=
+  binary_occurrences_logarithmic_bound m d hd
+
+theorem binaryLaterCounts (m d N : ℕ) (hd : d < 2)
+    (hN : 2 ^ (m + 1) - 2 ≤ N) : m ≤ occurrences 2 1 d N :=
+  binary_occurrences_at_least m d N hd hN
+
+theorem binaryCountPartition (N : ℕ) :
+    occurrences 2 1 0 N + occurrences 2 1 1 N = N :=
+  binary_occurrences_partition N
+
+theorem binaryTwoSidedCounts (m N : ℕ) (hN : 2 ^ (m + 1) - 2 ≤ N) :
+    m ≤ occurrences 2 1 1 N ∧ occurrences 2 1 1 N + m ≤ N :=
+  binary_occurrences_two_sided m N hN
+
+theorem binaryDigitRecurrence (start d : ℕ) (hd : d < 2) :
+    ∃ n : ℕ, start ≤ n ∧ n < 2 * start + 2 ∧ digit 2 n = (d : ℤ) :=
+  binary_digit_symbol_recurs start d hd
+
+theorem binaryNoConstantTail :
+    ¬ ∃ start : ℕ, ∃ d : ℤ, ∀ n : ℕ, start ≤ n → digit 2 n = d :=
+  binary_digit_not_eventually_constant
+
+theorem complementRoot :
+    0 < BinaryComplement.beta ∧ BinaryComplement.beta < 1 ∧
+      BinaryComplement.beta ^ 2 - 3 * BinaryComplement.beta + 1 = 0 :=
+  ⟨BinaryComplement.beta_pos, BinaryComplement.beta_lt_one, BinaryComplement.beta_quadratic⟩
+
+theorem complementFloors (n : ℕ) :
+    BinaryComplement.scaledFloor n = (2 : ℤ) ^ n - 1 - scaledFloor 2 n :=
+  BinaryComplement.scaledFloor_eq_complement n
+
+theorem complementCertifiedFloor (n q r : ℕ)
+    (certificate : PrefixCertificate (2 ^ n) q) (complement : q + r + 1 = 2 ^ n) :
+    BinaryComplement.scaledFloor n = (r : ℤ) :=
+  BinaryComplement.scaledFloor_of_prefix_certificate certificate complement
+
+theorem complementDigits (n : ℕ) :
+    BinaryComplement.digit n = 1 - digit 2 n :=
+  BinaryComplement.digit_eq_complement n
+
+theorem complementBlocks (start length : ℕ) :
+    BinaryComplement.blockValue start length =
+      (2 : ℤ) ^ length - 1 - blockValue 2 start length :=
+  BinaryComplement.blockValue_eq_complement start length
+
+theorem complementWords (start length : ℕ) :
+    BinaryComplement.powerDigits start length = BinaryComplement.actualDigits start length ∧
+      BinaryComplement.actualDigits start length =
+        (actualDigits 2 start length).map (fun d => 1 - d) :=
+  ⟨BinaryComplement.powerDigits_eq_actualDigits start length,
+    BinaryComplement.actualDigits_eq_map start length⟩
+
+theorem complementWordNumeral (start length : ℕ) :
+    (BinaryComplement.powerDigits start length).length = length ∧
+      (wordValue 2 (BinaryComplement.powerDigits start length) : ℤ) =
+        BinaryComplement.blockValue start length :=
+  ⟨BinaryComplement.powerDigits_length start length,
+    BinaryComplement.wordValue_powerDigits start length⟩
+
+theorem complementValueInvolution (length j : ℕ) (hj : j < 2 ^ length) :
+    BinaryComplement.flipValue length j < 2 ^ length ∧
+      BinaryComplement.flipValue length (BinaryComplement.flipValue length j) = j :=
+  ⟨BinaryComplement.flipValue_lt hj, BinaryComplement.flipValue_involutive hj⟩
+
+theorem complementBlockMatch (start length j : ℕ) (hj : j < 2 ^ length) :
+    BinaryComplement.blockValue start length = (j : ℤ) ↔
+      blockValue 2 start length = (BinaryComplement.flipValue length j : ℤ) :=
+  BinaryComplement.blockValue_eq_iff hj
+
+theorem complementCounts (length j N : ℕ) (hj : j < 2 ^ length) :
+    BinaryComplement.occurrences length j N =
+      occurrences 2 length (BinaryComplement.flipValue length j) N :=
+  BinaryComplement.occurrences_eq_complement hj N
+
+theorem complementSingletonCounts (N : ℕ) :
+    BinaryComplement.occurrences 1 1 N = occurrences 2 1 0 N ∧
+      BinaryComplement.occurrences 1 0 N = occurrences 2 1 1 N :=
+  ⟨BinaryComplement.ones_eq_original_zeros N, BinaryComplement.zeros_eq_original_ones N⟩
+
+theorem complementNormality :
+    BinaryComplement.Normal ↔ NormalInBase 2 :=
+  BinaryComplement.normal_iff_original
+
+theorem complementDigitSum (N : ℕ) :
+    (∑ i ∈ Finset.range N, BinaryComplement.digit i) = (occurrences 2 1 0 N : ℤ) :=
+  BinaryComplement.digit_sum_eq_original_zeros N
+
+theorem complementResidual (N : ℕ) :
+    0 < BinaryComplement.prefixResidual N ∧
+      BinaryComplement.prefixResidual N < 3 * (2 : ℤ) ^ N :=
+  BinaryComplement.prefixResidual_bounds N
+
+theorem complementResidualStep (N : ℕ) :
+    BinaryComplement.prefixResidual (N + 1) = 4 * BinaryComplement.prefixResidual N +
+      2 * BinaryComplement.digit N *
+        (2 * BinaryComplement.scaledFloor N - 3 * (2 : ℤ) ^ N) +
+          BinaryComplement.digit N ^ 2 :=
+  BinaryComplement.prefixResidual_succ N
+
+theorem complementSquare (N : ℕ) :
+    BinaryComplement.scaledFloor N ^ 2 =
+      (2 : ℤ) ^ N * BinaryComplement.convolutionPrefix N +
+        BinaryComplement.convolutionSuffix N :=
+  BinaryComplement.scaledFloor_square_decomposition N
+
+theorem complementCarryInitial : BinaryComplement.carry 0 = -1 :=
+  BinaryComplement.carry_zero
+
+theorem complementCarryPolynomial (N : ℕ) :
+    BinaryComplement.carry N = -(2 : ℤ) ^ N -
+      ∑ i ∈ Finset.range N, BinaryComplement.signedCoefficient i * (2 : ℤ) ^ (N - 1 - i) :=
+  BinaryComplement.carry_eq_signed_sum N
+
+theorem complementCarryRecurrence (N : ℕ) :
+    2 * BinaryComplement.carry N =
+      BinaryComplement.carry (N + 1) + BinaryComplement.signedCoefficient N :=
+  BinaryComplement.carry_recurrence N
+
+theorem complementCarryBoundary (N : ℕ) :
+    (2 : ℤ) ^ N * BinaryComplement.carry N =
+      BinaryComplement.convolutionSuffix N - BinaryComplement.prefixResidual N :=
+  BinaryComplement.carry_suffix_residual N
+
+theorem complementCarryBounds (N : ℕ) :
+    -2 ≤ BinaryComplement.carry N ∧
+      BinaryComplement.carry N < (occurrences 2 1 0 N : ℤ) := by
+  constructor
+  · exact BinaryComplement.carry_lower_bound N
+  · rw [← BinaryComplement.digit_sum_eq_original_zeros N]
+    exact BinaryComplement.carry_lt_digit_sum N
+
+theorem complementCarryZeroStep (N : ℕ) (hzero : BinaryComplement.digit N = 0)
+    (hpositive : 0 < BinaryComplement.carry (N + 1)) : 0 < BinaryComplement.carry N :=
+  BinaryComplement.carry_positive_of_zero_step N hzero hpositive
+
+theorem complementCarryZeroGap (start length : ℕ)
+    (zeros : ∀ i : ℕ, start ≤ i → i < start + length → BinaryComplement.digit i = 0)
+    (hpositive : 0 < BinaryComplement.carry (start + length)) :
+    0 < BinaryComplement.carry start :=
+  BinaryComplement.carry_positive_of_zero_gap start length zeros hpositive
+
+theorem complementCarryPositiveTrigger (N : ℕ)
+    (hconvolution : 0 < BinaryComplement.convolutionCoefficient N)
+    (hzero : BinaryComplement.digit N = 0)
+    (hzero1 : BinaryComplement.digit (N + 1) = 0)
+    (hzero2 : BinaryComplement.digit (N + 2) = 0) : 0 < BinaryComplement.carry N :=
+  BinaryComplement.carry_positive_of_convolution_three_zeroes N hconvolution hzero hzero1 hzero2
 
 end GoldenNormality.Contracts

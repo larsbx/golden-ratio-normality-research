@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_finite_recurrence_as_all_starts.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.852,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_finite_recurrence_as_all_starts.lean:5:2: error: Type mismatch\n  binary_digit_symbol_recurs 0 0 ?m.27\nhas type\n  \u2203 n, 0 \u2264 n \u2227 n < 2 * 0 + 2 \u2227 digit 2 n = \u21910\nbut is expected to have type\n  \u2200 (start : \u2115), \u2203 n, start \u2264 n \u2227 n < 2 * start + 2 \u2227 digit 2 n = 0\n"
+}

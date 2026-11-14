@@ -10,18 +10,22 @@ import os
 from pathlib import Path
 import re
 import sys
+import tempfile
 
 from acceptance_utils import (CONTRACT, ROOT, command, digest, locate_program,
-                              validated_intervals, verify_submodule, write_json)
+                              validated_intervals, validated_power_orbits,
+                              verify_submodule, write_json)
 sys.path.insert(0, str(ROOT))
 from oracles.reference import check_record, check_automaton_record, word
+from oracles.power_orbit import check_power_orbit_record
+from power_receipts import certificate_lines as power_certificate_lines
 
 
 def lean_list(values):
     return "[" + ", ".join(str(value).lower() for value in values) + "]"
 
 
-def certificate_source(prefixes, automaton):
+def certificate_source(prefixes, automaton, power_orbits):
     lines = ["import GoldenNormality", "", "set_option maxRecDepth 10000",
              "set_option maxHeartbeats 4000000", "", "namespace GoldenNormality.Receipts"]
     for i, record in enumerate(prefixes):
@@ -88,6 +92,7 @@ def certificate_source(prefixes, automaton):
             n = q.bit_length() - 1
             lines += [f"theorem powerDigit_{n} : digit 2 {n} = ({d} : ℤ) :=",
                       f"  BinaryAutomaton.power_input_digit input_{i} output_{i}"]
+    lines += power_certificate_lines(power_orbits)
     lines += ["end GoldenNormality.Receipts", ""]
     return "\n".join(lines)
 
@@ -114,11 +119,16 @@ def run(output):
     if (prefix / "lib/mojo").is_dir():
         include = ["-I", prefix / "lib/mojo", *include]
     executables = {}
-    for name in ("foundation", "automaton_probe"):
-        exe = output / name
-        command([mojo, "build", *include, ROOT / f"kernel/{name}.mojo", "-o", exe],
-                output / f"build-{name}.json", env=env)
-        executables[name] = exe
+    # Native compilation may exceed a small shared /tmp filesystem. Keep its
+    # disposable scratch space on the project volume and out of the evidence.
+    (ROOT / "build").mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="gnr-mojo-", dir=ROOT / "build") as scratch:
+        build_env = {**env, "TMPDIR": scratch}
+        for name in ("foundation", "automaton_probe", "power_orbit"):
+            exe = output / name
+            command([mojo, "build", *include, ROOT / f"kernel/{name}.mojo", "-o", exe],
+                    output / f"build-{name}.json", env=build_env)
+            executables[name] = exe
     prefixes = []
     for index, (b, n, k) in enumerate(CONTRACT["prefix_cases"]):
         result = command([executables["foundation"], b, n, k], output / f"prefix-{index}.json", env=env)
@@ -146,9 +156,32 @@ def run(output):
         check_automaton_record(record)
         if record["value"] != i:
             raise RuntimeError("automaton receipts must cover the exact requested input range")
-    write_json(output / "receipts.json", {"prefixes": prefixes, "automaton": automaton})
+    power_orbits = []
+    for index, case in enumerate(validated_power_orbits()):
+        args = (case["start"], case["length"], case["width"])
+        result = command([executables["power_orbit"], *args], output / f"power-orbit-{index}.json", env=env)
+        record = json.loads(result.stdout)
+        check_power_orbit_record(record)
+        if (record["start"], record["length"], record["width"]) != args:
+            raise RuntimeError("power orbit receipt is not bound to requested case")
+        power_orbits.append(record)
+    power_rejected = []
+    power_bad_requests = [((-1, 4, 1), "power orbit outside"), ((0, -1, 1), "power orbit outside"),
+                          ((0, 257, 1), "power orbit outside"), ((4096, 1, 1), "power orbit outside"),
+                          ((9223372036854775807, 1, 1), "power orbit outside"),
+                          ((0, 4, 0), "power orbit outside"), ((0, 4, 5), "power orbit outside"),
+                          (("x", 4, 1), "not convertible to integer"),
+                          ((0, 4), "usage: golden-normality-power-orbit")]
+    for index, (args, diagnostic) in enumerate(power_bad_requests):
+        result = command([executables["power_orbit"], *args], output / f"bad-power-native-{index}.json",
+                         env=env, timeout=30, expect_success=False)
+        if result.returncode != 1 or result.stdout.strip() or diagnostic not in result.stderr:
+            raise RuntimeError(f"native invalid power-orbit request was not rejected: {args}")
+        power_rejected.append(list(args))
+    write_json(output / "receipts.json", {"prefixes": prefixes, "automaton": automaton,
+                                         "power_orbits": power_orbits})
     source = output / "Receipts.lean"
-    source.write_text(certificate_source(prefixes, automaton))
+    source.write_text(certificate_source(prefixes, automaton, power_orbits))
     summary = {
         "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
         "mojo_version": (version.stdout + version.stderr).strip(),
@@ -157,12 +190,18 @@ def run(output):
             "MODULAR_TELEMETRY_ENABLED": env["MODULAR_TELEMETRY_ENABLED"],
             "MODULAR_CRASH_REPORTING_ENABLED": env["MODULAR_CRASH_REPORTING_ENABLED"],
         },
+        "native_build_scratch": "project-volume temporary directory; automatically removed after builds",
         "finite_math_kernels_revision": submodule,
         "prefix_cases": [{"base": r["base"], "length": r["length"], "width": r["width"],
                           "windows": sum(r["counts"])} for r in prefixes],
         "interval_obligations": [{**case, "patterns": case["base"] ** case["width"]}
                                  for case in validated_intervals()],
         "automaton_values": len(automaton), "native_invalid_requests_rejected": rejected,
+        "power_orbit_cases": validated_power_orbits(),
+        "power_input_records": sum(r["length"] for r in power_orbits),
+        "maximum_power_exponent": max((entry["exponent"] for r in power_orbits
+                                       for entry in r["inputs"]), default=None),
+        "power_native_invalid_requests_rejected": power_rejected,
         "executables_sha256": {name: digest(exe) for name, exe in executables.items()},
         "receipts_sha256": digest(output / "receipts.json"),
         "lean_obligations_sha256": digest(source),

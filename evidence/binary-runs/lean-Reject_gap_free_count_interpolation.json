@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_gap_free_count_interpolation.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.813,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_gap_free_count_interpolation.lean:4:2: error: Tactic `decide` proved that the proposition\n  (2 * intervalCount 10 (3 * 10)).dist (3 * 10) * 4 \u2264 3 * 10\nis false\n"
+}

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/native/foundation",
+    "2",
+    "3",
+    "3"
+  ],
+  "returncode": 0,
+  "seconds": 0.023,
+  "stderr": "",
+  "stdout": "{\"schema\":\"golden-normality-prefix-v1\",\"base\":2,\"length\":3,\"scale\":\"8\",\"value\":\"4\",\"digits\":\"100\",\"width\":3,\"counts\":[0,0,0,0,1,0,0,0]}\n"
+}

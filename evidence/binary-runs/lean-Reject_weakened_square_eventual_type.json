@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_weakened_square_eventual_type.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.444,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_weakened_square_eventual_type.lean:10:55: error: Type mismatch\n  oneIndex b k j T\nhas type\n  (b ^ k * occurrences b k j (squareCheckpoint 0)).dist (squareCheckpoint 0) * T \u2264 squareCheckpoint 0\nbut is expected to have type\n  \u2203 i0,\n    \u2200 (i : \u2115),\n      i0 \u2264 i \u2192 (b ^ k * occurrences b k j (squareCheckpoint i)).dist (squareCheckpoint i) * T \u2264 squareCheckpoint i\n"
+}

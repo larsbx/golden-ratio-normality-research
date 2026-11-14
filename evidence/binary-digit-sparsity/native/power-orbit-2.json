@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/native/power_orbit",
+    "0",
+    "3",
+    "3"
+  ],
+  "returncode": 0,
+  "seconds": 0.017,
+  "stderr": "",
+  "stdout": "{\"schema\":\"golden-normality-power-orbit-v1\",\"base\":2,\"start\":0,\"length\":3,\"width\":3,\"digits\":\"100\",\"counts\":[0,0,0,0,1,0,0,0],\"inputs\":[{\"exponent\":0,\"value\":\"1\",\"fibonacci_digits\":\"1\",\"output\":1},{\"exponent\":1,\"value\":\"2\",\"fibonacci_digits\":\"10\",\"output\":0},{\"exponent\":2,\"value\":\"4\",\"fibonacci_digits\":\"101\",\"output\":0}]}\n"
+}

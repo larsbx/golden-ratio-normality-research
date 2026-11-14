@@ -11,6 +11,20 @@ ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = json.loads((ROOT / "research-contract.json").read_text())
 
 
+def validated_power_orbits(contract=CONTRACT):
+    """Bind the binary power-input fixtures to explicit source and resource bounds."""
+    cases = []
+    for entry in contract["power_orbit_cases"]:
+        if type(entry) is not list or len(entry) != 3 or any(type(v) is not int for v in entry):
+            raise ValueError("power orbit cases require integer start, length, and width")
+        start, length, width = entry
+        if not (0 <= start and 0 <= length <= 256 and start + length <= 4096 and 1 <= width <= 4):
+            raise ValueError("power orbit case outside the bounded native contract")
+        cases.append({"start": start, "length": length, "width": width,
+                      "starts": max(0, length + 1 - width)})
+    return cases
+
+
 def validated_intervals(contract=CONTRACT):
     """Resolve interval fixtures without accepting vacuous or mismatched cases."""
     intervals = []
@@ -89,9 +103,32 @@ def source_hashes():
         if not name or name.startswith(("evidence/", "vendor/")):
             continue
         path = ROOT / name
-        if path.is_file():
-            result[name] = digest(path)
+        if not path.is_file():
+            raise RuntimeError(f"missing acceptance source input: {name}")
+        result[name] = digest(path)
     return result
+
+
+def verify_revision_sources(revision, hashes, *, root=ROOT):
+    """Bind accepted source bytes to a clean exact Git revision, not just status."""
+    root = Path(root)
+    if git_output("rev-parse", "HEAD", cwd=root) != revision:
+        raise RuntimeError("acceptance source revision changed")
+    if git_output("status", "--porcelain", cwd=root):
+        raise RuntimeError("acceptance requires a clean source checkout")
+    tree = subprocess.check_output(["git", "ls-tree", "-rz", "--full-tree", revision], cwd=root)
+    committed_paths = set()
+    for record in filter(None, tree.split(b"\0")):
+        metadata, name = record.split(b"\t", 1)
+        name = name.decode()
+        if metadata.split()[1] == b"blob" and not name.startswith(("evidence/", "vendor/")):
+            committed_paths.add(name)
+    if set(hashes) != committed_paths:
+        raise RuntimeError("acceptance source inventory differs from the committed file set")
+    for name, expected in hashes.items():
+        blob = subprocess.check_output(["git", "show", f"{revision}:{name}"], cwd=root)
+        if sha256(blob).hexdigest() != expected or digest(root / name) != expected:
+            raise RuntimeError(f"acceptance source differs from its pinned Git blob: {name}")
 
 
 def locate_program(variable, fallback, candidate=None):

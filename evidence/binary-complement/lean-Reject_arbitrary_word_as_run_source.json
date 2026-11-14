@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_arbitrary_word_as_run_source.lean"
+  ],
+  "returncode": 1,
+  "seconds": 2.838,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_arbitrary_word_as_run_source.lean:5:38: error: Application type mismatch: The argument\n  run\nhas type\n  text = List.replicate length d\nbut is expected to have type\n  DigitsAt 2 start (List.replicate length ?m.13)\nin the application\n  certified_binary_constant_run_bound run\n"
+}

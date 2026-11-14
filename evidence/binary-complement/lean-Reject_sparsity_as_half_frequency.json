@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_sparsity_as_half_frequency.lean"
+  ],
+  "returncode": 1,
+  "seconds": 4.657,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_sparsity_as_half_frequency.lean:5:2: error: Tactic `decide` proved that the proposition\n  3 \u2264 2 * 1\nis false\n"
+}

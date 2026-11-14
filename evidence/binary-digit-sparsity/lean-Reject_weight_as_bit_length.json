@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_weight_as_bit_length.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.5,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_weight_as_bit_length.lean:3:57: error: Tactic `decide` proved that the proposition\n  binaryWeight 8 = (Nat.digits 2 8).length\nis false\n"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_non_power_input.lean"
+  ],
+  "returncode": 1,
+  "seconds": 3.349,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_non_power_input.lean:3:45: error: Tactic `decide` proved that the proposition\n  PowerOrbitAt 0 [[false]] [0]\nis false\n"
+}

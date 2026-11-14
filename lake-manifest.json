@@ -3,6 +3,18 @@
   "packagesDir": ".lake/packages",
   "packages": [
     {
+      "url": "https://github.com/larsbx/finite-math-kernels",
+      "type": "git",
+      "subDir": "tests/lean",
+      "scope": "",
+      "rev": "8750345c496390a7ce4f6a80be331451aa999408",
+      "name": "FiniteMathKernels",
+      "manifestFile": "lake-manifest.json",
+      "inputRev": "8750345c496390a7ce4f6a80be331451aa999408",
+      "inherited": false,
+      "configFile": "lakefile.toml"
+    },
+    {
       "url": "https://github.com/leanprover-community/mathlib4",
       "type": "git",
       "subDir": null,

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_wrong_sparsity_base.lean"
+  ],
+  "returncode": 1,
+  "seconds": 5.908,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_wrong_sparsity_base.lean:5:29: error: Application type mismatch: The argument\n  h\nhas type\n  PrefixCertificate (3 ^ N) q\nbut is expected to have type\n  PrefixCertificate (2 ^ N) q\nin the application\n  binary_prefix_weight_bound h\n"
+}

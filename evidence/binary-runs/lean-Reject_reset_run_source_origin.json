@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_reset_run_source_origin.lean"
+  ],
+  "returncode": 1,
+  "seconds": 4.372,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-published-binary-runs/Reject_reset_run_source_origin.lean:3:33: error: Type mismatch\n  zeroTwoBinding\nhas type\n  DigitsAt 2 1 [0, 0]\nbut is expected to have type\n  DigitsAt 2 0 [0, 0]\n"
+}

@@ -18,7 +18,14 @@ of normality.
 | Frequency bridge | For every base `b≥2`, nonempty alphabet pattern of length `k`, and actual prefix of length `L`, the list count equals `occurrences b k j (L+1−k)`. Short prefixes give zero starts. |
 | Equivalent targets | Every bounded block value has a unique word of its specified width. Normality is equivalent to eventual word-count bounds, with one threshold for all values of each fixed width and tolerance. |
 | Checkpoint bounds | Two certified endpoint counts control every intermediate start count. A conditional criterion retains a strictly increasing infinite checkpoint sequence and eventual budgets for every block and tolerance. |
+| Sparse checkpoints | Normality is equivalent to endpoint convergence along any strictly increasing sequence with vanishing relative gaps. Squares satisfy that geometry with an explicit threshold, giving an equivalent binary power-orbit target at square numbers of starts. |
 | Binary automaton | A universal real invariant verifies the published eight-state Fibonacci-input machine and its specialization to inputs representing `2^n`. |
+| Power-orbit evaluation | A total Fibonacci-word encoder makes the automaton's outputs at `2^n` a computable digit sequence. Its words and block counts equal the actual binary digit words and counts, with all normality quantifiers retained. |
+| Binary digit sparsity | For every prefix length `N`, its actual binary one count `s` satisfies `2N <= s^2+3s+4`. The certificate, total power evaluator, and occurrence-count formulations are connected explicitly. |
+| Binary runs and recurrence | A constant run starting at `n` has length at most `n+1`. Every window `[n,2n+2)` contains both symbols; each symbol occurs at least `m` times in the first `2^(m+1)-2` digits. |
+| Actual binary complement | The real digits of `1-(φ−1)` are the pointwise complements of the original digits. Every bounded fixed-width block count transfers exactly; complementary ones count original zeros. |
+| Signed quadratic carries | Actual complementary prefixes give a finite square decomposition, signed carry recurrence, and `-2 <= T_N <` the original zero count. Positivity propagates backward through zero gaps, with a proved three-zero trigger. |
+| Binary zero growth | For every `N ≥ 2`, the original zero count `z_N` and complementary convolution coefficients satisfy `N ≤ Σ_{i<N} c_i + 7z_N`. The quarter-circle estimate yields `limsup z_N/√N ≥ 2/√π`. |
 | Native receipts | Pinned Mojo and upstream BigZ produce finite records; an independent Python oracle checks them, and Lean verifies their digits, occurrences, discrepancies, and finite interval bounds. |
 | Open target | `NormalInBase` states all block-frequency quantifiers for the actual digits. No unconditional proof is supplied. |
 
@@ -28,6 +35,12 @@ its explicit Lean proof and the application-specific certificate pipeline.
 See [the mathematical foundation](docs/foundation.md) for derivations and limits,
 the [block-frequency bridge](docs/block-frequency-bridge.md) for the exact count transfer,
 the [normality criteria and checkpoints](docs/normality-criteria.md) for the next proof interface,
+the [power-orbit bridge](docs/power-orbit.md) for total evaluation and source-bound native traces,
+the [sparse checkpoint criterion](docs/sparse-checkpoints.md) for endpoint estimates and square checkpoints,
+the [binary sparsity bound](docs/binary-digit-sparsity.md) for an unconditional estimate on actual one counts,
+the [binary run and recurrence bounds](docs/binary-runs-and-recurrence.md) for both symbols at every start,
+the [actual complement and finite carries](docs/binary-complement-and-carries.md) for exact zero-count transfer and signed polynomial groundwork,
+the [aggregate carry bounds](docs/binary-aggregate-carries.md) for the finite and asymptotic zero-count estimates,
 and [the claim ledger](claims.json) for the classification of each claim.
 
 ## Reproduce acceptance
@@ -48,8 +61,13 @@ The full gate compiles fresh project proof objects, inspects compiled axiom
 dependencies and explicit public theorem types, builds the Mojo executables,
 checks the independent oracle, compiles the generated finite certificates,
 independently checks every occurrence, discrepancy, and interval receipt's exact type,
-and verifies negative controls. It writes `build/acceptance/report.json`.
-An existing nonempty output directory is rejected; choose a new one with
+and every new power-orbit receipt's source, digit, and count type. It verifies
+negative controls and writes `build/acceptance/report.json`.
+It also rebuilds and audits the separately pinned upstream binary-weight proof
+source, retaining its exact bytes and Git identity in the evidence packet.
+Acceptance requires a clean committed source checkout and compares every input
+with that commit's Git blob before and after the run. An existing nonempty
+output directory is rejected; choose a new one with
 `--output build/another-run` when repeating a run.
 
 For an already installed toolchain, `python3 tools/verify.py` is sufficient.
@@ -60,6 +78,8 @@ Missing tools or failed stages are failures, never skips.
 The runner explicitly disables SDK telemetry and crash uploads before invoking
 Mojo. It calls installed executables directly; CI does not activate the Conda
 environment, whose activation hook in this pinned package sends a separate event.
+Compiler scratch files use a temporary directory on the project volume and are
+removed after native compilation.
 
 `bash tools/check_native.sh` runs only native/oracle conformance and emits Lean
 obligations. Its successful exit alone does not establish Lean acceptance.
@@ -76,6 +96,9 @@ obligations. Its successful exit alone does not establish Lean acceptance.
   the universal root or block theorems.
 - Fibonacci words are read most significant first, with rightmost weights
   1, 2, 3, 5, … . Adjacent ones are rejected; leading zeros are allowed.
+- The power-orbit producer supports binary segments of at most 256 digits,
+  with nonnegative start, end at most 4096, and block width 1–4. Its powers
+  stay in upstream BigZ; every input is bound to its exact exponent.
 - The compiled axiom allowlist is `propext`, `Classical.choice`, and
   `Quot.sound`. The project adds no mathematical axiom.
 - Finite receipt verification does not prove universal correctness of the
@@ -84,10 +107,21 @@ obligations. Its successful exit alone does not establish Lean acceptance.
 ## Next research obligation
 
 Control the output block frequencies along the particular input sequence
-`Z(b^n)`, with the required quantifiers over block lengths and values. A
+`Z(b^n)`, with the required quantifiers over block lengths and values. In base
+two, total computable evaluation and its exact block-count bridge are now proved. A
+complete eventual estimate at square numbers of starts is also proved sufficient;
+the prefix at checkpoint `i^2` still contains `i^2+k−1` consecutive digits for
+width `k`. This endpoint frequency estimate remains open. A
 frequency statement over all Fibonacci words does not imply that result.
 The published automaton provides exact digit evaluation; it does not supply
 the missing distribution theorem.
+The proved bound `2N <= s_N^2+3s_N+4` supplies square-root-scale growth of the
+actual one count. It gives neither the limiting frequency `1/2` nor an all-block
+frequency estimate, so it does not discharge the square-checkpoint target.
+The carry and parity estimates give square-root-scale growth for the original
+zero count. The limsup result gives arbitrarily late prefixes above
+`c√N` for each `0 ≤ c < 2/√π`. Binary normality still requires the
+eventual frequency estimate for every nonempty binary block.
 
 Contributor and agent instructions are in [AGENTS.md](AGENTS.md) and
 [README.llm.txt](README.llm.txt).

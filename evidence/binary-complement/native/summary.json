@@ -1,0 +1,222 @@
+{
+  "automaton_values": 128,
+  "executables_sha256": {
+    "automaton_probe": "4233d1133414f94b5f57cadcc58694219801bd0f2693279c135c15cf23cc9cba",
+    "foundation": "1fadf839aa0d39f59e237397e60ce19afb5af1d43d2e2bf6ac4a1f32f6529c6e",
+    "power_orbit": "cc20e531c4ca5fe3b9d1e3a1d9ef8f17f26e194e6a5550fbe948d3186fd484c0"
+  },
+  "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+  "interval_obligations": [
+    {
+      "base": 2,
+      "lower_case": 9,
+      "lower_length": 224,
+      "lower_starts": 222,
+      "patterns": 8,
+      "tolerance": 2,
+      "upper_case": 2,
+      "upper_length": 256,
+      "upper_starts": 254,
+      "width": 3
+    }
+  ],
+  "lean_obligations_sha256": "3fc25039ae38f6e9677c0c3392862b85167e202fffa9b5a2db7ac56a0840886b",
+  "maximum_power_exponent": 127,
+  "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+  "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+  "native_build_scratch": "project-volume temporary directory; automatically removed after builds",
+  "native_invalid_requests_rejected": [
+    [
+      1,
+      4,
+      1
+    ],
+    [
+      11,
+      4,
+      1
+    ],
+    [
+      2,
+      -1,
+      1
+    ],
+    [
+      2,
+      4097,
+      1
+    ],
+    [
+      2,
+      4,
+      0
+    ],
+    [
+      2,
+      4,
+      5
+    ],
+    [
+      "x",
+      4,
+      1
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "power_input_records": 144,
+  "power_native_invalid_requests_rejected": [
+    [
+      -1,
+      4,
+      1
+    ],
+    [
+      0,
+      -1,
+      1
+    ],
+    [
+      0,
+      257,
+      1
+    ],
+    [
+      4096,
+      1,
+      1
+    ],
+    [
+      9223372036854775807,
+      1,
+      1
+    ],
+    [
+      0,
+      4,
+      0
+    ],
+    [
+      0,
+      4,
+      5
+    ],
+    [
+      "x",
+      4,
+      1
+    ],
+    [
+      0,
+      4
+    ]
+  ],
+  "power_orbit_cases": [
+    {
+      "length": 0,
+      "start": 0,
+      "starts": 0,
+      "width": 3
+    },
+    {
+      "length": 1,
+      "start": 0,
+      "starts": 0,
+      "width": 3
+    },
+    {
+      "length": 3,
+      "start": 0,
+      "starts": 1,
+      "width": 3
+    },
+    {
+      "length": 128,
+      "start": 0,
+      "starts": 126,
+      "width": 3
+    },
+    {
+      "length": 8,
+      "start": 17,
+      "starts": 7,
+      "width": 2
+    },
+    {
+      "length": 4,
+      "start": 64,
+      "starts": 3,
+      "width": 2
+    }
+  ],
+  "prefix_cases": [
+    {
+      "base": 2,
+      "length": 0,
+      "width": 1,
+      "windows": 0
+    },
+    {
+      "base": 10,
+      "length": 1,
+      "width": 2,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 256,
+      "width": 3,
+      "windows": 254
+    },
+    {
+      "base": 3,
+      "length": 128,
+      "width": 3,
+      "windows": 126
+    },
+    {
+      "base": 7,
+      "length": 32,
+      "width": 2,
+      "windows": 31
+    },
+    {
+      "base": 10,
+      "length": 128,
+      "width": 2,
+      "windows": 127
+    },
+    {
+      "base": 2,
+      "length": 0,
+      "width": 3,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 1,
+      "width": 3,
+      "windows": 0
+    },
+    {
+      "base": 2,
+      "length": 3,
+      "width": 3,
+      "windows": 1
+    },
+    {
+      "base": 2,
+      "length": 224,
+      "width": 3,
+      "windows": 222
+    }
+  ],
+  "receipts_sha256": "04e70f6a638cedb077d955b78386ec5401563edc80ac487a9f16e73241a16ec2",
+  "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+  "telemetry_environment": {
+    "MODULAR_CRASH_REPORTING_ENABLED": "false",
+    "MODULAR_TELEMETRY_ENABLED": "false"
+  }
+}

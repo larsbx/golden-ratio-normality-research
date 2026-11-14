@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_complement_positive_linear_coefficient.lean"
+  ],
+  "returncode": 1,
+  "seconds": 5.087,
+  "stderr": "",
+  "stdout": "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/Reject_complement_positive_linear_coefficient.lean:3:41: error: Type mismatch\n  beta_quadratic\nhas type\n  beta ^ 2 - 3 * beta + 1 = 0\nbut is expected to have type\n  beta ^ 2 + 3 * beta + 1 = 0\n"
+}

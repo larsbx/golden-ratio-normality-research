@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/756ffe3ae181/golden-ratio-normality-research",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "-o",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/build/acceptance-binary-complement/lib/GoldenNormality/BlockNumerals.olean",
+    "/workspace/scratch/756ffe3ae181/golden-ratio-normality-research/GoldenNormality/BlockNumerals.lean"
+  ],
+  "returncode": 0,
+  "seconds": 16.583,
+  "stderr": "",
+  "stdout": ""
+}

@@ -1,0 +1,530 @@
+{
+  "accepted": true,
+  "allowed_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "artifact_sha256": {
+    "Audit.lean": "200d851a132697db9c3feaf9b6f1695c291af0a5e62c0bc025811a558c3cfa47",
+    "AuditTransitive.lean": "4042ea18a0f85f7bd64dda4b02a191920d3f0df156186c9918866fb979d5706e",
+    "AuditUntrusted.lean": "743c35b5dcc4aa72294e16f2c99a780d287a5f38206901001bbd4d898c8b3168",
+    "BridgeCounterexamples.lean": "bd6050cbf2108496b36980d84c2b604fb6b93e764cedd60dfda80bcc13d576f7",
+    "CriteriaCounterexamples.lean": "1b0b9cd03b1ea870c4234271150c8799ac9505ec84f4bd2cc707297c68460532",
+    "FalseClaims.lean": "e5c45f6133b46c2493e587cb0b6259441305e9c78c93929726a412f611b89dea",
+    "PowerOrbitCounterexamples.lean": "80e9093b5fe413cfeab833d6b5d61dda75b51212ea1c9fe9327e10f936e0daaa",
+    "ReceiptContracts.lean": "1dcc672055cf56edfea58d8b803a57d0b7630eb616cc67b7077a903a9e0f255c",
+    "Reject_constant_checkpoint_strict_mono.lean": "b2aaff2a6663096bb5235832546782ab7a4b038aea9ed1fc433ccea921a0074f",
+    "Reject_empty_pattern_transfer.lean": "5b2bbc92e37989f4895cc5fa0e02758138846b49e9eb25886df3c002159b3a84",
+    "Reject_incorrect_power_output.lean": "57f2690f63bc7efd539bbc94cc81aa7b37a6a64d5e29489590402e4e7c7ccd33",
+    "Reject_mismatched_orbit_lengths.lean": "f603a9925ac19d1131d013d2ba84ccc446774b335e1a599d49a7b8bce6c70593",
+    "Reject_non_power_input.lean": "121306ca44630b04a9ffdd86f5fac4a211c0e5343fa2b72a431f590624119213",
+    "Reject_omitted_checkpoint_gap.lean": "13783adc92c68d48155806bb33036081a45652401cd0ccfd92d8af991a523980",
+    "Reject_ordinal_inputs_as_powers.lean": "6b487fe5f881882ba6f021c576a794122610322714700960240461a0a7690cec",
+    "Reject_out_of_range_decoder_alphabet.lean": "c347265deaf4f69a50758ea7fddae5658aae1a428febf6bf77ca109b9403f416",
+    "Reject_outside_alphabet_encoding.lean": "9b2454e00d562e42523621f2520fe63c6889e55a16f60dc2ee0fea4dc0c44c3a",
+    "Reject_shifted_power_position.lean": "991c190bbe7559e5d9d2944cb95f62417492740d3f9c0c82e1ed3ff1c628ce87",
+    "Reject_short_prefix_extra_start.lean": "dad2f34d8e149086fbe5c3c1e63221b1e22139b65f03c623823bac6c97da13cc",
+    "Reject_unequal_length_encoding.lean": "d87e407361b6f04be149e98b2881cf4d484a48b3269793c1a000ea1cbf7f5eea",
+    "Reject_weakened_discrepancy_type.lean": "aa6ced9567a8e09ab9cb4a82ea220df121f86417c03177da1e438711498b14cc",
+    "Reject_weakened_interval_quantifier.lean": "68f513c26b35dfb88ca1bef641e67a543618f96c5f918bd1c01886ffbd34cb9a",
+    "Reject_weakened_power_normality_type.lean": "e6a2da5c72ad99909d920d3abb367ab1e0eb7f66184664e3b240e94b14b65ea6",
+    "Reject_weakened_power_source.lean": "de1d87e2817a065e51fa68b8ded4289b50c10e93662d6f21d1caca60a677fb1d",
+    "Reject_zero_width_roundtrip.lean": "03582055d365f1d23cfb6a36e912198cc49b7bb23e7615d7a92f84a3f287323b",
+    "TransitiveAxiom.lean": "e3e85613d9846ceabf4dea60239f5c120c7d8ad3ea26598d35dd18fa5f980352",
+    "UntrustedAxiom.lean": "62d0ef8c69d6b3c26bf31b56ad2a53a2ae9765e96dffe0cea61729c119e7fd15",
+    "declaration-axioms.json": "45ab5f9ba21df07dbf103360dcc05ba53ec9c47354e66b20920f6a2dffb15823",
+    "lean-Audit.json": "13de206316d0b35bd8a2b4ce6109e02d03725d69c7838828c490a20ec123ceee",
+    "lean-AuditTransitive.json": "af42221cefd20625a6094813ca553524fcb5119aad83c6a1c608daa5e31d06e0",
+    "lean-AuditUntrusted.json": "aad55e195551eeb1c1d20dee9b902dee75b6747e1c14cf65656c8fa5fed8a04b",
+    "lean-BridgeCounterexamples.json": "9922a68a9f3739d1c7fac659e2abf8c76819707b1303de137699312ce5737589",
+    "lean-CriteriaCounterexamples.json": "21a88937510c2673a2da1c32c63f5eeb16ef4b7497f977f7421e1796d2d7161f",
+    "lean-FalseClaims.json": "06d8afeac44d2a60ed5dbf81453bd7e27c49ff633079f357bd2ab2e6ce5212ff",
+    "lean-GoldenNormality.Automaton.json": "947ffeafe6cd1f7ae7478d076b95aa7eec9f5eb48820b1a348b44f46ed268ac7",
+    "lean-GoldenNormality.BlockNumerals.json": "dc66868acaeaf2ea35b89454b4de74cfccdc8d33e9cf3cf9e48cb5513ea2ee1b",
+    "lean-GoldenNormality.Blocks.json": "ac547d981e276457f610bbdad380b09c6ee4aadd5c0353925a2bd38884228136",
+    "lean-GoldenNormality.Certificates.json": "ae4470b546681bc9f35205ddc08b548373896ec58fd9334303b12e6ccc9238b2",
+    "lean-GoldenNormality.CheckpointBounds.json": "1a3de309083f5b8665ee231828c956a75e311ebc7d7b17fcc96db9c462c20f5c",
+    "lean-GoldenNormality.Contracts.json": "ac387bdada50f71c74eb0fc12d38545ea55985f33583aa82a91bf3937bb0d8d9",
+    "lean-GoldenNormality.FrequencyBridge.json": "fa8bb89a81c8a6c7ec7ecd18efa0395136d89dab277e8b7d44c2f8b54cf699aa",
+    "lean-GoldenNormality.Normality.json": "a5d3e56edfba007eca174ac1d0c1db143e7b8b5c085ebb41383a75b9614de92c",
+    "lean-GoldenNormality.NormalityCriteria.json": "e21366bbb0af9609172aa9793fcd0fd4847c2ec72fbde3e80a7b180b3333ddcf",
+    "lean-GoldenNormality.PowerOrbit.json": "9a4b504f9257709b33c867bea8080c8d4c9648782f5f3760c9d761bf46b8a82e",
+    "lean-GoldenNormality.Prefix.json": "a8ddb1c4432fbf1e491ef6a2ff5c1a21d3d9101546e818899139511129eb924d",
+    "lean-GoldenNormality.WordEncoding.json": "537669799ef625382cd4b02b4defc6e844e7b3113aafa683b759cfc94f55b3b1",
+    "lean-GoldenNormality.ZeckendorfEncoding.json": "a3e7d913555a3d2caf6e4d2e86a14a51ff7fc894fb4421f153ccd08c230c89bc",
+    "lean-GoldenNormality.json": "2ef8948b51434e53a60ec1ca5d37f1e5cd466c96f46f37076ab5d563b7b4b312",
+    "lean-PowerOrbitCounterexamples.json": "9f8d65294ed66351774ee01f52b78130dc4653785eae531d3bc7364961869390",
+    "lean-ReceiptContracts.json": "7722b7df7c02c60ab5d85c2a23d69dd053284fdbebabe1d048b919d3622f386e",
+    "lean-Receipts.json": "b11a10acba9f3e1b7de4f97ba7bf3b7e3579e40bf2e89e25dffd05d00f4314fe",
+    "lean-Reject_constant_checkpoint_strict_mono.json": "38cedc1ad6145e2b17c49402bebb0df812d25081ac8027b5a96aee5388adcfae",
+    "lean-Reject_empty_pattern_transfer.json": "cc377a0d364965fb70fbde714ecf7395b16120a65085f895b1e426413f54e043",
+    "lean-Reject_incorrect_power_output.json": "815fd65d7f4f394dce7e1e06ca4544a47b6fb58ec517ed6cdb3f35f1865f6c0d",
+    "lean-Reject_mismatched_orbit_lengths.json": "3645145ddadb3f2c99cfb78cc0daa0b894371be311d1944620e18a6e60458315",
+    "lean-Reject_non_power_input.json": "2e36d195247429fac25fce66deb451c064aad9e4f99b4efc755fc2a3fc1b9ee5",
+    "lean-Reject_omitted_checkpoint_gap.json": "b6423ec991ad93c29c30763837973c567ef5714a007bf7a89225a63f5407b5dc",
+    "lean-Reject_ordinal_inputs_as_powers.json": "3b80e6745dc449bbe380662d7b7bac27e44f6fc809df99de09185520f23079b3",
+    "lean-Reject_out_of_range_decoder_alphabet.json": "e771e8b6728547c1c7838282a75de5f29d051b54489fba2eaefbb87a1946d207",
+    "lean-Reject_outside_alphabet_encoding.json": "366c9cf9f119a15ade3f2ac9d8a9aa8d0d258aba4472eb5e8210949a68f12fee",
+    "lean-Reject_shifted_power_position.json": "97407fc9f16dae70fa776616af0925ccbdfb5cc1bb57d731f2ea3144b671aeb1",
+    "lean-Reject_short_prefix_extra_start.json": "26443d6d011173cae396d4d90f81a5656b4b860fb6aabf64a8b7ff82b649d1fb",
+    "lean-Reject_unequal_length_encoding.json": "7ee9aadd0b94e4f0c604cf7cee07f7d562015b6cce99f830296731580509fd6c",
+    "lean-Reject_weakened_discrepancy_type.json": "13d9cfacf8993d0549f080848f260bfc9b963b2b9abcae336f336234f5ff38dc",
+    "lean-Reject_weakened_interval_quantifier.json": "bdb04deebf6f0e7cd194dff89e6d50f18559a1e5acc45663b3c08aa8b6522833",
+    "lean-Reject_weakened_power_normality_type.json": "d9cb0b829e6778d7bc3a7531d8561de6ecdb98cc6228e934301fbb296dc96992",
+    "lean-Reject_weakened_power_source.json": "dcfd3450c0ee2b889b081abb272c52e4629fcccc50df441ce0102f922fb16a97",
+    "lean-Reject_zero_width_roundtrip.json": "68ab2c26214950ba9ec3d0fdf35a886bac5f00e2f63ff21f30811a762405088f",
+    "lean-TransitiveAxiom.json": "dea40bcb571d2bcab61a548cd4ba71bff1477874919870541e2edd5b90d25ba1",
+    "lean-UntrustedAxiom.json": "3fd09faebf00de22a3f4b255f5ffcc611121e88dc0b8c215fb79b75da487fe0e",
+    "lean-version.json": "d4e2383d70a0fd7138a9e57773dd134d7e1d3855f6410342608d1ffdc48a2725",
+    "native/Receipts.lean": "3fc25039ae38f6e9677c0c3392862b85167e202fffa9b5a2db7ac56a0840886b",
+    "native/automaton.json": "81cf338eb33ce7220f57699d76518c07eaad50437ea106a8f7ebee9f9952e702",
+    "native/bad-native-0.json": "31854ac57350e5e8abd4e6915470b9667c981f46810c37058b02ffdeb3b38915",
+    "native/bad-native-1.json": "27d021ece002ec0e65c092dab3fa60241d89559d0daa13940c26b5b8a65c058c",
+    "native/bad-native-2.json": "d3b22ca6e32a37e6be983672d21176e44b94b17dc06b078af2d24861a6e8edb0",
+    "native/bad-native-3.json": "1378be01eb35525ce5b69de877d39ace29a48cc02de0824a27b209fc059a6a3d",
+    "native/bad-native-4.json": "71569295929c95f9e4cdc637c932efeb3b880017341531c9464dcbfe662fe88c",
+    "native/bad-native-5.json": "1bd7871dad541e8ad5d4d446c2cfeb3f90a156940b3ea81818288b9e87799b53",
+    "native/bad-native-6.json": "33762862616deb6a2b71f6b8ad2fa9ade222a560815b59b8207648ba198ebd5c",
+    "native/bad-native-7.json": "7741835c9392bc5e1490f2f3c1872e43d85b2407535a7ed12ef147697a42bbe2",
+    "native/bad-power-native-0.json": "e576c5d6b2019d5ca989cb4f539a8dc213dbf4f827301d598e3861ecaaae0b6d",
+    "native/bad-power-native-1.json": "18ee14255f9936b917f9a0d4f6c987970fa3db0ab7d91811d97d573567bb9f74",
+    "native/bad-power-native-2.json": "fce8347e4664326caf3f393cc1d3a4b26e648c529b37d25d0a61bd9f2c85a724",
+    "native/bad-power-native-3.json": "55c25c69ab7eaae3f1efab3257d7fb73bbb622f7a55b0fd9fb3dfe67ef59ed52",
+    "native/bad-power-native-4.json": "ace68d67e06275ce8f2d88faa81cd8c8392587d3b2ae00b12980c84aee877870",
+    "native/bad-power-native-5.json": "da9046a30f5e564750be6cb0575cf7f1356a5dd355f8d5865afb833b22f71a15",
+    "native/bad-power-native-6.json": "2ed285d5825301470c7da0115d09202f74cc46af2ab03d97090bbe75f3cc6360",
+    "native/bad-power-native-7.json": "b413e85e3121762464b6f503acdb949abd5f55b2085a8c7f19d0381b821b993b",
+    "native/bad-power-native-8.json": "ec2dfde1106626d92c9fc7535447ad8c2ee9ae9834fcc4617a7cfb4f7c966aa0",
+    "native/build-automaton_probe.json": "9ec485546b40a80b1889d86dd006bad4b193fbd5c84521162f62a8acc93f4c51",
+    "native/build-foundation.json": "c1837a63507456ddec3723eecbdde980d74045d6810302ff71abe8c43ef7f92c",
+    "native/build-power_orbit.json": "0333fe0aca9f3a285c9a724fa0f4e6564e08868958a4da27ddc5665ce5c4ac0b",
+    "native/mojo-version.json": "011d98e6eb1bfc59158c2135cecfbafa979cc0595a2cb0c38bee550f80f7b7ed",
+    "native/power-orbit-0.json": "32b15174340b677a84e929f5f1517175ce74db621a1474be47cccbb4fad86338",
+    "native/power-orbit-1.json": "516b3b39192827f0367f1b06cb28380fd8bf6b646c2920f5201743f298958e6f",
+    "native/power-orbit-2.json": "f8284b53edd28d3c7f0a727b9cf5ee8b1474628e47cbde6b307da14f2e7cd25f",
+    "native/power-orbit-3.json": "1e68a0a5744fdb3ee9d54480607d19dc83681139c653e6812cf8e0000a72d69c",
+    "native/power-orbit-4.json": "0f999064dbaa440d7a5e2d7d194360947ea9c2b6807bf151c1e05f11be3acee9",
+    "native/power-orbit-5.json": "a60e69abf743304f8db84b77957ceeca2e87826d9b1d787ca062fa23a2b68964",
+    "native/prefix-0.json": "398cb3cd0c44bd6d9f9fe4d79598564a610c0a8b3542ec16926906e7701a2c6b",
+    "native/prefix-1.json": "e52a1e9e147752773bf7386d91c8cf6b2aa0a05f33e057edf9ee0184184a9ffb",
+    "native/prefix-2.json": "47821603e3696897c477b9b61a31474e1613c564ef2ecf7ffc89addca0049713",
+    "native/prefix-3.json": "263ea5363e56eaf1728ab922d84bc8a3e406cd2920bd3f1d8e0d056b9d022455",
+    "native/prefix-4.json": "0cc2b911a8fd165951d4d3a47753c9535cbb6649f89fe4bcadce7faf23b4bd5d",
+    "native/prefix-5.json": "f6c9b35c8a72d41804108d8326ebe136abb860e7542cee9ac923ba1667673f8a",
+    "native/prefix-6.json": "ff5bbf7c48b4a1d0b97828c191c131f1e404ebf47ea12ea1181be8a3ac869faa",
+    "native/prefix-7.json": "438f78b4e98bf4db2d720f6ec6ca4d126b3666de54cb26855677f8accd70cb07",
+    "native/prefix-8.json": "900f5a2ab7d255feba69640e0d1b738e8c59c4d7944ec7a317d87d5f0851149a",
+    "native/prefix-9.json": "9267fef1309d2e6b253a92e299b039ccb13b197434dde695d8cd7ef2d1889edf",
+    "native/receipts.json": "04e70f6a638cedb077d955b78386ec5401563edc80ac487a9f16e73241a16ec2",
+    "native/summary.json": "dd3afb19003e6fd9e980e4de43e604ca0ff06699e4e17a8474263c65ce49b75f",
+    "oracle-tests.json": "cf95315169a50c9aa3ad9b5ccb219a1c9e746f04406b6ec7d00b21f3cc3dcc48"
+  },
+  "compiled_modules": {
+    "BridgeCounterexamples": {
+      "declarations": 6,
+      "theorems": 6
+    },
+    "CriteriaCounterexamples": {
+      "declarations": 17,
+      "theorems": 16
+    },
+    "GoldenNormality": {
+      "declarations": 0,
+      "theorems": 0
+    },
+    "GoldenNormality.Automaton": {
+      "declarations": 237,
+      "theorems": 157
+    },
+    "GoldenNormality.BlockNumerals": {
+      "declarations": 39,
+      "theorems": 28
+    },
+    "GoldenNormality.Blocks": {
+      "declarations": 61,
+      "theorems": 44
+    },
+    "GoldenNormality.Certificates": {
+      "declarations": 20,
+      "theorems": 14
+    },
+    "GoldenNormality.CheckpointBounds": {
+      "declarations": 15,
+      "theorems": 15
+    },
+    "GoldenNormality.Contracts": {
+      "declarations": 30,
+      "theorems": 30
+    },
+    "GoldenNormality.FrequencyBridge": {
+      "declarations": 16,
+      "theorems": 16
+    },
+    "GoldenNormality.Normality": {
+      "declarations": 5,
+      "theorems": 3
+    },
+    "GoldenNormality.NormalityCriteria": {
+      "declarations": 11,
+      "theorems": 9
+    },
+    "GoldenNormality.PowerOrbit": {
+      "declarations": 41,
+      "theorems": 26
+    },
+    "GoldenNormality.Prefix": {
+      "declarations": 35,
+      "theorems": 26
+    },
+    "GoldenNormality.WordEncoding": {
+      "declarations": 21,
+      "theorems": 15
+    },
+    "GoldenNormality.ZeckendorfEncoding": {
+      "declarations": 35,
+      "theorems": 28
+    },
+    "PowerOrbitCounterexamples": {
+      "declarations": 12,
+      "theorems": 12
+    },
+    "ReceiptContracts": {
+      "declarations": 1278,
+      "required_type_checks": 1278,
+      "theorems": 1278
+    },
+    "Receipts": {
+      "declarations": 4165,
+      "required_receipt_theorems": 3871,
+      "theorems": 3871
+    }
+  },
+  "dependency_revisions": {
+    "Cli": "ab3a82db9fea14cf0fd7f5a2de650f4b534640af",
+    "LeanSearchClient": "ba67e212be1197b84c1f1f6299488a10a3002713",
+    "Qq": "507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3",
+    "aesop": "18889deb9e83ea7420ef51c160d6f88552e744e3",
+    "batteries": "4cac2177c37f5530c4da76aa8e4307f3fc9e4dcb",
+    "importGraph": "1681d78dd6e65e38b143f9740d829c826673807c",
+    "mathlib": "4edb0dbaa3b3cf729d86d1e2f035474d5ae2ac09",
+    "plausible": "d9598f07b1bc701f1e3aae163d2681c1fd978793",
+    "proofwidgets": "a8acbfd87375ff4abe14ce09db5b7664d383bc7f"
+  },
+  "finished_utc": "2026-11-13T10:20:08.869313+00:00",
+  "lean": {
+    "LD_PRELOAD": "",
+    "invocation": "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "invocation_file_sha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "package_cache": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/.lake/packages",
+    "version": "Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)"
+  },
+  "lean_negative_controls": {
+    "compiled_axiom_injection": "rejected",
+    "constant_checkpoint_strict_mono": "rejected",
+    "empty_pattern_transfer": "rejected",
+    "false_root": "rejected",
+    "incorrect_power_output": "rejected",
+    "invalid_fibonacci_word": "rejected",
+    "mismatched_orbit_lengths": "rejected",
+    "non_power_input": "rejected",
+    "omitted_checkpoint_gap": "rejected",
+    "ordinal_inputs_as_powers": "rejected",
+    "out_of_range_decoder_alphabet": "rejected",
+    "outside_alphabet_encoding": "rejected",
+    "scattered_count": "rejected",
+    "shifted_power_position": "rejected",
+    "short_prefix_extra_start": "rejected",
+    "transitive_axiom_injection": "rejected",
+    "unequal_length_encoding": "rejected",
+    "weakened_discrepancy_type": "rejected",
+    "weakened_interval_quantifier": "rejected",
+    "weakened_power_normality_type": "rejected",
+    "weakened_power_source": "rejected",
+    "weakened_theorem_type": "rejected",
+    "zero_width_roundtrip": "rejected"
+  },
+  "native": {
+    "automaton_values": 128,
+    "executables_sha256": {
+      "automaton_probe": "03462469d5c3e469abcb4797ae36dde85b8ffbdd5408ae23f85e03d30845a5b1",
+      "foundation": "6527cabf42cf405fad9f9300ee935ffda9e0fe665a92441454b6f82524c823f0",
+      "power_orbit": "df33ce429c65335c6dd7bfec92d75430d65a8675d394f87709d47dab01a8f65f"
+    },
+    "finite_math_kernels_revision": "3573dc4318f4d5ccd6a103b470dc82bed1f798a8",
+    "interval_obligations": [
+      {
+        "base": 2,
+        "lower_case": 9,
+        "lower_length": 224,
+        "lower_starts": 222,
+        "patterns": 8,
+        "tolerance": 2,
+        "upper_case": 2,
+        "upper_length": 256,
+        "upper_starts": 254,
+        "width": 3
+      }
+    ],
+    "lean_obligations_sha256": "3fc25039ae38f6e9677c0c3392862b85167e202fffa9b5a2db7ac56a0840886b",
+    "maximum_power_exponent": 127,
+    "mojo_compiler_sha256": "0d5f0b700b0543223a10c47e818bc4f43f3228166c34ab13d52ab7f2ad02ffcd",
+    "mojo_version": "Mojo 1.1.0.dev2026090805 (34562fa1)",
+    "native_build_scratch": "project-volume temporary directory; automatically removed after builds",
+    "native_invalid_requests_rejected": [
+      [
+        1,
+        4,
+        1
+      ],
+      [
+        11,
+        4,
+        1
+      ],
+      [
+        2,
+        -1,
+        1
+      ],
+      [
+        2,
+        4097,
+        1
+      ],
+      [
+        2,
+        4,
+        0
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        "x",
+        4,
+        1
+      ],
+      [
+        2,
+        4
+      ]
+    ],
+    "power_input_records": 144,
+    "power_native_invalid_requests_rejected": [
+      [
+        -1,
+        4,
+        1
+      ],
+      [
+        0,
+        -1,
+        1
+      ],
+      [
+        0,
+        257,
+        1
+      ],
+      [
+        4096,
+        1,
+        1
+      ],
+      [
+        9223372036854775807,
+        1,
+        1
+      ],
+      [
+        0,
+        4,
+        0
+      ],
+      [
+        0,
+        4,
+        5
+      ],
+      [
+        "x",
+        4,
+        1
+      ],
+      [
+        0,
+        4
+      ]
+    ],
+    "power_orbit_cases": [
+      {
+        "length": 0,
+        "start": 0,
+        "starts": 0,
+        "width": 3
+      },
+      {
+        "length": 1,
+        "start": 0,
+        "starts": 0,
+        "width": 3
+      },
+      {
+        "length": 3,
+        "start": 0,
+        "starts": 1,
+        "width": 3
+      },
+      {
+        "length": 128,
+        "start": 0,
+        "starts": 126,
+        "width": 3
+      },
+      {
+        "length": 8,
+        "start": 17,
+        "starts": 7,
+        "width": 2
+      },
+      {
+        "length": 4,
+        "start": 64,
+        "starts": 3,
+        "width": 2
+      }
+    ],
+    "prefix_cases": [
+      {
+        "base": 2,
+        "length": 0,
+        "width": 1,
+        "windows": 0
+      },
+      {
+        "base": 10,
+        "length": 1,
+        "width": 2,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 256,
+        "width": 3,
+        "windows": 254
+      },
+      {
+        "base": 3,
+        "length": 128,
+        "width": 3,
+        "windows": 126
+      },
+      {
+        "base": 7,
+        "length": 32,
+        "width": 2,
+        "windows": 31
+      },
+      {
+        "base": 10,
+        "length": 128,
+        "width": 2,
+        "windows": 127
+      },
+      {
+        "base": 2,
+        "length": 0,
+        "width": 3,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 1,
+        "width": 3,
+        "windows": 0
+      },
+      {
+        "base": 2,
+        "length": 3,
+        "width": 3,
+        "windows": 1
+      },
+      {
+        "base": 2,
+        "length": 224,
+        "width": 3,
+        "windows": 222
+      }
+    ],
+    "receipts_sha256": "04e70f6a638cedb077d955b78386ec5401563edc80ac487a9f16e73241a16ec2",
+    "scope": "finite native/oracle conformance; Lean obligations emitted, not yet compiled",
+    "telemetry_environment": {
+      "MODULAR_CRASH_REPORTING_ENABLED": "false",
+      "MODULAR_TELEMETRY_ENABLED": "false"
+    }
+  },
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": {
+    "executable": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/kernel/.pixi/envs/default/bin/python",
+    "version": "3.12.16 (main, Oct 26 2026, 11:37:43) [GCC 15.3.0]"
+  },
+  "schema": "golden-normality-acceptance-v1",
+  "scope": "universal Lean foundation, total binary power-orbit evaluation, equivalent normality targets, and conditional checkpoint criterion; checked finite source-bound power traces and occurrence/discrepancy/interval receipts; no unconditional normality theorem",
+  "source_commit": "f5d6e4ea7a3fcf5321587f89329cd913097fa9ae",
+  "source_sha256": {
+    ".github/workflows/acceptance.yml": "fb634336378625c467adc8db13d2186a7e131a948003ba94cb5f2dd708ffb03e",
+    ".gitignore": "9fd9fce3ea7eb1446fd8594abd6f97a6fee9a9a351e744ef62ce1ad9eb65b925",
+    ".gitmodules": "27c23a41a81f6f337077799720fdb76aec0213ff46916ac738fe4958084d7a8b",
+    "AGENTS.md": "db47d46e406b1a314aae293573b21b58a2c9e8a1f120b8eea817df4f2641ef81",
+    "GoldenNormality.lean": "5749e3adc8055bc4d2fd68b623a5be1223c5a9373d8e781a7c76fbb8d8d839f5",
+    "GoldenNormality/Automaton.lean": "bbf20cc2ff1bc1c73fb826fa836fa7ed0e6c1cc15a18aa37d7a47022b057378a",
+    "GoldenNormality/BlockNumerals.lean": "72a3395bde8f1359d3dc5e1a0c71284288958eacacab68d511098b56756e3f83",
+    "GoldenNormality/Blocks.lean": "0f0904b825e09164ba18f7fcc9ee0cd9dd264c50411fd34168439d75eb761234",
+    "GoldenNormality/Certificates.lean": "21147b03d2bf38a9604a769cc094dda2772ed5fbdedf2353a913e8b94c420b78",
+    "GoldenNormality/CheckpointBounds.lean": "7ce3df015c51f44fd3f53a526aba3a8e592538803c1e7b000f17716676509966",
+    "GoldenNormality/Contracts.lean": "ee100bb0505dce71ecfcf5ddcf0b632739bc02b7bd16aa99a3efeb2b7f188f08",
+    "GoldenNormality/FrequencyBridge.lean": "820910f3c8b96a0ef5adb18ddc2e066fddf4096d56a41450566cbb9a0b6aeea4",
+    "GoldenNormality/Normality.lean": "0ebb5b8fe3420b28bec0a5e26919fd69778c9539a2552df06b9ffaf3dd9fd6c0",
+    "GoldenNormality/NormalityCriteria.lean": "5df484ff9c37ad4aa172fa44d5ac11e6272d3acc11b06c3d7132371a6dd55ee1",
+    "GoldenNormality/PowerOrbit.lean": "670106d482b0a6fb039c9f12ab7f33119fd309cfcd3ff981798984c474aaf204",
+    "GoldenNormality/Prefix.lean": "4433bc6b9e6a99b535c232e09a224500301157475ba5019741064a020476d9e7",
+    "GoldenNormality/WordEncoding.lean": "937573a31a8a896fb52cfabc43b020eda15e97f0838b64eeb8a089d3304a7d15",
+    "GoldenNormality/ZeckendorfEncoding.lean": "0763e28722521c7458de615f8489ae603f192e37d36f9ec10a4945e6f1ea3756",
+    "README.llm.txt": "cdea1edcd999ab526090f578b565816bf861ed6288499bedc0b514d43c455966",
+    "README.md": "303379dd3f0c6e59d6fb8ec35d1959f2bd5e36a429953b1fed13e26f6829d1b6",
+    "claims.json": "9c2cfc981ab9d8606a9d76107d46119692defc296eb8a3b7b2b9bf533199825b",
+    "docs/block-frequency-bridge.md": "f713406f929d18169d49d05b586c5e633dff7d7bec327582dde17a0c66d9facf",
+    "docs/foundation.md": "bac2a02ab492fd5ce4ce16cba80a2a96f3c4d63812848079b1bbd11e676f5d7a",
+    "docs/literature-gate.md": "23e52cec1ecb9bdc1333b8c31dcb4811ef6a2d22dcdb024e25fe515e5b9230a1",
+    "docs/normality-criteria.md": "e7af9f6e135c4aa658f3fe26c5536ad9f0973c65240b620ddfaed4a2e85c2f0f",
+    "docs/power-orbit.md": "b88b499654ec30d625a21921765ef0391c4c077640d1d7aef0c5bdff1f6b61b4",
+    "kernel/automaton_probe.mojo": "c4136bf7c6421decdccb604c9225e7f20eca8daccd9c117925ed0fdbb4a7d377",
+    "kernel/foundation.mojo": "106e266f9dfb694cd024ca41aef0ed3bcca7bc559c245fb8edbc25c292b7ccd5",
+    "kernel/pixi.lock": "29beaaa2ecab11c7f1f0a769335b8eeb8262b798458fc4285026e480de2d1e15",
+    "kernel/pixi.toml": "8435fb70236bb681ea5141b23b56529e3c3802c5173d44565f0fca2ae8409b50",
+    "kernel/power_orbit.mojo": "3c544762a38db5aed1474540ee71960ef10bce91d66106546cd85afce2bcef15",
+    "lake-manifest.json": "53d15db3fc99a16a755171c913bd9ab69acfcf43caab3486697f9e96e7d23f6b",
+    "lakefile.toml": "4dec248389cfc05a4885c74c154496af76548ca3bfb0b8fdca513dc31bde9a81",
+    "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "oracles/power_orbit.py": "f13a91a005c7a8b5ae378bc93366fe376114e377b11022dfdc75e9690297f88a",
+    "oracles/reference.py": "49f194525701e5355b97c5c373f41e2d6b89415fdbc709c3011f1f14c08d68a7",
+    "research-contract.json": "82fe5880bb6f3b4cfde96f0513685240066a5078bfdb43d63b4b12e9bca5e1af",
+    "tests/test_power_orbit.py": "eb001333e163cecac8fc68222c3dec1113f2c5ac18b6424242b653f8e15c6554",
+    "tests/test_reference.py": "67aa6d08f60f30a142e5ecdf69910369acaaa4f9d220e23ffe0d278ad64c8329",
+    "tools/acceptance_utils.py": "f0d1b4b9e52ab9367a6518b713c205900a6c02436a6b7692fcc30511526526b3",
+    "tools/bridge_controls.py": "1eb0c9190a009b56a2982b5c538e9e9f29558eaa8ef9aa779ab35a43a559225e",
+    "tools/check_native.sh": "7646e9bb1f0aff21a5d98df1a6d651fc1c4c41865f8c7af55c3d660532f4bdff",
+    "tools/criteria_controls.py": "c127e5ccbfab8e6ae6f61df1381cfca638eebe8268d280823fc31145bcaa31fb",
+    "tools/native_conformance.py": "0d3751b09e48f9999446832db36ada08ed78182626a748c949c60d8f2dce6cdc",
+    "tools/power_controls.py": "a219ad496fa0ae4659a7f39bd8aaf9ba3f2de59d413caf6044a6ad2a4b21de04",
+    "tools/power_receipt_contracts.py": "d85121d14fe12380046b9e98fc6b5063a5ea2d3d590d78ea530fb6332052eeb6",
+    "tools/power_receipts.py": "8768435c450dc03671ee2a8d7ed20056e693a8d61ab633134ddbe4a7a31d8acb",
+    "tools/receipt_contracts.py": "151de5d5bfef3333dd73662ad881b0a6dd4089860308dd4899ab810775e047f9",
+    "tools/verify.py": "d1a2ed2db659a5838491476bd00409d98a235027b2b8c63f7d575373bda54971"
+  },
+  "source_tree_dirty": false,
+  "started_utc": "2026-11-13T10:12:11.265647+00:00"
+}

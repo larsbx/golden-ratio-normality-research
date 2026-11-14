@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/kernel/.pixi/envs/default/bin/mojo",
+    "--version"
+  ],
+  "returncode": 0,
+  "seconds": 0.049,
+  "stderr": "",
+  "stdout": "Mojo 1.1.0.dev2026090805 (34562fa1)\n"
+}

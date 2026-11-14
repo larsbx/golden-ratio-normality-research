@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/toolchains/lean-4.34.0-rc2-linux/bin/lean",
+    "-j",
+    "1",
+    "--root=/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity",
+    "-DautoImplicit=false",
+    "-DwarningAsError=true",
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_single_prefix_as_universal_bound.lean"
+  ],
+  "returncode": 1,
+  "seconds": 7.707,
+  "stderr": "",
+  "stdout": "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-binary-sparsity/Reject_single_prefix_as_universal_bound.lean:4:59: error: Type mismatch\n  firstThreeBound\nhas type\n  2 * 3 \u2264 binaryWeight 4 ^ 2 + 3 * binaryWeight 4 + 4\nbut is expected to have type\n  \u2200 (N q : \u2115), PrefixCertificate (2 ^ N) q \u2192 2 * N \u2264 binaryWeight q ^ 2 + 3 * binaryWeight q + 4\n"
+}

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/workspace/scratch/gnr-next.qHyoM1/golden-ratio-normality-research/build/acceptance-power-orbit/native/foundation",
+    "x",
+    "4",
+    "1"
+  ],
+  "returncode": 1,
+  "seconds": 0.015,
+  "stderr": "stack trace was not collected. Enable stack trace collection with environment variable `MODULAR_DEBUG=stack-trace-on-error`\nUnhandled exception caught during execution: String is not convertible to integer with base 10: 'x'\n",
+  "stdout": ""
+}
