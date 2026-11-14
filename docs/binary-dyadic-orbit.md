@@ -126,3 +126,21 @@ Lean checks this construction for every cutoff in
 control for general doubling-orbit arguments. The golden-ratio
 source and its conditional cancellation statement are the same
 as in the preceding sections.
+
+## Exact finite modular sums for the actual source
+
+Let $Q_N=\lfloor2^N\alpha\rfloor$ and $q_N=2^N$. Lean proves that
+replacing the source by its certified truncation $Q_N/q_N$ changes
+the normalized Fourier average over the first $N$ starts by at most
+$2\pi|h|/N$. For $N>0$, this follows from the bound on phase
+distance, $|\alpha-Q_N/q_N|<1/q_N$, and
+$\sum_{n<N}2^n=q_N-1$.
+
+The resulting average is exactly `dyadicModularAverage h N`.
+Its phases are $q_N$-th roots of unity with exponents
+$hQ_N2^n\bmod q_N$. For each fixed $h$, this exact modular average
+tends to zero if and only if the actual average tends to zero.
+Lean checks that decay for all odd $h$ in this finite-sum formulation
+would prove the full binary normality target. The needed estimate
+is that the sum of these roots of unity has magnitude $o(N)$
+as $N$ grows, with $Q_N$ the actual quadratic floor.
