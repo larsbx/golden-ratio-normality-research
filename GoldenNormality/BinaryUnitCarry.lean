@@ -192,8 +192,8 @@ private theorem unit_pair_budget (n : ℕ) :
     · rw [ite_eq_right h₂]
       omega
 
-private theorem diagonal_sum_le (N : ℕ) :
-    (∑ i ∈ Finset.range N, diagonalIndicator i) ≤ ∑ i ∈ Finset.range N, digit i := by
+private theorem diagonal_sum_eq (N : ℕ) :
+    (∑ i ∈ Finset.range N, diagonalIndicator i) = ∑ i ∈ Finset.range (N / 2), digit i := by
   have hpair (n : ℕ) :
       (∑ i ∈ Finset.range (2 * n), diagonalIndicator i) = ∑ i ∈ Finset.range n, digit i := by
     induction n with
@@ -204,14 +204,16 @@ private theorem diagonal_sum_le (N : ℕ) :
       simp [diagonalIndicator, show (2 * n + 1) / 2 = n by omega]
   let k := N / 2
   have hcases : N = 2 * k ∨ N = 2 * k + 1 := by dsimp [k]; omega
-  have h : (∑ i ∈ Finset.range N, diagonalIndicator i) = ∑ i ∈ Finset.range k, digit i := by
-    rcases hcases with hk | hk
-    · rw [hk, hpair]
-    · rw [hk, Finset.sum_range_succ, hpair]
-      simp [diagonalIndicator]
-  rw [h]
+  rcases hcases with hk | hk
+  · rw [hk, hpair, show 2 * k / 2 = k by omega]
+  · rw [hk, Finset.sum_range_succ, hpair]
+    simp [diagonalIndicator, show (2 * k + 1) / 2 = k by omega]
+
+private theorem diagonal_sum_le (N : ℕ) :
+    (∑ i ∈ Finset.range N, diagonalIndicator i) ≤ ∑ i ∈ Finset.range N, digit i := by
+  rw [diagonal_sum_eq]
   exact Finset.sum_le_sum_of_subset_of_nonneg
-    (Finset.range_mono (by dsimp [k]; omega)) (fun i _ _ => (digit_range i).1)
+    (Finset.range_mono (by omega)) (fun i _ _ => (digit_range i).1)
 
 /-- At most half the positive carries can have size one, up to the digit and
 diagonal correction. The right endpoint is retained in telescoping. -/
@@ -269,24 +271,58 @@ theorem original_zero_count_unit_carry_bound (N : ℕ) (hN : 2 ≤ N) :
   have hg := prefix_le_positive_count_and_zeros N
   omega
 
+/-- The incoming unit carry charge retains the endpoint and the exact
+half-prefix diagonal count. -/
+theorem unitCarry_sum_add_endpoint_le (N : ℕ) :
+    (∑ i ∈ Finset.range N, unitCarryIndicator i) + unitCarryIndicator N ≤
+      (GoldenNormality.occurrences 2 1 0 N : ℤ) +
+        (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) := by
+  rw [← digit_sum_eq_original_zeros, ← digit_sum_eq_original_zeros, ← diagonal_sum_eq]
+  induction N with
+  | zero => simp [unitCarryIndicator]
+  | succ N ih =>
+    simp only [Finset.sum_range_succ] at *
+    have h := unitCarry_next_le N
+    omega
+
 /-- Every size-one carry can be charged to the preceding digit or its
 diagonal product. The origin carry is excluded because it is negative. -/
 theorem unitCarry_sum_le (N : ℕ) :
     (∑ i ∈ Finset.range N, unitCarryIndicator i) ≤
       2 * (GoldenNormality.occurrences 2 1 0 N : ℤ) := by
-  have htel (n : ℕ) :
-      (∑ i ∈ Finset.range n, unitCarryIndicator i) + unitCarryIndicator n ≤
-        (∑ i ∈ Finset.range n, digit i) + ∑ i ∈ Finset.range n, diagonalIndicator i := by
-    induction n with
-    | zero => simp [unitCarryIndicator]
-    | succ n ih =>
-      simp only [Finset.sum_range_succ] at *
-      have h := unitCarry_next_le n
-      omega
   have hn : 0 ≤ unitCarryIndicator N := by unfold unitCarryIndicator; split <;> omega
   have hd := diagonal_sum_le N
-  have h := htel N
-  rw [digit_sum_eq_original_zeros] at hd h
+  rw [diagonal_sum_eq, digit_sum_eq_original_zeros, digit_sum_eq_original_zeros] at hd
+  have h := unitCarry_sum_add_endpoint_le N
+  omega
+
+/-- The parity, gap and positive-carry budgets with the terminal carries
+and the simultaneous digit charge retained. -/
+theorem original_zero_count_parity_carry_budget (N : ℕ) :
+    (N : ℤ) + 3 * (∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i) +
+      unitCarryIndicator N ≤
+      (∑ i ∈ Finset.range N, convolutionCoefficient i) + positiveCarry N +
+      5 * (GoldenNormality.occurrences 2 1 0 N : ℤ) +
+      (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) + 1 := by
+  have hc := positiveCarry_sum_add_digits_le 0 N
+  have hzero : positiveCarry 0 = 0 := by simp [positiveCarry]
+  simp only [Nat.zero_add, hzero, add_zero] at hc
+  have hmass := twice_positive_count_le_mass_add_units N
+  have hu := unitCarry_sum_add_endpoint_le N
+  have hg := prefix_le_positive_count_and_zeros N
+  omega
+
+/-- The same budget with the terminal positive carry bounded by the zero count. -/
+theorem original_zero_count_parity_overlap_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) + 3 * (∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i) +
+      unitCarryIndicator N ≤
+      (∑ i ∈ Finset.range N, convolutionCoefficient i) +
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) +
+      (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) := by
+  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
+    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
+  have hp := positiveCarry_lt_original_zeros N hz
+  have h := original_zero_count_parity_carry_budget N
   omega
 
 /-- The gap count and the unit-carry parity restriction give a lower budget
@@ -294,15 +330,13 @@ for truncated convolution mass. -/
 theorem original_zero_count_parity_carry_bound (N : ℕ) (hN : 2 ≤ N) :
     (N : ℤ) ≤ (∑ i ∈ Finset.range N, convolutionCoefficient i) +
       7 * (GoldenNormality.occurrences 2 1 0 N : ℤ) := by
-  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
-    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
-  have hp := positiveCarry_lt_original_zeros N hz
-  have hc := positiveCarry_sum_le 0 N
-  have hzero : positiveCarry 0 = 0 := by simp [positiveCarry]
-  simp only [Nat.zero_add, hzero, add_zero] at hc
-  have hmass := twice_positive_count_le_mass_add_units N
-  have hu := unitCarry_sum_le N
-  have hg := prefix_le_positive_count_and_zeros N
+  have h := original_zero_count_parity_overlap_bound N hN
+  have hd := diagonal_sum_le N
+  rw [diagonal_sum_eq, digit_sum_eq_original_zeros, digit_sum_eq_original_zeros] at hd
+  have ho : 0 ≤ ∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i :=
+    Finset.sum_nonneg fun i _ =>
+      mul_nonneg (digit_range i).1 (le_min (by decide) (le_max_right _ _))
+  have hu : 0 ≤ unitCarryIndicator N := by unfold unitCarryIndicator; split <;> omega
   omega
 
 private theorem zero_count_exceeds_from_pair_budget (leading linear : ℝ) (hl₀ : 0 ≤ linear)

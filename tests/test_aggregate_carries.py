@@ -40,9 +40,14 @@ class AggregateCarryTests(unittest.TestCase):
                 omitted = sum(i + j + 1 >= n for i in support for j in support)
                 pairs = sum(self.coefficients[:n])
                 self.assertLessEqual(positive, mass)
-                self.assertLessEqual(2 * units + (self.carries[n] == 1),
-                                     positive + zeros + diagonal)
-                self.assertLessEqual(units + (self.carries[n] == 1), zeros + diagonal)
+                terminal_unit = self.carries[n] == 1
+                terminal_positive = max(self.carries[n], 0)
+                self.assertLessEqual(2 * units + terminal_unit, positive + zeros + diagonal)
+                self.assertLessEqual(units + terminal_unit, zeros + diagonal)
+                self.assertLessEqual(
+                    n + 3 * overlap + terminal_unit,
+                    pairs + terminal_positive + 5 * zeros + diagonal + 1,
+                )
                 self.assertLessEqual(2 * positive, mass + units)
                 self.assertLessEqual(mass + 3 * overlap, pairs + max(self.carries[n], 0))
                 self.assertEqual(pairs + omitted, zeros**2)
@@ -65,6 +70,9 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
                     self.assertLessEqual(3 * n, 4 * pairs + 20 * zeros - 1)
+                    self.assertLessEqual(
+                        n + 3 * overlap + terminal_unit, pairs + 6 * zeros + diagonal,
+                    )
                     self.assertLessEqual(n, pairs + 7 * zeros)
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
