@@ -17,7 +17,7 @@ noncomputable def averageAt (x : ℝ) (h : ℤ) (N : ℕ) : ℂ :=
 theorem average_eq_averageAt (h : ℤ) (N : ℕ) :
     average h N = averageAt alpha h N := rfl
 
-private theorem exp_phase_distance (a b : ℝ) :
+theorem exp_phase_distance (a b : ℝ) :
     ‖Complex.exp ((a : ℂ) * Complex.I) - Complex.exp ((b : ℂ) * Complex.I)‖ ≤ |a - b| := by
   have harg : (((a - b : ℝ) : ℂ) * Complex.I) + (b : ℂ) * Complex.I =
       (a : ℂ) * Complex.I := by push_cast; ring
