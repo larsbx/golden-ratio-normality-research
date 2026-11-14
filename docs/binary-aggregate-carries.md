@@ -247,6 +247,26 @@ $i n$ with $1\le i\le16384$ satisfies $z_{in}>0.7978\sqrt{in}$.
 This gives a finite window for a constant near the previously proved
 limsup bound.
 
+## Limit of the checkpoint sum
+
+On the same interval $[\sqrt i,\sqrt{i+1}]$, the integrand of
+the quarter circle of squared radius $K$ is bounded above by
+$\sqrt{K-i}$. The checkpoint rectangle therefore covers that part
+of the quarter circle. Together with the larger circle comparison,
+this gives the two-sided estimate
+
+\[
+\frac{K\pi}{4}\le S_K\le\frac{(K+1)\pi}{4}.
+\]
+
+For $K>0$, the normalized sum differs from $\pi/4$ by between zero
+and $\pi/(4K)$. Lean checks convergence of $S_K/K$ to $\pi/4$.
+This identifies the leading coefficient of the specific square-root
+envelope calculation. Refining this partition estimate alone cannot
+lower that coefficient below $\pi/4$. A larger limsup bound from
+the carry approach would need more information, such as a stronger
+lower carry budget or additional constraints on the actual zero positions.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
