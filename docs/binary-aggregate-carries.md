@@ -267,6 +267,41 @@ lower that coefficient below $\pi/4$. A larger limsup bound from
 the carry approach would need more information, such as a stronger
 lower carry budget or additional constraints on the actual zero positions.
 
+## Carries of size one
+
+Let $U_N$ count the positions $i<N$ with $T_i=1$, and let $P_N$
+count positions with $T_i>0$. If $T_i=T_{i+1}=1$ and $d_i=0$,
+the recurrence gives $c_i=1$. Every off-diagonal pair would contribute
+twice, so this coefficient must come from $i=2j+1$ and $d_j=1$.
+The exact source has $T_3=T_4=1$, $d_3=0$ and $d_1=1$, so the
+diagonal exception is needed. This use of pair symmetry is related
+to the diagonal correction in [On the binary digits of $\sqrt2$](https://math.colgate.edu/~integers/s30/s30.pdf).
+
+Across any position $i$, the sum of the two size-one indicators at
+$i,i+1$ is bounded by the positive-carry indicator at $i$, the digit
+$d_i$, and the diagonal indicator. In particular, if only the second
+carry is one and $d_i=0$, backward positivity supplies the first
+positive-carry indicator. The diagonal indicators through $N-1$ sum
+to $z_{\lfloor N/2\rfloor}\le z_N$. Telescoping from $T_0=-1$
+gives $2U_N\le P_N+2z_N$. Positive carries contribute at least two
+units each except at the $U_N$ positions, hence
+$2P_N\le\sum_{i<N}p_i+U_N$.
+
+Combining these estimates with the gap count and the existing
+upper budget for positive-carry mass gives, for $N\ge2$,
+
+\[
+3N\le4\sum_{i<N}c_i+20z_N-1.
+\]
+
+Under a checkpoint envelope $z_{in}\le c\sqrt{in}$, the quarter-circle
+upper budget for $\sum_{i<Kn}c_i$ is $c^2n(K+1)\pi/4$. The new
+lower budget gives the contradiction for every $\pi c^2<3$ by
+taking the square partition size sufficiently large. Thus the
+limsup of $z_N/\sqrt N$ is at least $\sqrt{3/\pi}$. This is an
+arbitrarily-late exceedance result for constants strictly below
+$\sqrt{3/\pi}$.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`

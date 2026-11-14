@@ -62,6 +62,20 @@ theorem convolution_sum_le_partition (blocks n : ℕ) :
   · exact le_rfl
   · exact mul_nonneg (digit_range _).1 (digit_range _).1
 
+private theorem original_zero_count_pair_budget (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) ≤ 2 * (∑ i ∈ Finset.range N, convolutionCoefficient i) +
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) - 1 := by
+  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
+    binary_occurrences_at_least 1 0 _ (by decide) (by simpa using hN)
+  have hp := positiveCarry_lt_original_zeros N hz
+  have hs := positiveCarry_sum_le 0 N
+  simp only [Nat.zero_add] at hs
+  have hi := Finset.sum_le_sum (s := Finset.range N)
+    (fun i _ => positiveCarryIndicator_le i)
+  have h0 : 0 ≤ positiveCarry 0 := le_max_right _ _
+  have hl := prefix_le_positive_count_and_zeros N
+  omega
+
 /-- The gap count converts the partition estimate into a finite prefix bound. -/
 theorem original_zero_count_partition_bound (blocks n : ℕ) (hN : 2 ≤ blocks * n) :
     (blocks * n : ℤ) ≤ 2 * (∑ a ∈ Finset.range blocks,
@@ -69,17 +83,9 @@ theorem original_zero_count_partition_bound (blocks n : ℕ) (hN : 2 ≤ blocks 
           (GoldenNormality.occurrences 2 1 0 (a * n) : ℤ)) *
         (GoldenNormality.occurrences 2 1 0 ((blocks - a) * n) : ℤ)) +
       6 * (GoldenNormality.occurrences 2 1 0 (blocks * n) : ℤ) - 1 := by
-  have hz : 0 < GoldenNormality.occurrences 2 1 0 (blocks * n) :=
-    binary_occurrences_at_least 1 0 _ (by decide) (by simpa using hN)
-  have hp := positiveCarry_lt_original_zeros (blocks * n) hz
-  have hs := positiveCarry_sum_le 0 (blocks * n)
-  simp only [Nat.zero_add] at hs
-  have hi := Finset.sum_le_sum (s := Finset.range (blocks * n))
-    (fun i _ => positiveCarryIndicator_le i)
-  have h0 : 0 ≤ positiveCarry 0 := le_max_right _ _
-  have hc := convolution_sum_le_partition blocks n
-  have hl := prefix_le_positive_count_and_zeros (blocks * n)
-  push_cast at hl ⊢
+  have hb := original_zero_count_pair_budget (blocks * n) hN
+  have hm := convolution_sum_le_partition blocks n
+  push_cast at hb
   omega
 
 private theorem envelope_sum_le (f g : ℕ → ℝ) (w : ℕ → ℝ) (k : ℕ)
@@ -106,25 +112,22 @@ private theorem envelope_sum_le (f g : ℕ → ℝ) (w : ℕ → ℝ) (k : ℕ)
   have hprod := mul_nonneg (sub_nonneg.mpr (hfg k le_rfl)) (hw k le_rfl)
   linarith only [haux k le_rfl, hprod]
 
-/-- A nondecreasing envelope at all block endpoints bounds the pair budget.
-The use of increments is justified by summation by parts. -/
-theorem original_zero_count_partition_envelope (blocks n : ℕ) (hN : 2 ≤ blocks * n)
+/-- A nondecreasing envelope at all block endpoints bounds the pair mass
+by summation by parts. -/
+theorem convolution_sum_le_partition_envelope (blocks n : ℕ)
     (g : ℕ → ℝ) (hzero : g 0 = 0) (hmono : Monotone g)
     (hcap : ∀ i ≤ blocks, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤ g i) :
-    (blocks * n : ℝ) ≤ 2 * (∑ i ∈ Finset.range blocks,
-      (g (i + 1) - g i) * g (blocks - i)) + 6 * g blocks - 1 := by
+    (∑ i ∈ Finset.range (blocks * n), (convolutionCoefficient i : ℝ)) ≤
+      ∑ i ∈ Finset.range blocks, (g (i + 1) - g i) * g (blocks - i) := by
   let f := fun i : ℕ => (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ)
   have hfmono : Monotone f := by
     intro i j hij
     dsimp [f]
     exact_mod_cast GoldenNormality.occurrences_monotone 2 1 0
       (Nat.mul_le_mul_right n hij)
-  have hb := original_zero_count_partition_bound blocks n hN
-  have hb' : (blocks * n : ℝ) ≤ 2 * (∑ i ∈ Finset.range blocks,
-      (f (i + 1) - f i) * f (blocks - i)) + 6 * f blocks - 1 := by
-    have he := Int.cast_le (R := ℝ).mpr hb
-    simpa only [Int.cast_add, Int.cast_sub, Int.cast_mul, Int.cast_natCast,
-      Int.cast_one, Int.cast_ofNat, Int.cast_sum, Nat.cast_mul, f] using he
+  have hb := Int.cast_le (R := ℝ).mpr (convolution_sum_le_partition blocks n)
+  simp only [Int.cast_sum, Int.cast_mul, Int.cast_sub, Int.cast_natCast] at hb
+  change _ ≤ ∑ i ∈ Finset.range blocks, (f (i + 1) - f i) * f (blocks - i) at hb
   have hweight : (∑ i ∈ Finset.range blocks, (f (i + 1) - f i) * f (blocks - i)) ≤
       (∑ i ∈ Finset.range blocks, (f (i + 1) - f i) * g (blocks - i)) := by
     apply Finset.sum_le_sum
@@ -135,7 +138,19 @@ theorem original_zero_count_partition_envelope (blocks n : ℕ) (hN : 2 ≤ bloc
     (by simp [f, hzero, GoldenNormality.occurrences_zero]) hcap
     (fun i _ => by simpa only [hzero] using hmono (Nat.zero_le (blocks - i)))
     (fun i _ => hmono (by omega))
-  linarith only [hb', hweight, hsum, hcap blocks le_rfl]
+  exact hb.trans (hweight.trans hsum)
+
+/-- The original carry budget under a nondecreasing checkpoint envelope. -/
+theorem original_zero_count_partition_envelope (blocks n : ℕ) (hN : 2 ≤ blocks * n)
+    (g : ℕ → ℝ) (hzero : g 0 = 0) (hmono : Monotone g)
+    (hcap : ∀ i ≤ blocks, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤ g i) :
+    (blocks * n : ℝ) ≤ 2 * (∑ i ∈ Finset.range blocks,
+      (g (i + 1) - g i) * g (blocks - i)) + 6 * g blocks - 1 := by
+  have h := original_zero_count_pair_budget (blocks * n) hN
+  have hr := Int.cast_le (R := ℝ).mpr h
+  push_cast at hr
+  have hm := convolution_sum_le_partition_envelope blocks n g hzero hmono hcap
+  linarith only [hr, hm, hcap blocks le_rfl]
 
 -- The entries are rational upper bounds for the square roots of 0 through 8.
 private def eighthCap : ℕ → ℚ

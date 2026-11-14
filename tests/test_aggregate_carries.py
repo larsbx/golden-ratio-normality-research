@@ -31,6 +31,8 @@ class AggregateCarryTests(unittest.TestCase):
             with self.subTest(n=n):
                 prefix = self.carries[:n]
                 positive = sum(t > 0 for t in prefix)
+                units = prefix.count(1)
+                diagonal = sum(self.digits[:n // 2])
                 overlap = sum(t > 0 and d == 1 for t, d in zip(prefix, self.digits))
                 mass = sum(max(t, 0) for t in prefix)
                 support = [i for i, digit in enumerate(self.digits[:n]) if digit]
@@ -38,6 +40,9 @@ class AggregateCarryTests(unittest.TestCase):
                 omitted = sum(i + j + 1 >= n for i in support for j in support)
                 pairs = sum(self.coefficients[:n])
                 self.assertLessEqual(positive, mass)
+                self.assertLessEqual(2 * units + (self.carries[n] == 1),
+                                     positive + zeros + diagonal)
+                self.assertLessEqual(2 * positive, mass + units)
                 self.assertLessEqual(mass + 3 * overlap, pairs + max(self.carries[n], 0))
                 self.assertEqual(pairs + omitted, zeros**2)
                 for blocks in range(1, min(n, 16) + 1):
@@ -58,6 +63,7 @@ class AggregateCarryTests(unittest.TestCase):
                     self.assertLessEqual(upper_zeros**2 + 2 * second * fourth, omitted)
                 self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
+                    self.assertLessEqual(3 * n, 4 * pairs + 20 * zeros - 1)
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
 
@@ -110,6 +116,9 @@ class AggregateCarryTests(unittest.TestCase):
         # Position 9 is the first positive carry on a complementary one.
         self.assertEqual((self.digits[9], self.carries[9], self.carries[10],
                           self.coefficients[9]), (1, 1, 3, 2))
+        # A diagonal pair really can sustain two consecutive size-one carries.
+        self.assertEqual(self.carries[3:5], [1, 1])
+        self.assertEqual((self.digits[3], self.coefficients[3], self.digits[1]), (0, 1, 1))
         # At N=4 the two mixed pairs lie exactly on the cutoff and are omitted.
         self.assertEqual(self.digits[:4], [0, 1, 1, 0])
         self.assertEqual(sum(self.coefficients[:4]), 1)
