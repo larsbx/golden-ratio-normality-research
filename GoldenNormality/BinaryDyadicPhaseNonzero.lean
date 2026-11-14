@@ -129,11 +129,10 @@ theorem dyadicModularAverage_one_two : dyadicModularAverage 1 2 = 0 := by
     rw [← χ.map_zero_eq_one]
     exact fun h => (by decide : (2 : ZMod 4) ≠ 0) (ZMod.injective_stdAddChar h)
   have hχ : χ 2 = -1 := (sq_eq_one_iff.mp hpow).resolve_left hneq
-  change (∑ n ∈ Finset.range (1 + 1), χ ((scaledFloor 2 2 : ZMod 4) * 2 ^ n)) /
-    (2 : ℂ) = 0
-  rw [hf, Finset.sum_range_succ, Finset.sum_range_one]
-  change (χ (2 * 1) + χ (2 * 2)) / (2 : ℂ) = 0
-  rw [mul_one, show (2 : ZMod 4) * 2 = 0 by decide, hχ, AddChar.map_zero_eq_one]
-  simp
+  change (∑ n ∈ Finset.range (1 + 1), χ (((1 : ℤ) : ZMod 4) *
+    (scaledFloor 2 2 : ZMod 4) * 2 ^ n)) / ((2 : ℕ) : ℂ) = 0
+  simp only [hf, Int.cast_one, one_mul, Finset.sum_range_succ, Finset.sum_range_zero, zero_add,
+    pow_zero, pow_one, Int.cast_ofNat, mul_one, show (2 : ZMod 4) * 2 = 0 by decide,
+    hχ, AddChar.map_zero_eq_one, neg_add_cancel, zero_div]
 
 end GoldenNormality.BinaryDyadicOrbit
