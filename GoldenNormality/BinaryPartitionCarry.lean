@@ -53,7 +53,7 @@ theorem convolution_sum_le_partition (blocks n : ℕ) :
     have hj : (blocks - a) * n ≤ j := by simpa using hj
     unfold weight
     have hfalse : ¬ a * n + i + j + 1 < blocks * n := by omega
-    simp [weight, hfalse]
+    exact ite_eq_right hfalse
   rw [he]
   apply Finset.sum_le_sum
   intro j _
