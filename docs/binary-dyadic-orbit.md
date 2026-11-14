@@ -108,3 +108,21 @@ approximability alone. It does not concern the specific algebraic
 number \(\alpha\). See [Schmidt, *On badly approximable numbers and
 certain games*](https://doi.org/10.2307/1994619) and [Broderick,
 Fishman, and Kleinbock, Theorem 1.2 and Section 5](https://people.brandeis.edu/~kleinboc/Pub/bfkDec8.pdf).
+
+## A finite cutoff in frequency can miss a larger odd mode
+
+For every cutoff \(H\), choose \(k\) with \(3^k>H\) and use the
+rational source \(x=1/3^{k+1}\). The period of \(2^n\) modulo
+\(3^{k+1}\) has length \(2\cdot3^k\) and visits each unit once.
+The complete-period phase sum is the sum over all residues minus
+the sum over the multiples of three. For \(0<|h|\le H\), these are
+complete nontrivial character sums modulo \(3^{k+1}\) and \(3^k\),
+so both vanish. An incomplete last period contributes at most
+\(2\cdot3^k\) in magnitude, and the averages tend to zero. At the
+odd frequency \(h=3^{k+1}\), every phase is one.
+
+Lean checks this construction for every cutoff in
+`finite_modes_can_miss_larger_odd`. The rational source supplies a
+control for general doubling-orbit arguments. The golden-ratio
+source and its conditional cancellation statement are the same
+as in the preceding sections.
