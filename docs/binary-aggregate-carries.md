@@ -315,12 +315,28 @@ coefficient-one argument alone misses this transition.
 
 Every size-one carry is therefore charged to the preceding digit
 or diagonal contribution. Since $T_0=-1$, telescoping yields
-$U_N+\mathbf1_{T_N=1}\le z_N+z_{\lfloor N/2\rfloor}$, hence
-$U_N\le2z_N$. The same positive-carry mass and gap estimates now give
+$U_N+\mathbf1_{T_N=1}\le z_N+z_{\lfloor N/2\rfloor}$.
+Write $O_N=\sum_{i<N}d_i\mathbf1_{T_i>0}$ for the number of
+original zero positions with positive carry. Keeping the charge
+$3O_N$ from the positive-carry mass estimate yields, for every $N$,
 
 \[
-N\le\sum_{i<N}c_i+7z_N\qquad(N\ge2).
+N+3O_N+\mathbf1_{T_N=1}
+\le\sum_{i<N}c_i+\max(T_N,0)+5z_N+z_{\lfloor N/2\rfloor}+1.
 \]
+
+For $N\ge2$, $\max(T_N,0)\le z_N-1$, giving the checked inequality
+
+\[
+N+3O_N+\mathbf1_{T_N=1}
+\le\sum_{i<N}c_i+6z_N+z_{\lfloor N/2\rfloor}.
+\]
+
+Dropping the nonnegative terms on the left and using
+$z_{\lfloor N/2\rfloor}\le z_N$ yields the published bound
+$N\le\sum_{i<N}c_i+7z_N$. The tighter budget retains the position
+overlap and half-prefix count. Its leading convolution coefficient
+is still one.
 
 The quarter-circle envelope would force the leading coefficient
 of $N$ on the right to be at most $\pi c^2/4$. The positive gap
