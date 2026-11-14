@@ -19,6 +19,25 @@ class DyadicModularTests(unittest.TestCase):
                         (mode * suffix) % modulus,
                     )
 
+    def test_complete_frequency_collision_count(self):
+        for length in range(1, 65):
+            modulus = 1 << length
+            numerator = prefix_value(2, length)
+            residues = [(numerator << start) % modulus for start in range(length)]
+            if numerator % 2:
+                self.assertEqual(len(set(residues)), length)
+                self.assertEqual(
+                    sum(left == right for left in residues for right in residues), length,
+                )
+
+        for length in range(1, 7):
+            modulus = 1 << length
+            for numerator in range(1, modulus, 2):
+                self.assertEqual(
+                    {frequency * numerator % modulus for frequency in range(modulus)},
+                    set(range(modulus)),
+                )
+
     def test_balanced_digit_count_does_not_cancel_first_mode(self):
         length = 10
         modulus = 1 << length
