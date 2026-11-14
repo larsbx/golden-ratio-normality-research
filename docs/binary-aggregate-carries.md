@@ -231,6 +231,22 @@ $\sqrt2$ in Remark 1 of [On the binary digits of $\sqrt2$](https://math.colgate.
 Here the input is the original zero count and the lower carry budget
 comes from the signed quadratic, yielding a different constant.
 
+## A constant error and a finite checkpoint window
+
+The rectangle over $[\sqrt i,\sqrt{i+1}]$ already lies under
+$\sqrt{K+1-x^2}$. Indeed $x^2\le i+1$ implies $K-i\le K+1-x^2$.
+The integrand is nonnegative on the remaining interval from $\sqrt K$
+to $\sqrt{K+1}$. The scaled quarter-circle integral therefore gives
+the stronger bound $S_K\le (K+1)\pi/4$. Its additive error relative to
+$K\pi/4$ is at most $\pi/4$ for every $K$.
+
+Take $K=16384$ and $c=3989/5000$. Since $\pi<3.1416$,
+$K-c^2(K+1)\pi/2>2.4345$. For $\sqrt n\ge256$ this margin absorbs
+$6c\sqrt K=612.7104$. Hence for every $n\ge65536$, some checkpoint
+$i n$ with $1\le i\le16384$ satisfies $z_{in}>0.7978\sqrt{in}$.
+This gives a finite window for a constant near the previously proved
+limsup bound.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`

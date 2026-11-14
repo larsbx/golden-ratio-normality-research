@@ -61,6 +61,18 @@ class AggregateCarryTests(unittest.TestCase):
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
 
+    def test_constant_error_checkpoint_parameters(self):
+        blocks, radius, threshold_root = 16_384, 128, 256
+        numerator, denominator = 3_989, 5_000
+        pi_numerator, pi_denominator = 31_416, 10_000
+        self.assertEqual(radius**2, blocks)
+        # Clear denominators in the margin K - c² (K + 1) π / 2.
+        margin = (2 * blocks * denominator**2 * pi_denominator
+                  - numerator**2 * (blocks + 1) * pi_numerator)
+        self.assertGreater(margin, 0)
+        self.assertGreaterEqual(margin * threshold_root,
+                                12 * numerator * radius * denominator * pi_denominator)
+
     def test_root_checkpoint_certificate(self):
         scale, blocks, threshold_root = 10_000, 64, 256
         caps = [0] + [isqrt(scale**2 * i) + 1 for i in range(1, blocks + 1)]
