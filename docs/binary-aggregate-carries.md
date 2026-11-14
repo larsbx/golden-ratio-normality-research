@@ -134,6 +134,32 @@ earlier bound is $1/\sqrt2$ in the limit. The two-prefix guarantee does
 not supply the larger constant at every sufficiently large prefix or
 imply a digit frequency.
 
+## Four checkpoints
+
+At $N=4n$, in addition to the upper-half square, the omitted pairs
+include the second quarter crossed with the fourth quarter, in both
+orders. The three rectangles are disjoint. Thus
+
+\[
+E_{4n}\ge (z_{4n}-z_{2n})^2
+       +2(z_{2n}-z_n)(z_{4n}-z_{3n}).
+\]
+
+At $N=8$, the two additional rectangles contribute one pair each.
+The contribution survives at the exact cutoff convention used above.
+
+Put $(a,b,d,x)=(z_n,z_{2n},z_{3n},z_{4n})$. The carry inequality now
+gives $4n\le 4xa+4bd-2b^2-4ad+6x-1$. If all four checkpoints stay
+under $0.76\sqrt N$, put $A=0.76\sqrt n$ and bound
+$(a,b,d,x)$ by $(A,1.415A,1.733A,2A)$. The polynomial increases under
+successively replacing $x,d,b,a$ by these bounds. The signs use
+$a\ge0$, $b\ge a$, $1.733A\ge1.415A$, and $2A\ge1.733A$.
+The resulting quadratic coefficient in $n$ is exactly $3.969457808$.
+For $\sqrt n\ge512$, the gap to $4n$ dominates the linear term
+$9.12\sqrt n$. Thus for every $n\ge262144$, at least one of
+$n,2n,3n,4n$ exceeds $0.76\sqrt N$. In particular the limsup is at least
+$0.76$. This establishes a bound at arbitrarily large prefixes.
+
 ## Replay and adversarial controls
 
 Run `python3 -m unittest discover -s tests -p test_aggregate_carries.py -v`
