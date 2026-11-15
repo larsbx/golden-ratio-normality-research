@@ -475,4 +475,43 @@ theorem complementCarryPositiveTrigger (N : ℕ)
     (hzero2 : BinaryComplement.digit (N + 2) = 0) : 0 < BinaryComplement.carry N :=
   BinaryComplement.carry_positive_of_convolution_three_zeroes N hconvolution hzero hzero1 hzero2
 
+theorem fixedFrequencyDigit (n : ℕ) :
+    digit 2 n = 1 ↔
+      2 * (2 * scaledFloor 2 n + (2 : ℤ) ^ n) + 1 ≤
+        4 * residual ((2 : ℤ) ^ n) (scaledFloor 2 n) :=
+  BinaryDyadicOrbit.actual_digit_eq_one_iff_residual n
+
+theorem fixedFrequencyTransitions (N : ℕ) :
+    (N : ℝ) * ‖BinaryDyadicOrbit.dyadicModularAverage 1 N‖ +
+      (1 - Real.sqrt 2 / 2) * ((BinaryDyadicOrbit.transitionStarts N).card : ℝ) ≤ (N : ℝ) :=
+  BinaryDyadicOrbit.norm_dyadicModularAverage_one_mul_add_transition_le N
+
+theorem fixedFrequencyLogDeficit (k N : ℕ) (hk : 2 ^ k ≤ N) :
+    (N : ℝ) * ‖BinaryDyadicOrbit.dyadicModularAverage 1 N‖ +
+      (1 - Real.sqrt 2 / 2) * (k : ℝ) ≤ (N : ℝ) :=
+  BinaryDyadicOrbit.norm_dyadicModularAverage_one_mul_add_log_le k N hk
+
+theorem fixedFrequencyResidualAverage (h : ℤ) (N : ℕ) :
+    ‖BinaryDyadicOrbit.dyadicModularAverage h N - BinaryDyadicOrbit.residualProxyAverage h N‖ ≤
+      6 * Real.pi * |(h : ℝ)| / (N : ℝ) :=
+  BinaryDyadicOrbit.norm_dyadicModularAverage_sub_residualProxyAverage_le h N
+
+open Filter in
+open scoped Topology in
+theorem sparseLagNormality :
+    NormalInBase 2 ↔ ∀ h : ℤ, h % 2 = 1 →
+      ∀ d : ℕ, 0 < d → ∀ η : ℝ, 0 < η →
+        ∀ᶠ N : ℕ in atTop,
+          (BinaryDyadicOrbit.dyadicModularAverage (((2 : ℤ) ^ (2 ^ h.natAbs * d) - 1) * h) N).re ≤ η :=
+  BinaryDyadicOrbit.normalInBase_iff_sparse_lag_upper
+
+theorem fixedFrequencyLagUpper (h : ℤ) (L H N : ℕ) (hH : 0 < H) (hN : 0 < N)
+    (η : ℝ) (hη : 0 ≤ η)
+    (hlag : ∀ d, 0 < d → d < H →
+      (BinaryDyadicOrbit.dyadicModularAverage (((2 : ℤ) ^ (L * d) - 1) * h) N).re ≤ η) :
+    ‖BinaryDyadicOrbit.dyadicModularAverage h N‖ ≤
+      Real.sqrt (1 / (H : ℝ) + η + 2 * ((L * H : ℕ) : ℝ) / N) +
+        2 * ((L * H : ℕ) : ℝ) / (N : ℝ) :=
+  BinaryDyadicOrbit.norm_dyadicModularAverage_le_of_lag_upper h L H N hH hN η hη hlag
+
 end GoldenNormality.Contracts

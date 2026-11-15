@@ -315,17 +315,51 @@ coefficient-one argument alone misses this transition.
 
 Every size-one carry is therefore charged to the preceding digit
 or diagonal contribution. Since $T_0=-1$, telescoping yields
-$U_N+\mathbf1_{T_N=1}\le z_N+z_{\lfloor N/2\rfloor}$, hence
-$U_N\le2z_N$. The same positive-carry mass and gap estimates now give
+$U_N+\mathbf1_{T_N=1}\le z_N+z_{\lfloor N/2\rfloor}$.
+Write $O_N=\sum_{i<N}d_i\mathbf1_{T_i>0}$ for the number of
+original zero positions with positive carry. Keeping the charge
+$3O_N$ from the positive-carry mass estimate yields, for every $N$,
 
 \[
-N\le\sum_{i<N}c_i+7z_N\qquad(N\ge2).
+N+3O_N+\mathbf1_{T_N=1}
+\le\sum_{i<N}c_i+\max(T_N,0)+5z_N+z_{\lfloor N/2\rfloor}+1.
 \]
+
+For $N\ge2$, $\max(T_N,0)\le z_N-1$, giving the checked inequality
+
+\[
+N+3O_N+\mathbf1_{T_N=1}
+\le\sum_{i<N}c_i+6z_N+z_{\lfloor N/2\rfloor}.
+\]
+
+Dropping the nonnegative terms on the left and using
+$z_{\lfloor N/2\rfloor}\le z_N$ yields the published bound
+$N\le\sum_{i<N}c_i+7z_N$. The tighter budget retains the position
+overlap and half-prefix count. Its leading convolution coefficient
+is still one.
 
 The quarter-circle envelope would force the leading coefficient
 of $N$ on the right to be at most $\pi c^2/4$. The positive gap
 when $\pi c^2<4$ gives arbitrarily late exceedances of $c\sqrt N$.
 Thus the limsup lower bound becomes $2/\sqrt\pi$.
+
+## Explicit thresholds from the parity bound
+
+The total truncated convolution is at most $z_N^2$, so every $N\ge2$
+satisfies $N\le z_N^2+7z_N$. In particular, for $0\le c<1$ and
+$7c<(1-c^2)\sqrt N$, the count satisfies $z_N>c\sqrt N$. This gives
+a liminf lower bound of $1$. Taking $c=99/100$ and $\sqrt N\ge350$
+gives $z_N>0.99\sqrt N$ for every $N\ge122500$.
+
+For a checkpoint window of width $n$ and length $K$, define
+$\Delta=K-c^2(K+1)\pi/4$. If $Kn\ge2$ and
+$\Delta\sqrt n>7c\sqrt K$, some checkpoint $in$ with $1\le i\le K$
+satisfies $z_{in}>c\sqrt{in}$. Indeed, if all the checkpoints satisfied
+the envelope, the pair budget would be at most
+$c^2n(K+1)\pi/4$ and the linear term at most $7c\sqrt{Kn}$.
+For $K=1024$, $c=9/8$, and $\pi<3.1416$, the lower bound on $\Delta$
+is $65633/12800$. Its product with $50$ exceeds $7c\sqrt K=252$,
+so the test applies for every width $n\ge2500$.
 
 ## Replay and adversarial controls
 
@@ -337,3 +371,50 @@ defining floor products. Actual positions 5 and 13 witness, respectively,
 failure of the two-zero trigger and failure of the shifted estimate with
 the right boundary deleted. Only two of the first eight carries are positive,
 so an unconditional half-prefix count would also be false.
+
+## From local recurrence to stronger square-root constants
+
+Suppose that for each start $m$ there is an actual complementary one
+at $j\ge m$ with $Bj\le Am+D$, for positive integers $A,B$.
+Inside a complementary-zero gap of length $L$ after position $a$,
+take $m=\lfloor(B(L-3)-D)/A\rfloor$ when $B L>3B+D$.
+The resulting $j$ satisfies $j\le L-3$. The pair $(a,j)$ gives
+a positive coefficient at $a+j+1$, and the three following
+digit positions starting there stay inside the gap. Positivity
+propagates backward through the gap, producing at least $j+1$
+positive carries. Lean checks this implication and the prefix
+partition, as well as the bound
+
+\[
+2BN\le A\sum_{i<N}c_i+(3A+8B+2D)z_N+2B.
+\]
+
+For a fixed admissible slope $A/B$, Lean proves an eventual
+lower bound $z_N>c\sqrt N$ for every $c\ge0$ with $A c^2<2B$.
+The same argument using the semicircle convolution envelope gives
+arbitrarily late exceedances whenever $\pi A c^2<8B$.
+
+Lean also checks the transfer from the following explicit
+approximation hypothesis to the required family of recurrences
+with $A=B+1$. For each $B>0$, there is a threshold after which
+all $m$ and all integers $p$ satisfy
+
+\[
+|2^m\alpha-p|^B 2^m\ge1.
+\]
+
+David Ridout's theorem supplies that hypothesis in classical
+mathematics. Take the prime set $\{2\}$ and the exponent
+$\varepsilon=1/B$ in its dyadic denominator case. For the
+finitely many early exponents, the exact quadratic-norm estimate
+gives $|2^m\alpha-p|\,2^{m+2}\ge1$, uniformly in $p$.
+With the stated external input, the checked transfer gives
+$\liminf z_N/\sqrt N\ge\sqrt2$ and
+$\limsup z_N/\sqrt N\ge\sqrt{8/\pi}$.
+The Diophantine theorem remains an explicit hypothesis in Lean.
+The additive allowance matters even for slope $3/2$. The actual
+original ones at positions 3 through 6 exclude $D\le4$ at that slope.
+These are lower bounds on a single digit count. The odd
+Fourier modes of the actual orbit still require cancellation.
+See [Ridout, *Rational approximations to algebraic numbers*](https://doi.org/10.1112/S0025579300001182)
+and [Bugeaud, equation (2.2)](https://www.numdam.org/item/10.5802/jtnb.749.pdf).

@@ -208,7 +208,7 @@ private theorem digit_one_recurs (start : ℕ) :
   obtain ⟨j, hl, hu, hd⟩ := binary_digit_symbol_recurs start 0 (by decide)
   exact ⟨j, hl, hu, by simp [digit_eq_complement, hd]⟩
 
-private theorem convolution_pos_of_ones {a j : ℕ}
+theorem convolution_pos_of_ones {a j : ℕ}
     (ha : digit a = 1) (hj : digit j = 1) :
     0 < convolutionCoefficient (a + j + 1) := by
   unfold convolutionCoefficient
@@ -219,10 +219,10 @@ private theorem convolution_pos_of_ones {a j : ℕ}
   rw [show a + j + 1 - 1 - a = j by omega, ha, hj, mul_one] at hle
   omega
 
-private theorem indicator_nonneg (i : ℕ) : 0 ≤ positiveCarryIndicator i :=
+theorem indicator_nonneg (i : ℕ) : 0 ≤ positiveCarryIndicator i :=
   le_min (by decide) (le_max_right _ _)
 
-private theorem indicator_eq_one {i : ℕ} (h : 0 < carry i) :
+theorem indicator_eq_one {i : ℕ} (h : 0 < carry i) :
     positiveCarryIndicator i = 1 := by
   unfold positiveCarryIndicator positiveCarry
   exact min_eq_left ((show 1 ≤ carry i by omega).trans (le_max_left _ _))
@@ -283,18 +283,23 @@ private theorem last_one_or_all_zero (N : ℕ) :
       · simpa [he] using hz
       · exact hgap i (by omega)
 
-/-- Partition a prefix at its last complementary one and apply the gap bound
-recursively. An initial zero segment costs at most one position. -/
-theorem prefix_le_positive_count_and_zeros (N : ℕ) :
-    (N : ℤ) ≤ 2 * (∑ i ∈ Finset.range N, positiveCarryIndicator i) +
-      4 * (GoldenNormality.occurrences 2 1 0 N : ℤ) + 1 := by
+/-- A bound on each post-one gap transfers to the whole prefix.
+The initial zero segment costs at most one position. -/
+theorem prefix_gap_budget (s t C : ℕ)
+    (gap : ∀ a length : ℕ, digit a = 1 →
+      (∀ i : ℕ, a < i → i < a + 1 + length → digit i = 0) →
+      (s : ℤ) * (length : ℤ) ≤ (t : ℤ) * (∑ i ∈ Finset.range length,
+        positiveCarryIndicator (a + 1 + i)) + (C : ℤ))
+    (N : ℕ) :
+    (s : ℤ) * (N : ℤ) ≤ (t : ℤ) * (∑ i ∈ Finset.range N, positiveCarryIndicator i) +
+      ((C : ℤ) + s) * (GoldenNormality.occurrences 2 1 0 N : ℤ) + (s : ℤ) := by
   simp only [← digit_sum_eq_original_zeros]
   induction N using Nat.strong_induction_on with
   | h N ih =>
     rcases last_one_or_all_zero N with ⟨a, ha, hd, hgap⟩ | hgap
     · let length := N - (a + 1)
       have hN : a + 1 + length = N := by dsimp [length]; omega
-      have hg := zero_gap_le_twice_positive_count a length hd (by simpa [hN] using hgap)
+      have hg := gap a length hd (by simpa [hN] using hgap)
       have hzero : (∑ i ∈ Finset.range length, digit (a + 1 + i)) = 0 := by
         apply Finset.sum_eq_zero
         intro i hi
@@ -312,7 +317,8 @@ theorem prefix_le_positive_count_and_zeros (N : ℕ) :
           hd, hzero, add_zero]
       rw [hcount, hdigits, ← hN]
       push_cast
-      omega
+      have hdecomp : (N : ℤ) = (a : ℤ) + 1 + (length : ℤ) := by exact_mod_cast hN.symm
+      nlinarith only [hp, hg, hdecomp, mul_nonneg (Int.natCast_nonneg t) hi]
     · obtain ⟨j, _, hj, hd⟩ := digit_one_recurs 0
       have hN : N ≤ 1 := by
         by_contra hn
@@ -320,7 +326,23 @@ theorem prefix_le_positive_count_and_zeros (N : ℕ) :
         omega
       have hi := Finset.sum_nonneg (s := Finset.range N) (fun i _ => indicator_nonneg i)
       have hz := Finset.sum_nonneg (s := Finset.range N) (fun i _ => (digit_range i).1)
-      omega
+      have hn : (N : ℤ) ≤ 1 := by exact_mod_cast hN
+      nlinarith only [mul_le_mul_of_nonneg_left hn (Int.natCast_nonneg s),
+        mul_nonneg (Int.natCast_nonneg t) hi,
+        mul_nonneg (by positivity : 0 ≤ (C : ℤ) + s) hz]
+
+/-- Partition a prefix at its last complementary one and apply the gap bound
+recursively. An initial zero segment costs at most one position. -/
+theorem prefix_le_positive_count_and_zeros (N : ℕ) :
+    (N : ℤ) ≤ 2 * (∑ i ∈ Finset.range N, positiveCarryIndicator i) +
+      4 * (GoldenNormality.occurrences 2 1 0 N : ℤ) + 1 := by
+  have hg (a length : ℕ) (ha : digit a = 1)
+      (hz : ∀ i : ℕ, a < i → i < a + 1 + length → digit i = 0) :
+      ((1 : ℕ) : ℤ) * (length : ℤ) ≤ ((2 : ℕ) : ℤ) *
+        (∑ i ∈ Finset.range length, positiveCarryIndicator (a + 1 + i)) +
+          ((3 : ℕ) : ℤ) := by
+    simpa using zero_gap_le_twice_positive_count a length ha hz
+  simpa using prefix_gap_budget 1 2 3 hg N
 
 /-- An explicit square-root-scale lower bound on the actual original zero count.
 The bound applies to every prefix of length at least two. -/
