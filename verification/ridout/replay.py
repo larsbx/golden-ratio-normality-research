@@ -57,6 +57,7 @@ def import_closure():
     roots = {
         "GoldenNormality": ROOT,
         "RidoutReplay": HERE,
+        "RidoutBridge": HERE,
         "DiophantineApproximation": HERE / ".lake/packages/SubspaceTheorems",
         "ArithmeticHeights": HERE / ".lake/packages/SubspaceTheorems",
         "FiniteMathKernels": HERE / ".lake/packages/FiniteMathKernels/tests/lean",

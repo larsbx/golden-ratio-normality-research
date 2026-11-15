@@ -28,3 +28,6 @@ srcDir = "../.."
 
 [[lean_lib]]
 name = "RidoutReplay"
+
+[[lean_lib]]
+name = "RidoutBridge"
