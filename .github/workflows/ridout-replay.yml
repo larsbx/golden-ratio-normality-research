@@ -42,16 +42,21 @@ jobs:
           path: verification/ridout/.lake
           key: ridout-${{ runner.os }}-${{ hashFiles('verification/ridout/lean-toolchain', 'verification/ridout/lake-manifest.json') }}-${{ github.sha }}
           restore-keys: ridout-${{ runner.os }}-${{ hashFiles('verification/ridout/lean-toolchain', 'verification/ridout/lake-manifest.json') }}-
-      - name: Install isolated pinned Lean
-        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
-        with:
-          lake-package-directory: verification/ridout
-          auto-config: 'false'
-          build: 'false'
-          test: 'false'
-          lint: 'false'
-          use-mathlib-cache: 'false'
-          use-github-cache: 'false'
+      - name: Install checksum-verified Lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          ridout_toolchain_dir="$RUNNER_TEMP/gnr-ridout-toolchain"
+          mkdir -p "$ridout_toolchain_dir"
+          curl --fail --silent --show-error --location \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0-rc3/lean-4.35.0-rc3-linux.tar.zst \
+            -o "$ridout_toolchain_dir/lean.tar.zst"
+          printf '%s  %s\n' \
+            1526de16c0496f16b46a168f26c990af4e3796505273c3342fec17d72d763997 \
+            "$ridout_toolchain_dir/lean.tar.zst" | sha256sum --check
+          tar --zstd -xf "$ridout_toolchain_dir/lean.tar.zst" -C "$ridout_toolchain_dir"
+          printf '%s\n' \
+            "$ridout_toolchain_dir/lean-4.35.0-rc3-linux/bin" >> "$GITHUB_PATH"
       - name: Compile source closure and inspect axioms
         run: python3 replay.py
       - name: Retain dependency builds

@@ -7,30 +7,83 @@ the same checkout through srcDir = "../.."; no contract or carry theorem is copi
 
 ## The proof
 
-For an irrational algebraic real ξ in (0,1), Ridout's theorem is applied with
-no numerator primes, the single denominator prime 2, and epsilon = 1/B.
-Its height is the reduced rational height max(|num|,den). Restricting candidates
-to [0,1] makes this height equal to den. The denominator of p/2^m divides 2^m,
-so the external prime-product identity gives the exact factor 1/den, including
-when p is even. The powered candidate condition is converted to Ridout's real
-exponent inequality without weakening the exponent.
+Let $\alpha=(\sqrt5-1)/2=\varphi-1$ and let
+$z_N=\operatorname{occurrences}(2,1,0,N)$ be the number of zeros among its
+first $N$ binary digits, indexed from zero after the radix point.
 
-If the eventual dyadic inequality failed, the resulting reduced dyadic
-candidates would approach ξ arbitrarily closely. An irrational real has positive
-distance from every member of a finite set of rationals, giving a contradiction.
-This handles repeated representations of the same rational; no injectivity of
-(m,p) -> p/2^m is assumed.
+### Exact input and finite exceptional set
 
-The application proves algebraicity of alpha from X^2+X-1, uses the existing
-irrationality theorem, and targets the exact BinaryComplement.EventualDyadicSeparation
-definition. Its source then applies the existing carry transfer to state:
+For a real $\xi$ with $0<\xi<1$, the two mathematical hypotheses are
+`IsAlgebraic ℚ ξ` and `Irrational ξ`. For each positive integer $B$, define
 
-* For c >= 0 and c^2 < 2, eventually the actual original zero count exceeds
-  c*sqrt(N).
-* For c >= 0 and pi*c^2 < 8, arbitrarily late prefixes exceed c*sqrt(N).
+$$
+X_B=\left\{r\in\mathbb Q:\ 0\le r\le1,\quad
+q\mid2^m\text{ for some }m,\quad
+|\xi-r|^Bq^{B+1}\le1\right\},
+$$
 
-These are ineffective square-root-scale bounds. They do not give frequency 1/2,
-positive lower density, block normality, or cancellation of the actual binary orbit.
+where $q$ is the positive reduced denominator of $r$. The theorem
+`finite_dyadicCandidates` proves that $X_B$ is finite, using the actual
+`Rat.finite_setOf_ridout` with no numerator primes, denominator primes
+`Nat.primesOf 2`, and $\varepsilon=1/B$.
+
+This specialization keeps Ridout's reduced height. On $[0,1]$,
+$\max(|\operatorname{num}(r)|,q)=q$. Since $q\mid2^m$, all its prime factors
+are two, so `Rat.prod_padicNorm_natCast` gives the exact local factor $1/q$.
+The powered condition yields
+
+$$
+|\xi-r|\le q^{-1-1/B},\qquad
+|\xi-r|\,|q|_2\le q^{-2-1/B},
+$$
+
+which is precisely the required Ridout inequality. The proof uses the reduced
+denominator even when the original numerator is even.
+
+### From finite rationals to all integer numerators
+
+The theorem `eventualDyadicSeparation_of_finite_candidates` proves
+
+$$
+\forall B\ge1\;\exists M_B\;\forall m\ge M_B\;\forall p\in\mathbb Z,
+\qquad |2^m\xi-p|^B2^m\ge1.
+$$
+
+To check this step independently, suppose the bound fails at arbitrarily large
+$m$. Put $Q=2^m$ and $r=p/Q$. A failure gives
+
+$$
+|\xi-r|^BQ^{B+1}<1.
+$$
+
+The reduced denominator $q$ divides $Q$, so replacing $Q$ by $q$ preserves the
+upper bound. Also $|Q\xi-p|\le1$, hence $|\xi-r|\le2^{-m}$. For sufficiently
+large $m$, this puts $r$ in $[0,1]$ and in $X_B$, with error arbitrarily close
+to zero. Every element of the finite set $X_B$ has positive distance from the
+irrational $\xi$; its minimum distance is therefore positive, a contradiction.
+This argument covers repeated representations of the same rational.
+
+### Golden-ratio specialization and count consequences
+
+`algebraic_alpha` uses the nonzero polynomial $X^2+X-1$ and the existing exact
+quadratic identity. The existing `BinaryDyadicOrbit.irrational_alpha` supplies
+irrationality. `alpha_eventualDyadicSeparation` then proves the exact existing
+`BinaryComplement.EventualDyadicSeparation` definition, including all integer
+numerators and its original order of quantifiers.
+
+The existing carry transfer gives these two endpoint statements:
+
+| Theorem | Exact hypotheses and conclusion |
+|---|---|
+| `zero_count_eventually_exceeds` | For every real $c\ge0$ with $c^2<2$, there is $M$ such that every $N\ge M$ satisfies $z_N>c\sqrt N$. |
+| `zero_count_exceeds` | For every real $c\ge0$ with $\pi c^2<8$ and every natural $M$, there is $N\ge M$ with $z_N>c\sqrt N$. |
+
+These imply, mathematically, $\liminf z_N/\sqrt N\ge\sqrt2$ and
+$\limsup z_N/\sqrt N\ge\sqrt{8/\pi}$. The Lean endpoints retain the quantified
+inequalities in the table, rather than defining a new liminf/limsup interface.
+Ridout supplies no computable cutoff here. These square-root-scale lower bounds
+do not give frequency $1/2$, positive lower density, block normality, or
+cancellation of the actual binary orbit.
 
 ## Replay and acceptance
 
@@ -38,9 +91,11 @@ Run from this directory:
 
     python3 replay.py
 
-The replay verifies every locked dependency revision and tracked-source
-cleanliness, obtains the required Mathlib cache roots, builds the selected
-proof closure, and records source hashes and a compiled axiom audit under build/.
+The replay verifies every locked dependency revision, binds all imported source
+and audit/configuration bytes to their owning repository's exact Git blobs,
+obtains the required Mathlib cache roots, builds the selected proof closure,
+and records source hashes and a compiled axiom audit under build/. It repeats
+the source, configuration, and HEAD checks before accepting the result.
 The audit fixes the full Ridout type and the exact dyadic and zero-count types,
 and permits only propext, Classical.choice, and Quot.sound. A rational 1/2 control
 shows why algebraicity alone cannot imply the all-numerator separation statement;
@@ -55,6 +110,11 @@ directory.
 This is a proof-only acceptance lane. It is separate from the root project's full
 native Mojo/Python acceptance. A successful isolated replay does not migrate the
 root toolchain or make this dependency available to the root default build.
+
+Hosted replay installs the official Lean release archive directly and checks
+SHA-256 `1526de16c0496f16b46a168f26c990af4e3796505273c3342fec17d72d763997`.
+The expected Lean binary reports compiler commit
+`470d5ce1400764999581fd26d5d72b00d990b0f4`.
 
 ## Provenance
 

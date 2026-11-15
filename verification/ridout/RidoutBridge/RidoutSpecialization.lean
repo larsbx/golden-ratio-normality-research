@@ -16,7 +16,8 @@ private theorem weighted_power_le_ridout_bound
   have hBr : (0 : ℝ) < B := by exact_mod_cast hB
   have hexp : (-1 - (B : ℝ)⁻¹) * (B : ℝ) = -((B + 1 : ℕ) : ℝ) := by
     push_cast
-    field_simp [hBr.ne'] <;> ring
+    field_simp [hBr.ne']
+    ring
   have hpow :
       (q ^ (-1 - (B : ℝ)⁻¹)) ^ (B : ℝ) = 1 / q ^ (B + 1) := by
     calc
@@ -81,7 +82,7 @@ theorem finite_dyadicCandidates
     have hh := congrArg (fun z : ℚ => (z : ℝ)) hpQ
     push_cast at hh
     exact hh
-  simp only [Set.mem_setOf_eq, Finset.prod_empty, mul_one]
+  simp only [Set.mem_ofPred_eq, Finset.prod_empty, mul_one]
   rw [hprod, hheight]
   exact weighted_power_le_ridout_bound (abs_nonneg _) hqpos hB hweight
 

@@ -33,7 +33,7 @@ theorem eventualDyadicSeparation_of_finite_candidates {ξ : ℝ}
   classical
   intro B hB
   by_contra hfail
-  push_neg at hfail
+  push Not at hfail
   have hinf : (DyadicCandidates ξ B).Infinite := by
     refine infinite_of_arbitrarily_close hirr ?_
     intro η hη
@@ -66,7 +66,8 @@ theorem eventualDyadicSeparation_of_finite_candidates {ξ : ℝ}
       (pow_le_one_iff_of_nonneg (abs_nonneg _) hB.ne').mp hscaledpow
     have hβcast : (β : ℝ) = (p : ℝ) / (q : ℝ) := by
       dsimp [β]
-      push_cast <;> rfl
+      push_cast
+      rfl
     have hscale : |ξ - (β : ℝ)| * (q : ℝ) = |(q : ℝ) * ξ - (p : ℝ)| := by
       calc
         |ξ - (β : ℝ)| * (q : ℝ) = |(ξ - (β : ℝ)) * (q : ℝ)| := by
@@ -74,7 +75,7 @@ theorem eventualDyadicSeparation_of_finite_candidates {ξ : ℝ}
         _ = |(q : ℝ) * ξ - (p : ℝ)| := by
           congr 1
           rw [hβcast]
-          field_simp [ne_of_gt hqpos] <;> ring
+          field_simp [ne_of_gt hqpos]
     have hdist : |ξ - (β : ℝ)| ≤ (q : ℝ)⁻¹ := by
       rw [← one_div, le_div_iff₀ hqpos, hscale]
       exact hscaledle
@@ -89,7 +90,8 @@ theorem eventualDyadicSeparation_of_finite_candidates {ξ : ℝ}
       have hd := Rat.den_dvd p (q : ℤ)
       have hβdiv : β = Rat.divInt p (q : ℤ) := by
         rw [Rat.divInt_eq_div]
-        push_cast <;> rfl
+        push_cast
+        rfl
       rw [hβdiv]
       exact_mod_cast hd
     have hdenle : (β.den : ℝ) ≤ (q : ℝ) := by

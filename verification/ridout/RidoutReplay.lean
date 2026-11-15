@@ -13,7 +13,7 @@ theorem algebraic_alpha : IsAlgebraic ℚ GoldenNormality.alpha := by
   · intro hzero
     have hcoeff := congrArg (fun p : Polynomial ℚ => p.coeff 2) hzero
     norm_num [Polynomial.coeff_sub, Polynomial.coeff_add,
-      Polynomial.coeff_X_pow] at hcoeff
+      Polynomial.coeff_X_pow, Polynomial.coeff_X, Polynomial.coeff_one] at hcoeff
   · rw [Polynomial.aeval_sub, Polynomial.aeval_add,
       Polynomial.aeval_X_pow, Polynomial.aeval_X, Polynomial.aeval_one]
     exact sub_eq_zero.mpr GoldenNormality.alpha_quadratic
