@@ -19,6 +19,8 @@ import power_controls
 import checkpoint_controls
 import sparsity_controls
 import run_controls
+import fixed_frequency_controls
+import lag_criterion_controls
 import complement_controls
 import proof_dependencies
 import receipt_contracts
@@ -41,6 +43,17 @@ MODULES = ["GoldenNormality.Blocks", "GoldenNormality.Prefix",
            "GoldenNormality.BinaryRootCheckpoint",
            "GoldenNormality.BinarySemicircleCarry",
            "GoldenNormality.BinaryUnitCarry",
+           "GoldenNormality.BinaryDyadicOrbit",
+           "GoldenNormality.BinaryDyadicSeparation",
+           "GoldenNormality.BinaryWeylCriterion",
+           "GoldenNormality.BinaryFiniteModeControl",
+           "GoldenNormality.BinaryGapTransfer",
+           "GoldenNormality.BinaryRationalOrbit",
+           "GoldenNormality.BinaryModularMoments",
+           "GoldenNormality.BinaryWeylConverse",
+           "GoldenNormality.BinaryDyadicPhaseNonzero",
+           "GoldenNormality.BinaryFixedFrequency",
+           "GoldenNormality.BinaryLagCriterion",
            "GoldenNormality", "GoldenNormality.Contracts"]
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 CONTRACT_NAMES = ["root", "adjacentPrefixes", "blockSemantics", "consecutiveCount",
@@ -343,7 +356,8 @@ example (B q : ℕ) (hB : 0 < B) :
         control_groups = (bridge_controls.REJECTIONS, criteria_controls.REJECTIONS,
                           power_controls.REJECTIONS, checkpoint_controls.REJECTIONS,
                           sparsity_controls.REJECTIONS, run_controls.REJECTIONS,
-                          complement_controls.REJECTIONS)
+                          complement_controls.REJECTIONS, fixed_frequency_controls.REJECTIONS,
+                          lag_criterion_controls.REJECTIONS)
         controls = {name: control for group in control_groups for name, control in group.items()}
         if len(controls) != sum(map(len, control_groups)):
             raise RuntimeError("duplicate semantic rejection control name")
@@ -377,7 +391,9 @@ example (B q : ℕ) (hB : 0 < B) :
                            "binary one-count sparsity and square-root zero-count bounds, "
                            "constant-run bounds and quantitative "
                            "recurrence of both binary symbols, and conditional "
-                           "interpolation for vanishing relative gaps; checked finite "
+                           "interpolation for vanishing relative gaps; ordered frequency-one deficit "
+                           "and fixed-frequency residual comparison, sparse one-sided lag criterion; "
+                           "checked finite "
                            "source-bound power traces and occurrence/discrepancy/interval receipts; "
                            "no unconditional normality theorem")
     except Exception as error:

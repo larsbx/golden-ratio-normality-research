@@ -25,3 +25,14 @@ import GoldenNormality.BinaryPartitionCarry
 import GoldenNormality.BinaryRootCheckpoint
 import GoldenNormality.BinarySemicircleCarry
 import GoldenNormality.BinaryUnitCarry
+import GoldenNormality.BinaryDyadicOrbit
+import GoldenNormality.BinaryDyadicSeparation
+import GoldenNormality.BinaryWeylCriterion
+import GoldenNormality.BinaryFiniteModeControl
+import GoldenNormality.BinaryGapTransfer
+import GoldenNormality.BinaryRationalOrbit
+import GoldenNormality.BinaryModularMoments
+import GoldenNormality.BinaryWeylConverse
+import GoldenNormality.BinaryDyadicPhaseNonzero
+import GoldenNormality.BinaryFixedFrequency
+import GoldenNormality.BinaryLagCriterion

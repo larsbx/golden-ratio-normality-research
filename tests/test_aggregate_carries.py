@@ -40,9 +40,14 @@ class AggregateCarryTests(unittest.TestCase):
                 omitted = sum(i + j + 1 >= n for i in support for j in support)
                 pairs = sum(self.coefficients[:n])
                 self.assertLessEqual(positive, mass)
-                self.assertLessEqual(2 * units + (self.carries[n] == 1),
-                                     positive + zeros + diagonal)
-                self.assertLessEqual(units + (self.carries[n] == 1), zeros + diagonal)
+                terminal_unit = self.carries[n] == 1
+                terminal_positive = max(self.carries[n], 0)
+                self.assertLessEqual(2 * units + terminal_unit, positive + zeros + diagonal)
+                self.assertLessEqual(units + terminal_unit, zeros + diagonal)
+                self.assertLessEqual(
+                    n + 3 * overlap + terminal_unit,
+                    pairs + terminal_positive + 5 * zeros + diagonal + 1,
+                )
                 self.assertLessEqual(2 * positive, mass + units)
                 self.assertLessEqual(mass + 3 * overlap, pairs + max(self.carries[n], 0))
                 self.assertEqual(pairs + omitted, zeros**2)
@@ -65,9 +70,17 @@ class AggregateCarryTests(unittest.TestCase):
                 self.assertLessEqual(n, 2 * positive + 4 * zeros + 1)
                 if n >= 2:
                     self.assertLessEqual(3 * n, 4 * pairs + 20 * zeros - 1)
+                    self.assertLessEqual(
+                        n + 3 * overlap + terminal_unit, pairs + 6 * zeros + diagonal,
+                    )
                     self.assertLessEqual(n, pairs + 7 * zeros)
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
+
+    def test_affine_recurrence_needs_an_offset(self):
+        self.assertEqual(self.digits[3:7], [0, 0, 0, 0])
+        self.assertEqual(self.digits[7], 1)
+        self.assertGreater(2 * 7, 3 * 3 + 4)
 
     def test_diagonal_parity(self):
         for i, coefficient in enumerate(self.coefficients):
@@ -80,6 +93,21 @@ class AggregateCarryTests(unittest.TestCase):
         # The preceding carry can be two, and the odd coefficient can be three.
         self.assertEqual((self.digits[15], self.coefficients[15], self.digits[7],
                           self.carries[15:17]), (0, 3, 1, [2, 1]))
+
+    def test_parity_threshold_parameters(self):
+        # Clear denominators in 7c < (1 - c²) sqrt(N), c = 99/100.
+        self.assertLess(7 * 99 * 100, (100**2 - 99**2) * 350)
+        self.assertEqual(350**2, 122_500)
+
+        # Clear denominators in the checkpoint margin for c = 9/8.
+        blocks, radius, threshold_root = 1024, 32, 50
+        pi_numerator, pi_denominator = 31_416, 10_000
+        margin = (4 * blocks * 8**2 * pi_denominator
+                  - 9**2 * (blocks + 1) * pi_numerator)
+        self.assertEqual(radius**2, blocks)
+        self.assertEqual(threshold_root**2, 2500)
+        self.assertGreater(margin * threshold_root,
+                           7 * 9 * radius * 4 * 8 * pi_denominator)
 
     def test_constant_error_checkpoint_parameters(self):
         blocks, radius, threshold_root = 16_384, 128, 256

@@ -192,8 +192,8 @@ private theorem unit_pair_budget (n : ℕ) :
     · rw [ite_eq_right h₂]
       omega
 
-private theorem diagonal_sum_le (N : ℕ) :
-    (∑ i ∈ Finset.range N, diagonalIndicator i) ≤ ∑ i ∈ Finset.range N, digit i := by
+private theorem diagonal_sum_eq (N : ℕ) :
+    (∑ i ∈ Finset.range N, diagonalIndicator i) = ∑ i ∈ Finset.range (N / 2), digit i := by
   have hpair (n : ℕ) :
       (∑ i ∈ Finset.range (2 * n), diagonalIndicator i) = ∑ i ∈ Finset.range n, digit i := by
     induction n with
@@ -204,14 +204,16 @@ private theorem diagonal_sum_le (N : ℕ) :
       simp [diagonalIndicator, show (2 * n + 1) / 2 = n by omega]
   let k := N / 2
   have hcases : N = 2 * k ∨ N = 2 * k + 1 := by dsimp [k]; omega
-  have h : (∑ i ∈ Finset.range N, diagonalIndicator i) = ∑ i ∈ Finset.range k, digit i := by
-    rcases hcases with hk | hk
-    · rw [hk, hpair]
-    · rw [hk, Finset.sum_range_succ, hpair]
-      simp [diagonalIndicator]
-  rw [h]
+  rcases hcases with hk | hk
+  · rw [hk, hpair, show 2 * k / 2 = k by omega]
+  · rw [hk, Finset.sum_range_succ, hpair]
+    simp [diagonalIndicator, show (2 * k + 1) / 2 = k by omega]
+
+private theorem diagonal_sum_le (N : ℕ) :
+    (∑ i ∈ Finset.range N, diagonalIndicator i) ≤ ∑ i ∈ Finset.range N, digit i := by
+  rw [diagonal_sum_eq]
   exact Finset.sum_le_sum_of_subset_of_nonneg
-    (Finset.range_mono (by dsimp [k]; omega)) (fun i _ _ => (digit_range i).1)
+    (Finset.range_mono (by omega)) (fun i _ _ => (digit_range i).1)
 
 /-- At most half the positive carries can have size one, up to the digit and
 diagonal correction. The right endpoint is retained in telescoping. -/
@@ -235,7 +237,7 @@ theorem twice_unitCarry_sum_le (N : ℕ) :
   rw [digit_sum_eq_original_zeros] at h h'
   omega
 
-private theorem twice_positive_count_le_mass_add_units (N : ℕ) :
+theorem twice_positive_count_le_mass_add_units (N : ℕ) :
     2 * (∑ i ∈ Finset.range N, positiveCarryIndicator i) ≤
       (∑ i ∈ Finset.range N, positiveCarry i) + ∑ i ∈ Finset.range N, unitCarryIndicator i := by
   have hmass := Finset.sum_le_sum (s := Finset.range N) (f := fun i =>
@@ -269,24 +271,58 @@ theorem original_zero_count_unit_carry_bound (N : ℕ) (hN : 2 ≤ N) :
   have hg := prefix_le_positive_count_and_zeros N
   omega
 
+/-- The incoming unit carry charge retains the endpoint and the exact
+half-prefix diagonal count. -/
+theorem unitCarry_sum_add_endpoint_le (N : ℕ) :
+    (∑ i ∈ Finset.range N, unitCarryIndicator i) + unitCarryIndicator N ≤
+      (GoldenNormality.occurrences 2 1 0 N : ℤ) +
+        (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) := by
+  rw [← digit_sum_eq_original_zeros, ← digit_sum_eq_original_zeros, ← diagonal_sum_eq]
+  induction N with
+  | zero => simp [unitCarryIndicator]
+  | succ N ih =>
+    simp only [Finset.sum_range_succ] at *
+    have h := unitCarry_next_le N
+    omega
+
 /-- Every size-one carry can be charged to the preceding digit or its
 diagonal product. The origin carry is excluded because it is negative. -/
 theorem unitCarry_sum_le (N : ℕ) :
     (∑ i ∈ Finset.range N, unitCarryIndicator i) ≤
       2 * (GoldenNormality.occurrences 2 1 0 N : ℤ) := by
-  have htel (n : ℕ) :
-      (∑ i ∈ Finset.range n, unitCarryIndicator i) + unitCarryIndicator n ≤
-        (∑ i ∈ Finset.range n, digit i) + ∑ i ∈ Finset.range n, diagonalIndicator i := by
-    induction n with
-    | zero => simp [unitCarryIndicator]
-    | succ n ih =>
-      simp only [Finset.sum_range_succ] at *
-      have h := unitCarry_next_le n
-      omega
   have hn : 0 ≤ unitCarryIndicator N := by unfold unitCarryIndicator; split <;> omega
   have hd := diagonal_sum_le N
-  have h := htel N
-  rw [digit_sum_eq_original_zeros] at hd h
+  rw [diagonal_sum_eq, digit_sum_eq_original_zeros, digit_sum_eq_original_zeros] at hd
+  have h := unitCarry_sum_add_endpoint_le N
+  omega
+
+/-- The parity, gap and positive-carry budgets with the terminal carries
+and the simultaneous digit charge retained. -/
+theorem original_zero_count_parity_carry_budget (N : ℕ) :
+    (N : ℤ) + 3 * (∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i) +
+      unitCarryIndicator N ≤
+      (∑ i ∈ Finset.range N, convolutionCoefficient i) + positiveCarry N +
+      5 * (GoldenNormality.occurrences 2 1 0 N : ℤ) +
+      (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) + 1 := by
+  have hc := positiveCarry_sum_add_digits_le 0 N
+  have hzero : positiveCarry 0 = 0 := by simp [positiveCarry]
+  simp only [Nat.zero_add, hzero, add_zero] at hc
+  have hmass := twice_positive_count_le_mass_add_units N
+  have hu := unitCarry_sum_add_endpoint_le N
+  have hg := prefix_le_positive_count_and_zeros N
+  omega
+
+/-- The same budget with the terminal positive carry bounded by the zero count. -/
+theorem original_zero_count_parity_overlap_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) + 3 * (∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i) +
+      unitCarryIndicator N ≤
+      (∑ i ∈ Finset.range N, convolutionCoefficient i) +
+      6 * (GoldenNormality.occurrences 2 1 0 N : ℤ) +
+      (GoldenNormality.occurrences 2 1 0 (N / 2) : ℤ) := by
+  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
+    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
+  have hp := positiveCarry_lt_original_zeros N hz
+  have h := original_zero_count_parity_carry_budget N
   omega
 
 /-- The gap count and the unit-carry parity restriction give a lower budget
@@ -294,18 +330,16 @@ for truncated convolution mass. -/
 theorem original_zero_count_parity_carry_bound (N : ℕ) (hN : 2 ≤ N) :
     (N : ℤ) ≤ (∑ i ∈ Finset.range N, convolutionCoefficient i) +
       7 * (GoldenNormality.occurrences 2 1 0 N : ℤ) := by
-  have hz : 0 < GoldenNormality.occurrences 2 1 0 N :=
-    binary_occurrences_at_least 1 0 N (by decide) (by simpa using hN)
-  have hp := positiveCarry_lt_original_zeros N hz
-  have hc := positiveCarry_sum_le 0 N
-  have hzero : positiveCarry 0 = 0 := by simp [positiveCarry]
-  simp only [Nat.zero_add, hzero, add_zero] at hc
-  have hmass := twice_positive_count_le_mass_add_units N
-  have hu := unitCarry_sum_le N
-  have hg := prefix_le_positive_count_and_zeros N
+  have h := original_zero_count_parity_overlap_bound N hN
+  have hd := diagonal_sum_le N
+  rw [diagonal_sum_eq, digit_sum_eq_original_zeros, digit_sum_eq_original_zeros] at hd
+  have ho : 0 ≤ ∑ i ∈ Finset.range N, digit i * positiveCarryIndicator i :=
+    Finset.sum_nonneg fun i _ =>
+      mul_nonneg (digit_range i).1 (le_min (by decide) (le_max_right _ _))
+  have hu : 0 ≤ unitCarryIndicator N := by unfold unitCarryIndicator; split <;> omega
   omega
 
-private theorem zero_count_exceeds_from_pair_budget (leading linear : ℝ) (hl₀ : 0 ≤ linear)
+theorem zero_count_exceeds_from_pair_budget (leading linear : ℝ) (hl₀ : 0 ≤ linear)
     (hcarry : ∀ N : ℕ, 2 ≤ N → leading * (N : ℝ) ≤
       4 * (∑ i ∈ Finset.range N, (convolutionCoefficient i : ℝ)) +
         linear * (GoldenNormality.occurrences 2 1 0 N : ℝ))
@@ -392,5 +426,89 @@ theorem original_zero_count_exceeds_of_pi_mul_sq_lt_four (c : ℝ) (hc : 0 ≤ c
   have h := Int.cast_le (R := ℝ).mpr (original_zero_count_parity_carry_bound N hN)
   push_cast at h
   linarith only [h]
+
+/-- The parity budget gives an all-prefix quadratic bound on the actual zero count. -/
+theorem original_zero_count_parity_quadratic_bound (N : ℕ) (hN : 2 ≤ N) :
+    (N : ℤ) ≤ (GoldenNormality.occurrences 2 1 0 N : ℤ) ^ 2 +
+      7 * (GoldenNormality.occurrences 2 1 0 N : ℤ) := by
+  have hp := original_zero_count_parity_carry_bound N hN
+  have hs := convolution_sum_le_square N
+  omega
+
+/-- Every prefix past the given threshold exceeds the square-root envelope.
+In particular the liminf of the normalized zero count is at least one. -/
+theorem original_zero_count_parity_above (N : ℕ) (hN : 2 ≤ N) (c : ℝ) (hc : 0 ≤ c)
+    (hmargin : 7 * c < (1 - c ^ 2) * Real.sqrt (N : ℝ)) :
+    c * Real.sqrt (N : ℝ) < (GoldenNormality.occurrences 2 1 0 N : ℝ) := by
+  let t := Real.sqrt (N : ℝ)
+  let z : ℝ := GoldenNormality.occurrences 2 1 0 N
+  have ht : 0 < t := Real.sqrt_pos_of_pos (by exact_mod_cast (show 0 < N by omega))
+  have ht2 : t ^ 2 = (N : ℝ) := Real.sq_sqrt (Nat.cast_nonneg _)
+  have hz : 0 ≤ z := Nat.cast_nonneg _
+  have hs : (N : ℝ) ≤ z ^ 2 + 7 * z := by
+    dsimp only [z]
+    exact_mod_cast original_zero_count_parity_quadratic_bound N hN
+  by_contra! h
+  change z ≤ c * t at h
+  have hsq := (sq_le_sq₀ hz (mul_nonneg hc ht.le)).mpr h
+  have hm := mul_lt_mul_of_pos_right hmargin ht
+  change 7 * c * t < ((1 - c ^ 2) * t) * t at hm
+  nlinarith only [hs, h, hsq, ht2, hm]
+
+/-- An exact threshold for the all-prefix coefficient `0.99`. -/
+theorem original_zero_count_parity_above_99 (N : ℕ) (hN : 122500 ≤ N) :
+    (99 / 100 : ℝ) * Real.sqrt (N : ℝ) <
+      (GoldenNormality.occurrences 2 1 0 N : ℝ) := by
+  apply original_zero_count_parity_above N (by omega) _ (by norm_num)
+  have ht : (350 : ℝ) ≤ Real.sqrt (N : ℝ) :=
+    Real.le_sqrt_of_sq_le (by exact_mod_cast hN)
+  linarith only [ht]
+
+/-- A strict finite checkpoint guarantee from the parity carry budget. -/
+theorem original_zero_count_parity_window (K n : ℕ) (hN : 2 ≤ K * n) (c : ℝ) (hc : 0 ≤ c)
+    (hmargin : 7 * c * Real.sqrt (K : ℝ) <
+      ((K : ℝ) - c ^ 2 * (((K : ℝ) + 1) * Real.pi / 4)) * Real.sqrt (n : ℝ)) :
+    ∃ i : ℕ, 1 ≤ i ∧ i ≤ K ∧ c * Real.sqrt ((i * n : ℕ) : ℝ) <
+      (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) := by
+  by_contra! h
+  have hcap : ∀ i ≤ K, (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) ≤
+      c * Real.sqrt ((i * n : ℕ) : ℝ) := by
+    intro i hi
+    by_cases hz : i = 0
+    · simp [hz, GoldenNormality.occurrences_zero]
+    · exact h i (by omega) hi
+  have hmass := convolution_sum_le_succ_area_envelope K n c hc hcap
+  have hb := Int.cast_le (R := ℝ).mpr (original_zero_count_parity_carry_bound (K * n) hN)
+  push_cast at hb
+  have hend := hcap K le_rfl
+  push_cast at hend
+  rw [Real.sqrt_mul (Nat.cast_nonneg K)] at hend
+  have hn : 0 < n := by
+    by_contra! hz
+    simp [show n = 0 by omega] at hN
+  have ht : 0 < Real.sqrt (n : ℝ) := Real.sqrt_pos_of_pos (by exact_mod_cast hn)
+  have hm := mul_lt_mul_of_pos_right hmargin ht
+  have hsq := Real.sq_sqrt (Nat.cast_nonneg n)
+  nlinarith only [hb, hmass, hend, hm,
+    congrArg (fun x : ℝ => ((K : ℝ) - c ^ 2 * (((K : ℝ) + 1) * Real.pi / 4)) * x) hsq]
+
+/-- Every window of 1024 checkpoints of width at least 2500 contains
+a prefix with more than `1.125 * √N` original zeros. -/
+theorem original_zero_count_parity_window_nine_eighths (n : ℕ) (hn : 2500 ≤ n) :
+    ∃ i : ℕ, 1 ≤ i ∧ i ≤ 1024 ∧
+      (9 / 8 : ℝ) * Real.sqrt ((i * n : ℕ) : ℝ) <
+        (GoldenNormality.occurrences 2 1 0 (i * n) : ℝ) := by
+  apply original_zero_count_parity_window 1024 n (by omega) _ (by norm_num)
+  have hk : Real.sqrt (↑(1024 : ℕ) : ℝ) = 32 := by
+    rw [show (↑(1024 : ℕ) : ℝ) = 32 ^ 2 by norm_num]
+    exact Real.sqrt_sq (by norm_num)
+  rw [hk]
+  let t := Real.sqrt (n : ℝ)
+  have ht : (50 : ℝ) ≤ t := Real.le_sqrt_of_sq_le (by exact_mod_cast hn)
+  have ht₀ : 0 ≤ t := by linarith
+  have hπ := mul_le_mul_of_nonneg_right Real.pi_lt_d4.le ht₀
+  change 7 * (9 / 8 : ℝ) * 32 <
+    (1024 - (9 / 8 : ℝ) ^ 2 * ((1024 + 1) * Real.pi / 4)) * t
+  nlinarith only [ht, hπ]
 
 end GoldenNormality.BinaryComplement
