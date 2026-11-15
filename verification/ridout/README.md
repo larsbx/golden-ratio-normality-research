@@ -5,6 +5,12 @@ This isolated package uses Lean 4.35.0-rc3 and Subspace-Theorems commit
 Lean 4.34.0-rc2 toolchain. The GoldenNormality modules are compiled directly from
 the same checkout through srcDir = "../.."; no contract or carry theorem is copied.
 
+**Local proof acceptance passed** at source revision
+`2ba20e1ceee5b3a270e501983faccf4edfe92384`. The
+[exact-source evidence](../../evidence/ridout/2ba20e1c/README.md) includes the
+compiled theorem types, transitive axiom audit, and replay receipt. Hosted CI
+has a separate status.
+
 ## The proof
 
 Let $\alpha=(\sqrt5-1)/2=\varphi-1$ and let
