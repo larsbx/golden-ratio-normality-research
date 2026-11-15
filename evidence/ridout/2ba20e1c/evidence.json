@@ -1,0 +1,2375 @@
+{
+  "status": "passed",
+  "source_revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+  "lean": "Lean (version 4.35.0-rc3, x86_64-unknown-linux-gnu, commit 470d5ce1400764999581fd26d5d72b00d990b0f4, Release)",
+  "dependencies": {
+    "SubspaceTheorems": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+    "FiniteMathKernels": "8750345c496390a7ce4f6a80be331451aa999408",
+    "comparator": "fd5d5bcf14177b187f66d4502071268d877887c3",
+    "mathlib": "5e0c4e5239cb0a2d86d68a884bf52cfd963fce22",
+    "lean4export": "66f1fb4bc256072069767fce52d39480e4524869",
+    "plausible": "fb13df72ecefd8ddbf9291021d7f33a8673eb57b",
+    "LeanSearchClient": "29ff470276c725ae01505d55b17148c18fc7dfd3",
+    "importGraph": "7e81a29bda33a6b257bd37557a6aa6aebe175d96",
+    "proofwidgets": "c643bbb3c24f8a25f9c14e3a6b1ceb13d01f3de1",
+    "aesop": "a90fbf7b02ff06a0deebf74088dff9e5fe02c9ea",
+    "Qq": "37b0ba0b26109cf9f9c541f0f9557e50cfa1a3b9",
+    "batteries": "33131f4fb10067cb3009bf4db615d9680c1ccd6b",
+    "Cli": "843844fa601dd56767b1eb22b7ada5b64d5e567a"
+  },
+  "manifest_sha256": "bebb721e79ef8461937074b83355dd52552e7cac0b3ff3341af1436ea8dbbc53",
+  "source_modules": {
+    "RidoutReplay": {
+      "path": "verification/ridout/RidoutReplay.lean",
+      "sha256": "ec2f0efe96fb302409ce0865b1691460d64bef96d8d95172606f4d1b9ef5272e"
+    },
+    "RidoutBridge.RidoutSpecialization": {
+      "path": "verification/ridout/RidoutBridge/RidoutSpecialization.lean",
+      "sha256": "842f23e6a707369f1d4bad2fad8dbd53348da6f45d175eebffcef64fa2806c4f"
+    },
+    "DiophantineApproximation.PrimeProducts": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PrimeProducts.lean",
+      "sha256": "205c849b1ace9c56c51b55428711af1557c10a977a01fc0061d4f376aeae98d0"
+    },
+    "DiophantineApproximation.RationalPlaces": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RationalPlaces.lean",
+      "sha256": "3233b8501dbdfc1f91efab85a06e26519b31a5abf0d6f5743df904d6b886bca5"
+    },
+    "DiophantineApproximation.PlacesOverFinite": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PlacesOverFinite.lean",
+      "sha256": "90d87db54028e30236687de651b87b97d99e2080fa0ba8cc2823112c69585c6d"
+    },
+    "DiophantineApproximation.Nonarchimedean": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/Nonarchimedean.lean",
+      "sha256": "739bed42b00100b41b0d88e4e2491046d5ef74270e4cee29301bfcbfc6effbbc"
+    },
+    "DiophantineApproximation.Ridout": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/Ridout.lean",
+      "sha256": "22984de409035a67b905af9609657b43355e177e24a7a935f230b5d118b96352"
+    },
+    "DiophantineApproximation.RothRational": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothRational.lean",
+      "sha256": "fb054c2433ddc1fc48de4aafd2ea5a3a899546a18fbc1d7d858c8361d29903e7"
+    },
+    "DiophantineApproximation.RothTheorem": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothTheorem.lean",
+      "sha256": "0bd4b26856a1e27c3fca390812d8338e735f1d54f7ee106bba355dd91a566e94"
+    },
+    "DiophantineApproximation.RothKeyInequality": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothKeyInequality.lean",
+      "sha256": "2ff13e5b004a5be1b8b48d8ea9e8063dce2d9c91514a7153bf446e7d5ce516a9"
+    },
+    "DiophantineApproximation.RothLocalBound": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothLocalBound.lean",
+      "sha256": "8d1b3d31f475ea7523da00b37b0651a7d6c7b1e6103bb392cb29cf835b2f565d"
+    },
+    "DiophantineApproximation.MvPolynomialEvalBound": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvPolynomialEvalBound.lean",
+      "sha256": "6c1ee9934984863100346e260cce9dbc59b6a3602cad8c99df6d11d9e2240d53"
+    },
+    "DiophantineApproximation.MvHasseDerivTaylor": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvHasseDerivTaylor.lean",
+      "sha256": "a61bb36feb70c10df85fc990d8e5f7fc03dad9927a83dc5f69795fb8cd09a96f"
+    },
+    "DiophantineApproximation.MvHasseDeriv": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvHasseDeriv.lean",
+      "sha256": "a70bfffa0e539898ef83904f34f5cf52a73d4c5a5ebe11a09bcce60b084576a8"
+    },
+    "DiophantineApproximation.MvHasseDerivHeight": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvHasseDerivHeight.lean",
+      "sha256": "7a9c3e3f7fb34294a93ccccc59ba4a9e2906e96184ab13483918084d7006195f"
+    },
+    "ArithmeticHeights.Polynomial": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Polynomial.lean",
+      "sha256": "1bdb5aada4e6abd177968dd594612d3340bbef76fa228885953a8846c079c21d"
+    },
+    "ArithmeticHeights.Extension": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Extension.lean",
+      "sha256": "e39435858a567eacfc243641ab0aacc7acdf3c55163388d01fb2915f658bcad1"
+    },
+    "ArithmeticHeights.Arakelov": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Arakelov.lean",
+      "sha256": "040e847f3c675f58a57af5b3175a493700959b5fcb1f895df882ac6c744f6a07"
+    },
+    "DiophantineApproximation.BoxMonomial": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/BoxMonomial.lean",
+      "sha256": "d3aae5d444ace0c3752349e985b257c7e193b0e6ba80abb2682ba0a2b01e885f"
+    },
+    "ArithmeticHeights.Absolute": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Absolute.lean",
+      "sha256": "6057d8e76a742a287195e6623a7e88f5cd5936f514064b4b74102761b832da86"
+    },
+    "DiophantineApproximation.IndexConditions": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IndexConditions.lean",
+      "sha256": "8b0158ee1129f3c4d9a60298c33aefebe212ef9965f97292e69604c6a832b794"
+    },
+    "DiophantineApproximation.PolynomialIndex": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PolynomialIndex.lean",
+      "sha256": "f6c7c1bf45250f8863290b6cd3e16baef756df7e775c0ee1f2da60f489fe67c9"
+    },
+    "DiophantineApproximation.WeightedOrder": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/WeightedOrder.lean",
+      "sha256": "b00ea48effaeb1f354b47a0446fbccf2a45b2722c96b2eaec687938eddd1fab8"
+    },
+    "DiophantineApproximation.CountingVolume": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/CountingVolume.lean",
+      "sha256": "40313063b4521010d1c081254c3ab41bb463037535379a3a2533eab31dc0bf2d"
+    },
+    "DiophantineApproximation.GlobalBound": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/GlobalBound.lean",
+      "sha256": "82037ea9e7485f28b16e12ed8ff9378ad3fa4d42fbe01b4a0c260934aa99f697"
+    },
+    "DiophantineApproximation.SAdicHeight": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/SAdicHeight.lean",
+      "sha256": "851ef8c722070472466baa631ddbe3903690c4427bde79458d1446f11010bda4"
+    },
+    "DiophantineApproximation.SIntegerLocalization": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/SIntegerLocalization.lean",
+      "sha256": "5c6221f991bdc73e39149db3f6d896740c50c0fda4857ebd3bf76c13fd078c1b"
+    },
+    "ArithmeticHeights.SUnitTheorem": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SUnitTheorem.lean",
+      "sha256": "55dc526c57f9f8d54ca047fa2fb0fb7d294dcf0dc838462eec148874dab4107b"
+    },
+    "ArithmeticHeights.SUnit": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SUnit.lean",
+      "sha256": "a6db8db1c74e17dd4dfaff89cb1c6444637883e29b3682c8bfb589931c2ac300"
+    },
+    "ArithmeticHeights.UnitHeight": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/UnitHeight.lean",
+      "sha256": "ac0c5ea91c348bcae167c52a55f45278bb4be5e543fd93db3d570e6193411998"
+    },
+    "ArithmeticHeights.FinitePlaceIdeal": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/FinitePlaceIdeal.lean",
+      "sha256": "31ed5af094086ee839d8fef1e56d7a833d983a88c3aa900319a7a126dd79839b"
+    },
+    "ArithmeticHeights.SRegulator": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SRegulator.lean",
+      "sha256": "9a5413044b6e7590ed2166d31376b3878808b3ac4cea05551674788225c1fe13"
+    },
+    "DiophantineApproximation.FundamentalInequality": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/FundamentalInequality.lean",
+      "sha256": "2f3f8df831b6586ed0ec2a7649748b504384d2640be59c35a3115d6fc7521a21"
+    },
+    "DiophantineApproximation.PlacesOverInfinite": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PlacesOverInfinite.lean",
+      "sha256": "dc4ef1d3708583171c6619ea7973feddc2a2b0732c9e086154a22ed11b624997"
+    },
+    "DiophantineApproximation.RothClass": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothClass.lean",
+      "sha256": "17512f0d4b9a2245aca593cabde9d2b5da53373502f823710a5f391402f82fdb"
+    },
+    "DiophantineApproximation.IndependentHeights": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IndependentHeights.lean",
+      "sha256": "4aad55daad1798483c64c5d580821b75bd1388bfbabe03f9443e4d0a1a92734e"
+    },
+    "DiophantineApproximation.ApproximationClass": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/ApproximationClass.lean",
+      "sha256": "a48aa71888befb9899a4e9ea41e813d67e70bfa2b5ac3c60caff149ddcf40cb6"
+    },
+    "DiophantineApproximation.RothAuxiliary": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothAuxiliary.lean",
+      "sha256": "0011cdc84f593a055fbdf3b35401fd67b0691b2868e5064088dbc55387f29a6b"
+    },
+    "DiophantineApproximation.RothLemma": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothLemma.lean",
+      "sha256": "e96ac1f3c9c2905c3eeb300346c34ff1d716dcaf0df74a0a1d28e34832c86021"
+    },
+    "DiophantineApproximation.RothEstimates": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothEstimates.lean",
+      "sha256": "f6fa3556ebeba11c12d5a97d12648e9f1eb6762481bd17fd423f791bfe203bd3"
+    },
+    "DiophantineApproximation.RothDeterminant": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothDeterminant.lean",
+      "sha256": "93562645f2008d5bcc79725962f2df70463a421e654f2cfe4e338de39b2a1ad3"
+    },
+    "DiophantineApproximation.PolynomialDeterminantHeight": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PolynomialDeterminantHeight.lean",
+      "sha256": "077c2a48779e7958a01f18a1449b0e2405cd813df7a037987697b4076026f0a0"
+    },
+    "DiophantineApproximation.HeightTransport": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/HeightTransport.lean",
+      "sha256": "692478ed8fa69215b06666bc68ec97208f2dc519b4fbbae3435f68ffe1d19408"
+    },
+    "ArithmeticHeights.Gelfond": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Gelfond.lean",
+      "sha256": "ceff9cf331bf91ca9b1abecda8cdc68aca7dbaa731bb61354d5a230bd6f28da9"
+    },
+    "ArithmeticHeights.GaussLemma": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/GaussLemma.lean",
+      "sha256": "77ada257947dc94186099223160d7be2f87e5bf33eebcd3675238b68c3b5faa9"
+    },
+    "DiophantineApproximation.IndexRename": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IndexRename.lean",
+      "sha256": "a6b613f2e5ce04c6bafe59e4de2198091042c8f7c18c720f57d37ef089be9393"
+    },
+    "DiophantineApproximation.RothDecomposition": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothDecomposition.lean",
+      "sha256": "d5320223ae5f16155f9207d5664bd6a3e7dbc9c24fc3b1bbff368d40cdf373e1"
+    },
+    "DiophantineApproximation.GeneralizedWronskian": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/GeneralizedWronskian.lean",
+      "sha256": "8c5504a737e6d5e99e9f858579b4e15ddd1a7c56e8e79d6b12fd2dc744321d41"
+    },
+    "DiophantineApproximation.Wronskian": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/Wronskian.lean",
+      "sha256": "e6cde83188c1d334ac7ee9405f396ebcbcfbf286116da10c0d1e4756940b5270"
+    },
+    "DiophantineApproximation.RothBaseCase": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothBaseCase.lean",
+      "sha256": "05010a65f030a9ffad2cabdbda4f79cb6736c43e277e0dde3fa62a35752dcfc1"
+    },
+    "DiophantineApproximation.DisjointVariables": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/DisjointVariables.lean",
+      "sha256": "6c77401adcabe6a754ffd20410c448f37d51c2ffdab372eaa8663de241a5cba9"
+    },
+    "DiophantineApproximation.AuxiliaryPolynomial": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/AuxiliaryPolynomial.lean",
+      "sha256": "03132f2d3fa3386dbfbf3105699239a9ae02cb7e9bc3a6b17d39930fc2b71c1c"
+    },
+    "DiophantineApproximation.MonomialHeight": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MonomialHeight.lean",
+      "sha256": "e9ee0ad356ab405b874336daae31a3e39a5d8d6f0e0a78355b92171d60660efb"
+    },
+    "ArithmeticHeights.BombieriVaalerRelative": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/BombieriVaalerRelative.lean",
+      "sha256": "985a3591164cec48ee77d6aea0fefd2906f9f287c366c0903e660c0fb01cbf9e"
+    },
+    "ArithmeticHeights.RestrictScalars": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/RestrictScalars.lean",
+      "sha256": "e84d03e39ec896a43697b0101ce9e96a453d43ab8b6661c9d51a0c6f1753d63b"
+    },
+    "ArithmeticHeights.RowEntryHeight": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/RowEntryHeight.lean",
+      "sha256": "21e95f580f59b61bddf2add9028c44e13f3a500a79c59b904283d60e5c6a427a"
+    },
+    "ArithmeticHeights.RowSpace": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/RowSpace.lean",
+      "sha256": "9e7c51767eadd5603dc2cf7a9e88255c00e6991b22e3a9cbcfa0bb4f85ea0d39"
+    },
+    "ArithmeticHeights.Matrix": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Matrix.lean",
+      "sha256": "cee5c5d670078bc87bfef77d752d601d1277015298fdd88255b12bc3bb22e64b"
+    },
+    "ArithmeticHeights.LinearForm": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/LinearForm.lean",
+      "sha256": "d42580bae6571434651e249c5b6128e1aa5efeca16138078c0d69a73e6e62d1c"
+    },
+    "ArithmeticHeights.Affine": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Affine.lean",
+      "sha256": "8618fe375d60f3e823706da17058116c4c7064379adc5d58bbc5c52fbc420dc6"
+    },
+    "ArithmeticHeights.Subspace": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Subspace.lean",
+      "sha256": "e7d47cd9a065202debcc4964e121b6fab6c8670f264a233aa17ac52828ddd4cf"
+    },
+    "ArithmeticHeights.Plucker": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Plucker.lean",
+      "sha256": "93fe5a5e645f9484a1b2ef8a919676f45ebdadcf81286af12fe03341dbb1ae9e"
+    },
+    "ArithmeticHeights.Nonarchimedean": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Nonarchimedean.lean",
+      "sha256": "fee29a48759620c17e4539d303b39d118d81caf198e03d36a575952b71eb92c3"
+    },
+    "ArithmeticHeights.Hadamard": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Hadamard.lean",
+      "sha256": "8a342d6c688daa9f73dd31493a234a7754ea686758484bdfbd192f21c6c5f236"
+    },
+    "ArithmeticHeights.CauchyBinet": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/CauchyBinet.lean",
+      "sha256": "2169397f8921a1663e1e686af6778b30c1a96f8174357797ed17c21ce812a531"
+    },
+    "ArithmeticHeights.BombieriVaalerEntries": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/BombieriVaalerEntries.lean",
+      "sha256": "f550662791c1d3f390424ed1bcfc325a778952a85e85385dad4a0fec181e1837"
+    },
+    "ArithmeticHeights.BombieriVaalerMaxNorm": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/BombieriVaalerMaxNorm.lean",
+      "sha256": "2ff99c93422e0543a0f42a4d7681ec2207028585ae52b2b185cdfc0e36358276"
+    },
+    "ArithmeticHeights.MixedCube": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MixedCube.lean",
+      "sha256": "8abbbd10ac5f4d405d8be20f2e29139ee628b999f08bebc08057b0fc2eccbe23"
+    },
+    "ArithmeticHeights.MixedBall": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MixedBall.lean",
+      "sha256": "eea5902bc6b59252fe152988a16d2758392a2fa874c1e5b6fca7e646cd4b363d"
+    },
+    "ArithmeticHeights.NumberFieldLattice": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/NumberFieldLattice.lean",
+      "sha256": "9be5489595f4e75d869919aabd89a657c077e5cd6e8fd20405235e9d491d0e32"
+    },
+    "ArithmeticHeights.GramCovolume": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/GramCovolume.lean",
+      "sha256": "8b747f7a1afbc3c6539b54dadf43cb3baedce4bb2e77e027db7513ae7e8f3d67"
+    },
+    "ArithmeticHeights.PseudoBasis": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/PseudoBasis.lean",
+      "sha256": "b43a601f490186efe54994109dd271d622b20f0341f8a8c2b56ef5a00f91d97c"
+    },
+    "ArithmeticHeights.MixedLattice": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MixedLattice.lean",
+      "sha256": "6da9684e18fff4e5b2c52a7f02010a46c6de245b2acf1bbbf6e3c649cdf9b503"
+    },
+    "ArithmeticHeights.NormProd": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/NormProd.lean",
+      "sha256": "c228912a10420303dab91a68b1bee8b570b243e84f6ebf08bc270535d16e426d"
+    },
+    "ArithmeticHeights.CubeSlicing": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/CubeSlicing.lean",
+      "sha256": "1cfb84c0492f3c326fb3aee30f58f072247fc634530cbaac40fe1df0fc003495"
+    },
+    "ArithmeticHeights.ProductOfBalls": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/ProductOfBalls.lean",
+      "sha256": "ca370367563a8059340c8a3097d92955c50e239cb33aa11a7d69752b1297ea14"
+    },
+    "ArithmeticHeights.SliceBound": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SliceBound.lean",
+      "sha256": "d7a54b0c37a7d2eddfb1c7e37b3fa09cea957704de0423e2bcdfd8bdf7fcab1c"
+    },
+    "ArithmeticHeights.LogConcave": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/LogConcave.lean",
+      "sha256": "d46d294aa5e8790ce2a2594f732ae049eabca10104f952713e2370133330521b"
+    },
+    "ArithmeticHeights.PrekopaLeindler": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/PrekopaLeindler.lean",
+      "sha256": "633b64a4a2ad62f6cdbb52bc63f75155aef3d3f9a65f778f25ce2d78d0529af5"
+    },
+    "ArithmeticHeights.GaussMeasure": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/GaussMeasure.lean",
+      "sha256": "5684f7759c5f968b33af5edaced03d2480d4e9ca81c9254c2470dbd44d063970"
+    },
+    "ArithmeticHeights.MinkowskiSecond": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MinkowskiSecond.lean",
+      "sha256": "730a358c33fc27abc32f773826f5d669d95194bbbd28ae5f2afce6ecb1c97c33"
+    },
+    "ArithmeticHeights.SuccessiveMinima": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SuccessiveMinima.lean",
+      "sha256": "10df250a79f082d4dd7a4fe35c1fad05ce7d80367748d17f938bdb8b13a6a6f1"
+    },
+    "ArithmeticHeights.QuotientFubini": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/QuotientFubini.lean",
+      "sha256": "2409d3ae58854768df964f3db1086569ad91c2b5c8fecf8fa7de5ac5f953d490"
+    },
+    "ArithmeticHeights.AdaptedBasis": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/AdaptedBasis.lean",
+      "sha256": "7ea7003700d0cbbf4f3e3949e6b888ca053e16e7321c26a42981eb3affa4e654"
+    },
+    "ArithmeticHeights.Extraction": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Extraction.lean",
+      "sha256": "d81d759225034a4304fe428104fd13204b9f9367cb8ce0a0a8867a45966ca95e"
+    },
+    "ArithmeticHeights.Duality": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Duality.lean",
+      "sha256": "fba3eac7e4bfa651128165472884c2e55ba5c34f6c8a6aa6fd0df42d8be9c888"
+    },
+    "DiophantineApproximation.LogComparison": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/LogComparison.lean",
+      "sha256": "fbd2312711bacb7770b5c2dab9a31367eba1da5b4366b40df9aac16bb977f88f"
+    },
+    "DiophantineApproximation.IrrationalityExponent": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IrrationalityExponent.lean",
+      "sha256": "b2c1b47ee950486de2c37332e0a51b7b9f756188d810ea0d7f06c12e33535899"
+    },
+    "DiophantineApproximation.RothInfinity": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothInfinity.lean",
+      "sha256": "a8dd4fe521d416961a0284a0675351dea6fce771da0ceca7b04e3d4eda6e3386"
+    },
+    "DiophantineApproximation.PlacesOver": {
+      "path": "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PlacesOver.lean",
+      "sha256": "f7fd7551b77e4c48f9fbbfd94abadd5135e8760aee616f7ae96e0e1dad143f5b"
+    },
+    "RidoutBridge.FiniteToSeparation": {
+      "path": "verification/ridout/RidoutBridge/FiniteToSeparation.lean",
+      "sha256": "1ea8cdd4812bdbd1909956fd8e14810998ed4bc256e7ac7c32b398038169ca9b"
+    },
+    "GoldenNormality.BinaryGapTransfer": {
+      "path": "GoldenNormality/BinaryGapTransfer.lean",
+      "sha256": "d534d8e02d70babdddf45dd8d3f3f0ac5773e8c787ecb0ce2e019f758060f28f"
+    },
+    "GoldenNormality.BinaryDyadicSeparation": {
+      "path": "GoldenNormality/BinaryDyadicSeparation.lean",
+      "sha256": "715d401874615095227b60f217f0d0ee139cf0f4fe283972e57307b82fb75fba"
+    },
+    "GoldenNormality.BinaryDyadicOrbit": {
+      "path": "GoldenNormality/BinaryDyadicOrbit.lean",
+      "sha256": "eb53655d6a170a58e7c213075c4bfcf723f6289beddd772ddab5e3ffd9327487"
+    },
+    "GoldenNormality.Normality": {
+      "path": "GoldenNormality/Normality.lean",
+      "sha256": "0ebb5b8fe3420b28bec0a5e26919fd69778c9539a2552df06b9ffaf3dd9fd6c0"
+    },
+    "GoldenNormality.Prefix": {
+      "path": "GoldenNormality/Prefix.lean",
+      "sha256": "4433bc6b9e6a99b535c232e09a224500301157475ba5019741064a020476d9e7"
+    },
+    "GoldenNormality.BinaryUnitCarry": {
+      "path": "GoldenNormality/BinaryUnitCarry.lean",
+      "sha256": "03247d69a91eebb784d2bdcf9af2b8d6e9a40a158baa9c1b80cc20fb0a184715"
+    },
+    "GoldenNormality.BinarySemicircleCarry": {
+      "path": "GoldenNormality/BinarySemicircleCarry.lean",
+      "sha256": "6aa7de90d142a8611eb5ffbfae08eeda5cbd7d285bef704f434d1b5f7886c39e"
+    },
+    "GoldenNormality.BinaryPartitionCarry": {
+      "path": "GoldenNormality/BinaryPartitionCarry.lean",
+      "sha256": "a64591ee7e6ed9d5af0735798ab0d83bdfb0f766dfc2e56d2081e3201dd5b4c8"
+    },
+    "GoldenNormality.BinaryAggregateCarry": {
+      "path": "GoldenNormality/BinaryAggregateCarry.lean",
+      "sha256": "25215c89bed9b4b1385c3c87a97a5b96fb07dbb67b5b826adc6cd1c790f45090"
+    },
+    "GoldenNormality.BinaryRecurrence": {
+      "path": "GoldenNormality/BinaryRecurrence.lean",
+      "sha256": "7667d21aa2fc8575d265e555798d7647e28172b5fe0c021f9d9fecb2b805b6f5"
+    },
+    "GoldenNormality.CheckpointBounds": {
+      "path": "GoldenNormality/CheckpointBounds.lean",
+      "sha256": "7ce3df015c51f44fd3f53a526aba3a8e592538803c1e7b000f17716676509966"
+    },
+    "GoldenNormality.FrequencyBridge": {
+      "path": "GoldenNormality/FrequencyBridge.lean",
+      "sha256": "820910f3c8b96a0ef5adb18ddc2e066fddf4096d56a41450566cbb9a0b6aeea4"
+    },
+    "GoldenNormality.BlockNumerals": {
+      "path": "GoldenNormality/BlockNumerals.lean",
+      "sha256": "72a3395bde8f1359d3dc5e1a0c71284288958eacacab68d511098b56756e3f83"
+    },
+    "GoldenNormality.Certificates": {
+      "path": "GoldenNormality/Certificates.lean",
+      "sha256": "21147b03d2bf38a9604a769cc094dda2772ed5fbdedf2353a913e8b94c420b78"
+    },
+    "GoldenNormality.Blocks": {
+      "path": "GoldenNormality/Blocks.lean",
+      "sha256": "0f0904b825e09164ba18f7fcc9ee0cd9dd264c50411fd34168439d75eb761234"
+    },
+    "GoldenNormality.BinaryRuns": {
+      "path": "GoldenNormality/BinaryRuns.lean",
+      "sha256": "f46f3a8abababca1ac7d08606b01a122a794e04d6066b8c8e4fd5bc22d819713"
+    },
+    "GoldenNormality.BinarySparsity": {
+      "path": "GoldenNormality/BinarySparsity.lean",
+      "sha256": "5cec1a4cd3e75c959955677ed2d5a03fe7adf3213d9572c147851290608f86e7"
+    },
+    "GoldenNormality.PowerOrbit": {
+      "path": "GoldenNormality/PowerOrbit.lean",
+      "sha256": "670106d482b0a6fb039c9f12ab7f33119fd309cfcd3ff981798984c474aaf204"
+    },
+    "GoldenNormality.NormalityCriteria": {
+      "path": "GoldenNormality/NormalityCriteria.lean",
+      "sha256": "5df484ff9c37ad4aa172fa44d5ac11e6272d3acc11b06c3d7132371a6dd55ee1"
+    },
+    "GoldenNormality.WordEncoding": {
+      "path": "GoldenNormality/WordEncoding.lean",
+      "sha256": "937573a31a8a896fb52cfabc43b020eda15e97f0838b64eeb8a089d3304a7d15"
+    },
+    "GoldenNormality.ZeckendorfEncoding": {
+      "path": "GoldenNormality/ZeckendorfEncoding.lean",
+      "sha256": "0763e28722521c7458de615f8489ae603f192e37d36f9ec10a4945e6f1ea3756"
+    },
+    "GoldenNormality.Automaton": {
+      "path": "GoldenNormality/Automaton.lean",
+      "sha256": "bbf20cc2ff1bc1c73fb826fa836fa7ed0e6c1cc15a18aa37d7a47022b057378a"
+    },
+    "FiniteMathKernels.BinaryWeight": {
+      "path": "verification/ridout/.lake/packages/FiniteMathKernels/tests/lean/FiniteMathKernels/BinaryWeight.lean",
+      "sha256": "47bc675ccb9b01094074ab3fb989e1dc6d0abb9b8a86aa751df97cc400f38614"
+    },
+    "GoldenNormality.BinaryComplementCounts": {
+      "path": "GoldenNormality/BinaryComplementCounts.lean",
+      "sha256": "261a9ac79fa3448c503782c117cfd7a666d9a18cb1baa6822d6cd0c7e147eeab"
+    },
+    "GoldenNormality.BinaryComplement": {
+      "path": "GoldenNormality/BinaryComplement.lean",
+      "sha256": "0f4726583af688ee89e36d7272c523a365c83bb0f5e6322b16772a233dd15d74"
+    },
+    "GoldenNormality.BinaryComplementCarry": {
+      "path": "GoldenNormality/BinaryComplementCarry.lean",
+      "sha256": "a2b9cca5bb87c69f3a62d8a22ef0960f33378559339179a596cf01d27c7e6169"
+    }
+  },
+  "mathlib_cache_roots": [
+    "Mathlib.Algebra.BigOperators.Field",
+    "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+    "Mathlib.Algebra.BigOperators.Ring.Finset",
+    "Mathlib.Algebra.Module.LinearMap.Rat",
+    "Mathlib.Algebra.Module.ZLattice.Basic",
+    "Mathlib.Algebra.Module.ZLattice.Covolume",
+    "Mathlib.Algebra.MvPolynomial.Basic",
+    "Mathlib.Algebra.MvPolynomial.Equiv",
+    "Mathlib.Algebra.MvPolynomial.NoZeroDivisors",
+    "Mathlib.Algebra.MvPolynomial.PDeriv",
+    "Mathlib.Algebra.MvPolynomial.Rename",
+    "Mathlib.Algebra.Order.AbsoluteValue.Basic",
+    "Mathlib.Algebra.Order.Antidiag.FinsuppEquiv",
+    "Mathlib.Algebra.Order.Archimedean.Real.Basic",
+    "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+    "Mathlib.Algebra.Order.Field.Basic",
+    "Mathlib.Algebra.Order.Floor.Ring",
+    "Mathlib.Algebra.Order.Group.PosPart",
+    "Mathlib.Algebra.Order.Ring.IsNonarchimedean",
+    "Mathlib.Algebra.Polynomial.BigOperators",
+    "Mathlib.Algebra.Polynomial.Degree.Lemmas",
+    "Mathlib.Algebra.Polynomial.Eval.Coeff",
+    "Mathlib.Algebra.Polynomial.HasseDeriv",
+    "Mathlib.Algebra.Polynomial.RingDivision",
+    "Mathlib.Algebra.Polynomial.Roots",
+    "Mathlib.Algebra.Polynomial.Taylor",
+    "Mathlib.Analysis.AbsoluteValue.Equivalence",
+    "Mathlib.Analysis.Complex.ExponentialBounds",
+    "Mathlib.Analysis.Convex.Gauge",
+    "Mathlib.Analysis.Convex.Measure",
+    "Mathlib.Analysis.InnerProductSpace.Adjoint",
+    "Mathlib.Analysis.InnerProductSpace.ProdL2",
+    "Mathlib.Analysis.Matrix.LDL",
+    "Mathlib.Analysis.MeanInequalities",
+    "Mathlib.Analysis.MeanInequalitiesPow",
+    "Mathlib.Analysis.Normed.Algebra.GelfandMazur",
+    "Mathlib.Analysis.Normed.Field.Instances",
+    "Mathlib.Analysis.Normed.Module.Completion",
+    "Mathlib.Analysis.Normed.Ring.WithAbs",
+    "Mathlib.Analysis.Polynomial.MahlerMeasure",
+    "Mathlib.Analysis.RCLike.Basic",
+    "Mathlib.Analysis.Real.Pi.Bounds",
+    "Mathlib.Analysis.Real.Sqrt",
+    "Mathlib.Analysis.SpecialFunctions.Exponential",
+    "Mathlib.Analysis.SpecialFunctions.Integrals.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Log.PosLog",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+    "Mathlib.Analysis.SpecificLimits.Basic",
+    "Mathlib.Basic.ENNReal.Basic",
+    "Mathlib.Basic.ENNReal.BigOperators",
+    "Mathlib.Basic.ENNReal.Real",
+    "Mathlib.Basic.Real.Pointwise",
+    "Mathlib.Data.Finsupp.Antidiagonal",
+    "Mathlib.Data.Finsupp.Interval",
+    "Mathlib.Data.Finsupp.MonomialOrder",
+    "Mathlib.Data.Fintype.Order",
+    "Mathlib.Data.List.Induction",
+    "Mathlib.Data.Matrix.ColumnRowPartitioned",
+    "Mathlib.Data.Nat.Choose.Bounds",
+    "Mathlib.Data.Nat.Choose.Central",
+    "Mathlib.Data.Nat.Digits.Lemmas",
+    "Mathlib.Data.Nat.Dist",
+    "Mathlib.Data.Nat.Fib.Basic",
+    "Mathlib.Data.Nat.Fib.Zeckendorf",
+    "Mathlib.Data.Nat.Find",
+    "Mathlib.Data.Rat.BigOperators",
+    "Mathlib.Data.Rat.Lemmas",
+    "Mathlib.Data.Set.Card",
+    "Mathlib.Data.Set.Finite.Lemmas",
+    "Mathlib.Data.Sum.Order",
+    "Mathlib.Data.ZMod.Basic",
+    "Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure",
+    "Mathlib.LinearAlgebra.Basis.Fin",
+    "Mathlib.LinearAlgebra.Basis.Prod",
+    "Mathlib.LinearAlgebra.Dimension.Constructions",
+    "Mathlib.LinearAlgebra.Dimension.Finrank",
+    "Mathlib.LinearAlgebra.Dimension.Free",
+    "Mathlib.LinearAlgebra.Dimension.Localization",
+    "Mathlib.LinearAlgebra.Dimension.RankNullity",
+    "Mathlib.LinearAlgebra.Dual.Basis",
+    "Mathlib.LinearAlgebra.Dual.Defs",
+    "Mathlib.LinearAlgebra.Dual.Lemmas",
+    "Mathlib.LinearAlgebra.ExteriorPower.Basis",
+    "Mathlib.LinearAlgebra.FiniteDimensional.Basic",
+    "Mathlib.LinearAlgebra.FiniteDimensional.Defs",
+    "Mathlib.LinearAlgebra.FiniteDimensional.Lemmas",
+    "Mathlib.LinearAlgebra.Finsupp.LinearCombination",
+    "Mathlib.LinearAlgebra.FreeModule.PID",
+    "Mathlib.LinearAlgebra.LinearIndependent.Lemmas",
+    "Mathlib.LinearAlgebra.Matrix.Adjugate",
+    "Mathlib.LinearAlgebra.Matrix.Block",
+    "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+    "Mathlib.LinearAlgebra.Matrix.DotProduct",
+    "Mathlib.LinearAlgebra.Matrix.Nondegenerate",
+    "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+    "Mathlib.LinearAlgebra.Matrix.Rank",
+    "Mathlib.LinearAlgebra.Matrix.ToLin",
+    "Mathlib.LinearAlgebra.Matrix.ToLinearEquiv",
+    "Mathlib.LinearAlgebra.Pi",
+    "Mathlib.LinearAlgebra.Projection",
+    "Mathlib.LinearAlgebra.Projectivization.Basic",
+    "Mathlib.LinearAlgebra.StdBasis",
+    "Mathlib.LinearAlgebra.Vandermonde",
+    "Mathlib.MeasureTheory.Constructions.HaarToSphere",
+    "Mathlib.MeasureTheory.Group.GeometryOfNumbers",
+    "Mathlib.MeasureTheory.Integral.Pi",
+    "Mathlib.MeasureTheory.Integral.Prod",
+    "Mathlib.MeasureTheory.Measure.Haar.Disintegration",
+    "Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace",
+    "Mathlib.MeasureTheory.Measure.Haar.Unique",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.VolumeOfBalls",
+    "Mathlib.MeasureTheory.Measure.Prod",
+    "Mathlib.NumberTheory.DiophantineApproximation.Basic",
+    "Mathlib.NumberTheory.Height.Basic",
+    "Mathlib.NumberTheory.Height.MvPolynomial",
+    "Mathlib.NumberTheory.Height.NumberField",
+    "Mathlib.NumberTheory.Height.Projectivization",
+    "Mathlib.NumberTheory.NumberField.CanonicalEmbedding.Basic",
+    "Mathlib.NumberTheory.NumberField.ClassNumber",
+    "Mathlib.NumberTheory.NumberField.Completion.FinitePlace",
+    "Mathlib.NumberTheory.NumberField.Completion.InfinitePlace",
+    "Mathlib.NumberTheory.NumberField.Discriminant.Basic",
+    "Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings",
+    "Mathlib.NumberTheory.NumberField.ProductFormula",
+    "Mathlib.NumberTheory.NumberField.Units.DirichletTheorem",
+    "Mathlib.NumberTheory.NumberField.Units.Regulator",
+    "Mathlib.NumberTheory.Ostrowski",
+    "Mathlib.NumberTheory.Padics.PadicNumbers",
+    "Mathlib.NumberTheory.Real.Irrational",
+    "Mathlib.NumberTheory.Transcendental.Liouville.LiouvilleNumber",
+    "Mathlib.NumberTheory.Transcendental.Liouville.LiouvilleWith",
+    "Mathlib.Order.Interval.Finset.Fin",
+    "Mathlib.Order.Interval.Finset.Nat",
+    "Mathlib.RingTheory.Complex",
+    "Mathlib.RingTheory.DedekindDomain.AdicValuation",
+    "Mathlib.RingTheory.DedekindDomain.Dvr",
+    "Mathlib.RingTheory.DedekindDomain.Factorization",
+    "Mathlib.RingTheory.DedekindDomain.Ideal.Basic",
+    "Mathlib.RingTheory.DedekindDomain.SInteger",
+    "Mathlib.RingTheory.DedekindDomain.SelmerGroup",
+    "Mathlib.RingTheory.FractionalIdeal.Operations",
+    "Mathlib.RingTheory.Ideal.Norm.AbsNorm",
+    "Mathlib.RingTheory.Ideal.Norm.RelNorm",
+    "Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic",
+    "Mathlib.RingTheory.Localization.Ideal",
+    "Mathlib.RingTheory.Localization.Integer",
+    "Mathlib.RingTheory.MvPolynomial.Basic",
+    "Mathlib.RingTheory.MvPolynomial.WeightedHomogeneous",
+    "Mathlib.RingTheory.Norm.Basic",
+    "Mathlib.RingTheory.Norm.Transitivity",
+    "Mathlib.RingTheory.Polynomial.GaussNorm",
+    "Mathlib.RingTheory.Polynomial.Wronskian",
+    "Mathlib.RingTheory.QuasiFinite.Basic",
+    "Mathlib.Tactic",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.Positivity",
+    "Mathlib.Tactic.Ring",
+    "Mathlib.Topology.Compactification.OnePoint.Basic"
+  ],
+  "source_bindings": {
+    "verification/ridout/RidoutReplay.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "b2e6a9327367c7cc601e17fc20742403de3e596d",
+      "sha256": "ec2f0efe96fb302409ce0865b1691460d64bef96d8d95172606f4d1b9ef5272e"
+    },
+    "verification/ridout/RidoutBridge/RidoutSpecialization.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "aa812e2237e1e8076a5e7fdc41ef4aa801ccf7bf",
+      "sha256": "842f23e6a707369f1d4bad2fad8dbd53348da6f45d175eebffcef64fa2806c4f"
+    },
+    "verification/ridout/RidoutBridge/FiniteToSeparation.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "a42e983696caf434fa70dc0452df906252b6c28f",
+      "sha256": "1ea8cdd4812bdbd1909956fd8e14810998ed4bc256e7ac7c32b398038169ca9b"
+    },
+    "GoldenNormality/BinaryGapTransfer.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "1dfb8994d0a6adaa506ed4444650bcbf9e6fdf00",
+      "sha256": "d534d8e02d70babdddf45dd8d3f3f0ac5773e8c787ecb0ce2e019f758060f28f"
+    },
+    "GoldenNormality/BinaryDyadicSeparation.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "6b78437ef9d8645c53224be31ead4475219cab1e",
+      "sha256": "715d401874615095227b60f217f0d0ee139cf0f4fe283972e57307b82fb75fba"
+    },
+    "GoldenNormality/BinaryDyadicOrbit.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "dd8ecc22666dd4dddf4aceaf2cc043241957d8a8",
+      "sha256": "eb53655d6a170a58e7c213075c4bfcf723f6289beddd772ddab5e3ffd9327487"
+    },
+    "GoldenNormality/Normality.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "089c20ba46fd3d53b3eda11a7d0f409694340ba9",
+      "sha256": "0ebb5b8fe3420b28bec0a5e26919fd69778c9539a2552df06b9ffaf3dd9fd6c0"
+    },
+    "GoldenNormality/Prefix.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "66ec6dc1af9afdb445edf68f9c0a6e22356ad312",
+      "sha256": "4433bc6b9e6a99b535c232e09a224500301157475ba5019741064a020476d9e7"
+    },
+    "GoldenNormality/BinaryUnitCarry.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "7d81fd2d3ff0d29c225c95ad09e8a74e9a9b9e40",
+      "sha256": "03247d69a91eebb784d2bdcf9af2b8d6e9a40a158baa9c1b80cc20fb0a184715"
+    },
+    "GoldenNormality/BinarySemicircleCarry.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "6046f4de5b5956d9f219278ad796cb453cc05861",
+      "sha256": "6aa7de90d142a8611eb5ffbfae08eeda5cbd7d285bef704f434d1b5f7886c39e"
+    },
+    "GoldenNormality/BinaryPartitionCarry.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "3028b8d74f8e6325cd96961bc759c057b95cbec8",
+      "sha256": "a64591ee7e6ed9d5af0735798ab0d83bdfb0f766dfc2e56d2081e3201dd5b4c8"
+    },
+    "GoldenNormality/BinaryAggregateCarry.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "8804547740ad137dc4cbc2d5c1e8ff948c450987",
+      "sha256": "25215c89bed9b4b1385c3c87a97a5b96fb07dbb67b5b826adc6cd1c790f45090"
+    },
+    "GoldenNormality/BinaryRecurrence.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "b8fd2c3bc39d6fe5508b3c497bb9e9feb5c8ed2b",
+      "sha256": "7667d21aa2fc8575d265e555798d7647e28172b5fe0c021f9d9fecb2b805b6f5"
+    },
+    "GoldenNormality/CheckpointBounds.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "3874322902c3625319f564f0e40fca7a848ab057",
+      "sha256": "7ce3df015c51f44fd3f53a526aba3a8e592538803c1e7b000f17716676509966"
+    },
+    "GoldenNormality/FrequencyBridge.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "eed897569baf17e765baa8e2460cc47830c1d84e",
+      "sha256": "820910f3c8b96a0ef5adb18ddc2e066fddf4096d56a41450566cbb9a0b6aeea4"
+    },
+    "GoldenNormality/BlockNumerals.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "aa80155e4263ad45117655ddd32f71a5db0c5be3",
+      "sha256": "72a3395bde8f1359d3dc5e1a0c71284288958eacacab68d511098b56756e3f83"
+    },
+    "GoldenNormality/Certificates.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "7ede43a22b6ce014a84b3358a0575b2b2f2a9b65",
+      "sha256": "21147b03d2bf38a9604a769cc094dda2772ed5fbdedf2353a913e8b94c420b78"
+    },
+    "GoldenNormality/Blocks.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "a7d94843fd981076518a189ac286409548c0a6a5",
+      "sha256": "0f0904b825e09164ba18f7fcc9ee0cd9dd264c50411fd34168439d75eb761234"
+    },
+    "GoldenNormality/BinaryRuns.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "f32beec16cdb4ac8c21c3dfbc1ec8fc108ba6aa6",
+      "sha256": "f46f3a8abababca1ac7d08606b01a122a794e04d6066b8c8e4fd5bc22d819713"
+    },
+    "GoldenNormality/BinarySparsity.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "d1b487e7f580a872a5ee2baf3a404189b2ebabdf",
+      "sha256": "5cec1a4cd3e75c959955677ed2d5a03fe7adf3213d9572c147851290608f86e7"
+    },
+    "GoldenNormality/PowerOrbit.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "df4751d17f41dfc56fed10e995ecf7f023307fbd",
+      "sha256": "670106d482b0a6fb039c9f12ab7f33119fd309cfcd3ff981798984c474aaf204"
+    },
+    "GoldenNormality/NormalityCriteria.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "b5b3993c1378e85051ef0e2cd71e60226f40a82f",
+      "sha256": "5df484ff9c37ad4aa172fa44d5ac11e6272d3acc11b06c3d7132371a6dd55ee1"
+    },
+    "GoldenNormality/WordEncoding.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "6716bc8959b1a5692108a5703da8b89069b3a671",
+      "sha256": "937573a31a8a896fb52cfabc43b020eda15e97f0838b64eeb8a089d3304a7d15"
+    },
+    "GoldenNormality/ZeckendorfEncoding.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "0b0f5436fc2906bace13f10d463e052ac8203f76",
+      "sha256": "0763e28722521c7458de615f8489ae603f192e37d36f9ec10a4945e6f1ea3756"
+    },
+    "GoldenNormality/Automaton.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "f78d2be40f2bf81cc9063d27b801cd9c90098058",
+      "sha256": "bbf20cc2ff1bc1c73fb826fa836fa7ed0e6c1cc15a18aa37d7a47022b057378a"
+    },
+    "GoldenNormality/BinaryComplementCounts.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "ff9ef95bf0a265b0143be92894c373276f2b0150",
+      "sha256": "261a9ac79fa3448c503782c117cfd7a666d9a18cb1baa6822d6cd0c7e147eeab"
+    },
+    "GoldenNormality/BinaryComplement.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "89e0a4fd6398e16261e7ca6eecf20b0d37c5412a",
+      "sha256": "0f4726583af688ee89e36d7272c523a365c83bb0f5e6322b16772a233dd15d74"
+    },
+    "GoldenNormality/BinaryComplementCarry.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "94283a23c4699b8370825ea1783e2b58f6a742f6",
+      "sha256": "a2b9cca5bb87c69f3a62d8a22ef0960f33378559339179a596cf01d27c7e6169"
+    },
+    "verification/ridout/Audit.lean": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "22ec42787ceddb89ced58df10abef6cbd063961c",
+      "sha256": "9fd851bad704ddaa04675db14863e24f9d179862a2eb1b725084ce3e9cd320c6"
+    },
+    "verification/ridout/replay.py": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "1c7832404a9f6449c32eb41ad37fcac74ace65fe",
+      "sha256": "e102ed8baafee06ec207e616956a490b5a51f72f918755e9a2b092dbdac29ac6"
+    },
+    "verification/ridout/lakefile.toml": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "6d2872c943ef54bc7121829c82479db265748115",
+      "sha256": "9c9e1bd01b9634191b408ce47ad3d53e2f6651b0254fb27e65bcbe588f115388"
+    },
+    "verification/ridout/lake-manifest.json": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "0c0c8877ddea26697c3706d7c2e993d06799caff",
+      "sha256": "bebb721e79ef8461937074b83355dd52552e7cac0b3ff3341af1436ea8dbbc53"
+    },
+    "verification/ridout/lean-toolchain": {
+      "repository": ".",
+      "revision": "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+      "git_blob": "f0e00b3338bac0d6f050d9a64e277314a9f7830f",
+      "sha256": "bc84812c94489d1e3e191baa1dc10d5eb684382d7fe9d2a5ab085e72c1c67e47"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PrimeProducts.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "52757e22d00da24d1f0d7aef0b09a7841102d20e",
+      "sha256": "205c849b1ace9c56c51b55428711af1557c10a977a01fc0061d4f376aeae98d0"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RationalPlaces.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ec94f81be71017cce96ca3474931276dd59da883",
+      "sha256": "3233b8501dbdfc1f91efab85a06e26519b31a5abf0d6f5743df904d6b886bca5"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PlacesOverFinite.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "1960a2f274abdd95813aec70a15d2f8b179e7ba3",
+      "sha256": "90d87db54028e30236687de651b87b97d99e2080fa0ba8cc2823112c69585c6d"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/Nonarchimedean.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "202a7a1b84c830f963e367cbf3c023472abc67af",
+      "sha256": "739bed42b00100b41b0d88e4e2491046d5ef74270e4cee29301bfcbfc6effbbc"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/Ridout.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "b9449915989c92f29ab6c9cd114fc5c2f7a65460",
+      "sha256": "22984de409035a67b905af9609657b43355e177e24a7a935f230b5d118b96352"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothRational.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "9dcfd715ad0733ef69e65a5aea19950b99207870",
+      "sha256": "fb054c2433ddc1fc48de4aafd2ea5a3a899546a18fbc1d7d858c8361d29903e7"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothTheorem.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "63734ff19c3ac21f4f7216887525d73bdde650c1",
+      "sha256": "0bd4b26856a1e27c3fca390812d8338e735f1d54f7ee106bba355dd91a566e94"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothKeyInequality.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "d8a79c8c8b1c950cca324d4ab2ff3a4eb3b629f4",
+      "sha256": "2ff13e5b004a5be1b8b48d8ea9e8063dce2d9c91514a7153bf446e7d5ce516a9"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothLocalBound.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "5104351cebb2b33b34e7101659afdf7c73ec99ce",
+      "sha256": "8d1b3d31f475ea7523da00b37b0651a7d6c7b1e6103bb392cb29cf835b2f565d"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvPolynomialEvalBound.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "4fc3014c7b54d3fc4fe17d08ac8b954247a47647",
+      "sha256": "6c1ee9934984863100346e260cce9dbc59b6a3602cad8c99df6d11d9e2240d53"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvHasseDerivTaylor.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "4f7f571f8d7056d0157efe5e6d074ee9a7cdca1d",
+      "sha256": "a61bb36feb70c10df85fc990d8e5f7fc03dad9927a83dc5f69795fb8cd09a96f"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvHasseDeriv.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "181d9dd33d5b2e86d270377ef21f3bf61684c282",
+      "sha256": "a70bfffa0e539898ef83904f34f5cf52a73d4c5a5ebe11a09bcce60b084576a8"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MvHasseDerivHeight.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "b7dc1525c0162d093644578b05738c7c1fd91174",
+      "sha256": "7a9c3e3f7fb34294a93ccccc59ba4a9e2906e96184ab13483918084d7006195f"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Polynomial.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "4cd0b4034848ad24c5a0efc0fa45df225a5fa670",
+      "sha256": "1bdb5aada4e6abd177968dd594612d3340bbef76fa228885953a8846c079c21d"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Extension.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "e98df49f439a5e12ae3493f313dc34a9e8146149",
+      "sha256": "e39435858a567eacfc243641ab0aacc7acdf3c55163388d01fb2915f658bcad1"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Arakelov.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "2dca257e042b14d2447596f3834e58b0b4773fc6",
+      "sha256": "040e847f3c675f58a57af5b3175a493700959b5fcb1f895df882ac6c744f6a07"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/BoxMonomial.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "0d38ff9f06acc9271bea768a9d99cc1bfbefc9cb",
+      "sha256": "d3aae5d444ace0c3752349e985b257c7e193b0e6ba80abb2682ba0a2b01e885f"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Absolute.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "4943aafbd0e73677377c6bb4a22b03df2b00a8c8",
+      "sha256": "6057d8e76a742a287195e6623a7e88f5cd5936f514064b4b74102761b832da86"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IndexConditions.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "64793cb5f556752b798eda16d4b333b183d0d4b7",
+      "sha256": "8b0158ee1129f3c4d9a60298c33aefebe212ef9965f97292e69604c6a832b794"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PolynomialIndex.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "7c12578ba0515c31f86abb371a8d7fc6322f0e69",
+      "sha256": "f6c7c1bf45250f8863290b6cd3e16baef756df7e775c0ee1f2da60f489fe67c9"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/WeightedOrder.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ffc2b73f8f73af0c0c45cd9909a6dede73e6c267",
+      "sha256": "b00ea48effaeb1f354b47a0446fbccf2a45b2722c96b2eaec687938eddd1fab8"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/CountingVolume.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "4b01529bd6be378e7819ab9201fac9cae7d5e75c",
+      "sha256": "40313063b4521010d1c081254c3ab41bb463037535379a3a2533eab31dc0bf2d"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/GlobalBound.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "81282d1e7db45d9f6930db839f7d56c246e26165",
+      "sha256": "82037ea9e7485f28b16e12ed8ff9378ad3fa4d42fbe01b4a0c260934aa99f697"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/SAdicHeight.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "4e0b9d6bbe7f89d736e47f31a16d9c9e36cd6c26",
+      "sha256": "851ef8c722070472466baa631ddbe3903690c4427bde79458d1446f11010bda4"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/SIntegerLocalization.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "43d1d13a81fe7531a343fd50dba97d0637580b56",
+      "sha256": "5c6221f991bdc73e39149db3f6d896740c50c0fda4857ebd3bf76c13fd078c1b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SUnitTheorem.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "5c96a6b4c600d0ec23ee6139622fe4afdba61228",
+      "sha256": "55dc526c57f9f8d54ca047fa2fb0fb7d294dcf0dc838462eec148874dab4107b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SUnit.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "2656528610cc4cd6701855eb78c440e0d798f203",
+      "sha256": "a6db8db1c74e17dd4dfaff89cb1c6444637883e29b3682c8bfb589931c2ac300"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/UnitHeight.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "3dd71cbbc6ed02a7dab6a9bf3534cd4e780d23c5",
+      "sha256": "ac0c5ea91c348bcae167c52a55f45278bb4be5e543fd93db3d570e6193411998"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/FinitePlaceIdeal.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "47d838f1c44454b85940a39dd15cdd76000377c7",
+      "sha256": "31ed5af094086ee839d8fef1e56d7a833d983a88c3aa900319a7a126dd79839b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SRegulator.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "b17be63dc35f747f1ffe64c69aa1e75a994fbc2d",
+      "sha256": "9a5413044b6e7590ed2166d31376b3878808b3ac4cea05551674788225c1fe13"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/FundamentalInequality.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "fc7002cb8fb2c6def0632cac715a313a508a070d",
+      "sha256": "2f3f8df831b6586ed0ec2a7649748b504384d2640be59c35a3115d6fc7521a21"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PlacesOverInfinite.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "f851464b2bec9bed95dcbece763302095b48bafc",
+      "sha256": "dc4ef1d3708583171c6619ea7973feddc2a2b0732c9e086154a22ed11b624997"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothClass.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "fc0239cf94d95dcbd4cce454500871f1b3bdd888",
+      "sha256": "17512f0d4b9a2245aca593cabde9d2b5da53373502f823710a5f391402f82fdb"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IndependentHeights.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "6bc45c9bd15a537357708d9f6312219d0f11e77c",
+      "sha256": "4aad55daad1798483c64c5d580821b75bd1388bfbabe03f9443e4d0a1a92734e"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/ApproximationClass.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "6d28b6a2697d8a513e7b8b23bca93168d5133cdf",
+      "sha256": "a48aa71888befb9899a4e9ea41e813d67e70bfa2b5ac3c60caff149ddcf40cb6"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothAuxiliary.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "8ad7377f4f08c444b4b8203d268560d1c68e4908",
+      "sha256": "0011cdc84f593a055fbdf3b35401fd67b0691b2868e5064088dbc55387f29a6b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothLemma.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "0f25eccb38c22877f4dc5acc47644aeef58c9f16",
+      "sha256": "e96ac1f3c9c2905c3eeb300346c34ff1d716dcaf0df74a0a1d28e34832c86021"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothEstimates.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "47e1f9fcd7ad2f6c679a40ea622d2afe4cde3023",
+      "sha256": "f6fa3556ebeba11c12d5a97d12648e9f1eb6762481bd17fd423f791bfe203bd3"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothDeterminant.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "b2e1919b91a4b2e6174adb26b44946e5381ccaa1",
+      "sha256": "93562645f2008d5bcc79725962f2df70463a421e654f2cfe4e338de39b2a1ad3"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PolynomialDeterminantHeight.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "799cc2cab6eaef849ee79f5fa6114352cd9b6e7d",
+      "sha256": "077c2a48779e7958a01f18a1449b0e2405cd813df7a037987697b4076026f0a0"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/HeightTransport.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "6fac89e315f0d207749552c9c082721619274f53",
+      "sha256": "692478ed8fa69215b06666bc68ec97208f2dc519b4fbbae3435f68ffe1d19408"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Gelfond.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "040a15fcace439d2a17639fb7f5fadbd4d0679e6",
+      "sha256": "ceff9cf331bf91ca9b1abecda8cdc68aca7dbaa731bb61354d5a230bd6f28da9"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/GaussLemma.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ef2bfca448d5fa0f8f157e52d7fac201a4558e60",
+      "sha256": "77ada257947dc94186099223160d7be2f87e5bf33eebcd3675238b68c3b5faa9"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IndexRename.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "41819b5c83e81268fdb2121a13ba992b81ef4081",
+      "sha256": "a6b613f2e5ce04c6bafe59e4de2198091042c8f7c18c720f57d37ef089be9393"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothDecomposition.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "a67ff833ba7be28c780b59a1993f756361e87a09",
+      "sha256": "d5320223ae5f16155f9207d5664bd6a3e7dbc9c24fc3b1bbff368d40cdf373e1"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/GeneralizedWronskian.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "9db1e949796914b13e84ed236a607a8166ce93d8",
+      "sha256": "8c5504a737e6d5e99e9f858579b4e15ddd1a7c56e8e79d6b12fd2dc744321d41"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/Wronskian.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "43ad332541b90f958e55f454c49bd6bdf83a25dd",
+      "sha256": "e6cde83188c1d334ac7ee9405f396ebcbcfbf286116da10c0d1e4756940b5270"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothBaseCase.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "e29cacd4bc8109f42ab01e7e9dc3d95abe895fa2",
+      "sha256": "05010a65f030a9ffad2cabdbda4f79cb6736c43e277e0dde3fa62a35752dcfc1"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/DisjointVariables.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "9a75578036256a7b73f7ef61c627f6ae514fdbd4",
+      "sha256": "6c77401adcabe6a754ffd20410c448f37d51c2ffdab372eaa8663de241a5cba9"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/AuxiliaryPolynomial.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "50793f0dc1c794affbcf6b35b590fddb6f4ef844",
+      "sha256": "03132f2d3fa3386dbfbf3105699239a9ae02cb7e9bc3a6b17d39930fc2b71c1c"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/MonomialHeight.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "1464207da64290dece15cc5c09329b1f5b61c6f9",
+      "sha256": "e9ee0ad356ab405b874336daae31a3e39a5d8d6f0e0a78355b92171d60660efb"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/BombieriVaalerRelative.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "f8be988a93815dc1493f3df2a5c845715c4e0e82",
+      "sha256": "985a3591164cec48ee77d6aea0fefd2906f9f287c366c0903e660c0fb01cbf9e"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/RestrictScalars.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "3a39a960f10a00cbaece42ea2006f0acf8512787",
+      "sha256": "e84d03e39ec896a43697b0101ce9e96a453d43ab8b6661c9d51a0c6f1753d63b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/RowEntryHeight.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "31e173a37f8931d7b9e9aad7a28de1dd5b54a94b",
+      "sha256": "21e95f580f59b61bddf2add9028c44e13f3a500a79c59b904283d60e5c6a427a"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/RowSpace.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "c1317618b3412d02e1c700b99474232366c33377",
+      "sha256": "9e7c51767eadd5603dc2cf7a9e88255c00e6991b22e3a9cbcfa0bb4f85ea0d39"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Matrix.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ed5f53552d152704abf03a4312230ca92b8cd458",
+      "sha256": "cee5c5d670078bc87bfef77d752d601d1277015298fdd88255b12bc3bb22e64b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/LinearForm.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "88bcf29b3382ca3e5be5ed147c6ed294723b08d7",
+      "sha256": "d42580bae6571434651e249c5b6128e1aa5efeca16138078c0d69a73e6e62d1c"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Affine.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "1dcd06f21c06642ac9a1afb2262edb65b0376d0d",
+      "sha256": "8618fe375d60f3e823706da17058116c4c7064379adc5d58bbc5c52fbc420dc6"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Subspace.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "e48b816c00a44f7243949b32c87c92627b7076f3",
+      "sha256": "e7d47cd9a065202debcc4964e121b6fab6c8670f264a233aa17ac52828ddd4cf"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Plucker.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "8843e6fe1468e9578e78b73818b80fb9628f4cc6",
+      "sha256": "93fe5a5e645f9484a1b2ef8a919676f45ebdadcf81286af12fe03341dbb1ae9e"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Nonarchimedean.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "96af4a6f8b8aeb7ef07392b7d3669bfc4ae0aa45",
+      "sha256": "fee29a48759620c17e4539d303b39d118d81caf198e03d36a575952b71eb92c3"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Hadamard.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "81840d02c64fcaf75e0260781a2081eca393e17a",
+      "sha256": "8a342d6c688daa9f73dd31493a234a7754ea686758484bdfbd192f21c6c5f236"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/CauchyBinet.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "2fa07ea1db7905f3cc129bd16e71c108ddebe51a",
+      "sha256": "2169397f8921a1663e1e686af6778b30c1a96f8174357797ed17c21ce812a531"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/BombieriVaalerEntries.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "bc47ecff89e85aec6d62e055cdb70563e3c22cb1",
+      "sha256": "f550662791c1d3f390424ed1bcfc325a778952a85e85385dad4a0fec181e1837"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/BombieriVaalerMaxNorm.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "1822a2213d270eda34a62423d6c98196eea68155",
+      "sha256": "2ff99c93422e0543a0f42a4d7681ec2207028585ae52b2b185cdfc0e36358276"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MixedCube.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "41c6a778fa3318b3e625442221198f133eb30207",
+      "sha256": "8abbbd10ac5f4d405d8be20f2e29139ee628b999f08bebc08057b0fc2eccbe23"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MixedBall.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ce15f70c692f20470bdac1c369045be75d29b21f",
+      "sha256": "eea5902bc6b59252fe152988a16d2758392a2fa874c1e5b6fca7e646cd4b363d"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/NumberFieldLattice.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "b2049b4cd442207cf68ec5ad82bbe1912e362b7c",
+      "sha256": "9be5489595f4e75d869919aabd89a657c077e5cd6e8fd20405235e9d491d0e32"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/GramCovolume.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "63185543ca22f649ed7e1d4a64bfc2556c871186",
+      "sha256": "8b747f7a1afbc3c6539b54dadf43cb3baedce4bb2e77e027db7513ae7e8f3d67"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/PseudoBasis.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "b557510c1779ce33068eafabcde11d4621a4961b",
+      "sha256": "b43a601f490186efe54994109dd271d622b20f0341f8a8c2b56ef5a00f91d97c"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MixedLattice.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "9e20bf4ea4249e88b40ed7761a955db0b2797a26",
+      "sha256": "6da9684e18fff4e5b2c52a7f02010a46c6de245b2acf1bbbf6e3c649cdf9b503"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/NormProd.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "edcf5b4575df3589c28a343889b1aba531d2e95c",
+      "sha256": "c228912a10420303dab91a68b1bee8b570b243e84f6ebf08bc270535d16e426d"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/CubeSlicing.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "3d5c4f3ca8647714a875db83ac47b690a7b4370c",
+      "sha256": "1cfb84c0492f3c326fb3aee30f58f072247fc634530cbaac40fe1df0fc003495"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/ProductOfBalls.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "5b4f4e3b5c2ecc956cf953b07f7cbab34d6f68fc",
+      "sha256": "ca370367563a8059340c8a3097d92955c50e239cb33aa11a7d69752b1297ea14"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SliceBound.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "86b7f280706868b4a9546c871dd52cd7af68af3d",
+      "sha256": "d7a54b0c37a7d2eddfb1c7e37b3fa09cea957704de0423e2bcdfd8bdf7fcab1c"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/LogConcave.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "5410fe6c92b34f783dd72d05b28813a582076b70",
+      "sha256": "d46d294aa5e8790ce2a2594f732ae049eabca10104f952713e2370133330521b"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/PrekopaLeindler.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "e35815c42269c405d3957394eb16bb9fd3fed3cf",
+      "sha256": "633b64a4a2ad62f6cdbb52bc63f75155aef3d3f9a65f778f25ce2d78d0529af5"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/GaussMeasure.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ecd03fc3474b12f02469f83ab2f140339c1257a5",
+      "sha256": "5684f7759c5f968b33af5edaced03d2480d4e9ca81c9254c2470dbd44d063970"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/MinkowskiSecond.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "26a8d68496a7abdd8d094c7d5f5cea44ec6907fa",
+      "sha256": "730a358c33fc27abc32f773826f5d669d95194bbbd28ae5f2afce6ecb1c97c33"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/SuccessiveMinima.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "f04cfc5e42df8e0d8c07307de1ccfc2a20a9d19e",
+      "sha256": "10df250a79f082d4dd7a4fe35c1fad05ce7d80367748d17f938bdb8b13a6a6f1"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/QuotientFubini.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "77face01b9612cc7729bc1decce367ff44e679da",
+      "sha256": "2409d3ae58854768df964f3db1086569ad91c2b5c8fecf8fa7de5ac5f953d490"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/AdaptedBasis.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "d10ff4d66e72a92bfb0e1c59f6232d07cc2fb4b7",
+      "sha256": "7ea7003700d0cbbf4f3e3949e6b888ca053e16e7321c26a42981eb3affa4e654"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Extraction.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "cf009500b25b8ff2a4ceee740232db1981c1f9ec",
+      "sha256": "d81d759225034a4304fe428104fd13204b9f9367cb8ce0a0a8867a45966ca95e"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/ArithmeticHeights/Duality.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "efd9f06fdf6cf0282763393a27dd9e36d0741f01",
+      "sha256": "fba3eac7e4bfa651128165472884c2e55ba5c34f6c8a6aa6fd0df42d8be9c888"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/LogComparison.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "cd5a0e6c6379a3d1c62d51e6939f366fc4dc5135",
+      "sha256": "fbd2312711bacb7770b5c2dab9a31367eba1da5b4366b40df9aac16bb977f88f"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/IrrationalityExponent.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "05e420f22e4eb5c1207b6d42d28acd5bec8fa173",
+      "sha256": "b2c1b47ee950486de2c37332e0a51b7b9f756188d810ea0d7f06c12e33535899"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/RothInfinity.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "690dfd7d1c5ed1d3ccc6581f90749de66279409c",
+      "sha256": "a8dd4fe521d416961a0284a0675351dea6fce771da0ceca7b04e3d4eda6e3386"
+    },
+    "verification/ridout/.lake/packages/SubspaceTheorems/DiophantineApproximation/PlacesOver.lean": {
+      "repository": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "revision": "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+      "git_blob": "ca979f3ec332fcaea721732bd61d540a06f84ca1",
+      "sha256": "f7fd7551b77e4c48f9fbbfd94abadd5135e8760aee616f7ae96e0e1dad143f5b"
+    },
+    "verification/ridout/.lake/packages/FiniteMathKernels/tests/lean/FiniteMathKernels/BinaryWeight.lean": {
+      "repository": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "revision": "8750345c496390a7ce4f6a80be331451aa999408",
+      "git_blob": "6cb6897b190013b69535ccac807cca1138083767",
+      "sha256": "47bc675ccb9b01094074ab3fb989e1dc6d0abb9b8a86aa751df97cc400f38614"
+    }
+  },
+  "commands": [
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "--version"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/comparator",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/comparator",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/mathlib",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/mathlib",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/lean4export",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/lean4export",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/plausible",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/plausible",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/LeanSearchClient",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/LeanSearchClient",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/importGraph",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/importGraph",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/proofwidgets",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/proofwidgets",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/aesop",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/aesop",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Qq",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Qq",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/batteries",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/batteries",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Cli",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Cli",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "ls-tree",
+        "-r",
+        "-z",
+        "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+        "--",
+        "GoldenNormality/Automaton.lean",
+        "GoldenNormality/BinaryAggregateCarry.lean",
+        "GoldenNormality/BinaryComplement.lean",
+        "GoldenNormality/BinaryComplementCarry.lean",
+        "GoldenNormality/BinaryComplementCounts.lean",
+        "GoldenNormality/BinaryDyadicOrbit.lean",
+        "GoldenNormality/BinaryDyadicSeparation.lean",
+        "GoldenNormality/BinaryGapTransfer.lean",
+        "GoldenNormality/BinaryPartitionCarry.lean",
+        "GoldenNormality/BinaryRecurrence.lean",
+        "GoldenNormality/BinaryRuns.lean",
+        "GoldenNormality/BinarySemicircleCarry.lean",
+        "GoldenNormality/BinarySparsity.lean",
+        "GoldenNormality/BinaryUnitCarry.lean",
+        "GoldenNormality/BlockNumerals.lean",
+        "GoldenNormality/Blocks.lean",
+        "GoldenNormality/Certificates.lean",
+        "GoldenNormality/CheckpointBounds.lean",
+        "GoldenNormality/FrequencyBridge.lean",
+        "GoldenNormality/Normality.lean",
+        "GoldenNormality/NormalityCriteria.lean",
+        "GoldenNormality/PowerOrbit.lean",
+        "GoldenNormality/Prefix.lean",
+        "GoldenNormality/WordEncoding.lean",
+        "GoldenNormality/ZeckendorfEncoding.lean",
+        "verification/ridout/Audit.lean",
+        "verification/ridout/RidoutBridge/FiniteToSeparation.lean",
+        "verification/ridout/RidoutBridge/RidoutSpecialization.lean",
+        "verification/ridout/RidoutReplay.lean",
+        "verification/ridout/lake-manifest.json",
+        "verification/ridout/lakefile.toml",
+        "verification/ridout/lean-toolchain",
+        "verification/ridout/replay.py"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "argv": [
+        "git",
+        "ls-tree",
+        "-r",
+        "-z",
+        "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+        "--",
+        "ArithmeticHeights/Absolute.lean",
+        "ArithmeticHeights/AdaptedBasis.lean",
+        "ArithmeticHeights/Affine.lean",
+        "ArithmeticHeights/Arakelov.lean",
+        "ArithmeticHeights/BombieriVaalerEntries.lean",
+        "ArithmeticHeights/BombieriVaalerMaxNorm.lean",
+        "ArithmeticHeights/BombieriVaalerRelative.lean",
+        "ArithmeticHeights/CauchyBinet.lean",
+        "ArithmeticHeights/CubeSlicing.lean",
+        "ArithmeticHeights/Duality.lean",
+        "ArithmeticHeights/Extension.lean",
+        "ArithmeticHeights/Extraction.lean",
+        "ArithmeticHeights/FinitePlaceIdeal.lean",
+        "ArithmeticHeights/GaussLemma.lean",
+        "ArithmeticHeights/GaussMeasure.lean",
+        "ArithmeticHeights/Gelfond.lean",
+        "ArithmeticHeights/GramCovolume.lean",
+        "ArithmeticHeights/Hadamard.lean",
+        "ArithmeticHeights/LinearForm.lean",
+        "ArithmeticHeights/LogConcave.lean",
+        "ArithmeticHeights/Matrix.lean",
+        "ArithmeticHeights/MinkowskiSecond.lean",
+        "ArithmeticHeights/MixedBall.lean",
+        "ArithmeticHeights/MixedCube.lean",
+        "ArithmeticHeights/MixedLattice.lean",
+        "ArithmeticHeights/Nonarchimedean.lean",
+        "ArithmeticHeights/NormProd.lean",
+        "ArithmeticHeights/NumberFieldLattice.lean",
+        "ArithmeticHeights/Plucker.lean",
+        "ArithmeticHeights/Polynomial.lean",
+        "ArithmeticHeights/PrekopaLeindler.lean",
+        "ArithmeticHeights/ProductOfBalls.lean",
+        "ArithmeticHeights/PseudoBasis.lean",
+        "ArithmeticHeights/QuotientFubini.lean",
+        "ArithmeticHeights/RestrictScalars.lean",
+        "ArithmeticHeights/RowEntryHeight.lean",
+        "ArithmeticHeights/RowSpace.lean",
+        "ArithmeticHeights/SRegulator.lean",
+        "ArithmeticHeights/SUnit.lean",
+        "ArithmeticHeights/SUnitTheorem.lean",
+        "ArithmeticHeights/SliceBound.lean",
+        "ArithmeticHeights/Subspace.lean",
+        "ArithmeticHeights/SuccessiveMinima.lean",
+        "ArithmeticHeights/UnitHeight.lean",
+        "DiophantineApproximation/ApproximationClass.lean",
+        "DiophantineApproximation/AuxiliaryPolynomial.lean",
+        "DiophantineApproximation/BoxMonomial.lean",
+        "DiophantineApproximation/CountingVolume.lean",
+        "DiophantineApproximation/DisjointVariables.lean",
+        "DiophantineApproximation/FundamentalInequality.lean",
+        "DiophantineApproximation/GeneralizedWronskian.lean",
+        "DiophantineApproximation/GlobalBound.lean",
+        "DiophantineApproximation/HeightTransport.lean",
+        "DiophantineApproximation/IndependentHeights.lean",
+        "DiophantineApproximation/IndexConditions.lean",
+        "DiophantineApproximation/IndexRename.lean",
+        "DiophantineApproximation/IrrationalityExponent.lean",
+        "DiophantineApproximation/LogComparison.lean",
+        "DiophantineApproximation/MonomialHeight.lean",
+        "DiophantineApproximation/MvHasseDeriv.lean",
+        "DiophantineApproximation/MvHasseDerivHeight.lean",
+        "DiophantineApproximation/MvHasseDerivTaylor.lean",
+        "DiophantineApproximation/MvPolynomialEvalBound.lean",
+        "DiophantineApproximation/Nonarchimedean.lean",
+        "DiophantineApproximation/PlacesOver.lean",
+        "DiophantineApproximation/PlacesOverFinite.lean",
+        "DiophantineApproximation/PlacesOverInfinite.lean",
+        "DiophantineApproximation/PolynomialDeterminantHeight.lean",
+        "DiophantineApproximation/PolynomialIndex.lean",
+        "DiophantineApproximation/PrimeProducts.lean",
+        "DiophantineApproximation/RationalPlaces.lean",
+        "DiophantineApproximation/Ridout.lean",
+        "DiophantineApproximation/RothAuxiliary.lean",
+        "DiophantineApproximation/RothBaseCase.lean",
+        "DiophantineApproximation/RothClass.lean",
+        "DiophantineApproximation/RothDecomposition.lean",
+        "DiophantineApproximation/RothDeterminant.lean",
+        "DiophantineApproximation/RothEstimates.lean",
+        "DiophantineApproximation/RothInfinity.lean",
+        "DiophantineApproximation/RothKeyInequality.lean",
+        "DiophantineApproximation/RothLemma.lean",
+        "DiophantineApproximation/RothLocalBound.lean",
+        "DiophantineApproximation/RothRational.lean",
+        "DiophantineApproximation/RothTheorem.lean",
+        "DiophantineApproximation/SAdicHeight.lean",
+        "DiophantineApproximation/SIntegerLocalization.lean",
+        "DiophantineApproximation/WeightedOrder.lean",
+        "DiophantineApproximation/Wronskian.lean"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "argv": [
+        "git",
+        "ls-tree",
+        "-r",
+        "-z",
+        "8750345c496390a7ce4f6a80be331451aa999408",
+        "--",
+        "tests/lean/FiniteMathKernels/BinaryWeight.lean"
+      ]
+    },
+    {
+      "cwd": "verification/ridout",
+      "argv": [
+        "lake",
+        "exe",
+        "cache",
+        "get",
+        "Mathlib.Algebra.BigOperators.Field",
+        "Mathlib.Algebra.BigOperators.Group.Finset.Basic",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Algebra.Module.LinearMap.Rat",
+        "Mathlib.Algebra.Module.ZLattice.Basic",
+        "Mathlib.Algebra.Module.ZLattice.Covolume",
+        "Mathlib.Algebra.MvPolynomial.Basic",
+        "Mathlib.Algebra.MvPolynomial.Equiv",
+        "Mathlib.Algebra.MvPolynomial.NoZeroDivisors",
+        "Mathlib.Algebra.MvPolynomial.PDeriv",
+        "Mathlib.Algebra.MvPolynomial.Rename",
+        "Mathlib.Algebra.Order.AbsoluteValue.Basic",
+        "Mathlib.Algebra.Order.Antidiag.FinsuppEquiv",
+        "Mathlib.Algebra.Order.Archimedean.Real.Basic",
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.Order.Field.Basic",
+        "Mathlib.Algebra.Order.Floor.Ring",
+        "Mathlib.Algebra.Order.Group.PosPart",
+        "Mathlib.Algebra.Order.Ring.IsNonarchimedean",
+        "Mathlib.Algebra.Polynomial.BigOperators",
+        "Mathlib.Algebra.Polynomial.Degree.Lemmas",
+        "Mathlib.Algebra.Polynomial.Eval.Coeff",
+        "Mathlib.Algebra.Polynomial.HasseDeriv",
+        "Mathlib.Algebra.Polynomial.RingDivision",
+        "Mathlib.Algebra.Polynomial.Roots",
+        "Mathlib.Algebra.Polynomial.Taylor",
+        "Mathlib.Analysis.AbsoluteValue.Equivalence",
+        "Mathlib.Analysis.Complex.ExponentialBounds",
+        "Mathlib.Analysis.Convex.Gauge",
+        "Mathlib.Analysis.Convex.Measure",
+        "Mathlib.Analysis.InnerProductSpace.Adjoint",
+        "Mathlib.Analysis.InnerProductSpace.ProdL2",
+        "Mathlib.Analysis.Matrix.LDL",
+        "Mathlib.Analysis.MeanInequalities",
+        "Mathlib.Analysis.MeanInequalitiesPow",
+        "Mathlib.Analysis.Normed.Algebra.GelfandMazur",
+        "Mathlib.Analysis.Normed.Field.Instances",
+        "Mathlib.Analysis.Normed.Module.Completion",
+        "Mathlib.Analysis.Normed.Ring.WithAbs",
+        "Mathlib.Analysis.Polynomial.MahlerMeasure",
+        "Mathlib.Analysis.RCLike.Basic",
+        "Mathlib.Analysis.Real.Pi.Bounds",
+        "Mathlib.Analysis.Real.Sqrt",
+        "Mathlib.Analysis.SpecialFunctions.Exponential",
+        "Mathlib.Analysis.SpecialFunctions.Integrals.Basic",
+        "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+        "Mathlib.Analysis.SpecialFunctions.Log.PosLog",
+        "Mathlib.Analysis.SpecialFunctions.Pow.Real",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Analysis.SpecificLimits.Basic",
+        "Mathlib.Basic.ENNReal.Basic",
+        "Mathlib.Basic.ENNReal.BigOperators",
+        "Mathlib.Basic.ENNReal.Real",
+        "Mathlib.Basic.Real.Pointwise",
+        "Mathlib.Data.Finsupp.Antidiagonal",
+        "Mathlib.Data.Finsupp.Interval",
+        "Mathlib.Data.Finsupp.MonomialOrder",
+        "Mathlib.Data.Fintype.Order",
+        "Mathlib.Data.List.Induction",
+        "Mathlib.Data.Matrix.ColumnRowPartitioned",
+        "Mathlib.Data.Nat.Choose.Bounds",
+        "Mathlib.Data.Nat.Choose.Central",
+        "Mathlib.Data.Nat.Digits.Lemmas",
+        "Mathlib.Data.Nat.Dist",
+        "Mathlib.Data.Nat.Fib.Basic",
+        "Mathlib.Data.Nat.Fib.Zeckendorf",
+        "Mathlib.Data.Nat.Find",
+        "Mathlib.Data.Rat.BigOperators",
+        "Mathlib.Data.Rat.Lemmas",
+        "Mathlib.Data.Set.Card",
+        "Mathlib.Data.Set.Finite.Lemmas",
+        "Mathlib.Data.Sum.Order",
+        "Mathlib.Data.ZMod.Basic",
+        "Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure",
+        "Mathlib.LinearAlgebra.Basis.Fin",
+        "Mathlib.LinearAlgebra.Basis.Prod",
+        "Mathlib.LinearAlgebra.Dimension.Constructions",
+        "Mathlib.LinearAlgebra.Dimension.Finrank",
+        "Mathlib.LinearAlgebra.Dimension.Free",
+        "Mathlib.LinearAlgebra.Dimension.Localization",
+        "Mathlib.LinearAlgebra.Dimension.RankNullity",
+        "Mathlib.LinearAlgebra.Dual.Basis",
+        "Mathlib.LinearAlgebra.Dual.Defs",
+        "Mathlib.LinearAlgebra.Dual.Lemmas",
+        "Mathlib.LinearAlgebra.ExteriorPower.Basis",
+        "Mathlib.LinearAlgebra.FiniteDimensional.Basic",
+        "Mathlib.LinearAlgebra.FiniteDimensional.Defs",
+        "Mathlib.LinearAlgebra.FiniteDimensional.Lemmas",
+        "Mathlib.LinearAlgebra.Finsupp.LinearCombination",
+        "Mathlib.LinearAlgebra.FreeModule.PID",
+        "Mathlib.LinearAlgebra.LinearIndependent.Lemmas",
+        "Mathlib.LinearAlgebra.Matrix.Adjugate",
+        "Mathlib.LinearAlgebra.Matrix.Block",
+        "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+        "Mathlib.LinearAlgebra.Matrix.DotProduct",
+        "Mathlib.LinearAlgebra.Matrix.Nondegenerate",
+        "Mathlib.LinearAlgebra.Matrix.NonsingularInverse",
+        "Mathlib.LinearAlgebra.Matrix.Rank",
+        "Mathlib.LinearAlgebra.Matrix.ToLin",
+        "Mathlib.LinearAlgebra.Matrix.ToLinearEquiv",
+        "Mathlib.LinearAlgebra.Pi",
+        "Mathlib.LinearAlgebra.Projection",
+        "Mathlib.LinearAlgebra.Projectivization.Basic",
+        "Mathlib.LinearAlgebra.StdBasis",
+        "Mathlib.LinearAlgebra.Vandermonde",
+        "Mathlib.MeasureTheory.Constructions.HaarToSphere",
+        "Mathlib.MeasureTheory.Group.GeometryOfNumbers",
+        "Mathlib.MeasureTheory.Integral.Pi",
+        "Mathlib.MeasureTheory.Integral.Prod",
+        "Mathlib.MeasureTheory.Measure.Haar.Disintegration",
+        "Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace",
+        "Mathlib.MeasureTheory.Measure.Haar.Unique",
+        "Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar",
+        "Mathlib.MeasureTheory.Measure.Lebesgue.VolumeOfBalls",
+        "Mathlib.MeasureTheory.Measure.Prod",
+        "Mathlib.NumberTheory.DiophantineApproximation.Basic",
+        "Mathlib.NumberTheory.Height.Basic",
+        "Mathlib.NumberTheory.Height.MvPolynomial",
+        "Mathlib.NumberTheory.Height.NumberField",
+        "Mathlib.NumberTheory.Height.Projectivization",
+        "Mathlib.NumberTheory.NumberField.CanonicalEmbedding.Basic",
+        "Mathlib.NumberTheory.NumberField.ClassNumber",
+        "Mathlib.NumberTheory.NumberField.Completion.FinitePlace",
+        "Mathlib.NumberTheory.NumberField.Completion.InfinitePlace",
+        "Mathlib.NumberTheory.NumberField.Discriminant.Basic",
+        "Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings",
+        "Mathlib.NumberTheory.NumberField.ProductFormula",
+        "Mathlib.NumberTheory.NumberField.Units.DirichletTheorem",
+        "Mathlib.NumberTheory.NumberField.Units.Regulator",
+        "Mathlib.NumberTheory.Ostrowski",
+        "Mathlib.NumberTheory.Padics.PadicNumbers",
+        "Mathlib.NumberTheory.Real.Irrational",
+        "Mathlib.NumberTheory.Transcendental.Liouville.LiouvilleNumber",
+        "Mathlib.NumberTheory.Transcendental.Liouville.LiouvilleWith",
+        "Mathlib.Order.Interval.Finset.Fin",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.RingTheory.Complex",
+        "Mathlib.RingTheory.DedekindDomain.AdicValuation",
+        "Mathlib.RingTheory.DedekindDomain.Dvr",
+        "Mathlib.RingTheory.DedekindDomain.Factorization",
+        "Mathlib.RingTheory.DedekindDomain.Ideal.Basic",
+        "Mathlib.RingTheory.DedekindDomain.SInteger",
+        "Mathlib.RingTheory.DedekindDomain.SelmerGroup",
+        "Mathlib.RingTheory.FractionalIdeal.Operations",
+        "Mathlib.RingTheory.Ideal.Norm.AbsNorm",
+        "Mathlib.RingTheory.Ideal.Norm.RelNorm",
+        "Mathlib.RingTheory.IntegralClosure.IsIntegral.Basic",
+        "Mathlib.RingTheory.Localization.Ideal",
+        "Mathlib.RingTheory.Localization.Integer",
+        "Mathlib.RingTheory.MvPolynomial.Basic",
+        "Mathlib.RingTheory.MvPolynomial.WeightedHomogeneous",
+        "Mathlib.RingTheory.Norm.Basic",
+        "Mathlib.RingTheory.Norm.Transitivity",
+        "Mathlib.RingTheory.Polynomial.GaussNorm",
+        "Mathlib.RingTheory.Polynomial.Wronskian",
+        "Mathlib.RingTheory.QuasiFinite.Basic",
+        "Mathlib.Tactic",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Positivity",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Topology.Compactification.OnePoint.Basic"
+      ]
+    },
+    {
+      "cwd": "verification/ridout",
+      "argv": [
+        "lake",
+        "build",
+        "+RidoutReplay"
+      ]
+    },
+    {
+      "cwd": "verification/ridout",
+      "argv": [
+        "lake",
+        "env",
+        "lean",
+        "-DautoImplicit=false",
+        "-DwarningAsError=true",
+        "Audit.lean"
+      ]
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "ls-tree",
+        "-r",
+        "-z",
+        "2ba20e1ceee5b3a270e501983faccf4edfe92384",
+        "--",
+        "GoldenNormality/Automaton.lean",
+        "GoldenNormality/BinaryAggregateCarry.lean",
+        "GoldenNormality/BinaryComplement.lean",
+        "GoldenNormality/BinaryComplementCarry.lean",
+        "GoldenNormality/BinaryComplementCounts.lean",
+        "GoldenNormality/BinaryDyadicOrbit.lean",
+        "GoldenNormality/BinaryDyadicSeparation.lean",
+        "GoldenNormality/BinaryGapTransfer.lean",
+        "GoldenNormality/BinaryPartitionCarry.lean",
+        "GoldenNormality/BinaryRecurrence.lean",
+        "GoldenNormality/BinaryRuns.lean",
+        "GoldenNormality/BinarySemicircleCarry.lean",
+        "GoldenNormality/BinarySparsity.lean",
+        "GoldenNormality/BinaryUnitCarry.lean",
+        "GoldenNormality/BlockNumerals.lean",
+        "GoldenNormality/Blocks.lean",
+        "GoldenNormality/Certificates.lean",
+        "GoldenNormality/CheckpointBounds.lean",
+        "GoldenNormality/FrequencyBridge.lean",
+        "GoldenNormality/Normality.lean",
+        "GoldenNormality/NormalityCriteria.lean",
+        "GoldenNormality/PowerOrbit.lean",
+        "GoldenNormality/Prefix.lean",
+        "GoldenNormality/WordEncoding.lean",
+        "GoldenNormality/ZeckendorfEncoding.lean",
+        "verification/ridout/Audit.lean",
+        "verification/ridout/RidoutBridge/FiniteToSeparation.lean",
+        "verification/ridout/RidoutBridge/RidoutSpecialization.lean",
+        "verification/ridout/RidoutReplay.lean",
+        "verification/ridout/lake-manifest.json",
+        "verification/ridout/lakefile.toml",
+        "verification/ridout/lean-toolchain",
+        "verification/ridout/replay.py"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "argv": [
+        "git",
+        "ls-tree",
+        "-r",
+        "-z",
+        "2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d",
+        "--",
+        "ArithmeticHeights/Absolute.lean",
+        "ArithmeticHeights/AdaptedBasis.lean",
+        "ArithmeticHeights/Affine.lean",
+        "ArithmeticHeights/Arakelov.lean",
+        "ArithmeticHeights/BombieriVaalerEntries.lean",
+        "ArithmeticHeights/BombieriVaalerMaxNorm.lean",
+        "ArithmeticHeights/BombieriVaalerRelative.lean",
+        "ArithmeticHeights/CauchyBinet.lean",
+        "ArithmeticHeights/CubeSlicing.lean",
+        "ArithmeticHeights/Duality.lean",
+        "ArithmeticHeights/Extension.lean",
+        "ArithmeticHeights/Extraction.lean",
+        "ArithmeticHeights/FinitePlaceIdeal.lean",
+        "ArithmeticHeights/GaussLemma.lean",
+        "ArithmeticHeights/GaussMeasure.lean",
+        "ArithmeticHeights/Gelfond.lean",
+        "ArithmeticHeights/GramCovolume.lean",
+        "ArithmeticHeights/Hadamard.lean",
+        "ArithmeticHeights/LinearForm.lean",
+        "ArithmeticHeights/LogConcave.lean",
+        "ArithmeticHeights/Matrix.lean",
+        "ArithmeticHeights/MinkowskiSecond.lean",
+        "ArithmeticHeights/MixedBall.lean",
+        "ArithmeticHeights/MixedCube.lean",
+        "ArithmeticHeights/MixedLattice.lean",
+        "ArithmeticHeights/Nonarchimedean.lean",
+        "ArithmeticHeights/NormProd.lean",
+        "ArithmeticHeights/NumberFieldLattice.lean",
+        "ArithmeticHeights/Plucker.lean",
+        "ArithmeticHeights/Polynomial.lean",
+        "ArithmeticHeights/PrekopaLeindler.lean",
+        "ArithmeticHeights/ProductOfBalls.lean",
+        "ArithmeticHeights/PseudoBasis.lean",
+        "ArithmeticHeights/QuotientFubini.lean",
+        "ArithmeticHeights/RestrictScalars.lean",
+        "ArithmeticHeights/RowEntryHeight.lean",
+        "ArithmeticHeights/RowSpace.lean",
+        "ArithmeticHeights/SRegulator.lean",
+        "ArithmeticHeights/SUnit.lean",
+        "ArithmeticHeights/SUnitTheorem.lean",
+        "ArithmeticHeights/SliceBound.lean",
+        "ArithmeticHeights/Subspace.lean",
+        "ArithmeticHeights/SuccessiveMinima.lean",
+        "ArithmeticHeights/UnitHeight.lean",
+        "DiophantineApproximation/ApproximationClass.lean",
+        "DiophantineApproximation/AuxiliaryPolynomial.lean",
+        "DiophantineApproximation/BoxMonomial.lean",
+        "DiophantineApproximation/CountingVolume.lean",
+        "DiophantineApproximation/DisjointVariables.lean",
+        "DiophantineApproximation/FundamentalInequality.lean",
+        "DiophantineApproximation/GeneralizedWronskian.lean",
+        "DiophantineApproximation/GlobalBound.lean",
+        "DiophantineApproximation/HeightTransport.lean",
+        "DiophantineApproximation/IndependentHeights.lean",
+        "DiophantineApproximation/IndexConditions.lean",
+        "DiophantineApproximation/IndexRename.lean",
+        "DiophantineApproximation/IrrationalityExponent.lean",
+        "DiophantineApproximation/LogComparison.lean",
+        "DiophantineApproximation/MonomialHeight.lean",
+        "DiophantineApproximation/MvHasseDeriv.lean",
+        "DiophantineApproximation/MvHasseDerivHeight.lean",
+        "DiophantineApproximation/MvHasseDerivTaylor.lean",
+        "DiophantineApproximation/MvPolynomialEvalBound.lean",
+        "DiophantineApproximation/Nonarchimedean.lean",
+        "DiophantineApproximation/PlacesOver.lean",
+        "DiophantineApproximation/PlacesOverFinite.lean",
+        "DiophantineApproximation/PlacesOverInfinite.lean",
+        "DiophantineApproximation/PolynomialDeterminantHeight.lean",
+        "DiophantineApproximation/PolynomialIndex.lean",
+        "DiophantineApproximation/PrimeProducts.lean",
+        "DiophantineApproximation/RationalPlaces.lean",
+        "DiophantineApproximation/Ridout.lean",
+        "DiophantineApproximation/RothAuxiliary.lean",
+        "DiophantineApproximation/RothBaseCase.lean",
+        "DiophantineApproximation/RothClass.lean",
+        "DiophantineApproximation/RothDecomposition.lean",
+        "DiophantineApproximation/RothDeterminant.lean",
+        "DiophantineApproximation/RothEstimates.lean",
+        "DiophantineApproximation/RothInfinity.lean",
+        "DiophantineApproximation/RothKeyInequality.lean",
+        "DiophantineApproximation/RothLemma.lean",
+        "DiophantineApproximation/RothLocalBound.lean",
+        "DiophantineApproximation/RothRational.lean",
+        "DiophantineApproximation/RothTheorem.lean",
+        "DiophantineApproximation/SAdicHeight.lean",
+        "DiophantineApproximation/SIntegerLocalization.lean",
+        "DiophantineApproximation/WeightedOrder.lean",
+        "DiophantineApproximation/Wronskian.lean"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "argv": [
+        "git",
+        "ls-tree",
+        "-r",
+        "-z",
+        "8750345c496390a7ce4f6a80be331451aa999408",
+        "--",
+        "tests/lean/FiniteMathKernels/BinaryWeight.lean"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/SubspaceTheorems",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/FiniteMathKernels",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/comparator",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/comparator",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/mathlib",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/mathlib",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/lean4export",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/lean4export",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/plausible",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/plausible",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/LeanSearchClient",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/LeanSearchClient",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/importGraph",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/importGraph",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/proofwidgets",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/proofwidgets",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/aesop",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/aesop",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Qq",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Qq",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/batteries",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/batteries",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Cli",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": "verification/ridout/.lake/packages/Cli",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "cwd": ".",
+      "argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ]
+    }
+  ],
+  "audit_sha256": "3f2bf8236287848d286ec6fadc12e04479cc3fed12ac7b0ac958e9300c589a81"
+}

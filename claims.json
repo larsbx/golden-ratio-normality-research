@@ -1,6 +1,17 @@
 {
   "schema": "golden-normality-claims-v1",
-  "acceptance_rule": "The exact source revision must pass tools/verify.py; inspect its report rather than treating this ledger as execution evidence.",
+  "acceptance_rule": "Verify root claims with tools/verify.py at the exact revision. For claims with an acceptance_lane, verify that lane's exact-revision evidence separately. Registering claims does not record an execution result.",
+  "acceptance_lanes": {
+    "ridout": {
+      "replay": "verification/ridout/replay.py",
+      "audit": "verification/ridout/Audit.lean",
+      "toolchain": "verification/ridout/lean-toolchain",
+      "dependency_lock": "verification/ridout/lake-manifest.json",
+      "external_declaration": "Rat.finite_setOf_ridout",
+      "workflow": ".github/workflows/ridout-replay.yml",
+      "hosted_verifier": "verification/ridout/claim_evidence.py"
+    }
+  },
   "claims": [
     {"id": "root_certificate", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.prefixCertificate_iff_intFloor", "hypotheses": "B,q natural; B>0", "conclusion": "Integer polynomial certificate iff q=floor(B*(phi-1))"},
     {"id": "digit_bridge", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.digit_of_certificates", "hypotheses": "b>=2; exact adjacent prefix certificates", "conclusion": "The actual zero-indexed digit equals r-b*q"},
@@ -72,6 +83,9 @@
     {"id": "formal_complement_parity_carry_growth", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.BinaryComplement.original_zero_count_exceeds_of_pi_mul_sq_lt_four", "hypotheses": "Real c>=0 and pi*c^2<4, with any natural threshold M", "conclusion": "Some N>=M has z_N>c*sqrt(N), giving a limsup lower bound of 2/sqrt(pi) from full convolution parity"},
     {"id": "formal_complement_parity_prefix_growth", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.BinaryComplement.original_zero_count_parity_above", "hypotheses": "Natural N>=2, real c>=0, and 7*c<(1-c^2)*sqrt(N)", "conclusion": "z_N>c*sqrt(N), giving a liminf lower bound of 1. In particular z_N>0.99*sqrt(N) for every N>=122500."},
     {"id": "formal_complement_parity_window_growth", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.BinaryComplement.original_zero_count_parity_window_nine_eighths", "hypotheses": "Natural width n>=2500", "conclusion": "Some i in 1..1024 has z_(i*n)>(9/8)*sqrt(i*n)."},
+    {"id": "ridout_actual_dyadic_separation", "kind": "universal_lean_theorem", "acceptance_lane": "ridout", "declaration": "GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation", "conclusion": "For every natural B>0 there is a natural M such that for every m>=M and integer p, 1<=|2^m*(phi-1)-p|^B*2^m."},
+    {"id": "ridout_actual_zero_count_eventually_exceeds", "kind": "universal_lean_theorem", "acceptance_lane": "ridout", "declaration": "GoldenNormality.RidoutBridge.zero_count_eventually_exceeds", "hypotheses": "Real c>=0 with c^2<2", "conclusion": "There exists a natural M such that for every N>=M, the actual origin-prefix zero count occurrences(2,1,0,N)>c*sqrt(N)."},
+    {"id": "ridout_actual_zero_count_exceeds", "kind": "universal_lean_theorem", "acceptance_lane": "ridout", "declaration": "GoldenNormality.RidoutBridge.zero_count_exceeds", "hypotheses": "Real c>=0 with pi*c^2<8 and any natural M", "conclusion": "There exists N>=M such that the actual origin-prefix zero count occurrences(2,1,0,N)>c*sqrt(N)."},
     {"id": "interval_receipts", "kind": "finite_lean_certificates", "scope": "Exactly the configured interval_cases; every block value and every intermediate start count in each closed finite interval", "source": "tools/native_conformance.py"},
     {"id": "binary_automaton", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.BinaryAutomaton.classify_correct", "hypotheses": "Finite Bool word accepted with output d", "conclusion": "Output equals floor(2*q*(phi-1))-2*floor(q*(phi-1)), where q is the Fibonacci positional value", "prior_art": "Barnoff-Bright-Shallit, TCS 1071 (2026), 115843, Figure 2"},
     {"id": "binary_power_input", "kind": "universal_lean_theorem", "declaration": "GoldenNormality.BinaryAutomaton.power_input_digit", "hypotheses": "Accepted word; separately proved Fibonacci value 2^n", "conclusion": "Output is the actual binary fractional digit at n"},

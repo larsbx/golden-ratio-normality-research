@@ -43,6 +43,12 @@ the [actual complement and finite carries](docs/binary-complement-and-carries.md
 the [aggregate carry bounds](docs/binary-aggregate-carries.md) for the finite and asymptotic zero-count estimates,
 and [the claim ledger](claims.json) for the classification of each claim.
 
+The ledger also registers the Ridout discharge of dyadic separation and two
+unconditional square-root zero-count bounds. Their separate proof replay uses
+Lean 4.35.0-rc3 and a pinned Subspace-Theorems dependency. The hosted receipt
+must match the exact source revision and workflow attempt. See the
+[Ridout replay and evidence instructions](verification/ridout/README.md).
+
 ## Reproduce acceptance
 
 The checked environment is Linux x86-64, Lean **4.34.0-rc2**, the exact mathlib
