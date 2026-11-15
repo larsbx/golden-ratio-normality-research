@@ -42,8 +42,9 @@ The replay verifies every locked dependency revision and tracked-source
 cleanliness, obtains the required Mathlib cache roots, builds the selected
 proof closure, and records source hashes and a compiled axiom audit under build/.
 The audit fixes the full Ridout type and the exact dyadic and zero-count types,
-and permits only propext, Classical.choice, and Quot.sound. A rational zero control
-shows why algebraicity alone cannot imply the all-numerator separation statement.
+and permits only propext, Classical.choice, and Quot.sound. A rational 1/2 control
+shows why algebraicity alone cannot imply the all-numerator separation statement;
+the actual alpha at m=0 shows that the eventual threshold cannot be deleted.
 
 Only a successful replay at the exact source revision is proof acceptance.
 A missing toolchain, failed build, absent audit marker, changed dependency or

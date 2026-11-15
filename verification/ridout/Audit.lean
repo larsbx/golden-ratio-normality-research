@@ -29,9 +29,22 @@ example (c : ℝ) (hc : 0 ≤ c) (hcritical : Real.pi * c ^ 2 < 8) (M : ℕ) :
       (GoldenNormality.occurrences 2 1 0 N : ℝ) :=
   GoldenNormality.RidoutBridge.zero_count_exceeds c hc hcritical M
 
--- Algebraicity alone cannot imply the same all-numerator conclusion.
-example (m : ℕ) : ¬ (1 ≤ |(2 : ℝ) ^ m * 0 - (0 : ℤ)| ^ (1 : ℕ) *
-    (2 : ℝ) ^ m) := by simp
+-- The algebraic rational 1/2 is in (0,1), but has exact dyadic approximants.
+example (m : ℕ) : ¬ (1 ≤ |(2 : ℝ) ^ (m + 1) * (1 / 2 : ℝ) -
+    ((2 : ℤ) ^ m : ℝ)| ^ (1 : ℕ) * (2 : ℝ) ^ (m + 1)) := by
+  have he : (2 : ℝ) ^ (m + 1) * (1 / 2 : ℝ) - ((2 : ℤ) ^ m : ℝ) = 0 := by
+    push_cast
+    rw [pow_succ]
+    ring
+  rw [he]
+  norm_num
+
+-- Even the actual irrational alpha needs an eventual threshold.
+example : ¬ (1 ≤ |(2 : ℝ) ^ 0 * GoldenNormality.alpha - (0 : ℤ)| ^ (1 : ℕ) *
+    (2 : ℝ) ^ 0) := by
+  simpa only [pow_zero, one_mul, Int.cast_zero, sub_zero, pow_one, mul_one,
+    abs_of_pos GoldenNormality.alpha_pos] using
+    (not_le.mpr GoldenNormality.alpha_lt_one)
 
 #check GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation
 #check GoldenNormality.RidoutBridge.zero_count_eventually_exceeds

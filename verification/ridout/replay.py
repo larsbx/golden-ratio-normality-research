@@ -20,13 +20,13 @@ COMMANDS = []
 def run(args, *, cwd=HERE, capture=False):
     COMMANDS.append({"cwd": str(cwd.relative_to(ROOT)) if cwd.is_relative_to(ROOT) else str(cwd),
                      "argv": args})
-    result = subprocess.run(args, cwd=cwd, text=True, check=True,
+    result = subprocess.run(args, cwd=cwd, text=True, check=False,
                             stdout=subprocess.PIPE if capture else None,
                             stderr=subprocess.STDOUT if capture else None)
     if capture:
         print(result.stdout, end="", flush=True)
-        return result.stdout
-    return ""
+    result.check_returncode()
+    return result.stdout if capture else ""
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -81,7 +81,7 @@ def import_closure():
         data = path.read_text()
         visited[module] = {"path": str(path.relative_to(ROOT)), "sha256": sha(path)}
         for line in data.splitlines():
-            match = re.match(r"^\s*(?:public\s+)?import\s+(.+?)\s*$", line)
+            match = re.match(r"^\s*(?:public\s+)?import\s+(?:all\s+)?(.+?)\s*$", line)
             if match:
                 pending.extend(match.group(1).split("--")[0].split())
     return visited, sorted(mathlib)

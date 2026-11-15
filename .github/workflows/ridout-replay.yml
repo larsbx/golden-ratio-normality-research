@@ -10,6 +10,7 @@ on:
   pull_request:
     paths:
       - 'verification/ridout/**'
+      - 'GoldenNormality/**'
       - '.github/workflows/ridout-replay.yml'
   workflow_dispatch:
 
