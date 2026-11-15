@@ -1,0 +1,68 @@
+name: Ridout proof replay
+
+on:
+  push:
+    branches: [research/ridout-dyadic-bridge]
+    paths:
+      - 'verification/ridout/**'
+      - 'GoldenNormality/**'
+      - '.github/workflows/ridout-replay.yml'
+  pull_request:
+    paths:
+      - 'verification/ridout/**'
+      - '.github/workflows/ridout-replay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ridout-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ridout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: verification/ridout
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      LEAN_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Restore pinned dependency builds
+        id: cache
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+        with:
+          path: verification/ridout/.lake
+          key: ridout-${{ runner.os }}-${{ hashFiles('verification/ridout/lean-toolchain', 'verification/ridout/lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: ridout-${{ runner.os }}-${{ hashFiles('verification/ridout/lean-toolchain', 'verification/ridout/lake-manifest.json') }}-
+      - name: Install isolated pinned Lean
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
+        with:
+          lake-package-directory: verification/ridout
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Compile source closure and inspect axioms
+        run: python3 replay.py
+      - name: Retain dependency builds
+        if: ${{ !cancelled() && steps.cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
+        with:
+          path: verification/ridout/.lake
+          key: ridout-${{ runner.os }}-${{ hashFiles('verification/ridout/lean-toolchain', 'verification/ridout/lake-manifest.json') }}-${{ github.sha }}
+      - name: Retain exact-source proof evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ridout-${{ github.event.pull_request.head.sha || github.sha }}
+          path: verification/ridout/build/
+          if-no-files-found: warn
