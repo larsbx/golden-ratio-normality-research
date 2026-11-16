@@ -134,7 +134,7 @@ theorem real_averageAt_three_eq_lagTwo_energy (x : ℝ) (N : ℕ) (hN : 0 < N) :
     simp [Complex.normSq_eq_norm_sq, hw] <;> ring
   unfold averageAt
   rw [Complex.div_natCast_re]
-  push_cast
+  norm_num only [Int.cast_ofNat]
   change (∑ n ∈ Finset.range N, w n).re / (N : ℝ) = _
   rw [← Complex.reCLM_apply, map_sum]
   simp only [Complex.reCLM_apply]
