@@ -357,5 +357,10 @@ yet the scheduled mode $63$ has mean one. For $1/3$ the first lag with
 $L=1$ has real mean $-1/2$ and the next has mean one. The eventual
 one-sided bounds for the actual source remain open.
 
+The isolated Ridout proof gives eventual sublinear repeated-block width for
+each fixed lag. Pointwise separation at every fixed frequency is compatible
+with Fourier averages tending to one, as the square-position source shows.
+[Fixed-lag proof and control](../verification/ridout/README.md#repetitions-at-a-fixed-lag)
+
 Run `python3 -m unittest discover -s tests -p test_lag_criterion.py`
 for the exact enclosures, schedule checks, and rational controls.

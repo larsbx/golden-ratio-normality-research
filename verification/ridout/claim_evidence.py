@@ -20,6 +20,9 @@ BRIDGE = "GoldenNormality.RidoutBridge."
 CARRY = "GoldenNormality.BinaryComplement."
 CLAIMS = {
     "ridout_actual_dyadic_separation": BRIDGE + "alpha_eventualDyadicSeparation",
+    "ridout_fixed_multiplier_separation": BRIDGE + "fixedMultiplier_eventualDyadicSeparation",
+    "ridout_fixed_lag_separation": BRIDGE + "fixedLag_eventual_separation",
+    "ridout_fixed_lag_repeated_block_width": BRIDGE + "fixedLag_repeatedBlock_mul_lt",
     "ridout_actual_zero_count_eventually_exceeds": BRIDGE + "zero_count_eventually_exceeds",
     "ridout_actual_zero_count_exceeds": BRIDGE + "zero_count_exceeds",
 }
@@ -33,7 +36,8 @@ AUDITED = set(CLAIMS.values()) | {
     CARRY + "zero_count_exceeds_of_eventual_dyadic_separation",
 }
 ALLOWED_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
-CONTROLS = "RIDOUT_CONTROLS\tone_eventually,one_arbitrarily_late,rational_half,alpha_exponent_zero"
+CONTROLS = ("RIDOUT_CONTROLS\tone_eventually,one_arbitrarily_late,rational_half,"
+            "alpha_exponent_zero,negative_multiplier,lag_zero,overlapping_repeat_cutoff")
 CONFIG = {
     "claims.json", WORKFLOW,
     *("verification/ridout/" + name for name in (

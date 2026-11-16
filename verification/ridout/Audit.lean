@@ -19,6 +19,39 @@ example : ∀ B : ℕ, 0 < B → ∃ M : ℕ, ∀ (m : ℕ) (p : ℤ), M ≤ m �
     1 ≤ |(2 : ℝ) ^ m * GoldenNormality.alpha - p| ^ B * (2 : ℝ) ^ m :=
   GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation
 
+example (h : ℤ) (hh : h ≠ 0) (B : ℕ) (hB : 0 < B) :
+    ∃ M : ℕ, ∀ (n : ℕ) (p : ℤ), M ≤ n →
+      1 ≤ |(2 : ℝ) ^ n * ((h : ℝ) * GoldenNormality.alpha) - (p : ℝ)| ^ B * (2 : ℝ) ^ n :=
+  GoldenNormality.RidoutBridge.fixedMultiplier_eventualDyadicSeparation h hh B hB
+
+example (d : ℕ) (hd : 0 < d) (B : ℕ) (hB : 0 < B) :
+    ∃ M : ℕ, ∀ (n : ℕ) (p : ℤ), M ≤ n →
+      1 ≤ |GoldenNormality.BinaryDyadicOrbit.point (n + d) -
+        GoldenNormality.BinaryDyadicOrbit.point n - (p : ℝ)| ^ B * (2 : ℝ) ^ n :=
+  GoldenNormality.RidoutBridge.fixedLag_eventual_separation d hd B hB
+
+example (d : ℕ) (hd : 0 < d) (B : ℕ) (hB : 0 < B) :
+    ∃ M : ℕ, ∀ (n k : ℕ), M ≤ n →
+      GoldenNormality.blockValue 2 (n + d) k = GoldenNormality.blockValue 2 n k → B * k < n :=
+  GoldenNormality.RidoutBridge.fixedLag_repeatedBlock_mul_lt d hd B hB
+
+-- The lag-two mode is three. Its signed counterpart also satisfies the estimate.
+example : ∃ M : ℕ, ∀ (n : ℕ) (p : ℤ), M ≤ n →
+    1 ≤ |(2 : ℝ) ^ n * (((-3 : ℤ) : ℝ) * GoldenNormality.alpha) - (p : ℝ)| ^ (2 : ℕ) *
+      (2 : ℝ) ^ n :=
+  GoldenNormality.RidoutBridge.fixedMultiplier_eventualDyadicSeparation (-3) (by decide) 2 (by decide)
+
+-- At lag zero the orbit difference exactly equals the integer zero.
+example (n : ℕ) : ¬ (1 ≤ |GoldenNormality.BinaryDyadicOrbit.point (n + 0) -
+    GoldenNormality.BinaryDyadicOrbit.point n - ((0 : ℤ) : ℝ)| ^ (1 : ℕ) * (2 : ℝ) ^ n) := by
+  simp
+
+-- The actual overlapping repeat at starts 10 and 14 refutes a cutoff-free bound.
+example : GoldenNormality.blockValue 2 (10 + 4) 6 = GoldenNormality.blockValue 2 10 6 ∧
+    ¬ ((2 : ℕ) * 6 < 10) := by
+  obtain ⟨h10, h14⟩ := GoldenNormality.BinaryDyadicOrbit.actual_overlapping_repeat
+  exact ⟨h14.trans h10.symm, by decide⟩
+
 example (c : ℝ) (hc : 0 ≤ c) (hcritical : c ^ 2 < 2) :
     ∃ M : ℕ, ∀ N : ℕ, M ≤ N → c * Real.sqrt (N : ℝ) <
       (GoldenNormality.occurrences 2 1 0 N : ℝ) :=
@@ -59,6 +92,9 @@ example : ¬ (1 ≤ |(2 : ℝ) ^ 0 * GoldenNormality.alpha - (0 : ℤ)| ^ (1 : �
     (not_le.mpr GoldenNormality.alpha_lt_one)
 
 #check GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation
+#check GoldenNormality.RidoutBridge.fixedMultiplier_eventualDyadicSeparation
+#check GoldenNormality.RidoutBridge.fixedLag_eventual_separation
+#check GoldenNormality.RidoutBridge.fixedLag_repeatedBlock_mul_lt
 #check GoldenNormality.RidoutBridge.zero_count_eventually_exceeds
 #check GoldenNormality.RidoutBridge.zero_count_exceeds
 #check Rat.finite_setOf_ridout
@@ -75,6 +111,9 @@ run_cmd do
     `GoldenNormality.RidoutBridge.eventualDyadicSeparation_of_finite_candidates,
     `GoldenNormality.RidoutBridge.algebraic_alpha,
     `GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation,
+    `GoldenNormality.RidoutBridge.fixedMultiplier_eventualDyadicSeparation,
+    `GoldenNormality.RidoutBridge.fixedLag_eventual_separation,
+    `GoldenNormality.RidoutBridge.fixedLag_repeatedBlock_mul_lt,
     `GoldenNormality.RidoutBridge.zero_count_eventually_exceeds,
     `GoldenNormality.RidoutBridge.zero_count_exceeds,
     `Rat.finite_setOf_ridout,
@@ -89,5 +128,6 @@ run_cmd do
       if !allowed.contains axiomName then
         throwError "Unexpected transitive axiom for {target}: {axiomName}"
     liftIO <| IO.println s!"RIDOUT_AXIOMS\t{target}\t{axioms}"
-  liftIO <| IO.println "RIDOUT_CONTROLS\tone_eventually,one_arbitrarily_late,rational_half,alpha_exponent_zero"
+  liftIO <| IO.println ("RIDOUT_CONTROLS\tone_eventually,one_arbitrarily_late,rational_half," ++
+    "alpha_exponent_zero,negative_multiplier,lag_zero,overlapping_repeat_cutoff")
   liftIO <| IO.println "RIDOUT_AUDIT_COMPLETE"

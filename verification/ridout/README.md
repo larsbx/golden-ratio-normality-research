@@ -91,6 +91,43 @@ Ridout supplies no computable cutoff here. These square-root-scale lower bounds
 do not give frequency $1/2$, positive lower density, block normality, or
 cancellation of the actual binary orbit.
 
+## Repetitions at a fixed lag
+
+For a fixed nonzero integer $h$, apply the dyadic specialization to the
+fractional part of $h\alpha$. Irrationality survives integer multiplication by
+$h$ and subtraction of the floor. Both operations also preserve algebraicity.
+The floor term contributes an integer after multiplication by $2^n$, so for
+each integer $B\ge1$ there is a threshold $M(h,B)$ such that
+
+$$
+1\le 2^n |2^n h\alpha-p|^B\qquad(n\ge M(h,B),\ p\in\mathbb Z).
+$$
+
+At a fixed lag $d>0$, set $h=2^d-1$. The difference $x_{n+d}-x_n$ of the
+actual orbit points $x_n=\{2^n\alpha\}$ differs from $2^nh\alpha$ by an
+integer. If the width-$k$ blocks at these starts agree, both points occupy
+the same half-open dyadic cell, so their distance is strictly below $2^{-k}$.
+Combining these inequalities yields $Bk<n$ at every sufficiently late start,
+uniformly in the tested width $k$. Consequently the longest repeated width
+at each fixed lag is $o(n)$. The threshold depends on the lag and $B$.
+
+The same estimate applies to the frequencies $(2^d-1)h$ in the
+[lag criterion](../../docs/binary-dyadic-orbit.md#one-sided-control-on-spaced-lags).
+It bounds the rate at which individual phases can approach $1$. To see why
+this leaves the average open, consider the irrational source
+$\xi=\sum_{j\ge1}2^{-j^2}$. Its binary expansion has infinitely many ones and
+unbounded zero gaps. For $(j-1)^2\le n<j^2$, put $r=j^2-n$. Then
+$\{2^n\xi\}=2^{-r}(1+\delta_j)$ with $0<\delta_j\le2^{-2j}$ by a geometric
+tail bound. For fixed odd $h$, the distance of $h2^{-r}$ to the nearest integer
+is at least $2^{-r}$. The perturbation is at most $2^{-r-1}$ for all large
+$j$. Since $r\le2j-1$ and $n\ge(j-1)^2$, this proves the same eventual
+separation for every fixed $h,B$. An even multiplier reduces to its odd part
+after a fixed shift, which changes the exponent by a fixed additive constant.
+Within each interval of starts the sum of $\{2^n\xi\}$ is less than $2$.
+Thus for every fixed frequency the sum of distances of its phases from $1$
+is $O_h(\sqrt N)$, and the average tends to $1$. This is a written control
+on what fixed-multiplier separation can imply about averages.
+
 ## Replay and acceptance
 
 Run from this directory:
@@ -107,13 +144,15 @@ and permits only propext, Classical.choice, and Quot.sound. A rational 1/2 contr
 shows why algebraicity alone cannot imply the all-numerator separation statement;
 the actual alpha at m=0 shows that the eventual threshold cannot be deleted.
 
-The claim ledger assigns the actual dyadic separation declaration and both
-unconditional count declarations to the `ridout` acceptance lane. The replay
+The claim ledger assigns the dyadic separation, fixed-lag, and unconditional
+count declarations to the `ridout` acceptance lane. The replay
 binds their exact ledger entries, audit, workflow, compiled application source,
 and dependency lock to the checked-out Git revision. The compiled audit fixes
 the declared quantifiers and checks both count inequalities at `c = 1`.
 The two separation controls check the rational `1/2` and the actual exponent
-zero case. All ten audited declarations must appear in the transitive axiom log.
+zero case. The lag controls exercise a negative multiplier, lag zero, and the
+actual overlapping repeat at starts 10 and 14 that requires a cutoff. All
+thirteen audited declarations must appear in the transitive axiom log.
 
 The output directory must be new. To repeat a replay, pass a fresh ignored path
 such as `--output build/repeat`. A missing toolchain, failed build, absent audit
