@@ -131,7 +131,8 @@ theorem real_averageAt_three_eq_lagTwo_energy (x : ℝ) (N : ℕ) (hN : 0 < N) :
       unfold w
       ring
     rw [hfactor, norm_mul, hu, mul_one, Complex.sq_norm, Complex.normSq_sub]
-    simp [Complex.normSq_eq_norm_sq, hw] <;> ring
+    simp [Complex.normSq_eq_norm_sq, hw]
+    ring
   unfold averageAt
   rw [Complex.div_natCast_re]
   norm_num only [Int.cast_ofNat]
@@ -142,7 +143,8 @@ theorem real_averageAt_three_eq_lagTwo_energy (x : ℝ) (N : ℕ) (hN : 0 < N) :
   rw [Finset.sum_sub_distrib, ← Finset.mul_sum]
   simp only [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
   have hNR : (N : ℝ) ≠ 0 := by positivity
-  field_simp [hNR] <;> ring
+  field_simp [hNR]
+  ring
 
 /-- The same exact identity for the repository's certified modular sum. -/
 theorem real_dyadicModularAverage_three_eq_lagTwo_energy (N : ℕ) (hN : 0 < N) :
