@@ -22,8 +22,9 @@ class RidoutReceiptTests(unittest.TestCase):
         cls.head = EVIDENCE.git("rev-parse", "HEAD").decode().strip()
         # Build a verifier fixture from archived module inventory. The fixture is not a replay.
         archive = ROOT / "evidence/ridout/2ba20e1c"
-        cls.audit = ((archive / "axioms.log").read_text().replace(
-            "RIDOUT_AUDIT_COMPLETE", EVIDENCE.CONTROLS + "\nRIDOUT_AUDIT_COMPLETE")).encode()
+        axioms = "#[propext, Classical.choice, Quot.sound]"
+        rows = [f"RIDOUT_AXIOMS\t{name}\t{axioms}" for name in sorted(EVIDENCE.AUDITED)]
+        cls.audit = "\n".join([*rows, EVIDENCE.CONTROLS, "RIDOUT_AUDIT_COMPLETE"]).encode()
         cls.receipt = json.loads((archive / "evidence.json").read_bytes())
         cls.receipt.update(schema=EVIDENCE.SCHEMA, source_revision=cls.head,
                            claims=EVIDENCE.registered_claims(cls.head),
@@ -79,6 +80,12 @@ class RidoutReceiptTests(unittest.TestCase):
     def test_unexpected_transitive_axiom(self):
         with self.assertRaisesRegex(ValueError, "Unexpected transitive axiom"):
             EVIDENCE.audit_axioms(self.audit.replace(b"Quot.sound", b"sorryAx"))
+
+    def test_missing_fixed_lag_theorem(self):
+        theorem = b".fixedLag_repeatedBlock_mul_lt\t"
+        audit = b"\n".join(line for line in self.audit.splitlines() if theorem not in line)
+        with self.assertRaisesRegex(ValueError, "Incomplete transitive axiom audit"):
+            EVIDENCE.audit_axioms(audit)
 
     def test_replay_refuses_existing_output(self):
         with tempfile.TemporaryDirectory() as directory:
