@@ -36,3 +36,5 @@ import GoldenNormality.BinaryWeylConverse
 import GoldenNormality.BinaryDyadicPhaseNonzero
 import GoldenNormality.BinaryFixedFrequency
 import GoldenNormality.BinaryLagCriterion
+import GoldenNormality.BinaryThirdTailThreshold
+import GoldenNormality.BinaryThirdFrequency
