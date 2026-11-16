@@ -139,7 +139,6 @@ theorem real_averageAt_three_eq_lagTwo_energy (x : ℝ) (N : ℕ) (hN : 0 < N) :
   rw [← Complex.reCLM_apply, map_sum]
   simp only [Complex.reCLM_apply]
   simp_rw [hterm]
-  push_cast
   rw [Finset.sum_sub_distrib, ← Finset.mul_sum]
   simp only [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
   have hNR : (N : ℝ) ≠ 0 := by positivity
