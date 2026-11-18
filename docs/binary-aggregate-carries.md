@@ -371,3 +371,50 @@ defining floor products. Actual positions 5 and 13 witness, respectively,
 failure of the two-zero trigger and failure of the shifted estimate with
 the right boundary deleted. Only two of the first eight carries are positive,
 so an unconditional half-prefix count would also be false.
+
+## From local recurrence to stronger square-root constants
+
+Suppose that for each start $m$ there is an actual complementary one
+at $j\ge m$ with $Bj\le Am+D$, for positive integers $A,B$.
+Inside a complementary-zero gap of length $L$ after position $a$,
+take $m=\lfloor(B(L-3)-D)/A\rfloor$ when $B L>3B+D$.
+The resulting $j$ satisfies $j\le L-3$. The pair $(a,j)$ gives
+a positive coefficient at $a+j+1$, and the three following
+digit positions starting there stay inside the gap. Positivity
+propagates backward through the gap, producing at least $j+1$
+positive carries. Lean checks this implication and the prefix
+partition, as well as the bound
+
+\[
+2BN\le A\sum_{i<N}c_i+(3A+8B+2D)z_N+2B.
+\]
+
+For a fixed admissible slope $A/B$, Lean proves an eventual
+lower bound $z_N>c\sqrt N$ for every $c\ge0$ with $A c^2<2B$.
+The same argument using the semicircle convolution envelope gives
+arbitrarily late exceedances whenever $\pi A c^2<8B$.
+
+Lean also checks the transfer from the following explicit
+approximation hypothesis to the required family of recurrences
+with $A=B+1$. For each $B>0$, there is a threshold after which
+all $m$ and all integers $p$ satisfy
+
+\[
+|2^m\alpha-p|^B 2^m\ge1.
+\]
+
+David Ridout's theorem supplies that hypothesis in classical
+mathematics. Take the prime set $\{2\}$ and the exponent
+$\varepsilon=1/B$ in its dyadic denominator case. For the
+finitely many early exponents, the exact quadratic-norm estimate
+gives $|2^m\alpha-p|\,2^{m+2}\ge1$, uniformly in $p$.
+With the stated external input, the checked transfer gives
+$\liminf z_N/\sqrt N\ge\sqrt2$ and
+$\limsup z_N/\sqrt N\ge\sqrt{8/\pi}$.
+The Diophantine theorem remains an explicit hypothesis in Lean.
+The additive allowance matters even for slope $3/2$. The actual
+original ones at positions 3 through 6 exclude $D\le4$ at that slope.
+These are lower bounds on a single digit count. The odd
+Fourier modes of the actual orbit still require cancellation.
+See [Ridout, *Rational approximations to algebraic numbers*](https://doi.org/10.1112/S0025579300001182)
+and [Bugeaud, equation (2.2)](https://www.numdam.org/item/10.5802/jtnb.749.pdf).

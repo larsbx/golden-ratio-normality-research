@@ -77,6 +77,11 @@ class AggregateCarryTests(unittest.TestCase):
                     self.assertLessEqual(n + 2 * omitted + 6 * overlap,
                                          2 * zeros**2 + 6 * zeros - 1)
 
+    def test_affine_recurrence_needs_an_offset(self):
+        self.assertEqual(self.digits[3:7], [0, 0, 0, 0])
+        self.assertEqual(self.digits[7], 1)
+        self.assertGreater(2 * 7, 3 * 3 + 4)
+
     def test_diagonal_parity(self):
         for i, coefficient in enumerate(self.coefficients):
             with self.subTest(i=i):
