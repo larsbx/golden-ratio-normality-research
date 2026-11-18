@@ -1,0 +1,27 @@
+GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation : GoldenNormality.BinaryComplement.EventualDyadicSeparation
+GoldenNormality.RidoutBridge.zero_count_eventually_exceeds (c : ℝ) (hc : 0 ≤ c) (hcritical : c ^ 2 < 2) :
+  ∃ M, ∀ (N : ℕ), M ≤ N → c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+GoldenNormality.RidoutBridge.zero_count_exceeds (c : ℝ) (hc : 0 ≤ c) (hcritical : Real.pi * c ^ 2 < 8) (M : ℕ) :
+  ∃ N, M ≤ N ∧ c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+Rat.finite_setOf_ridout {ξ : ℝ} (halg : IsAlgebraic ℚ ξ) (S₁ S₂ : Finset Nat.Primes) {ε : ℝ} (hε : 0 < ε) :
+  {β |
+      (|ξ - ↑β| * ∏ l ∈ S₁, ↑(padicNorm ↑l ↑β.num)) * ∏ l ∈ S₂, ↑(padicNorm ↑l ↑β.den) ≤
+        max ↑β.num.natAbs ↑β.den ^ (-2 - ε)}.Finite
+GoldenNormality.BinaryComplement.EventualDyadicSeparation : Prop
+GoldenNormality.BinaryComplement.zero_count_eventually_exceeds_of_eventual_dyadic_separation
+  (hsep : GoldenNormality.BinaryComplement.EventualDyadicSeparation) (c : ℝ) (hc : 0 ≤ c) (hcritical : c ^ 2 < 2) :
+  ∃ M, ∀ (N : ℕ), M ≤ N → c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+GoldenNormality.BinaryComplement.zero_count_exceeds_of_eventual_dyadic_separation
+  (hsep : GoldenNormality.BinaryComplement.EventualDyadicSeparation) (c : ℝ) (hc : 0 ≤ c)
+  (hcritical : Real.pi * c ^ 2 < 8) (M : ℕ) : ∃ N, M ≤ N ∧ c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.finite_dyadicCandidates	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.eventualDyadicSeparation_of_finite_candidates	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.algebraic_alpha	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.zero_count_eventually_exceeds	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.zero_count_exceeds	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	Rat.finite_setOf_ridout	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.BinaryDyadicOrbit.irrational_alpha	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.BinaryComplement.zero_count_eventually_exceeds_of_eventual_dyadic_separation	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.BinaryComplement.zero_count_exceeds_of_eventual_dyadic_separation	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AUDIT_COMPLETE

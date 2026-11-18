@@ -1,0 +1,62 @@
+2ba20e1ceee5b3a270e501983faccf4edfe92384
+Lean (version 4.35.0-rc3, x86_64-unknown-linux-gnu, commit 470d5ce1400764999581fd26d5d72b00d990b0f4, Release)
+2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d
+8750345c496390a7ce4f6a80be331451aa999408
+fd5d5bcf14177b187f66d4502071268d877887c3
+5e0c4e5239cb0a2d86d68a884bf52cfd963fce22
+66f1fb4bc256072069767fce52d39480e4524869
+fb13df72ecefd8ddbf9291021d7f33a8673eb57b
+29ff470276c725ae01505d55b17148c18fc7dfd3
+7e81a29bda33a6b257bd37557a6aa6aebe175d96
+c643bbb3c24f8a25f9c14e3a6b1ceb13d01f3de1
+a90fbf7b02ff06a0deebf74088dff9e5fe02c9ea
+37b0ba0b26109cf9f9c541f0f9557e50cfa1a3b9
+33131f4fb10067cb3009bf4db615d9680c1ccd6b
+843844fa601dd56767b1eb22b7ada5b64d5e567a
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+No files to download
+Already decompressed 4018 file(s)
+Build completed successfully (4152 jobs).
+GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation : GoldenNormality.BinaryComplement.EventualDyadicSeparation
+GoldenNormality.RidoutBridge.zero_count_eventually_exceeds (c : ℝ) (hc : 0 ≤ c) (hcritical : c ^ 2 < 2) :
+  ∃ M, ∀ (N : ℕ), M ≤ N → c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+GoldenNormality.RidoutBridge.zero_count_exceeds (c : ℝ) (hc : 0 ≤ c) (hcritical : Real.pi * c ^ 2 < 8) (M : ℕ) :
+  ∃ N, M ≤ N ∧ c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+Rat.finite_setOf_ridout {ξ : ℝ} (halg : IsAlgebraic ℚ ξ) (S₁ S₂ : Finset Nat.Primes) {ε : ℝ} (hε : 0 < ε) :
+  {β |
+      (|ξ - ↑β| * ∏ l ∈ S₁, ↑(padicNorm ↑l ↑β.num)) * ∏ l ∈ S₂, ↑(padicNorm ↑l ↑β.den) ≤
+        max ↑β.num.natAbs ↑β.den ^ (-2 - ε)}.Finite
+GoldenNormality.BinaryComplement.EventualDyadicSeparation : Prop
+GoldenNormality.BinaryComplement.zero_count_eventually_exceeds_of_eventual_dyadic_separation
+  (hsep : GoldenNormality.BinaryComplement.EventualDyadicSeparation) (c : ℝ) (hc : 0 ≤ c) (hcritical : c ^ 2 < 2) :
+  ∃ M, ∀ (N : ℕ), M ≤ N → c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+GoldenNormality.BinaryComplement.zero_count_exceeds_of_eventual_dyadic_separation
+  (hsep : GoldenNormality.BinaryComplement.EventualDyadicSeparation) (c : ℝ) (hc : 0 ≤ c)
+  (hcritical : Real.pi * c ^ 2 < 8) (M : ℕ) : ∃ N, M ≤ N ∧ c * √↑N < ↑(GoldenNormality.occurrences 2 1 0 N)
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.finite_dyadicCandidates	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.eventualDyadicSeparation_of_finite_candidates	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.algebraic_alpha	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.alpha_eventualDyadicSeparation	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.zero_count_eventually_exceeds	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.RidoutBridge.zero_count_exceeds	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	Rat.finite_setOf_ridout	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.BinaryDyadicOrbit.irrational_alpha	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.BinaryComplement.zero_count_eventually_exceeds_of_eventual_dyadic_separation	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AXIOMS	GoldenNormality.BinaryComplement.zero_count_exceeds_of_eventual_dyadic_separation	#[propext, Classical.choice, Quot.sound]
+RIDOUT_AUDIT_COMPLETE
+2fc7bea12d398fbc8ea758ecb8516efe8e3ef33d
+8750345c496390a7ce4f6a80be331451aa999408
+fd5d5bcf14177b187f66d4502071268d877887c3
+5e0c4e5239cb0a2d86d68a884bf52cfd963fce22
+66f1fb4bc256072069767fce52d39480e4524869
+fb13df72ecefd8ddbf9291021d7f33a8673eb57b
+29ff470276c725ae01505d55b17148c18fc7dfd3
+7e81a29bda33a6b257bd37557a6aa6aebe175d96
+c643bbb3c24f8a25f9c14e3a6b1ceb13d01f3de1
+a90fbf7b02ff06a0deebf74088dff9e5fe02c9ea
+37b0ba0b26109cf9f9c541f0f9557e50cfa1a3b9
+33131f4fb10067cb3009bf4db615d9680c1ccd6b
+843844fa601dd56767b1eb22b7ada5b64d5e567a
+2ba20e1ceee5b3a270e501983faccf4edfe92384
+RIDOUT_REPLAY_PASSED
